@@ -1,0 +1,1879 @@
+{
+  "status": "success",
+  "scope": "final_audited_checkpoint_showcase",
+  "config": {
+    "run": "showcase_formal_main_v1_seed0_20260926_014921",
+    "checkpoint": "formal_main_v1_seed0/best_policy.pth",
+    "backend": "yopo",
+    "device": "cuda",
+    "topo_config": "D:\\_AAA_CODE_ALL\\Tech_reproduction\\YOPO_reproduction\\configs\\topotraj\\isaac_development.yaml",
+    "episode_id": null,
+    "protocol": "D:\\_AAA_CODE_ALL\\Tech_reproduction\\YOPO_reproduction\\benchmarks\\protocol_v1\\protocol.json",
+    "map_seed": 3000,
+    "speed": 2.0,
+    "duration": 60.0,
+    "camera_hz": 15.0,
+    "scope": "final_audited_checkpoint_showcase"
+  },
+  "vehicle": {
+    "name": "fast_planner_parameters_physx_equivalent_v1",
+    "mass_kg": 0.98,
+    "gravity_mps2": 9.81,
+    "inertia_kgm2": [
+      0.00264,
+      0.00264,
+      0.00496
+    ],
+    "arm_length_m": 0.26,
+    "propeller_radius_m": 0.062,
+    "thrust_coefficient_N_per_rpm2": 8.98132e-09,
+    "moment_to_thrust_ratio_m": 0.01302,
+    "motor_time_constant_s": 0.03333333333333333,
+    "rpm_limits": [
+      1200.0,
+      35000.0
+    ],
+    "quadratic_drag_coefficient": 0.021237166,
+    "position_gains": [
+      5.7,
+      5.7,
+      6.2
+    ],
+    "velocity_gains": [
+      3.4,
+      3.4,
+      4.0
+    ],
+    "attitude_gains": [
+      1.5,
+      1.5,
+      1.0
+    ],
+    "angular_rate_gains": [
+      0.13,
+      0.13,
+      0.1
+    ],
+    "physics_dt_s": 0.002,
+    "control_dt_s": 0.01,
+    "collision_envelope_radius_m": 0.322,
+    "controller_numeric_fix": "Clamp roundoff-negative90-degree limiter discriminant to0; original failing inputs retained in controller parity evidence",
+    "source_commit": "41be219fe4ecc43bf0e0c2b42a523f8755ccc0bd",
+    "source_dynamics": "external/Fast-Planner/uav_simulator/so3_quadrotor_simulator/src/dynamics/Quadrotor.cpp",
+    "source_control": "external/Fast-Planner/uav_simulator/so3_control/src/SO3Control.cpp",
+    "classification": "Common Isaac equivalent vehicle. Source mass/inertia/rotor/drag/control parameters; PhysX replaces upstream ODE integration. Does not claim YOPO physical platform identity."
+  },
+  "backend": "yopo",
+  "device": "cuda",
+  "mission": null,
+  "runtime_admission": null,
+  "initial_yaw": 0.0,
+  "weights": "local scratch training",
+  "checkpoint_sha256": "af2ea0faf568443b1a30ef3e00bf882a6f002f4e89bf0b9f50e17e22e32df274",
+  "identity_sha256": "af2ea0faf568443b1a30ef3e00bf882a6f002f4e89bf0b9f50e17e22e32df274",
+  "map_truth_used_by_planner": false,
+  "vehicle_hidden_from_depth": true,
+  "start": [
+    -12.0,
+    0.0,
+    2.5
+  ],
+  "goal": [
+    12.0,
+    0.0,
+    2.5
+  ],
+  "ros_clock_origin_s": 1.0,
+  "latency_rule": "availability>=capture_sim_time+measured_wall_acquisition_to_receipt_delay",
+  "container_name": "yopo-flight-showcase_formal_main_v1_seed0_20260926_014921",
+  "physics": "PhysX rigid body plus motor lag and SO3 force/torque control; no pose/velocity setter after initial reset",
+  "log_columns": [
+    "t",
+    "x",
+    "y",
+    "z",
+    "vx",
+    "vy",
+    "vz",
+    "qw",
+    "qx",
+    "qy",
+    "qz",
+    "rx",
+    "ry",
+    "rz",
+    "rvx",
+    "rvy",
+    "rvz",
+    "net_clearance",
+    "goal_error",
+    "motor_saturated",
+    "thrust_N",
+    "ax",
+    "ay",
+    "az",
+    "rax",
+    "ray",
+    "raz",
+    "rjx",
+    "rjy",
+    "rjz"
+  ],
+  "container_id": "67730450b8695b7323a63f1a8689068f51ce8ed51d77bbeb9c3a02701d18dab4",
+  "episode_initialization_wall_s": 0.002159199910238385,
+  "initialization_note": "Waited before flight timing for the backend to initialize/reset; no sensor data supplied during initialization.",
+  "camera": {
+    "width": 160,
+    "height": 90,
+    "fx": 80.0,
+    "fy": 80.0,
+    "cx_pixel_index": 79.5,
+    "cy_pixel_index": 44.5,
+    "body_translation_m": [
+      0,
+      0,
+      0.1
+    ]
+  },
+  "wall_runtime_s": 34.549723299918696,
+  "sim_duration_s": 16.042000761954114,
+  "real_time_factor": 0.4643163310657213,
+  "final_position": [
+    12.098249435424805,
+    0.010958531871438026,
+    2.5044925212860107
+  ],
+  "goal_error_m": 0.0989607181136811,
+  "render_clock_drift_max_s": 0.0,
+  "buffer_stats": {
+    "received": 216,
+    "accepted": 216,
+    "expired_on_arrival": 0,
+    "old_result": 0,
+    "applied": 213,
+    "expired_in_control": 0
+  },
+  "max_physical_contact_force_N": 0.0,
+  "interface_passed": true,
+  "frames": 219,
+  "events": [
+    {
+      "event": "trajectory_applied",
+      "t": 0.45,
+      "capture_t": 0.3340000000000001,
+      "trajectory_start_t": 0.3340000000000001,
+      "available_t": 0.44350340004637845,
+      "wall_latency_s": 0.10950340004637837
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 0.51,
+      "capture_t": 0.40000000000000013,
+      "trajectory_start_t": 0.40000000000000013,
+      "available_t": 0.5027341000735761,
+      "wall_latency_s": 0.10273410007357597
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 0.5700000000000001,
+      "capture_t": 0.4680000000000002,
+      "trajectory_start_t": 0.4680000000000002,
+      "available_t": 0.5696249000094833,
+      "wall_latency_s": 0.1016249000094831
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 0.64,
+      "capture_t": 0.534,
+      "trajectory_start_t": 0.534,
+      "available_t": 0.6320910998769105,
+      "wall_latency_s": 0.09809109987691045
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 0.7000000000000001,
+      "capture_t": 0.6000000000000001,
+      "trajectory_start_t": 0.6000000000000001,
+      "available_t": 0.6988714001141489,
+      "wall_latency_s": 0.09887140011414886
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 0.77,
+      "capture_t": 0.6680000000000001,
+      "trajectory_start_t": 0.6680000000000001,
+      "available_t": 0.7695405000653119,
+      "wall_latency_s": 0.10154050006531179
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 0.84,
+      "capture_t": 0.7340000000000002,
+      "trajectory_start_t": 0.7340000000000002,
+      "available_t": 0.836006900124252,
+      "wall_latency_s": 0.10200690012425184
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 0.9,
+      "capture_t": 0.8,
+      "trajectory_start_t": 0.8,
+      "available_t": 0.8992002000566572,
+      "wall_latency_s": 0.0992002000566572
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 0.97,
+      "capture_t": 0.8680000000000001,
+      "trajectory_start_t": 0.8680000000000001,
+      "available_t": 0.9674438000489027,
+      "wall_latency_s": 0.09944380004890263
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 1.04,
+      "capture_t": 0.9340000000000002,
+      "trajectory_start_t": 0.9340000000000002,
+      "available_t": 1.0352316001579167,
+      "wall_latency_s": 0.10123160015791655
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 1.11,
+      "capture_t": 1.0,
+      "trajectory_start_t": 1.0,
+      "available_t": 1.1030365999322385,
+      "wall_latency_s": 0.10303659993223846
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 1.18,
+      "capture_t": 1.068,
+      "trajectory_start_t": 1.068,
+      "available_t": 1.1722446000501514,
+      "wall_latency_s": 0.10424460005015135
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 1.24,
+      "capture_t": 1.1340000000000003,
+      "trajectory_start_t": 1.1340000000000003,
+      "available_t": 1.2385607998967174,
+      "wall_latency_s": 0.10456079989671707
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 1.3,
+      "capture_t": 1.2000000000000002,
+      "trajectory_start_t": 1.2000000000000002,
+      "available_t": 1.2943803999107333,
+      "wall_latency_s": 0.0943803999107331
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 1.3800000000000001,
+      "capture_t": 1.2680000000000002,
+      "trajectory_start_t": 1.2680000000000002,
+      "available_t": 1.3774278998207303,
+      "wall_latency_s": 0.10942789982073009
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 1.45,
+      "capture_t": 1.334,
+      "trajectory_start_t": 1.334,
+      "available_t": 1.4429067000430078,
+      "wall_latency_s": 0.10890670004300773
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 1.51,
+      "capture_t": 1.4000000000000004,
+      "trajectory_start_t": 1.4000000000000004,
+      "available_t": 1.5025439000222836,
+      "wall_latency_s": 0.1025439000222832
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 1.58,
+      "capture_t": 1.468,
+      "trajectory_start_t": 1.468,
+      "available_t": 1.570904399856925,
+      "wall_latency_s": 0.10290439985692501
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 1.6400000000000001,
+      "capture_t": 1.5340000000000003,
+      "trajectory_start_t": 1.5340000000000003,
+      "available_t": 1.6324575999900701,
+      "wall_latency_s": 0.09845759999006987
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 1.7,
+      "capture_t": 1.6,
+      "trajectory_start_t": 1.6,
+      "available_t": 1.692831199988723,
+      "wall_latency_s": 0.0928311999887228
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 1.77,
+      "capture_t": 1.6680000000000001,
+      "trajectory_start_t": 1.6680000000000001,
+      "available_t": 1.767804700119421,
+      "wall_latency_s": 0.09980470011942089
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 1.83,
+      "capture_t": 1.734,
+      "trajectory_start_t": 1.734,
+      "available_t": 1.8281049000248313,
+      "wall_latency_s": 0.0941049000248313
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 1.9100000000000001,
+      "capture_t": 1.8000000000000003,
+      "trajectory_start_t": 1.8000000000000003,
+      "available_t": 1.903884299984202,
+      "wall_latency_s": 0.10388429998420179
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 1.97,
+      "capture_t": 1.8680000000000003,
+      "trajectory_start_t": 1.8680000000000003,
+      "available_t": 1.9665260999295864,
+      "wall_latency_s": 0.09852609992958605
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 2.0300000000000002,
+      "capture_t": 1.9340000000000002,
+      "trajectory_start_t": 1.9340000000000002,
+      "available_t": 2.0272948000263424,
+      "wall_latency_s": 0.09329480002634227
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 2.09,
+      "capture_t": 2.0,
+      "trajectory_start_t": 2.0,
+      "available_t": 2.089272200129926,
+      "wall_latency_s": 0.0892722001299262
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 2.17,
+      "capture_t": 2.068,
+      "trajectory_start_t": 2.068,
+      "available_t": 2.1629879998806865,
+      "wall_latency_s": 0.0949879998806864
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 2.23,
+      "capture_t": 2.1340000000000003,
+      "trajectory_start_t": 2.1340000000000003,
+      "available_t": 2.2244186000116173,
+      "wall_latency_s": 0.09041860001161695
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 2.3000000000000003,
+      "capture_t": 2.2,
+      "trajectory_start_t": 2.2,
+      "available_t": 2.292999099986628,
+      "wall_latency_s": 0.0929990999866277
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 2.37,
+      "capture_t": 2.2680000000000002,
+      "trajectory_start_t": 2.2680000000000002,
+      "available_t": 2.366727900069207,
+      "wall_latency_s": 0.09872790006920695
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 2.43,
+      "capture_t": 2.334,
+      "trajectory_start_t": 2.334,
+      "available_t": 2.425392500093207,
+      "wall_latency_s": 0.09139250009320676
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 2.5,
+      "capture_t": 2.4000000000000004,
+      "trajectory_start_t": 2.4000000000000004,
+      "available_t": 2.4975780000444505,
+      "wall_latency_s": 0.09757800004445016
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 2.57,
+      "capture_t": 2.4680000000000004,
+      "trajectory_start_t": 2.4680000000000004,
+      "available_t": 2.5631251001097266,
+      "wall_latency_s": 0.09512510010972619
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 2.63,
+      "capture_t": 2.5340000000000003,
+      "trajectory_start_t": 2.5340000000000003,
+      "available_t": 2.625904300032184,
+      "wall_latency_s": 0.09190430003218353
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 2.7,
+      "capture_t": 2.6,
+      "trajectory_start_t": 2.6,
+      "available_t": 2.6969220001716168,
+      "wall_latency_s": 0.09692200017161667
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 2.7600000000000002,
+      "capture_t": 2.668,
+      "trajectory_start_t": 2.668,
+      "available_t": 2.7565915998369457,
+      "wall_latency_s": 0.08859159983694553
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 2.84,
+      "capture_t": 2.7340000000000004,
+      "trajectory_start_t": 2.7340000000000004,
+      "available_t": 2.832124699899927,
+      "wall_latency_s": 0.09812469989992678
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 2.89,
+      "capture_t": 2.8000000000000003,
+      "trajectory_start_t": 2.8000000000000003,
+      "available_t": 2.889683899888769,
+      "wall_latency_s": 0.08968389988876879
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 2.97,
+      "capture_t": 2.8680000000000003,
+      "trajectory_start_t": 2.8680000000000003,
+      "available_t": 2.9639397000260654,
+      "wall_latency_s": 0.09593970002606511
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 3.04,
+      "capture_t": 2.934,
+      "trajectory_start_t": 2.934,
+      "available_t": 3.032049700027332,
+      "wall_latency_s": 0.09804970002733171
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 3.11,
+      "capture_t": 3.0,
+      "trajectory_start_t": 3.0,
+      "available_t": 3.1007974999956787,
+      "wall_latency_s": 0.10079749999567866
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 3.16,
+      "capture_t": 3.0680000000000005,
+      "trajectory_start_t": 3.0680000000000005,
+      "available_t": 3.1559653000738477,
+      "wall_latency_s": 0.08796530007384717
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 3.23,
+      "capture_t": 3.1340000000000003,
+      "trajectory_start_t": 3.1340000000000003,
+      "available_t": 3.227520799884573,
+      "wall_latency_s": 0.09352079988457263
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 3.31,
+      "capture_t": 3.2,
+      "trajectory_start_t": 3.2,
+      "available_t": 3.3025352999567987,
+      "wall_latency_s": 0.10253529995679855
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 3.37,
+      "capture_t": 3.2680000000000007,
+      "trajectory_start_t": 3.2680000000000007,
+      "available_t": 3.364187400165946,
+      "wall_latency_s": 0.09618740016594529
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 3.43,
+      "capture_t": 3.3340000000000005,
+      "trajectory_start_t": 3.3340000000000005,
+      "available_t": 3.4298145000040536,
+      "wall_latency_s": 0.09581450000405312
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 3.5,
+      "capture_t": 3.4000000000000004,
+      "trajectory_start_t": 3.4000000000000004,
+      "available_t": 3.4900040999986235,
+      "wall_latency_s": 0.09000409999862313
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 3.5700000000000003,
+      "capture_t": 3.468,
+      "trajectory_start_t": 3.468,
+      "available_t": 3.5611369999889284,
+      "wall_latency_s": 0.09313699998892844
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 3.63,
+      "capture_t": 3.5340000000000007,
+      "trajectory_start_t": 3.5340000000000007,
+      "available_t": 3.628044399913401,
+      "wall_latency_s": 0.09404439991340041
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 3.7,
+      "capture_t": 3.6000000000000005,
+      "trajectory_start_t": 3.6000000000000005,
+      "available_t": 3.69650869993493,
+      "wall_latency_s": 0.09650869993492961
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 3.7600000000000002,
+      "capture_t": 3.668,
+      "trajectory_start_t": 3.668,
+      "available_t": 3.753349600063637,
+      "wall_latency_s": 0.0853496000636369
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 3.83,
+      "capture_t": 3.734,
+      "trajectory_start_t": 3.734,
+      "available_t": 3.825135900001973,
+      "wall_latency_s": 0.09113590000197291
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 3.89,
+      "capture_t": 3.8000000000000007,
+      "trajectory_start_t": 3.8000000000000007,
+      "available_t": 3.88734739990905,
+      "wall_latency_s": 0.08734739990904927
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 3.97,
+      "capture_t": 3.8680000000000003,
+      "trajectory_start_t": 3.8680000000000003,
+      "available_t": 3.9659619000572714,
+      "wall_latency_s": 0.09796190005727112
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 4.03,
+      "capture_t": 3.934,
+      "trajectory_start_t": 3.934,
+      "available_t": 4.0212151001822205,
+      "wall_latency_s": 0.08721510018222034
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 4.09,
+      "capture_t": 4.0,
+      "trajectory_start_t": 4.0,
+      "available_t": 4.089150699786842,
+      "wall_latency_s": 0.08915069978684187
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 4.16,
+      "capture_t": 4.0680000000000005,
+      "trajectory_start_t": 4.0680000000000005,
+      "available_t": 4.159124499915168,
+      "wall_latency_s": 0.09112449991516769
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 4.24,
+      "capture_t": 4.134,
+      "trajectory_start_t": 4.134,
+      "available_t": 4.233460000172258,
+      "wall_latency_s": 0.09946000017225742
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 4.3100000000000005,
+      "capture_t": 4.2,
+      "trajectory_start_t": 4.2,
+      "available_t": 4.303226199978963,
+      "wall_latency_s": 0.10322619997896254
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 4.37,
+      "capture_t": 4.268000000000001,
+      "trajectory_start_t": 4.268000000000001,
+      "available_t": 4.360066099867225,
+      "wall_latency_s": 0.0920660998672247
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 4.43,
+      "capture_t": 4.3340000000000005,
+      "trajectory_start_t": 4.3340000000000005,
+      "available_t": 4.429803800038994,
+      "wall_latency_s": 0.09580380003899336
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 4.5,
+      "capture_t": 4.4,
+      "trajectory_start_t": 4.4,
+      "available_t": 4.490715999947861,
+      "wall_latency_s": 0.09071599994786084
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 4.57,
+      "capture_t": 4.468,
+      "trajectory_start_t": 4.468,
+      "available_t": 4.560511199880391,
+      "wall_latency_s": 0.09251119988039136
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 4.63,
+      "capture_t": 4.534000000000001,
+      "trajectory_start_t": 4.534000000000001,
+      "available_t": 4.62561140001379,
+      "wall_latency_s": 0.09161140001378953
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 4.69,
+      "capture_t": 4.6000000000000005,
+      "trajectory_start_t": 4.6000000000000005,
+      "available_t": 4.683223799942062,
+      "wall_latency_s": 0.0832237999420613
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 4.76,
+      "capture_t": 4.668,
+      "trajectory_start_t": 4.668,
+      "available_t": 4.759167999897152,
+      "wall_latency_s": 0.09116799989715219
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 4.83,
+      "capture_t": 4.734,
+      "trajectory_start_t": 4.734,
+      "available_t": 4.827370999908075,
+      "wall_latency_s": 0.09337099990807474
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 4.9,
+      "capture_t": 4.800000000000001,
+      "trajectory_start_t": 4.800000000000001,
+      "available_t": 4.890456900186837,
+      "wall_latency_s": 0.09045690018683672
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 4.96,
+      "capture_t": 4.868,
+      "trajectory_start_t": 4.868,
+      "available_t": 4.957356300188229,
+      "wall_latency_s": 0.08935630018822849
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 5.0200000000000005,
+      "capture_t": 4.934,
+      "trajectory_start_t": 4.934,
+      "available_t": 5.017583199884743,
+      "wall_latency_s": 0.0835831998847425
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 5.09,
+      "capture_t": 5.0,
+      "trajectory_start_t": 5.0,
+      "available_t": 5.089420499978587,
+      "wall_latency_s": 0.08942049997858703
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 5.16,
+      "capture_t": 5.0680000000000005,
+      "trajectory_start_t": 5.0680000000000005,
+      "available_t": 5.156849400170148,
+      "wall_latency_s": 0.08884940017014742
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 5.22,
+      "capture_t": 5.134,
+      "trajectory_start_t": 5.134,
+      "available_t": 5.219594499949366,
+      "wall_latency_s": 0.08559449994936585
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 5.3,
+      "capture_t": 5.2,
+      "trajectory_start_t": 5.2,
+      "available_t": 5.291242800001055,
+      "wall_latency_s": 0.091242800001055
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 5.37,
+      "capture_t": 5.268000000000001,
+      "trajectory_start_t": 5.268000000000001,
+      "available_t": 5.360737199971453,
+      "wall_latency_s": 0.09273719997145236
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 5.44,
+      "capture_t": 5.3340000000000005,
+      "trajectory_start_t": 5.3340000000000005,
+      "available_t": 5.430713999984786,
+      "wall_latency_s": 0.09671399998478591
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 5.5,
+      "capture_t": 5.4,
+      "trajectory_start_t": 5.4,
+      "available_t": 5.490927799930796,
+      "wall_latency_s": 0.09092779993079603
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 5.57,
+      "capture_t": 5.468,
+      "trajectory_start_t": 5.468,
+      "available_t": 5.560152899829671,
+      "wall_latency_s": 0.09215289982967079
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 5.63,
+      "capture_t": 5.534000000000001,
+      "trajectory_start_t": 5.534000000000001,
+      "available_t": 5.627602600041778,
+      "wall_latency_s": 0.0936026000417769
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 5.7,
+      "capture_t": 5.6000000000000005,
+      "trajectory_start_t": 5.6000000000000005,
+      "available_t": 5.6916770000476395,
+      "wall_latency_s": 0.09167700004763901
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 5.7700000000000005,
+      "capture_t": 5.668,
+      "trajectory_start_t": 5.668,
+      "available_t": 5.761002100009471,
+      "wall_latency_s": 0.09300210000947118
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 5.83,
+      "capture_t": 5.734,
+      "trajectory_start_t": 5.734,
+      "available_t": 5.827140699900687,
+      "wall_latency_s": 0.09314069990068674
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 5.9,
+      "capture_t": 5.800000000000001,
+      "trajectory_start_t": 5.800000000000001,
+      "available_t": 5.895507499994711,
+      "wall_latency_s": 0.09550749999471009
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 5.96,
+      "capture_t": 5.868,
+      "trajectory_start_t": 5.868,
+      "available_t": 5.953539600113407,
+      "wall_latency_s": 0.08553960011340678
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 6.03,
+      "capture_t": 5.934,
+      "trajectory_start_t": 5.934,
+      "available_t": 6.027189300037921,
+      "wall_latency_s": 0.09318930003792048
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 6.1000000000000005,
+      "capture_t": 6.0,
+      "trajectory_start_t": 6.0,
+      "available_t": 6.094167000148445,
+      "wall_latency_s": 0.09416700014844537
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 6.16,
+      "capture_t": 6.0680000000000005,
+      "trajectory_start_t": 6.0680000000000005,
+      "available_t": 6.154650900077075,
+      "wall_latency_s": 0.08665090007707477
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 6.24,
+      "capture_t": 6.134,
+      "trajectory_start_t": 6.134,
+      "available_t": 6.232056900082156,
+      "wall_latency_s": 0.09805690008215606
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 6.3,
+      "capture_t": 6.2,
+      "trajectory_start_t": 6.2,
+      "available_t": 6.297817100118846,
+      "wall_latency_s": 0.0978171001188457
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 6.38,
+      "capture_t": 6.268000000000001,
+      "trajectory_start_t": 6.268000000000001,
+      "available_t": 6.37372970006615,
+      "wall_latency_s": 0.10572970006614923
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 6.44,
+      "capture_t": 6.3340000000000005,
+      "trajectory_start_t": 6.3340000000000005,
+      "available_t": 6.435983599830419,
+      "wall_latency_s": 0.10198359983041883
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 6.5,
+      "capture_t": 6.4,
+      "trajectory_start_t": 6.4,
+      "available_t": 6.491629199916497,
+      "wall_latency_s": 0.09162919991649687
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 6.5600000000000005,
+      "capture_t": 6.468000000000001,
+      "trajectory_start_t": 6.468000000000001,
+      "available_t": 6.555141399970279,
+      "wall_latency_s": 0.08714139997027814
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 6.640000000000001,
+      "capture_t": 6.534000000000001,
+      "trajectory_start_t": 6.534000000000001,
+      "available_t": 6.636830399991945,
+      "wall_latency_s": 0.10283039999194443
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 6.7,
+      "capture_t": 6.6000000000000005,
+      "trajectory_start_t": 6.6000000000000005,
+      "available_t": 6.6975220999680465,
+      "wall_latency_s": 0.09752209996804595
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 6.7700000000000005,
+      "capture_t": 6.668,
+      "trajectory_start_t": 6.668,
+      "available_t": 6.761130000168458,
+      "wall_latency_s": 0.09313000016845763
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 6.83,
+      "capture_t": 6.734000000000001,
+      "trajectory_start_t": 6.734000000000001,
+      "available_t": 6.824456100180746,
+      "wall_latency_s": 0.09045610018074512
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 6.890000000000001,
+      "capture_t": 6.800000000000001,
+      "trajectory_start_t": 6.800000000000001,
+      "available_t": 6.887088200030849,
+      "wall_latency_s": 0.08708820003084838
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 6.96,
+      "capture_t": 6.868,
+      "trajectory_start_t": 6.868,
+      "available_t": 6.953859100101516,
+      "wall_latency_s": 0.08585910010151565
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 7.03,
+      "capture_t": 6.934,
+      "trajectory_start_t": 6.934,
+      "available_t": 7.020209600092844,
+      "wall_latency_s": 0.08620960009284317
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 7.1000000000000005,
+      "capture_t": 7.0,
+      "trajectory_start_t": 7.0,
+      "available_t": 7.0937085000332445,
+      "wall_latency_s": 0.09370850003324449
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 7.16,
+      "capture_t": 7.068,
+      "trajectory_start_t": 7.068,
+      "available_t": 7.158775900054723,
+      "wall_latency_s": 0.09077590005472302
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 7.23,
+      "capture_t": 7.134,
+      "trajectory_start_t": 7.134,
+      "available_t": 7.227656900105998,
+      "wall_latency_s": 0.09365690010599792
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 7.3,
+      "capture_t": 7.200000000000001,
+      "trajectory_start_t": 7.200000000000001,
+      "available_t": 7.293117099953816,
+      "wall_latency_s": 0.09311709995381534
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 7.37,
+      "capture_t": 7.268000000000001,
+      "trajectory_start_t": 7.268000000000001,
+      "available_t": 7.360393500031904,
+      "wall_latency_s": 0.09239350003190339
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 7.43,
+      "capture_t": 7.334000000000001,
+      "trajectory_start_t": 7.334000000000001,
+      "available_t": 7.427035900034012,
+      "wall_latency_s": 0.09303590003401041
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 7.5,
+      "capture_t": 7.4,
+      "trajectory_start_t": 7.4,
+      "available_t": 7.49157960000448,
+      "wall_latency_s": 0.09157960000447929
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 7.5600000000000005,
+      "capture_t": 7.468,
+      "trajectory_start_t": 7.468,
+      "available_t": 7.559519100125879,
+      "wall_latency_s": 0.09151910012587905
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 7.63,
+      "capture_t": 7.534000000000001,
+      "trajectory_start_t": 7.534000000000001,
+      "available_t": 7.625929099988193,
+      "wall_latency_s": 0.09192909998819232
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 7.69,
+      "capture_t": 7.600000000000001,
+      "trajectory_start_t": 7.600000000000001,
+      "available_t": 7.689422099990772,
+      "wall_latency_s": 0.08942209999077022
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 7.76,
+      "capture_t": 7.668000000000001,
+      "trajectory_start_t": 7.668000000000001,
+      "available_t": 7.758976999839769,
+      "wall_latency_s": 0.09097699983976781
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 7.83,
+      "capture_t": 7.734,
+      "trajectory_start_t": 7.734,
+      "available_t": 7.828646899960935,
+      "wall_latency_s": 0.09464689996093512
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 7.890000000000001,
+      "capture_t": 7.800000000000001,
+      "trajectory_start_t": 7.800000000000001,
+      "available_t": 7.888042499963195,
+      "wall_latency_s": 0.08804249996319413
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 7.96,
+      "capture_t": 7.868,
+      "trajectory_start_t": 7.868,
+      "available_t": 7.953451600141824,
+      "wall_latency_s": 0.08545160014182329
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 8.03,
+      "capture_t": 7.934000000000001,
+      "trajectory_start_t": 7.934000000000001,
+      "available_t": 8.027068899819628,
+      "wall_latency_s": 0.0930688998196274
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 8.1,
+      "capture_t": 8.0,
+      "trajectory_start_t": 8.0,
+      "available_t": 8.092367900069803,
+      "wall_latency_s": 0.092367900069803
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 8.17,
+      "capture_t": 8.068000000000001,
+      "trajectory_start_t": 8.068000000000001,
+      "available_t": 8.160687600059436,
+      "wall_latency_s": 0.09268760005943477
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 8.23,
+      "capture_t": 8.134,
+      "trajectory_start_t": 8.134,
+      "available_t": 8.229046799862758,
+      "wall_latency_s": 0.09504679986275733
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 8.3,
+      "capture_t": 8.200000000000001,
+      "trajectory_start_t": 8.200000000000001,
+      "available_t": 8.296759899985046,
+      "wall_latency_s": 0.0967598999850452
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 8.36,
+      "capture_t": 8.268,
+      "trajectory_start_t": 8.268,
+      "available_t": 8.358752599993721,
+      "wall_latency_s": 0.09075259999372065
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 8.42,
+      "capture_t": 8.334000000000001,
+      "trajectory_start_t": 8.334000000000001,
+      "available_t": 8.419894400021063,
+      "wall_latency_s": 0.0858944000210613
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 8.5,
+      "capture_t": 8.4,
+      "trajectory_start_t": 8.4,
+      "available_t": 8.492039100127295,
+      "wall_latency_s": 0.09203910012729466
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 8.57,
+      "capture_t": 8.468,
+      "trajectory_start_t": 8.468,
+      "available_t": 8.566157699918374,
+      "wall_latency_s": 0.09815769991837442
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 8.64,
+      "capture_t": 8.534,
+      "trajectory_start_t": 8.534,
+      "available_t": 8.630797900041566,
+      "wall_latency_s": 0.0967979000415653
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 8.700000000000001,
+      "capture_t": 8.600000000000001,
+      "trajectory_start_t": 8.600000000000001,
+      "available_t": 8.696391299972312,
+      "wall_latency_s": 0.09639129997231066
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 8.77,
+      "capture_t": 8.668000000000001,
+      "trajectory_start_t": 8.668000000000001,
+      "available_t": 8.760195499921219,
+      "wall_latency_s": 0.09219549992121756
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 8.83,
+      "capture_t": 8.734,
+      "trajectory_start_t": 8.734,
+      "available_t": 8.825912599978968,
+      "wall_latency_s": 0.0919125999789685
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 8.89,
+      "capture_t": 8.8,
+      "trajectory_start_t": 8.8,
+      "available_t": 8.887125800084323,
+      "wall_latency_s": 0.08712580008432269
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 8.97,
+      "capture_t": 8.868,
+      "trajectory_start_t": 8.868,
+      "available_t": 8.965877599997446,
+      "wall_latency_s": 0.09787759999744594
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 9.03,
+      "capture_t": 8.934000000000001,
+      "trajectory_start_t": 8.934000000000001,
+      "available_t": 9.020423299973832,
+      "wall_latency_s": 0.08642329997383058
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 9.1,
+      "capture_t": 9.0,
+      "trajectory_start_t": 9.0,
+      "available_t": 9.091633799951524,
+      "wall_latency_s": 0.09163379995152354
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 9.16,
+      "capture_t": 9.068000000000001,
+      "trajectory_start_t": 9.068000000000001,
+      "available_t": 9.159810599900784,
+      "wall_latency_s": 0.09181059990078211
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 9.23,
+      "capture_t": 9.134,
+      "trajectory_start_t": 9.134,
+      "available_t": 9.222183399988339,
+      "wall_latency_s": 0.08818339998833835
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 9.3,
+      "capture_t": 9.200000000000001,
+      "trajectory_start_t": 9.200000000000001,
+      "available_t": 9.292993499943988,
+      "wall_latency_s": 0.09299349994398654
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 9.36,
+      "capture_t": 9.268,
+      "trajectory_start_t": 9.268,
+      "available_t": 9.355716800160707,
+      "wall_latency_s": 0.08771680016070604
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 9.43,
+      "capture_t": 9.334000000000001,
+      "trajectory_start_t": 9.334000000000001,
+      "available_t": 9.422044800097124,
+      "wall_latency_s": 0.08804480009712279
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 9.49,
+      "capture_t": 9.4,
+      "trajectory_start_t": 9.4,
+      "available_t": 9.487273499928415,
+      "wall_latency_s": 0.08727349992841482
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 9.56,
+      "capture_t": 9.468,
+      "trajectory_start_t": 9.468,
+      "available_t": 9.55977720011212,
+      "wall_latency_s": 0.09177720011211932
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 9.63,
+      "capture_t": 9.534,
+      "trajectory_start_t": 9.534,
+      "available_t": 9.624064299991355,
+      "wall_latency_s": 0.09006429999135435
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 9.700000000000001,
+      "capture_t": 9.600000000000001,
+      "trajectory_start_t": 9.600000000000001,
+      "available_t": 9.693732999870555,
+      "wall_latency_s": 0.09373299987055361
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 9.76,
+      "capture_t": 9.668000000000001,
+      "trajectory_start_t": 9.668000000000001,
+      "available_t": 9.759412900015713,
+      "wall_latency_s": 0.09141290001571178
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 9.83,
+      "capture_t": 9.734,
+      "trajectory_start_t": 9.734,
+      "available_t": 9.820932000005618,
+      "wall_latency_s": 0.08693200000561774
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 9.89,
+      "capture_t": 9.8,
+      "trajectory_start_t": 9.8,
+      "available_t": 9.886943299975247,
+      "wall_latency_s": 0.08694329997524619
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 9.97,
+      "capture_t": 9.868,
+      "trajectory_start_t": 9.868,
+      "available_t": 9.961600699910894,
+      "wall_latency_s": 0.09360069991089404
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 10.040000000000001,
+      "capture_t": 9.934000000000001,
+      "trajectory_start_t": 9.934000000000001,
+      "available_t": 10.032744199844078,
+      "wall_latency_s": 0.09874419984407723
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 10.1,
+      "capture_t": 10.0,
+      "trajectory_start_t": 10.0,
+      "available_t": 10.095266999909654,
+      "wall_latency_s": 0.09526699990965426
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 10.17,
+      "capture_t": 10.068000000000001,
+      "trajectory_start_t": 10.068000000000001,
+      "available_t": 10.16004150014557,
+      "wall_latency_s": 0.09204150014556944
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 10.23,
+      "capture_t": 10.134,
+      "trajectory_start_t": 10.134,
+      "available_t": 10.224553399873898,
+      "wall_latency_s": 0.09055339987389743
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 10.3,
+      "capture_t": 10.200000000000001,
+      "trajectory_start_t": 10.200000000000001,
+      "available_t": 10.292561499914155,
+      "wall_latency_s": 0.09256149991415441
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 10.36,
+      "capture_t": 10.268,
+      "trajectory_start_t": 10.268,
+      "available_t": 10.351623200189323,
+      "wall_latency_s": 0.08362320018932223
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 10.43,
+      "capture_t": 10.334000000000001,
+      "trajectory_start_t": 10.334000000000001,
+      "available_t": 10.421357799988241,
+      "wall_latency_s": 0.08735779998824
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 10.5,
+      "capture_t": 10.4,
+      "trajectory_start_t": 10.4,
+      "available_t": 10.49272209997289,
+      "wall_latency_s": 0.09272209997288883
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 10.56,
+      "capture_t": 10.468,
+      "trajectory_start_t": 10.468,
+      "available_t": 10.550527599995956,
+      "wall_latency_s": 0.08252759999595582
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 10.63,
+      "capture_t": 10.534,
+      "trajectory_start_t": 10.534,
+      "available_t": 10.623669600129128,
+      "wall_latency_s": 0.0896696001291275
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 10.700000000000001,
+      "capture_t": 10.600000000000001,
+      "trajectory_start_t": 10.600000000000001,
+      "available_t": 10.696712199971081,
+      "wall_latency_s": 0.09671219997107983
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 10.77,
+      "capture_t": 10.668000000000001,
+      "trajectory_start_t": 10.668000000000001,
+      "available_t": 10.767011900136248,
+      "wall_latency_s": 0.09901190013624728
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 10.83,
+      "capture_t": 10.734,
+      "trajectory_start_t": 10.734,
+      "available_t": 10.823538699947298,
+      "wall_latency_s": 0.08953869994729757
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 10.9,
+      "capture_t": 10.8,
+      "trajectory_start_t": 10.8,
+      "available_t": 10.893599500134588,
+      "wall_latency_s": 0.09359950013458729
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 10.98,
+      "capture_t": 10.868,
+      "trajectory_start_t": 10.868,
+      "available_t": 10.97039199991338,
+      "wall_latency_s": 0.10239199991337955
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 11.02,
+      "capture_t": 10.934000000000001,
+      "trajectory_start_t": 10.934000000000001,
+      "available_t": 11.019291800089182,
+      "wall_latency_s": 0.08529180008918047
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 11.1,
+      "capture_t": 11.0,
+      "trajectory_start_t": 11.0,
+      "available_t": 11.090510600013658,
+      "wall_latency_s": 0.0905106000136584
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 11.16,
+      "capture_t": 11.068000000000001,
+      "trajectory_start_t": 11.068000000000001,
+      "available_t": 11.156788799941541,
+      "wall_latency_s": 0.08878879994153976
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 11.23,
+      "capture_t": 11.134,
+      "trajectory_start_t": 11.134,
+      "available_t": 11.220828700033948,
+      "wall_latency_s": 0.08682870003394783
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 11.290000000000001,
+      "capture_t": 11.200000000000001,
+      "trajectory_start_t": 11.200000000000001,
+      "available_t": 11.286571299936623,
+      "wall_latency_s": 0.08657129993662238
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 11.36,
+      "capture_t": 11.268,
+      "trajectory_start_t": 11.268,
+      "available_t": 11.354890399921686,
+      "wall_latency_s": 0.08689039992168546
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 11.43,
+      "capture_t": 11.334000000000001,
+      "trajectory_start_t": 11.334000000000001,
+      "available_t": 11.429013400074096,
+      "wall_latency_s": 0.09501340007409453
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 11.49,
+      "capture_t": 11.4,
+      "trajectory_start_t": 11.4,
+      "available_t": 11.489201900176704,
+      "wall_latency_s": 0.08920190017670393
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 11.56,
+      "capture_t": 11.468,
+      "trajectory_start_t": 11.468,
+      "available_t": 11.557646500069648,
+      "wall_latency_s": 0.08964650006964803
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 11.63,
+      "capture_t": 11.534,
+      "trajectory_start_t": 11.534,
+      "available_t": 11.624604200027884,
+      "wall_latency_s": 0.09060420002788305
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 11.700000000000001,
+      "capture_t": 11.600000000000001,
+      "trajectory_start_t": 11.600000000000001,
+      "available_t": 11.696020699944349,
+      "wall_latency_s": 0.09602069994434714
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 11.77,
+      "capture_t": 11.668000000000001,
+      "trajectory_start_t": 11.668000000000001,
+      "available_t": 11.761332099961118,
+      "wall_latency_s": 0.09333209996111691
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 11.83,
+      "capture_t": 11.734,
+      "trajectory_start_t": 11.734,
+      "available_t": 11.826021699994802,
+      "wall_latency_s": 0.09202169999480247
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 11.9,
+      "capture_t": 11.8,
+      "trajectory_start_t": 11.8,
+      "available_t": 11.892424800153822,
+      "wall_latency_s": 0.0924248001538217
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 11.97,
+      "capture_t": 11.868,
+      "trajectory_start_t": 11.868,
+      "available_t": 11.960228899942711,
+      "wall_latency_s": 0.092228899942711
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 12.030000000000001,
+      "capture_t": 11.934000000000001,
+      "trajectory_start_t": 11.934000000000001,
+      "available_t": 12.028645199831576,
+      "wall_latency_s": 0.09464519983157516
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 12.1,
+      "capture_t": 12.0,
+      "trajectory_start_t": 12.0,
+      "available_t": 12.093663000036031,
+      "wall_latency_s": 0.09366300003603101
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 12.16,
+      "capture_t": 12.068000000000001,
+      "trajectory_start_t": 12.068000000000001,
+      "available_t": 12.153337899858133,
+      "wall_latency_s": 0.085337899858132
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 12.23,
+      "capture_t": 12.134,
+      "trajectory_start_t": 12.134,
+      "available_t": 12.225827899916098,
+      "wall_latency_s": 0.09182789991609752
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 12.3,
+      "capture_t": 12.200000000000001,
+      "trajectory_start_t": 12.200000000000001,
+      "available_t": 12.294817399978639,
+      "wall_latency_s": 0.0948173999786377
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 12.36,
+      "capture_t": 12.268,
+      "trajectory_start_t": 12.268,
+      "available_t": 12.358789400041104,
+      "wall_latency_s": 0.09078940004110336
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 12.43,
+      "capture_t": 12.334000000000001,
+      "trajectory_start_t": 12.334000000000001,
+      "available_t": 12.42040730008483,
+      "wall_latency_s": 0.08640730008482933
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 12.5,
+      "capture_t": 12.4,
+      "trajectory_start_t": 12.4,
+      "available_t": 12.499025800125674,
+      "wall_latency_s": 0.09902580012567341
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 12.57,
+      "capture_t": 12.468,
+      "trajectory_start_t": 12.468,
+      "available_t": 12.561894199933857,
+      "wall_latency_s": 0.09389419993385673
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 12.63,
+      "capture_t": 12.534,
+      "trajectory_start_t": 12.534,
+      "available_t": 12.623646399952472,
+      "wall_latency_s": 0.08964639995247126
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 12.69,
+      "capture_t": 12.600000000000001,
+      "trajectory_start_t": 12.600000000000001,
+      "available_t": 12.68923609997146,
+      "wall_latency_s": 0.08923609997145832
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 12.76,
+      "capture_t": 12.668000000000001,
+      "trajectory_start_t": 12.668000000000001,
+      "available_t": 12.756185400003568,
+      "wall_latency_s": 0.08818540000356734
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 12.83,
+      "capture_t": 12.734,
+      "trajectory_start_t": 12.734,
+      "available_t": 12.8248454998862,
+      "wall_latency_s": 0.09084549988619983
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 12.89,
+      "capture_t": 12.8,
+      "trajectory_start_t": 12.8,
+      "available_t": 12.887807300034911,
+      "wall_latency_s": 0.08780730003491044
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 12.97,
+      "capture_t": 12.868,
+      "trajectory_start_t": 12.868,
+      "available_t": 12.965705600084737,
+      "wall_latency_s": 0.09770560008473694
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 13.030000000000001,
+      "capture_t": 12.934000000000001,
+      "trajectory_start_t": 12.934000000000001,
+      "available_t": 13.0230593000222,
+      "wall_latency_s": 0.08905930002219975
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 13.1,
+      "capture_t": 13.0,
+      "trajectory_start_t": 13.0,
+      "available_t": 13.09525360004045,
+      "wall_latency_s": 0.09525360004045069
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 13.16,
+      "capture_t": 13.068000000000001,
+      "trajectory_start_t": 13.068000000000001,
+      "available_t": 13.15965730001405,
+      "wall_latency_s": 0.09165730001404881
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 13.23,
+      "capture_t": 13.134,
+      "trajectory_start_t": 13.134,
+      "available_t": 13.222567099999637,
+      "wall_latency_s": 0.08856709999963641
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 13.290000000000001,
+      "capture_t": 13.200000000000001,
+      "trajectory_start_t": 13.200000000000001,
+      "available_t": 13.285638100048528,
+      "wall_latency_s": 0.08563810004852712
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 13.36,
+      "capture_t": 13.268,
+      "trajectory_start_t": 13.268,
+      "available_t": 13.356976799976081,
+      "wall_latency_s": 0.08897679997608066
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 13.43,
+      "capture_t": 13.334000000000001,
+      "trajectory_start_t": 13.334000000000001,
+      "available_t": 13.429783900003882,
+      "wall_latency_s": 0.09578390000388026
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 13.49,
+      "capture_t": 13.4,
+      "trajectory_start_t": 13.4,
+      "available_t": 13.489884900022298,
+      "wall_latency_s": 0.0898849000222981
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 13.57,
+      "capture_t": 13.468000000000002,
+      "trajectory_start_t": 13.468000000000002,
+      "available_t": 13.561087499961259,
+      "wall_latency_s": 0.09308749996125698
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 13.63,
+      "capture_t": 13.534,
+      "trajectory_start_t": 13.534,
+      "available_t": 13.626831399990246,
+      "wall_latency_s": 0.0928313999902457
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 13.71,
+      "capture_t": 13.600000000000001,
+      "trajectory_start_t": 13.600000000000001,
+      "available_t": 13.700330100161956,
+      "wall_latency_s": 0.10033010016195476
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 13.77,
+      "capture_t": 13.668000000000001,
+      "trajectory_start_t": 13.668000000000001,
+      "available_t": 13.766786500049756,
+      "wall_latency_s": 0.09878650004975498
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 13.84,
+      "capture_t": 13.734000000000002,
+      "trajectory_start_t": 13.734000000000002,
+      "available_t": 13.832026300081985,
+      "wall_latency_s": 0.09802630008198321
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 13.9,
+      "capture_t": 13.8,
+      "trajectory_start_t": 13.8,
+      "available_t": 13.89146729996428,
+      "wall_latency_s": 0.09146729996427894
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 13.97,
+      "capture_t": 13.868,
+      "trajectory_start_t": 13.868,
+      "available_t": 13.960628299957142,
+      "wall_latency_s": 0.09262829995714128
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 14.030000000000001,
+      "capture_t": 13.934000000000001,
+      "trajectory_start_t": 13.934000000000001,
+      "available_t": 14.020973399855198,
+      "wall_latency_s": 0.08697339985519648
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 14.1,
+      "capture_t": 14.000000000000002,
+      "trajectory_start_t": 14.000000000000002,
+      "available_t": 14.094833199866118,
+      "wall_latency_s": 0.09483319986611605
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 14.17,
+      "capture_t": 14.068000000000001,
+      "trajectory_start_t": 14.068000000000001,
+      "available_t": 14.16139169994928,
+      "wall_latency_s": 0.09339169994927943
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 14.23,
+      "capture_t": 14.134,
+      "trajectory_start_t": 14.134,
+      "available_t": 14.227049600021914,
+      "wall_latency_s": 0.09304960002191365
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 14.3,
+      "capture_t": 14.200000000000001,
+      "trajectory_start_t": 14.200000000000001,
+      "available_t": 14.296301499987022,
+      "wall_latency_s": 0.09630149998702109
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 14.36,
+      "capture_t": 14.268,
+      "trajectory_start_t": 14.268,
+      "available_t": 14.358230700094254,
+      "wall_latency_s": 0.09023070009425282
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 14.43,
+      "capture_t": 14.334000000000001,
+      "trajectory_start_t": 14.334000000000001,
+      "available_t": 14.422928699959071,
+      "wall_latency_s": 0.08892869995906949
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 14.5,
+      "capture_t": 14.4,
+      "trajectory_start_t": 14.4,
+      "available_t": 14.493337700003758,
+      "wall_latency_s": 0.09333770000375807
+    },
+    {
+      "event": "trajectory_applied",
+      "t": 14.56,
+      "capture_t": 14.468000000000002,
+      "trajectory_start_t": 14.468000000000002,
+      "available_t": 14.55350720009953,
+      "wall_latency_s": 0.08550720009952784
+    },
+    {
+      "t": 14.594,
+      "event": "terminal_hold"
+    },
+    {
+      "t": 14.6,
+      "event": "terminal_hold_started"
+    }
+  ],
+  "path_length_m": 24.640858433046294,
+  "min_net_clearance_m": 1.187908653515037,
+  "tracking_rmse_m": 0.11609413766907314,
+  "max_speed_mps": 2.0260476560010963,
+  "end_to_end_wall_p50_ms": 92.65795000828803,
+  "end_to_end_wall_p95_ms": 102.93744987575337
+}

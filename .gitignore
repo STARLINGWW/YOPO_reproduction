@@ -1,0 +1,53 @@
+# Python and test caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.pytest_basetemp/
+.pytest_tmp/
+.mypy_cache/
+
+# ROS2 generated outputs
+ros2_ws/build/
+ros2_ws/install/
+ros2_ws/log/
+
+# Local-only code-workspace view (junctions on Windows; recreate with
+# implement/workspace/bootstrap_links.ps1 or .sh after cloning elsewhere)
+implement/workspace/src
+implement/workspace/scripts
+implement/workspace/configs
+implement/workspace/docker
+implement/workspace/ros2_ws
+implement/workspace/tests
+implement/workspace/external
+implement/workspace/benchmarks
+implement/workspace/vendor
+implement/workspace/assets
+
+# Raw experiment data and full checkpoint history are published separately
+# (Git LFS / Release / object storage), never as normal git objects
+datasets/
+checkpoints/
+
+# Evidence is published via the data release (LFS/Release/object storage);
+# only the refactor audit records stay in normal git.
+artifacts/*
+!artifacts/refactor_20261012/
+
+# Runtime logs and temporary outputs
+artifacts/ros2_logs/
+artifacts/*/logs/
+*.tmp
+*.staging
+
+# Local tools and secrets
+.env
+.env.*
+*.key
+*.pem
+.DS_Store
+Thumbs.db
+
+# External snapshots may contain their own Git metadata; the parent repository
+# tracks the audited source files, never nested repository objects.
+external/**/.git/

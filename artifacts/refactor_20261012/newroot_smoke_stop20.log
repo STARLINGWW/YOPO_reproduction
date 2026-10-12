@@ -1,0 +1,10 @@
+ Container yopo-ros2-reproduction-train-run-527a3ee244cd Creating 
+ Container yopo-ros2-reproduction-train-run-527a3ee244cd Created 
+---------------------
+| max speed =  6.0  |
+| traj time =  1.3  |
+| max radio =  8.0  |
+---------------------
+TRAIN {"kind": "train_step", "step": 10, "epoch": 0, "batch": 10, "total": 0.0734272609539723, "trajectory": 0.06605334675987047, "score": 0.0007373914194101832, "gradient_norm_before_clip": 0.32169389724731445}
+TRAIN {"kind": "train_step", "step": 20, "epoch": 0, "batch": 20, "total": 0.07141690226534379, "trajectory": 0.05960681641723943, "score": 0.0011810085848104363, "gradient_norm_before_clip": 0.3654733896255493}
+CHECKPOINTED {"step": 20, "epoch": 0, "batch": 20}

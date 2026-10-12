@@ -1,0 +1,130 @@
+{
+  "status": "incomplete_coverage",
+  "scope": "paper comparison tables and figures from real aggregate evidence only",
+  "inputs": {
+    "summary": {
+      "path": "artifacts/benchmark_summary/summary.json",
+      "sha256": "18cba3783e0454d7a9cf3d434823211ff663b81240acbbc951df70123908b2e9",
+      "status": "incomplete",
+      "completed_episodes": 1500,
+      "expected_episodes": 1800
+    },
+    "protocol": {
+      "path": "benchmarks/protocol_v1/protocol.json",
+      "sha256": "d2fd30527be661d7df089b40adef5a118d94df0cdd09c1b9327906283018267c"
+    }
+  },
+  "outputs": {
+    "table_ii": {
+      "rows": 12,
+      "path": "table_ii_latency_safety_smoothness.md"
+    },
+    "table_i": {
+      "status": "available",
+      "sources": {
+        "random_initial": {
+          "path": "artifacts/expert/network_comparison_random_initial.json",
+          "sha256": "c7d2d7619408dd2810bdd19c98ffe2723518909978004a9de0c62fa5930ad143"
+        },
+        "trained": {
+          "path": "artifacts/expert/network_comparison_trained.json",
+          "sha256": "2a03f114d7525ad0d7ebce20dcef558f75d29de891dd34915b5f3f8609e31db9"
+        },
+        "trained_seed0": {
+          "path": "artifacts/expert/network_comparison_trained_seed0.json",
+          "sha256": "ab429be0267b614fa548d3eaafff9b5858c9691a972b4adb283bb2b4857dddae"
+        },
+        "trained_seed1": {
+          "path": "artifacts/expert/network_comparison_trained_seed1.json",
+          "sha256": "d358e8a4047a41f8b04719c97d45cde741ff189f77ff9658c3d40c4a7850de59"
+        },
+        "trained_seed2": {
+          "path": "artifacts/expert/network_comparison_trained_seed2.json",
+          "sha256": "a8f9a0ac34f9957dadcdc28f08fbac2c1ba4300567960c438bf3b05cda5bd3ce"
+        }
+      }
+    },
+    "table_ii_latency_split": {
+      "status": "available",
+      "groups": 10,
+      "episodes_joined": 300
+    },
+    "figure_7": {
+      "status": "incomplete_coverage",
+      "missing_cells": [
+        {
+          "model": "mppi_reference17",
+          "condition": "sparse",
+          "speed_mps": 2,
+          "missing": 30,
+          "expected": 30
+        },
+        {
+          "model": "mppi_reference17",
+          "condition": "sparse",
+          "speed_mps": 4,
+          "missing": 30,
+          "expected": 30
+        },
+        {
+          "model": "mppi_reference17",
+          "condition": "sparse",
+          "speed_mps": 6,
+          "missing": 30,
+          "expected": 30
+        },
+        {
+          "model": "mppi_reference17",
+          "condition": "sparse",
+          "speed_mps": 8,
+          "missing": 30,
+          "expected": 30
+        },
+        {
+          "model": "mppi_reference17",
+          "condition": "sparse",
+          "speed_mps": 10,
+          "missing": 30,
+          "expected": 30
+        },
+        {
+          "model": "mppi_reference17",
+          "condition": "dense",
+          "speed_mps": 2,
+          "missing": 30,
+          "expected": 30
+        },
+        {
+          "model": "mppi_reference17",
+          "condition": "dense",
+          "speed_mps": 4,
+          "missing": 30,
+          "expected": 30
+        },
+        {
+          "model": "mppi_reference17",
+          "condition": "dense",
+          "speed_mps": 6,
+          "missing": 30,
+          "expected": 30
+        },
+        {
+          "model": "mppi_reference17",
+          "condition": "dense",
+          "speed_mps": 8,
+          "missing": 30,
+          "expected": 30
+        },
+        {
+          "model": "mppi_reference17",
+          "condition": "dense",
+          "speed_mps": 10,
+          "missing": 30,
+          "expected": 30
+        }
+      ]
+    }
+  },
+  "recorded_at": "2026-09-25T17:54:40.091609+00:00",
+  "note": "Incomplete coverage means some frozen episodes have no result yet; it is not a failure rate."
+}

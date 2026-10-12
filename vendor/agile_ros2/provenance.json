@@ -1,0 +1,11 @@
+{
+  "upstream_commit": "958c0d22e11d28a4d73b627029cf62ef1a1a95ab",
+  "source": "external\\agile_autonomy\\planner_learning\\src\\PlannerLearning\\models\\nets.py",
+  "source_sha256": "a8989d39b01593dc8428f5b3fcdf69f6ec097ff010a3529eff5a63f460033597",
+  "changes": [
+    "Use public Keras MobileNet import",
+    "Do not download ImageNet initializer; require complete official checkpoint restore before inference"
+  ],
+  "status": "TF2.15 compatibility under validation; original TF2.4 numerical comparison pending",
+  "scope": "Agile Autonomy baseline official weights, never YOPO scratch evidence"
+}

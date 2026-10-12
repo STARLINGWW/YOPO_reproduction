@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "D:\_AAA_CODE_ALL\Tech_reproduction\YOPO_reproduction\scripts\probe_isaac_depth.py", line 34, in <module>
+    cam = rep.create.camera(position=(0., 0., 2.), look_at=(5., 0., 2.),
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:/_aaa_file_all/anaconda_file/anaconda_env/isaac61/lib/site-packages/isaacsim/extscache/omni.replicator.core-1.13.36+110.3.0.wx64.r.cp312/omni/replicator/core/scripts/utils/utils.py", line 825, in __call__
+    return ReplicatorItem(self.__fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:/_aaa_file_all/anaconda_file/anaconda_env/isaac61/lib/site-packages/isaacsim/extscache/omni.replicator.core-1.13.36+110.3.0.wx64.r.cp312/omni/replicator/core/scripts/utils/utils.py", line 854, in __init__
+    self.node = self.__fn(*args, **kwargs)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: camera() got an unexpected keyword argument 'vertical_aperture'

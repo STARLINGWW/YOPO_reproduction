@@ -1,0 +1,94 @@
+name: yopo-ros2-reproduction
+x-common: &common
+  working_dir: /workspace
+  init: true
+  shm_size: 2gb
+  mem_limit: 14g
+  cpus: 12
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  environment:
+    ROS_DOMAIN_ID: "42"
+    ROS_LOG_DIR: /workspace/artifacts/ros2_logs
+    PYTHONUNBUFFERED: "1"
+  volumes:
+    - .:/workspace
+    - yopo-data:/data
+  networks: [yopo]
+services:
+  expert:
+    <<: *common
+    image: yopo-repro:expert-jammy
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.expert
+    profiles: [expert]
+    mem_limit: 2g
+    cpus: 4
+    command: ["bash"]
+  baseline-cpp-build:
+    <<: *common
+    image: yopo-repro:baselines-cpp-humble-jammy
+    profiles: [baselines]
+    mem_limit: 3g
+    cpus: 2
+    command: ["bash"]
+  cpu-tools:
+    <<: *common
+    image: yopo-repro:train-cu128-jammy
+    profiles: [cpu-tools]
+    mem_limit: 2g
+    cpus: 4
+    command: ["bash"]
+  agile-reference:
+    <<: *common
+    mem_limit: 2g
+    cpus: 4
+    image: yopo-repro:agile-tf24-reference-jammy
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.agile-reference
+    profiles: [baseline-reference]
+    command: ["/opt/yopo-python38/bin/python3.8"]
+  agile:
+    <<: *common
+    mem_limit: 3g
+    cpus: 4
+    image: yopo-repro:agile-tf215-humble-jammy
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.agile
+    profiles: [baselines]
+    command: ["bash"]
+  baseline-cpp:
+    <<: *common
+    image: yopo-repro:baselines-cpp-humble-jammy
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: baseline-cpp
+    profiles: [baselines]
+    command: ["bash"]
+  ros:
+    <<: *common
+    image: yopo-repro:ros-humble-jammy
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: ros-core
+    command: ["python3", "/workspace/scripts/ros2/verify_environment.py"]
+  train:
+    <<: *common
+    image: yopo-repro:train-cu128-jammy
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: train
+    gpus: all
+    profiles: [training]
+    command: ["python3", "/workspace/scripts/ros2/verify_environment.py", "--gpu"]
+volumes:
+  yopo-data:
+networks:
+  yopo:
+    driver: bridge

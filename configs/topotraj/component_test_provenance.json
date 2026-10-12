@@ -1,0 +1,27 @@
+{
+  "scope": "Component regression ONLY, not timed benchmark configuration",
+  "source": "external\\Fast-Planner\\fast_planner\\plan_manage\\launch\\topo_algorithm.xml",
+  "explicit_overrides": {
+    "sdf_map.map_size_x": 20.0,
+    "sdf_map.map_size_y": 20.0,
+    "sdf_map.map_size_z": 6.0,
+    "sdf_map.fx": 80.0,
+    "sdf_map.fy": 80.0,
+    "sdf_map.cx": 80.0,
+    "sdf_map.cy": 45.0,
+    "sdf_map.local_map_margin": 10,
+    "sdf_map.virtual_ceil_height": -1.0,
+    "sdf_map.visualization_truncate_height": 5.0,
+    "optimization.max_vel": 4.0,
+    "optimization.max_acc": 6.0,
+    "manager.max_vel": 4.0,
+    "manager.max_acc": 6.0,
+    "fsm.flight_type": 1,
+    "fsm.waypoint_num": 0,
+    "topo_prm.seed": 42,
+    "topo_prm.max_sample_time": 2.0,
+    "topo_prm.parallel_shortcut": false,
+    "optimization.max_iteration_time1": 1.0,
+    "optimization.max_iteration_time2": 1.0
+  }
+}

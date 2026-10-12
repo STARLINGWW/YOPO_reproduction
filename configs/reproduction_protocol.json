@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "status": "in_progress_awaiting_user_decision_on_reference17_scope",
+  "scope": "scratch-training-and-paper-benchmarks-ros2",
+  "platform": {
+    "ubuntu": "22.04",
+    "ros": "humble",
+    "isaac": "native Windows 6.1",
+    "allow_automatic_ros1_or_ubuntu20_fallback": false
+  },
+  "upstream": {
+    "main": "881e1c549122efa5a2402b862f70a198e6e93baa",
+    "simple": "bd8a7f91953cfef9f1aa9a48d7ff0ab7bceee132"
+  },
+  "profiles": [
+    "paper_aligned",
+    "simple_reference"
+  ],
+  "training": {
+    "samples": 100000,
+    "epochs": 50,
+    "batch_size": 16,
+    "learning_rate": 0.00015,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "precision": "fp32",
+    "initialization": "random_no_pretrained_backbone",
+    "checkpoint_every_epoch": true,
+    "resume_test_required": true
+  },
+  "data": {
+    "calibration": 100,
+    "smoke": 2000,
+    "train_maps": 20,
+    "validation_samples": 10000,
+    "test_samples": 10000,
+    "split_by_map": true
+  },
+  "benchmark": {
+    "densities_per_m2": [
+      0.03333333333333333,
+      0.05
+    ],
+    "speeds_mps": [
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "trials_per_condition": 30,
+    "paper_subset_trials": 10,
+    "primary_episode_count": 1800,
+    "baselines": [
+      "expert_50_steps",
+      "TopoTraj",
+      "AgileAutonomy",
+      "MPPI_original_reference"
+    ],
+    "task_manifest": "benchmarks/protocol_v1/protocol.json"
+  },
+  "gates": {
+    "container_gpu": "passed_pytorch_cuda_cudnn_nvcc",
+    "ros2_isaac_transport": "byte_exact_native_container_roundtrip_passed",
+    "algorithm_parity": "main_quintic_voxel_plane_cost_gradient_passed_paper_threshold_difference_documented",
+    "dataset_quality": "full100K_train10K_valid10K_test_all_frame_hashes_geometry_disjoint_maps_passed",
+    "training_resume": "bitwise_equal_126_steps_across_epoch_boundary",
+    "scratch_three_seeds": "three_seeds_50epochs_each_strict_per_epoch_audit_passed",
+    "baseline_ports": "topotraj_ros2_mapping_fsm_reset_passed_agile_tf24_tf215_weights_and_ros2_passed_native_physics_validated_by_runtime_admission",
+    "benchmark_matrix": "1494of1494_executable_slots_terminal_plus_6_admission_consumed_300mppi_reference17_slots_explicitly_not_attempted_pending_user_decision",
+    "scratch_showcase": "final50epoch_audited_checkpoint_actual_ros2_physx_flight_and_global_video_verified",
+    "native_isaac_humble_import": "passed_local_pub_sub_only",
+    "timing_unit_tests": "4_passed",
+    "quintic_unit_tests": "passed_original_cpp_matrix_parity",
+    "dataset_calibration": "v2_100_frames_ray_geometry_passed_original_bucket_sdf_used",
+    "geometry_unit_tests": "4_passed",
+    "main_cost_cpp": "passed_analytic_plane_32_cases",
+    "voxel_cpp": "passed_204_queries",
+    "main_sdf_backend": "original_bucket_required_scipy_difference_detected",
+    "ros2_protocol": "actual_native_container_closed_loop_verified_across_full_executable_matrix_scope",
+    "unified_vehicle": "actual_physx_hover_2_4_6_8_10mps_passed",
+    "evaluation_instrumentation": "protocol_telemetry_and_sampler_probes_passed_and_physics_run_validation_completed"
+  },
+  "provenance_note": "Existing pretrained showcase does not satisfy scratch gates. Primary profile uses pinned runnable main with paper threshold discrepancy explicitly recorded in paper_aligned.json.",
+  "baseline_sources": {
+    "TopoTraj": {
+      "path": "external/Fast-Planner",
+      "url": "https://github.com/HKUST-Aerial-Robotics/Fast-Planner",
+      "commit": "41be219fe4ecc43bf0e0c2b42a523f8755ccc0bd",
+      "status": "ROS2_causal_timing_initialization_reset_verified_new_native_adapter_pending_GPUvalidation"
+    },
+    "AgileAutonomy": {
+      "path": "external/agile_autonomy",
+      "url": "https://github.com/uzh-rpg/agile_autonomy",
+      "commit": "958c0d22e11d28a4d73b627029cf62ef1a1a95ab",
+      "status": "originalTF24_vsPyTorchCPU_network_and_completeROS2_reference_parity_passed_CUDA_native_flight_pending"
+    },
+    "MPPI": {
+      "paper": "Flight With Limited Field of View: A Parallel and Gradient-Free Strategy for Micro Aerial Vehicle",
+      "doi": "10.1109/TIE.2021.3114744",
+      "identity": "YOPO reference17, MPPI planner with Hybrid A* front end (Lu, Zong, Lai, Tian, Xie, IEEE TIE 69(9):9258-9267, 2021)",
+      "status": "reference_only_no_official_release_found_reimplementation_required",
+      "evidence": "artifacts/paper_sources/mppi_identity.json",
+      "secondary_evidence": "artifacts/paper_sources/mppi_repository_lookup.json"
+    }
+  },
+  "map_backend": {
+    "primary": "original_main_bucket_distance_transform",
+    "diagnostic": "scipy_edt",
+    "comparison": "artifacts/environment/sdf_cpp_parity.json",
+    "full_map": "artifacts/maps/calibration_v2_main_backend/manifest.json"
+  },
+  "dataset_evidence": "datasets/isaac_full_v1/validation.json",
+  "vehicle_evidence": "artifacts/control_validation/physx_unified_20260924_061715/result.json",
+  "intermediate_flight_evidence": "artifacts/ros2_flights/ros2_scratch_checkpoint_20260924_061715/validation.json"
+}

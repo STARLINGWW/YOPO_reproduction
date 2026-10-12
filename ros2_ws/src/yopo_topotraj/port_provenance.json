@@ -1,0 +1,157 @@
+{
+  "upstream_commit": "41be219fe4ecc43bf0e0c2b42a523f8755ccc0bd",
+  "status": "mapping_search_optimizer_port_in_validation_not_full_planner",
+  "changes": [
+    "catkin build replaced by ament",
+    "one ROS1 conditional log replaced by rclcpp log",
+    "Eigen3.4: cast floating loop counters only when indexing jerk matrix; preserve floating arithmetic",
+    "Fix upstream getMeanVel missing return of its computed value"
+  ],
+  "files": [
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\bspline\\include\\bspline\\non_uniform_bspline.h",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\bspline\\include\\bspline\\non_uniform_bspline.h",
+      "upstream_sha256": "56e145f47de78bb1472011b062217113f1f8a4b9f49cdcd3dabbd10193c3ed34"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\bspline\\src\\non_uniform_bspline.cpp",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\bspline\\src\\non_uniform_bspline.cpp",
+      "upstream_sha256": "fd1430e7767afbe07e1a03bba6276cb3b0918fe606d6cb2f743e31f943105ed1"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\poly_traj\\include\\poly_traj\\polynomial_traj.h",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\poly_traj\\include\\poly_traj\\polynomial_traj.h",
+      "upstream_sha256": "beac44b826ff43097c5f987509a218b6fb0501ad92dbeeabdd7b6565ba0cc618"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\poly_traj\\src\\polynomial_traj.cpp",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\poly_traj\\src\\polynomial_traj.cpp",
+      "upstream_sha256": "f3518ea00afe3cfe132a38309ec47f8fb62abd7dff8daa2485dba9b780be222f"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\plan_env\\include\\plan_env\\sdf_map.h",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\plan_env\\include\\plan_env\\sdf_map.h",
+      "upstream_sha256": "26915e4374d5531543d8a95ceef37bc9fb3559b2c7c000dbe01ec6a6f8d1e214"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\plan_env\\src\\sdf_map.cpp",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\plan_env\\src\\sdf_map.cpp",
+      "upstream_sha256": "d445fb7aba2057c65e420bb56a5d63be8122121ff09950f5bf3e0401ad38c5e7"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\plan_env\\include\\plan_env\\raycast.h",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\plan_env\\include\\plan_env\\raycast.h",
+      "upstream_sha256": "fcc309170a2f7d82003ee3ce29e23f7e08bb6ac5ff8e3205b2a9ccd688eeb571"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\plan_env\\src\\raycast.cpp",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\plan_env\\src\\raycast.cpp",
+      "upstream_sha256": "7df0a8adaf3d9ab058442819192e5a2ac21ea815e84c4535861adb05f88b3cc1"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\plan_env\\include\\plan_env\\edt_environment.h",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\plan_env\\include\\plan_env\\edt_environment.h",
+      "upstream_sha256": "f8db67fc042778ccb05be5b3a4b00f0f787e87df6cbe1b7e7e1613da29f71f75"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\plan_env\\src\\edt_environment.cpp",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\plan_env\\src\\edt_environment.cpp",
+      "upstream_sha256": "31186ebf09df84f91cca0f1bed173e538dda11578c65aaf703744318514949b5"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\path_searching\\include\\path_searching\\topo_prm.h",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\path_searching\\include\\path_searching\\topo_prm.h",
+      "upstream_sha256": "5a033da694931aaaa12e72b6f88ae58a85ea12413dfac569bee870ceed6e71a8"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\path_searching\\src\\topo_prm.cpp",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\path_searching\\src\\topo_prm.cpp",
+      "upstream_sha256": "99f3fc518b5819c211b2353de7ddc452e613aa41fdf58aaa84f000ac2f366acf"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\bspline_opt\\include\\bspline_opt\\bspline_optimizer.h",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\bspline_opt\\include\\bspline_opt\\bspline_optimizer.h",
+      "upstream_sha256": "baf1290befa58ca444d72677dddcb0693128bed7d8061245bc41123692598c7d"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\bspline_opt\\src\\bspline_optimizer.cpp",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\bspline_opt\\src\\bspline_optimizer.cpp",
+      "upstream_sha256": "c253f8451c08e951b0a5ee0a65c84b9e863f538a349ea69782e4b49988f12199"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\path_searching\\include\\path_searching\\astar.h",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\path_searching\\include\\path_searching\\astar.h",
+      "upstream_sha256": "03ab931e469eddc084c00c5368e7a16243f7562246729c3f21b2beaac81cf577"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\path_searching\\src\\astar.cpp",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\path_searching\\src\\astar.cpp",
+      "upstream_sha256": "8ad3f893d4e4c1ea1cdba9119eb8f02651c63a2908830090f80c1d6e2e7dba1d"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\path_searching\\include\\path_searching\\kinodynamic_astar.h",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\path_searching\\include\\path_searching\\kinodynamic_astar.h",
+      "upstream_sha256": "6064aed4c8e6c3802a0070ac3cd18991aca086233dd3a0a05bd84e8fdf997312"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\path_searching\\src\\kinodynamic_astar.cpp",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\path_searching\\src\\kinodynamic_astar.cpp",
+      "upstream_sha256": "e941090f0188eb74d31380566dac55a568487da92579bebc043e0b594dcfff21"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\plan_manage\\include\\plan_manage\\planner_manager.h",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\plan_manage\\include\\plan_manage\\planner_manager.h",
+      "upstream_sha256": "838a7008f930a67e6fc03ab99dbc76ae25be61702bb5127518ce2e4a63f8067b"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\plan_manage\\src\\planner_manager.cpp",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\plan_manage\\src\\planner_manager.cpp",
+      "upstream_sha256": "4a24b0f024c5e11ae9fefe6c80c295055e2da1593645fd77a5c6b8500138ff18"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\plan_env\\include\\plan_env\\obj_predictor.h",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\plan_env\\include\\plan_env\\obj_predictor.h",
+      "upstream_sha256": "2d361ef48f79c7ada78524e930f21d56128867d04c2c20d2909412e7ab62d83a",
+      "scope": "PolynomialPrediction only; moving-object history not ported for static forests"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\plan_manage\\include\\plan_manage\\plan_container.hpp",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\plan_manage\\include\\plan_manage\\plan_container.hpp",
+      "upstream_sha256": "af25a87e0da817d1e941dd2f8c5ed67d3dc48ac4042b6a14a4b50a4cd80279b8"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\plan_manage\\include\\plan_manage\\topo_replan_fsm.h",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\plan_manage\\include\\plan_manage\\topo_replan_fsm.h",
+      "upstream_sha256": "7b1322d26c1f9a8c0300177d7f9ea82ad6a7705a9c30e1920a47cb63bea65dc0"
+    },
+    {
+      "source": "external\\Fast-Planner\\fast_planner\\plan_manage\\src\\topo_replan_fsm.cpp",
+      "destination": "ros2_ws\\src\\yopo_topotraj\\vendor\\plan_manage\\src\\topo_replan_fsm.cpp",
+      "upstream_sha256": "930356b4401c74b348dd41c75a7ef145f67b7b6f27ae9c4594853df6fe4ae614"
+    }
+  ],
+  "ros2_port_changes": [
+    "Native rclcpp parameters/messages/publishers/subscribers; dotted parameter namespaces",
+    "ROS-time update timers; steady-clock computational budgets and timings",
+    "Preserve original approximate-depth-pose sync pending uniform adapter integration",
+    "Explicit deterministic PRM seed instead of random_device; same generator and distribution",
+    "Value-initialize mapping structs and size projected-point buffer to actual sensor dimensions",
+    "Static forest scope: preserve polynomial prediction type; dynamic-object subscriber not ported"
+  ],
+  "fsm_changes": [
+    "Preserve original state transitions, replanning and collision logic",
+    "ROS2 native timers/subscriptions; standard sampled trajectory replaces ROS1 Bspline/traj_server",
+    "Omit RViz-only publications; record trajectory externally",
+    "Manual target uses supplied z instead of upstream hard-coded 1m",
+    "Standard body-frame odometry twist rotated to world; reject stale/wrong-frame odometry",
+    "Initialize flags; ignore empty or repeated active goals; reject trajectory older than0.2s",
+    "Unified topotraj_runtime rebuilds full FSM/map on episode and clock rewind; see runtime probe evidence",
+    "Raw topotraj_node is a component fixture; use unified topotraj_runtime for episode-aware experiments"
+  ],
+  "runtime_evidence": "artifacts/environment/topotraj_runtime_probe.json",
+  "additional_changes": [
+    "Fix unused upstream Astar::timeToIndex missing return of computed idx",
+    "Unified runtime uses same DDS participant, exact-stamp depth/odom pairing and full map/FSM reset",
+    "Depth-pose strict frame/stamp/age checks enabled in unified runtime"
+  ]
+}

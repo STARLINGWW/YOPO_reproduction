@@ -1,0 +1,15 @@
+{
+  "source_flight": "D:\\_AAA_CODE_ALL\\Tech_reproduction\\YOPO_reproduction\\artifacts\\navigation\\forest_seed7_v3\\flight.npz",
+  "video": "yopo_global_flight.mp4",
+  "resolution": [
+    1600,
+    900
+  ],
+  "fps": 20,
+  "simulation_step_between_frames_s": 0.1,
+  "playback_speed": 2.0,
+  "final_hold_frames": 40,
+  "replay_of_measured_states": true,
+  "navigation_status": "success",
+  "preview_only": false
+}

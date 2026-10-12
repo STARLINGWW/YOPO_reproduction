@@ -1,0 +1,14 @@
+{
+  "classification": "Original main cost and voxel-gradient core; expert solver policy reconstructed",
+  "main_commit": "881e1c549122efa5a2402b862f70a198e6e93baa",
+  "reference2017_commit": "019701be8d660fc18cc482a95adeae8d9f415d82",
+  "files": {
+    "external/audit_sources/main/flightlib/third_party/sdf_tools/src/sdf_tools/sdf.cpp": "c914e06f4a0afb7717819dcfa3fe821bde1d9c001bbc447d68260e52843d8e31",
+    "external/audit_sources/main/flightlib/src/grad_traj_optimization/grad_traj_optimizer.cpp": "fa93f9f0c4a34040c7b07a07e0e629608136af7ced8caee85e04e421c36924b1",
+    "external/audit_sources/main/flightlib/src/grad_traj_optimization/qp_generator.cpp": "308076da89ab88c4b64b54ce422b42b112b043183bb1da840ae577cf53d64f18",
+    "external/audit_sources/main/flightlib/third_party/arc_utilities/include/arc_utilities/voxel_grid.hpp": "56b7cd4bb83de5c6105d480e9bebf9b695cc4ec58e5b7d9d7a6e62d957c72885"
+  },
+  "gradient_function_sha256": "34911a075b6c87c9742b501262456989e307d16eeb4106878273682c1fb2073b",
+  "compatibility_fix": "Out-of-grid gradient returns a three-zero placeholder before the original boundary-distance override, avoiding original unchecked empty-vector access.",
+  "solver_uncertainty": "YOPO release has no TableI expert driver. Scaled backtrackingGD50 update attempts and cited2017 NLoptMMA50 objective evaluations are separately labeled; neither is asserted to be the unpublished original solver configuration."
+}

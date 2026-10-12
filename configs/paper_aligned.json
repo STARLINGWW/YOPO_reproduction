@@ -1,0 +1,19 @@
+{
+  "profile": "paper_aligned",
+  "label": "YOPO official main numerical semantics on Isaac-equivalent scenes",
+  "source_commit": "881e1c549122efa5a2402b862f70a198e6e93baa",
+  "trajectory_yaml": "external/audit_sources/main/flightlib/configs/traj_opt.yaml",
+  "network": {"implementation": "unmodified main YopoPolicy", "backbone": "ResNet18", "hidden_state": 64, "head": [256,256], "pretrained": false},
+  "optimizer": {"name": "Adam", "learning_rate": 0.00015, "max_grad_norm": 10.0},
+  "trajectory_loss_weight": 1.0,
+  "score_loss_weight": 10.0,
+  "unselect": 0.0,
+  "network_gradient_clip": "minimum(gradient,1.0) after world-to-body gradient transform, matching main",
+  "distance_backend": "original_main_bucket",
+  "depth": {"raw_metres_max": 20.0, "normalization": "divide_by_20", "resize": "linear", "height": 96, "width": 160},
+  "paper_discrepancies": [
+    "Published text mentions threshold0.04 and a negative-cost score. Public main defaults to no trajectory filtering and predicts positive cost; this profile follows the runnable official main behavior and reports the discrepancy.",
+    "Isaac procedural forests replace original Flightmare assets. These are equivalent-condition experiments, not identical scene reproduction.",
+    "Map split and checkpoint/RNG restoration are added for reproducibility; network and trajectory-cost semantics are preserved."
+  ]
+}

@@ -1,0 +1,7 @@
+FROM yopo-repro:train-cu128-jammy
+USER root
+RUN --mount=type=cache,id=yopo-jammy-apt,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,id=yopo-jammy-lists,target=/var/lib/apt/lists,sharing=locked \
+    apt-get -o Acquire::Retries=5 update \
+    && apt-get -o Acquire::Retries=5 install -y --no-install-recommends libnlopt0=2.7.1-3build1
+USER yopo

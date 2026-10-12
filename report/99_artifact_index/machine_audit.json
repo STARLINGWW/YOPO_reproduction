@@ -1,0 +1,35 @@
+{
+  "CheckedAt": "2026-09-24T01:14:46.1729783+08:00",
+  "OS": {
+    "Caption": "Microsoft Windows 11 专业版",
+    "Version": "10.0.26200",
+    "OSArchitecture": "64 位",
+    "FreePhysicalMemory": 9304588,
+    "TotalVisibleMemorySize": 33264868
+  },
+  "CPU": {
+    "Name": "Intel(R) Core(TM) i7-14700K",
+    "NumberOfCores": 20,
+    "NumberOfLogicalProcessors": 28
+  },
+  "RAM": {
+    "TotalPhysicalMemory": 34063224832
+  },
+  "Disk": [
+    {
+      "Name": "C",
+      "Free": 692328214528
+    },
+    {
+      "Name": "D",
+      "Free": 584389402624
+    },
+    {
+      "Name": "Temp",
+      "Free": 692328214528
+    }
+  ],
+  "GPU": "NVIDIA GeForce RTX 5070 Ti, 595.97, 16303 MiB, 5929 MiB",
+  "Wsl": " \u0000 \u0000N\u0000A\u0000M\u0000E\u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000S\u0000T\u0000A\u0000T\u0000E\u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000V\u0000E\u0000R\u0000S\u0000I\u0000O\u0000N\u0000\r\n\u0000\r\n\u0000*\u0000 \u0000d\u0000o\u0000c\u0000k\u0000e\u0000r\u0000-\u0000d\u0000e\u0000s\u0000k\u0000t\u0000o\u0000p\u0000 \u0000 \u0000 \u0000 \u0000S\u0000t\u0000o\u0000p\u0000p\u0000e\u0000d\u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u0000 \u00002\u0000\r\n\u0000\r\n\u0000\r\n",
+  "CondaEnvs": "{\r\n  \"envs\": [\r\n    \"C:\\\\Users\\\\STARLING\\\\.conda\\\\envs\\\\pytorch_5070ti\",\r\n    \"D:\\\\_AAA_FILE_ALL\\\\Anaconda_file\\\\Anaconda_env\\\\isaac61\",\r\n    \"D:\\\\_AAA_FILE_ALL\\\\Anaconda_file\\\\Anaconda_env\\\\isaaclab-win\",\r\n    \"D:\\\\_AAA_FILE_ALL\\\\Anaconda_file\\\\Anaconda_env\\\\omnidrones\",\r\n    \"D:\\\\_AAA_FILE_ALL\\\\Anaconda_file\\\\Anaconda_env\\\\vosr_5070ti\",\r\n    \"D:\\\\_AAA_STARLING_ProgramFile\\\\Anaconda\"\r\n  ],\r\n  \"envs_details\": {\r\n    \"C:\\\\Users\\\\STARLING\\\\.conda\\\\envs\\\\pytorch_5070ti\": {\r\n      \"name\": \"pytorch_5070ti\",\r\n      \"created\": \"2026-04-23T05:22:52.748146+00:00\",\r\n      \"last_modified\": \"2026-04-23T05:23:00.290076+00:00\",\r\n      \"active\": false,\r\n      \"base\": false,\r\n      \"frozen\": false,\r\n      \"writable\": true\r\n    },\r\n    \"D:\\\\_AAA_FILE_ALL\\\\Anaconda_file\\\\Anaconda_env\\\\isaac61\": {\r\n      \"name\": \"isaac61\",\r\n      \"created\": \"2026-09-14T12:57:43.061627+00:00\",\r\n      \"last_modified\": \"2026-09-14T12:57:48.880300+00:00\",\r\n      \"active\": false,\r\n      \"base\": false,\r\n      \"frozen\": false,\r\n      \"writable\": true\r\n    },\r\n    \"D:\\\\_AAA_FILE_ALL\\\\Anaconda_file\\\\Anaconda_env\\\\isaaclab-win\": {\r\n      \"name\": \"isaaclab-win\",\r\n      \"created\": \"2026-05-08T15:56:22.017057+00:00\",\r\n      \"last_modified\": \"2026-05-08T15:56:28.816320+00:00\",\r\n      \"active\": false,\r\n      \"base\": false,\r\n      \"frozen\": false,\r\n      \"writable\": true\r\n    },\r\n    \"D:\\\\_AAA_FILE_ALL\\\\Anaconda_file\\\\Anaconda_env\\\\omnidrones\": {\r\n      \"name\": \"omnidrones\",\r\n      \"created\": \"2026-05-08T11:10:16.190697+00:00\",\r\n      \"last_modified\": \"2026-05-08T11:10:22.688777+00:00\",\r\n      \"active\": false,\r\n      \"base\": false,\r\n      \"frozen\": false,\r\n      \"writable\": true\r\n    },\r\n    \"D:\\\\_AAA_FILE_ALL\\\\Anaconda_file\\\\Anaconda_env\\\\vosr_5070ti\": {\r\n      \"name\": \"vosr_5070ti\",\r\n      \"created\": \"2026-07-17T18:14:19.988352+00:00\",\r\n      \"last_modified\": \"2026-07-17T18:14:29.453601+00:00\",\r\n      \"active\": false,\r\n      \"base\": false,\r\n      \"frozen\": false,\r\n      \"writable\": true\r\n    },\r\n    \"D:\\\\_AAA_STARLING_ProgramFile\\\\Anaconda\": {\r\n      \"name\": \"base\",\r\n      \"created\": \"2026-04-23T05:12:46.923841+00:00\",\r\n      \"last_modified\": \"2026-01-13T16:05:52+00:00\",\r\n      \"active\": false,\r\n      \"base\": true,\r\n      \"frozen\": false,\r\n      \"writable\": false\r\n    }\r\n  }\r\n}\r\n"
+}

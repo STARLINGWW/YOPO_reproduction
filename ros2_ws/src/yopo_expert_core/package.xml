@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<package format="3"><name>yopo_expert_core</name><version>0.1.0</version>
+<description>Original-main cost and field core with explicitly reconstructed expert solver variants.</description>
+<maintainer email="maintainer@example.invalid">YOPO reproduction</maintainer>
+<license>MIT</license><buildtool_depend>ament_cmake</buildtool_depend><depend>eigen</depend><depend>yaml-cpp</depend><depend>libnlopt-dev</depend>
+<export><build_type>ament_cmake</build_type></export></package>

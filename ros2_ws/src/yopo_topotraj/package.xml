@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>yopo_topotraj</name><version>0.1.0</version>
+  <description>ROS2 port of original TopoTraj components; full planner integration in progress.</description>
+  <maintainer email="maintainer@example.invalid">YOPO reproduction</maintainer>
+  <license>GPL-3.0-or-later</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclcpp</depend><depend>eigen</depend>
+  <depend>sensor_msgs</depend><depend>geometry_msgs</depend><depend>nav_msgs</depend>
+  <depend>visualization_msgs</depend><depend>cv_bridge</depend><depend>message_filters</depend>
+  <depend>pcl_conversions</depend><depend>libpcl-all-dev</depend><depend>libnlopt-dev</depend>
+  <depend>trajectory_msgs</depend><depend>std_msgs</depend>
+  <depend>rosgraph_msgs</depend>
+  <depend>yaml-cpp</depend>
+  <export><build_type>ament_cmake</build_type></export>
+</package>
