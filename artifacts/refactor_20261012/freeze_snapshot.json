@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-12T21:39:00+08:00",
+  "generated_at": "2026-10-12T21:41:28+08:00",
   "scope": "refactor freeze snapshot: protected hashes, audited weights, dataset/checkpoint sizes; not an experiment result",
-  "git_head": "7cc63ec1964370cb2bb0053467e1257381004cd8",
+  "git_head": "932157808da52a0d6f13e5dc698ea6e4c350ca33",
   "protected_files": [
     {
       "path": "benchmarks/protocol_v1/protocol.json",
@@ -114,7 +114,7 @@
       "markdown_files": 30
     },
     "report": {
-      "markdown_files": 36
+      "markdown_files": 37
     }
   }
 }
