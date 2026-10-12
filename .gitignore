@@ -42,3 +42,6 @@ checkpoints/formal_main_v1_seed*/policy_epoch_*.pth
 # tracks the audited source files, never nested repository objects.
 external/**/.git/
 
+# The refactored v2 project is a nested, self-contained Git repository.
+/YOPO_reproduction_new/
+

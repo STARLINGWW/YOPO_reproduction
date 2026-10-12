@@ -1,5 +1,7 @@
 # YOPO 本地训练与 Isaac 仿真复现
 
+> 2026-10-12：项目已重构至新根 `YOPO_reproduction_new/`（plan / implement / report 三层，含编号报告与媒体实体文件；见其 README 与 plan/00_charter/02_new_root_refactor_plan.md）。本目录保留为冻结归档与运行兼容备份，不再作为主开发区。
+
 更新：2026-10-08。**三种子从头训练、ROS2运行时准入、DAgger微调和自训练展示均已完成；正式基准已执行1,500/1,800，参考[17] MPPI的300个槽位尚未执行。** 当前终审为5 verified、1 documented_gap、1 pending，整体目标尚未全部验收。
 
 项目根目录：`D:\_AAA_CODE_ALL\Tech_reproduction\YOPO_reproduction`。主线为Ubuntu22.04 Docker / ROS2 Humble + Windows原生Isaac Sim。当前训练与成果使用本地随机初始化训练权重；官方Simple预训练演示单独保留。

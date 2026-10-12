@@ -21,3 +21,5 @@
 - 验证通过：GPU/ROS2 探针、smoke 训练停止/恢复（`checkpoints/migration_smoke_v1`，status=complete，不进入正式矩阵）。
 - 新增证据 artifacts/refactor_20261012/{docker_version.json,docker_images.jsonl,docker_info.json,train_env_gpu_probe.log,migration_smoke_*.log}。
 - 新增 scripts/refactor_freeze_snapshot.py 与 artifacts/refactor_20261012/freeze_snapshot.json（阶段0 冻结）：受保护文件哈希、三种子 best_policy 哈希实算复核（全部与 training_audit 一致）、数据与 checkpoint 规模快照。
+- 重构成果迁移至新根 `YOPO_reproduction_new/`（独立 Git 仓库，2026-10-12）：报告编号化（reports → report/NN_*）、媒体实体落盘、参考随迁、implement 工作区视图、链接 770 处重写；新根审计 69 份 0 缺失。
+- 本目录转为冻结归档：.gitignore 增加 `/YOPO_reproduction_new/`，README 顶部加入迁移说明；不再作为主开发区。
