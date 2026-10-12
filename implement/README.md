@@ -16,5 +16,7 @@
 | 07 | 可视化 | scripts/demo_flight.ps1、scripts/render_*.py、artifacts/ |
 | 99 | 工作区规则 | 大模型实施规范和任务模板 |
 
+整个复现的模块划分与论文章节对照入口：[report/00_index/01_module_map.md](../report/00_index/01_module_map.md)。
+
 每次改动先在plan中建立任务，完成后写入report。禁止为了归类复制一份可执行源码。
 

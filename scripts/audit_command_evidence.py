@@ -59,12 +59,32 @@ def audit_report(path):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--reports',default='reports')
+    parser.add_argument('--reports',default='reports',
+                        help='comma-separated folders to scan (default: reports)')
+    parser.add_argument('--recursive',action='store_true',
+                        help='scan the given folders recursively (default: top-level *.md only)')
+    parser.add_argument('--extra-files',default='',
+                        help='comma-separated extra markdown files to audit, relative to the project root')
     parser.add_argument('--output',default='artifacts/environment/command_evidence_audit.json')
     parser.add_argument('--fail-on-missing',action='store_true')
     args = parser.parse_args()
-    folder = (ROOT/args.reports).resolve()
-    reports = sorted(folder.glob('*.md'))+sorted((ROOT/'benchmarks').glob('*.md'))
+    reports = []
+    for spec in [item.strip() for item in args.reports.split(',') if item.strip()]:
+        folder = (ROOT/spec).resolve()
+        if not folder.is_dir():
+            print('skip missing folder',spec)
+            continue
+        found = folder.rglob('*.md') if args.recursive else folder.glob('*.md')
+        reports.extend(sorted(found))
+    reports.extend(sorted((ROOT/'benchmarks').glob('*.md')))
+    for spec in [item.strip() for item in args.extra_files.split(',') if item.strip()]:
+        reports.append((ROOT/spec).resolve())
+    seen = set(); unique = []
+    for path in reports:
+        key = str(path).lower()
+        if key in seen: continue
+        seen.add(key); unique.append(path)
+    reports = unique
     results = [audit_report(path) for path in reports if path.is_file()]
     summary = {'status':'passed','reports_scanned':len(results),
                'missing_link_count':sum(len(r['missing_links']) for r in results),

@@ -13,6 +13,7 @@
 1. [plan](plan/README.md)：计划、协议、决策、变更和GitHub/Ubuntu迁移。
 2. [implement](implement/README.md)：代码实施区和根目录运行代码地图。
 3. [report](report/README.md)：当前交付报告、方法说明、评测和可视化。
+4. [复现模块总图](report/00_index/01_module_map.md)：把整个复现拆成模块，附论文章节反查和差异索引。
 
 1. [当前进度简报](reports/当前进度简报.md)：已完成项、真实缺口和主要成果。
 2. [复现状态总览](reports/复现状态总览.md)：由现有JSON产物生成的机器状态。
