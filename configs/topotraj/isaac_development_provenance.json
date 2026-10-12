@@ -1,0 +1,8 @@
+{
+  "status": "candidate_not_final_benchmark",
+  "source": "external\\Fast-Planner\\fast_planner\\plan_manage\\launch\\topo_algorithm.xml",
+  "geometry_adapter": "80x80x8m, calibrated160x90 camera with pixel-index principal point79.5/44.5",
+  "effective_mapping_depth_range_m": 4.5,
+  "raw_common_optical_depth_range_m": 20.0,
+  "pending": "Validate/tune mapping range and compute tradeoff on development maps; do not silently use this candidate for final comparison"
+}

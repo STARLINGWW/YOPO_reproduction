@@ -1,0 +1,385 @@
+# ROS2／Ubuntu22.04 从头训练执行进度
+
+> **当前状态同步 2026-10-08：** 三种子50轮、专家最终权重对照、运行时准入、Agile CUDA验证、最终展示和DAgger微调均已完成。主矩阵1500/1800，MPPI300未执行，终审5 verified＋1 documented_gap＋1 pending。参考[17]全文已归档，缺口是实现与执行。见[当前进度简报](当前进度简报.md)和[复现状态总览](复现状态总览.md)。
+
+最终DAgger采集清单为33架次（18成功、15超时），另5个地图种子跳过；早期条目中16/13及4个跳过是旧统计。以[flights.json](../artifacts/dagger_flights/dagger_agg_v1/flights.json)为准。
+
+## 历史执行日志
+
+以下按原始日期保留过程、失败与阶段状态。“待执行”“预计完成时间”只描述该条目时点，不能覆盖上述当前状态。A/B方案仍未应用。
+
+本文件记录用户于2026-09-24批准的新目标。旧的“完成”报告仅对应官方预训练策略展示，不能作为本目标完成证据。
+
+## 当前状态
+
+### 2026-09-26T04:10:00+08:00 终态达成：5 项 verified + 1 documented_gap + 1 pending（仅剩 MPPI 槽位待用户裁决）
+
+- **DAgger 全部打通**：修复第二处路径 bug 后（见下），33 架次 on-policy 采集完成（16 success / 13 timeout，另有 4 张地图端点净空不足被跳过）→ 建库（11 个聚合 shard、`dataset_sha256=4d45354a…`）→ 容器内校验 → 灌库（`AGGREGATION_STAGED /data/isaac_dagger_v1`）→ **真实微调 10 轮**：`checkpoints/dagger_main_v1_seed0/result.json` = `status=complete`、`rehearsal=false`、steps 67,260、`base_checkpoint_sha256=af2ea0fa…`（= seed0 审计权重）、final hash 39c7f4e3…、best_validation_total 0.022912、`writes_into_base_run=false`。
+- **第二处路径 bug（同样已修）**：`src/yopo_dagger/build_dataset.py` 把 `base_dataset` 写成**宿主绝对路径**（`D:\…\datasets\isaac_full_v1`），而 `scripts/stage_aggregation_dataset.py` 在 **Linux 容器内**用它拼路径 → `FileNotFoundError`（灌库失败、微调随之失败）。已改为写**相对路径** `datasets/isaac_full_v1`（容器解析 `/workspace/datasets/isaac_full_v1`），并把修复前的数据集移入 `artifacts/quarantine/dagger_pre_fix_20260926/isaac_dagger_v1_abs_base_path/`（可恢复）。两个文件均**不在**20 文件运行时冻结清单内，准入未受影响。
+- **终审状态**（`artifacts/environment/final_acceptance_audit.json`）：`three_seed_training` verified、`expert_50_step_comparison` verified、`baseline_native_validation` verified、`dagger_finetune` verified、`final_showcase_and_audit` verified、`mppi_reference17` documented_gap、**`benchmark_matrix` pending**（completed=1500/expected=1800、driver_failures=300 全为 MPPI 跳过、**invalid_evidence=0**、duplicates=0）。合计 **5 verified + 1 documented_gap + 1 pending**。
+- **唯一未闭项**：300 个 `mppi_reference17` 槽位与「1800/1800」判据的冲突——需要用户裁决（A 提供合法论文副本后补齐／B 批准把矩阵范围冻结为已验证的 1500 槽并显式排除／C 保持 pending）。方案与证据见 `artifacts/environment/completion_criteria_gap.json` 与 `docs/proposals/optionB_matrix_scope_proposal.md`。
+
+### 2026-09-26T02:45:00+08:00 矩阵收官（1494/1494）+ 论文对照生成；修复 DAgger 采集路径 bug 后重跑
+
+- **矩阵完成**：01:32:25 `matrix_result.json` = `batch_finished`，attempted 1794；10 个先前被隔离的 episode 在续跑中以 `_r2` **全部重试成功** → **1494/1494 个可执行槽位全部拿到终态证据**（618 success / 254 timeout / 622 collision），另有 300 个 `mppi_reference17` 槽位按政策记为 `not_attempted`（**无证据失败残留**）。
+- **聚合与对照**（`artifacts/benchmark_summary/summary.json`）：completed **1500**（含 6 个被准入消耗的冻结 episode）/ expected 1800 → `status=incomplete`（缺的正是 300 个 MPPI 槽位）；**invalid_evidence=0、duplicate_primary_attempts=0**。各方法 300/300 完成、成功率：**yopo_seed0 61.3% / yopo_seed1 54.3% / yopo_seed2 58.0% / TopoTraj 23.7% / Agile Autonomy 10.0%**（排序与论文一致）。`figure_7_success_vs_speed.png/pdf`、`table_i_*`、`table_ii_*` 已重生成。
+- **showcase 一次成功**：`artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/`，`navigation_status=success`、`checkpoint_sha256` 与 seed0 审计记录的 `best_policy_file_sha256` 一致、视频存在、`trajectory_modified=false`。
+- **修复 DAgger 采集路径 bug**：首轮 33 架次全部 `crashed`，根因是 `scripts/run_dagger_collection.py:107` 把**绝对 Windows 路径**（`str(checkpoint)`）传给运行器，运行器再原样传给 **Linux 规划容器** → 容器读取 checkpoint 失败并立即退出 → 宿主 33 次 `Container planner DDS discovery failed`。已改为传**相对路径** `args.checkpoint`（与矩阵/展示一致；该文件不在 20 文件运行时冻结清单内，准入不受影响）。
+- **修复验证**：单架次冒烟（`dagger_smoke_fix_m7000`）通过——结局 `timeout`（终止态）、300 帧、**camera 块与训练约定逐字段一致**（`validate_camera` 通过）、checkpoint 记录为相对路径。33 个崩溃产物已**移入** `artifacts/quarantine/dagger_pre_fix_20260926/`（移动不删除，含旧 `flights.json` 与采集日志）。
+- **DAgger 重跑中**：02:31 起重新采集，截至 02:45 已 **13 架次**（7 timeout / 6 success，on-policy 数据同时包含成功与失败轨迹）；随后自动建库 → 校验 → 灌库 → 10 轮微调 → 终审。
+
+### 2026-09-25T05:00:00+08:00 矩阵进度快照：首个方法块完成、进入第二个；3 次 RTX 描述符故障已隔离
+
+- **进度**：截至 05:00 账本 **324 条记录 = 321 终态 + 3 待重试**；`yopo_seed0` 整块（300 槽）已跑完（181 success / 74 timeout / 40 collision + 3 隔离），矩阵已进入 **`yopo_seed1`**（sparse 条件，约 30/150）。
+- **成功率实况**：整体 **61.4%**；sparse 70%（2 m/s 26/28 → 10 m/s 12/30，随速度单调下降）、dense 53%（10 m/s 最低）。失败结局（collision/timeout）全部如实计入终态，未重跑、未篡改。
+- **节拍**：sparse ~64 s/集、dense ~78 s/集；累计约 **0.85 集/分钟**。剩余可执行 **1173 集** → 矩阵预计 **9-26 凌晨 5–6 点**跑完，**终审上午 7–9 点**。
+- **3 次 Isaac RTX “Out of resource descriptors” 故障**（01:23 `dense_v10_t05`、02:52 `dense_v10_t18`、03:46 `dense_v4_t25`）：每次由驱动 900 s 守卫结束 → 判 `invalid_evidence` → **移入 `artifacts/ros2_flights_quarantine/`**（各含 14 文件 SHA256 清单，移动不删除）→ 驱动立即续跑下一集（三次都验证了后一集正常成功）。孤儿进程假设已实测否定（全机仅驱动与当前 runner 两个 Isaac 进程），故非累积恶化；dense 失败率约 2.5%。这 3 集将在下一次矩阵调用以 `_r2` 新 run 名重试。证据：`artifacts/environment/matrix_rtx_descriptor_failures.json`。
+- **未做任何越界操作**：未修改运行时冻结清单内文件、未关闭用户程序、未重启 Docker/WSL、未触碰其它项目容器。
+
+### 2026-09-25T01:25:00+08:00 矩阵运维事件：一集触发 900 s 挂起保护 → 隔离留证 → 自动继续（无需人工介入）
+
+- **事件**：`yopo_seed0_dense_v10_trial05` 在 dense + 10 m/s 条件下执行时挂起，触及驱动的 wall-clock 守卫（900 s），被记为 `driver_timeout`（实测 wall 901 s）。这是设计内行为：守卫用于把"挂死的一集"限制在 15 分钟内，避免整批卡住。
+- **处置（全自动、全程留证）**：该 run 被判 `invalid_evidence` 并从 `artifacts/ros2_flights/` **移入** `artifacts/ros2_flights_quarantine/primary_yopo_seed0_dense_v50_s10_t05/`，写出 `quarantine.json`（原因、moved_from/moved_to、14 个文件的 SHA256 清单，**移动不删除**）。驱动随后继续下一集（容器 `primary_yopo_seed0_dense_v02_t06` 已起飞）。
+- **当前影响面**：账本中非终态记录恰好 **1 条**（该集）；其余 177 条均为真实终态。由于隔离目录不在聚合扫描范围内，它不会被计为 invalid evidence；该 episode 仍是 pending，将在**下一次矩阵调用**时以新 run 名（`_r2`）重试。
+- **谁负责重试**：正在运行的看护进程是 11:06 启动的，其内存脚本版本早于 15:37 的两批拆分改动（因此本批只跑了一次 `--execute`，不会有第二次矩阵调用）。因此这次重试由**每小时心跳的第 5 条续跑规则**触发（`-Stages matrix -MatrixArguments '--execute'`，驱动逐集恢复、已完成槽位跳过）。
+- **对验收的影响**：终审要求 `invalid_evidence=0` 与全部槽位有终态证据。隔离本身不产生 invalid（扫描不到），但那一集必须最终拿到终态证据，`benchmark_matrix` 才可能通过；我会在心跳续跑后核对它的 `_r2` 结果。
+
+### 2026-09-24T21:35:00+08:00 里程碑：运行时准入冻结通过；主矩阵开跑第一集
+
+- **admission 完成并冻结**：21:31:49 `[admission] runtime admission passed for the validated backends`。记录 `benchmarks/protocol_v1/runtime_validation.json`：`status=passed`、`provisional=false`、**`validated_backends=['agile','topotraj','yopo']`（任务后端名，修复生效）**、`validated_backend_keys=['yopo_seed0','agile_autonomy','topotraj']`、`runtime_files` 20 个哈希、`consumed_episode_ids` 6 个（每后端 2 集真实冻结 episode）。
+- **该记录的生产端到端证据**：phase A 三个后端开发飞行 → phase B 6 集冻结飞行（`rv_frozen_yopo_seed0_sparse_v2_trial00/01`、`..._agile_autonomy_...`、`..._topotraj_...`）全部产生终态证据后才被记入 `validated_backends`；没有跳过的后端被列入。
+- **矩阵启动**：21:31:50 管线进入 `[matrix]` 阶段；`plan.json` 显示 `mode=execute`、`selected=1800`、`pending=1794`（1800 − 6 个准入消耗）、`consumed_by_runtime_admission=6`；第一集真实基准飞行容器 `yopo-flight-primary_yopo_seed0_sparse_v33_s04_t00` 已启动。
+- **一处与预期不同（无害）**：实际跑的是**全量 1800 选择**，而不是"先 600 子集"。原因：正在运行的看护进程（PID 105388，11:06 启动）内存中的脚本版本早于磁盘上的两批拆分改动；磁盘版本要重启才生效。终点不变（同一批冻结槽位，驱动逐集可恢复），只是少了"早期信号批次"。
+- **剩余量**：1794 − 300（MPPI 按政策不执行）= **1494 个可执行 episode**；按实测投影每集 53–97 s，矩阵耗时区间约 **22–40 小时**。
+- 证据：`artifacts/environment/post_training_pipeline.log`、`benchmarks/protocol_v1/runtime_validation.json`、`artifacts/benchmark_summary/plan.json`、`docker ps` 中的 `yopo-flight-primary_*` 容器。
+
+### 2026-09-24T21:25:00+08:00 里程碑：三种子全部完成并通过审计；Table I 用最终权重产出；终审 0 → 2 项 verified
+
+- **seed2 完成**：21:17:25 写出 `result.json`（status=complete、epochs=50、steps=312500、wall 15,776 s）；严格审计 `training_audit.json` status=**passed**、epochs=50、best_epoch=50、50/50 逐轮读回。三种子最佳验证损失：seed0 0.0229290 / seed1 0.0229347 / seed2 0.0229380（相对差异约 4e-4，属正常种子波动）。
+- **后处理链自动接管**：`post_training_supervisor` 于 21:18:53 判定 `THREE_SEEDS_PRESENT_AND_GPU_FREE` 并写哨兵 `post_training_pipeline_launched.json`，按序执行，**无人工干预**。
+- **audit 阶段**：三种子 `audit=passed epochs=50 steps=312500 ok=True`，链进入 table1。
+- **table1（Table I）**：21:18:53 → 21:21:16 完成，用**审计后的 best_policy.pth** 重跑 3 个种子 + 随机初始化共 4 次全量对照；四个 JSON 均 `status=complete`、`samples=10000`、`sample_alignment_max_abs_error=0.0`。
+- **admission 阶段**：21:21:22 `agile cuda parity exit 0`（agile 后端 GPU 一致性门通过），随后进入 phase A/B（当前飞行容器 `yopo-flight-rv_dev_yopo_seed0_20260924_212123`）。
+- **终审快照（21:24）**：`three_seed_training=verified`、`expert_50_step_comparison=verified`、`baseline_native_validation=missing_evidence`（准入进行中）、`mppi_reference17=documented_gap`、`dagger_finetune`/`benchmark_matrix`/`final_showcase_and_audit=pending。**合计 2 verified + 1 missing + 1 documented_gap + 3 pending**（此前为 0 verified）。
+- 证据：`artifacts/environment/post_training_pipeline.log`、`artifacts/expert/network_comparison_trained_seed{0,1,2}.json`、`artifacts/expert/network_comparison_random_initial.json`、`checkpoints/formal_main_v1_seed2/training_audit.json`、`artifacts/environment/final_acceptance_audit.json`。
+
+### 2026-09-24T17:52:00+08:00 看护心跳：seed1 完成并审计通过、seed2 满速推进（未触发重启）
+
+- 队列三进程全部存活：编排 `run_formal_training.ps1`（PID 91464）、训练看护 `supervise_formal_training.ps1`（PID 5992）、后处理看护 `supervise_post_training.ps1`（PID 105388）。正式训练容器**只有**一个 `yopo-formal-seed2`（id 前缀 `79f8b928d412`，16:54 启动，Up 约 53 分钟），未并发第二个训练容器；其它项目的 `fastlivo2-ros1`、`ego-planner-ros1v` 未触碰。
+- **进度以步序列为准**（不看日志尾部或 mtime）：seed0、seed1 均 **50/50 轮、312,500 步**，`result.json=complete`、`training_audit=passed`、50 个 epoch + 50 个 policy 文件、审计哈希匹配 True；seed2 **9/50 轮、61,910 步**，step 10…61910 连续无缺口。
+- 本轮复跑 `scripts/check_training_integrity.py --runs formal_main_v1_seed0 formal_main_v1_seed1 formal_main_v1_seed2 --output artifacts/environment/seed_training_integrity_v1.json`：`verdict.status=passed`、`anomalies=[]`。seed1→seed2 的自动切换**没有静默中断**，因此本轮未做任何重启。
+- 需要区分但**不是异常**：seed2 每个 6250 步边界处有一对同 step 记录，一条是 `train_step`（该轮最后一批）、一条是 `kind="epoch"` 汇总结行。seed2 现有 6,200 条唯一 `train_step` 行，**没有** seed0 那种中断重放行（seed0 的 `244520→244510` 回退是 09:57 宕机后逐位相同的重放，已记录）。
+- 速率与投影：seed2 第 1–9 轮实测 **310–358 秒/轮**（三种子中最快，宿主 I/O 压力减轻的结果），剩余 41 轮约 3.6–4.0 h，seed2 完成投影约 **今晚 21:25–21:40**。当前 GPU 利用率 32%、显存 6.6/16.3 GB——瓶颈仍是宿主 I/O 而非 GPU。
+- 未提前启动下一阶段：`artifacts/environment/post_training_pipeline_launched.json` 未写入、无矩阵账本，说明 table1/admission/matrix 仍在等待三种子齐备。`artifacts/environment/active_jobs.json` 已按上述证据刷新到 `verified_at=2026-09-24T17:52:00+08:00`。
+
+本轮为**纯核对**：无新增科学产物、未修改训练/评测口径、未重启任何任务，也无需要用户决策的新事项。
+
+### 2026-09-24T17:30:00+08:00 修正矩阵耗时口径：22.2 h 是**下界**，真实区间 22–41 h
+
+- 驱动的投影公式（`scripts/run_benchmark_matrix.py:77-84`）是 `20 s + (直线距离/速度 + 3 s) / RTF(0.4326)`，它**假设每集都成功、按指令速度直线飞完**，因此是乐观下界而不是期望值。
+- 按同一公式与协议参数（1500 个非 MPPI episode，速度 2/4/6/8/10 m/s，超时 30 或 47.5 s）计算的两端：**全部成功 22.2 h**（平均 53.3 s/集）↔ **全部跑到超时 40.6 h**（平均 97.4 s/集）；25%/50%/75% 超时分别对应 26.8/31.4/36.0 h。
+- 公式之外还会增加耗时：证据被拒后的重试（最多 3 次尝试）、宿主机挂起（每集守卫 900 s）、以及内存紧张导致的 RTF 下降。
+- 日历投影（起点 ≈ 今晚 23:15，seed2 21:43 完成 + 审计/Table I/准入约 1.5 h）：最早 **9-25 23:30**、25% 超时约 **9-26 02:00**、50% 超时约 **9-26 06:45**、最坏 **9-26 15:45**，再加尾段约 2 h。
+- 矩阵一旦开始跑，驱动的 progress.json 会记录每集实测 `wall_s`，届时可用真实分布收敛估计；**任何报告不得再单独引用那个乐观数字**。证据：`artifacts/environment/matrix_eta_envelope.json`。
+
+### 2026-09-24T17:16:00+08:00 两批策略实测 + 为"选项 B"写好未实施的实施提案
+
+- **两批策略已实测**：用真实驱动跑子集规划（`--paper-first10 --plan artifacts/benchmark_summary/plan_paper_first10_probe.json`）得到 selected=600、pending=600、六方法各 100，且与主计划文件（selected=1800、pending=1800）的 `protocol_sha256` 相同（`d2fd3052…`）。主计划文件未被覆盖。这验证了看护脚本"先 600 子集、再由驱动 resume 跑满 1800"的路径在真实代码上成立。
+- **选项 B 的实施提案（未实施）**：`docs/proposals/optionB_matrix_scope_proposal.md` 写明若用户批准"把矩阵范围冻结为已验证的 1500 槽 + 300 个 MPPI 槽位显式排除"，需要改哪三处（聚合器读 ledger 的显式排除、聚合状态新增 admitted-scope 完成态、终审的 `check_matrix` 接受合法排除并如实标注），以及**五条反滥用测试**（不合法排除必须 pending、少一集必须 pending、排除数必须与协议槽位数相等、协议缺口声明消失必须回落 pending、合成树全覆盖）。在用户明确批准前不实施、不改判据。
+
+### 2026-09-24T17:08:00+08:00 修复：准入记录后端命名不一致（否则矩阵会跳过 1200/1500 个可执行 episode）
+
+- **发现**：`scripts/record_runtime_validation.py` 写出的 `validated_backends` 用的是**准入键**（`yopo_seed0`、`agile_autonomy`、`topotraj`），而所有消费者比较的是冻结协议里的**任务后端名**（`yopo`、`agile`、`topotraj`）：`src/yopo_eval/task_spec.py:53` 的 `verify_runtime_admission`、`scripts/run_benchmark_matrix.py:279` 的跳过判据、`scripts/aggregate_benchmarks.py` 的准入断言。修复前，准入一旦通过，**900 个 yopo + 300 个 agile episode 会被判为"后端未通过准入"**，矩阵最多只真实执行 300 个 topotraj episode，其余 1200 条记为 `not_attempted_backend_unvalidated` 并以非零码退出。
+- **为何此前测试没抓到**：契约测试 `tests/test_runtime_admission_contract.py` 只用 `--backends topotraj`，而 topotraj 恰好是唯一"准入键 == 任务后端名"的项，两个真实映射（`yopo_seed0→yopo`、`agile_autonomy→agile`）从未被覆盖。
+- **修复**：记录器改为 `record['validated_backends'] = sorted({BACKENDS[k]['backend'] for k in passed})`，并新增 `validated_backend_keys` 保留准入键以溯源；`rule` 文本同步说明字段语义。**该文件不在 20 文件运行时冻结列表内**（已实测），且修复发生在 admission 真正运行之前，因此不影响准入哈希，也不存在需要作废的旧记录。
+- **回归测试**：新增 `test_validated_backends_use_protocol_backend_names_not_admission_keys`（真实记录器 + stub 运行器，断言 `validated_backends==['agile','yopo']`、不含准入键、每个被消费 episode 的 `mission['backend']` 都在列表中、`verify_runtime_admission` 对二者均通过），并顺带覆盖了旧用例从未走到的 `expected_checkpoint()` 分支。验证：定向 30 passed；**全量 89 passed**（27.87s，用 vosr_5070ti 解释器、`CUDA_VISIBLE_DEVICES=''`，未占用训练 GPU）。证据：`artifacts/environment/admission_backend_name_mismatch_fix.json`。
+
+### 2026-09-24T17:03:00+08:00 终审判据逐项核对：发现并记录一处不可达项（需用户决策）
+
+- **逐项核对了 `scripts/final_acceptance_audit.py` 的 7 个验收项**：把每一项"消费者实际读的路径/字段"与"无人值守链生产者实际写的路径/字段"逐字对照。证据见 `artifacts/environment/final_acceptance_contract_check.json`。结论：**6 项可达**（three_seed_training、expert_50_step_comparison、baseline_native_validation、mppi_reference17、dagger_finetune、final_showcase_and_audit），**没有发现第二个隐藏的不可达项**。其中两处此前未验证过的关键接线已确认一致：Table I 的随机初始化那次调用**不带 `--output`**，其默认路径正好是 `artifacts/expert/network_comparison_random_initial.json`（`compare_expert_network.py:172-173`）；showcase 的 `render_manifest.json` 确实写 `checkpoint_sha256`／`navigation_status`／`video` 三个消费者要的字段（`render_ros2_flight.py:96-102`），且哈希语义与审计记录一致。
+- **发现一处真实的不可达项**：`benchmark_matrix`。300 个 `mppi_reference17` 槽位按既定政策不执行（驱动在 `run_benchmark_matrix.py:275-282` 写 `not_attempted_backend_unavailable`，并把它们计入 failures 后以非零码退出；驱动自带测试 `tests/test_benchmark_matrix_driver.py:94-112` 断言了这一行为），而聚合器只统计真实飞行证据、覆盖判据要求 `completed==expected==1800`（`src/yopo_eval/aggregate.py:44-46`），终审也要求 `completed==expected==1800 且 failures==0`（`final_acceptance_audit.py:117-130`）。因此该项在真实运行中会**永远停在 pending**；此前引用的终态"6 verified + 1 documented_gap"**不可达**。证据与三个选项（补齐 MPPI／修改验收口径／保持现状）见 `artifacts/environment/completion_criteria_gap.json`。
+- **在用户决定之前不擅自"修复"**：不会修改验收脚本、聚合规则或基准协议来让该项通过，也不会为未执行槽位伪造证据；矩阵仍按冻结协议执行可执行的部分，300 个缺口保持显式可见。该约束已写入每小时心跳指令。
+- 训练状态：seed2 正常推进（17:01 时 1/50 轮、7,470 步，步序列无缺口）；seed0/seed1 仍为 50/50 + 审计 passed。
+
+### 2026-09-24T16:00:00+08:00 独立核验：seed1 40/50、训练完整性证据通过、后处理链执行顺序说明
+
+- 独立复查（只读、未触碰训练进程）：seed0 已完成 **50/50 轮、312,500 步、50 个 epoch 文件 + 50 个 policy 文件、0 缺口**；seed1 已到 **40/50 轮（250,000 步）**，步序列 **0 缺口、0 冲突重复**。两个种子均 **0 个 NaN/Inf、0 个 >10× 中位数尖峰**。可复现脚本 `scripts/check_training_integrity.py`，证据 `artifacts/environment/seed_training_integrity_v1.json`（`verdict.status=passed`）。
+- 需要解释但**不是异常**的一处：seed0 步序列里有一次 `244520 → 244510` 回退，对应 10:19 Docker/WSL 中断后的恢复重放，重放行的 total/trajectory/score/梯度与首次记录**逐位相同**（脚本标记 `identical_replay=true`）。`metrics.jsonl` 中每个轮次边界还有一个 `kind="epoch"` 汇总结行，与 `train_step` 行共用 step 字段，因此"重复 step"统计必须按行类型区分。
+- **后处理链的执行顺序由 `run_post_training_pipeline.ps1` 内的代码块顺序决定**，`-Stages` 只决定"跑哪些阶段"、不决定先后。实际顺序为 `audit,table1,admission → matrix → showcase → aggregate → figures → docs → dagger → acceptance`；本文档较早小节写的 `aggregate,figures,docs,showcase…` 是过期描述（`active_jobs.json` 历史条目同样过期）。showcase 先于 docs 是**有意为之**：渲染产物必须先存在，docs 阶段的命令/证据审计才会通过，验收第 7 项（展示绑定审计权重）才可能成立。两个脚本的头部注释已更正（**只改注释，无行为变化**），同级审查代理实测全量 88 项测试通过。
+- 使用提醒：链的退出码**不是**完成信号——只有 `audit/table1/admission/matrix` 会 `throw`，`showcase/aggregate/figures/docs/dagger` 只记录 `$LASTEXITCODE`。权威判定永远是最后一步的 `scripts/final_acceptance_audit.py`（它本身要求 docs 的审计通过）。
+
+### 2026-09-24T15:45:00+08:00 看护心跳：种子1 恢复满速，按步序列核验无静默中断
+
+- 队列仍在运行：编排进程 91464、训练看护 5992、后处理看护 105388 全部存活；正式训练容器**只有**一个 `yopo-formal-seed1`（Up 约 3 小时，id 前缀 `ff2887af32b5`），没有并发训练容器；本轮未触碰其它项目的 `fastlivo2-ros1`、`ego-planner-ros1v`。
+- 进度以 `checkpoints/formal_main_v1_seed1/metrics.jsonl` 的**步序列**为准：**36/50 轮、225,440/312,500 步**。每个已完成轮次都恰好覆盖预期的 625 行、步长 10 的序列（第 0–35 轮无缺行、无跨轮空洞），所以本轮**未触发任何重启**（判据来自步序列，而非日志尾部或文件时间）。
+- 吞吐恢复：最近 8 轮平均 **364 秒/轮**（10:19–12:10 的 seed0 段约 680 秒/轮），据此把三种子完成投影由 21:26 修正为约 **22:06**（速率受宿主内存压力影响）。宿主内存 31.7GB/空闲 4.0GB，GPU 6.0GB/16.3GB、利用率 21%。
+- seed0 审计权重仍是唯一已审计权重；后处理哨兵 `artifacts/environment/post_training_pipeline_launched.json` **未写入**，说明 table1/admission/matrix 没有在三种子齐备前提前启动，符合设计。
+- 可观测性备注（非异常）：`artifacts/formal_training/formal_main_v1_seed1.log` 仍为 0 字节，seed1 的实时训练输出目前只在 `docker logs yopo-formal-seed1` 与 `metrics.jsonl` 中；若后续需要排障，这两个来源已足够。
+
+### 2026-09-24T13:16:00+08:00 补充面向自动化的进度简报
+
+- 按用户要求新增两份**当前进度简报**：人类可读版 `reports/当前进度简报.md` 与机器可读版 `artifacts/environment/progress_brief.json`（供自动化流程解析）。内容全部取自权威产物：三种子状态（seed0 complete/passed 50 轮 312,500 步、审计最佳轮次 50/最佳损失 0.022929；seed1 11/50；seed2 未开始）、实测 331 秒/轮与今晚 21:26 的完成投影、7 项验收计数（0 verified）、已锁定能力与证据索引、自动化链的下一阶段顺序、以及两项待用户决策（宿主内存、MPPI 缺口）。
+- 与机器生成的 `reports/复现状态总览.md` 互补：简报偏"给人看/给自动化读的摘要"，总览由脚本随时重算。
+
+### 2026-09-24T12:25:00+08:00 与论文 Table I 的对照（明确可比性边界）
+
+- 从作者版 PDF 提取出论文 Table I（"COMPARISON WITH THE EXPERT"）的实际数字：专家平均/最优代价 0.078 / 0.036、延迟 30ms；网络平均 0.105（随机初始化）→ 0.050（训练后）、最优 0.056 → 0.036、延迟 1.6ms。
+- 我们实测（seed0 审计权重）：审计权重平均/最优 0.023062 / 0.017855；随机初始化 0.082267 / 0.039556；两种专家重建 0.024253 / 0.021824 与 0.021451 / 0.018753；专家核心延迟 23.06ms 或 7.34ms/样本、网络 CPU 前向 3.77ms/样本。
+- **可下的结论**：相对结构复现——"训练后网络平均代价优于专家、最优代价与专家相当"在我们口径下同样成立（我们的最优候选代价低于两种专家重建，平均代价与它们相当，均远优于随机初始化）。
+- **不可下的结论**：绝对数值不可比（专家驱动未公开、自建 Isaac 等效数据、目标函数参数取自钉住的 main 配置、网络延迟是 CPU）。该对照与逐条原因已写入 `reports/专家50步比较.md`，避免以后被误读成"复现了论文那几组数字"。
+
+### 2026-09-24T12:22:00+08:00 DAgger 微调训练器实跑通过（最后一个"从未执行"的 CPU 组件）
+
+- 用**缩小版排练数据集**（1 个基础训练分片 + 排练分片 + 1 个基础验证分片，路径仍走相对引用）在 CPU 上真实执行 `scripts/train_dagger_finetune.py`：1 轮、312 步、95 秒完成，验证集损失 **0.0212853821**，产出完整训练器工件（`run_manifest.json`、`initial_policy.pth`、`latest.pt`、`epoch_001.pt`、`policy_epoch_001.pth`、`best_policy.pth`、`metrics.jsonl`、`progress.json`、tensorboard）。
+- 关键断言（实测）：`result.json` 标记 `scope=dagger_aggregation_finetune_not_formal_seed`、**`rehearsal=true`**、base_run=`formal_main_v1_seed0`、base_checkpoint_sha256=`af2ea0fa…`；**初始模型哈希 == 审计记录里的 best_model_tensor_sha256（True）**，说明它确实从审计权重出发；final≠initial 说明确有训练；基础 run 目录未被写入。
+- 训练器新增显式 `--allow-rehearsal`：只有数据集路径包含 "rehearsal" 时才允许放宽 scale 校验（第一次尝试被它按设计拒绝，说明正式路径的严格性是真的），且排练运行在 manifest/result 中都被标记，避免与正式 DAgger 微调（run 名 `dagger_main_v1_seed0`）混淆。
+- 意义：DAgger 链现在从采集、构建（含真实参考 SDF 容器调用）、校验、stage 到微调**每一环都已被真实执行过**，只剩 Isaac 飞行本身。
+
+### 2026-09-24T12:17:00+08:00 审计权重通过真实 ROS2 规划器节点前置校验
+
+- 用**审计后的 seed0 权重**（`formal_main_v1_seed0/best_policy.pth`，SHA256 `af2ea0fa…`）跑容器内的真实 ROS2 规划器节点重放探针：5 组记录观测（深度/里程计/目标/时钟）全部配对并发布轨迹，**21 点标准轨迹**，`planner_errors=0`、`wrong_episode=0`、`stale_result=0`，证据 `artifacts/environment/trained_ros2_node_seed0_final.json`。
+- 这一步在**准入阶段之前**就确认了交付权重的可加载性与接口正确性（此前的探针用的是 2 轮小权重）；顺带把探针改成可传 `--checkpoint/--dataset/--output`，seed1/seed2 的权重可用同一方式快速自检。
+
+### 2026-09-24T12:15:00+08:00 审计权重的 Table I 对照已完成（seed0）
+
+- 种子0 拥有审计权重后，立即用**最终权重**跑完整 Table I 对照（10000 独立测试样本、样本对齐误差 0.0、用同一个未改动 C++ 目标函数给网络预测打分）：网络 15 候选平均代价 **0.023062**、最优候选 **0.017855**、与专家最优候选一致率 **0.2261**；相对随机初始化（0.082267 / 0.039556）最优候选代价低 **54.9%**，并低于两种专家重建的 0.021824 / 0.018753。
+- 与中间权重（第 39 轮 0.023105 / 0.017892）相比继续小幅改善，与"验证集选中的最佳轮次=第 50 轮"一致。
+- 证据：`artifacts/expert/network_comparison_trained_seed0.json`；已同步进 `artifacts/paper_figures/table_i_expert_vs_network.md`；报告更新在 `reports/专家50步比较.md`。seed1/seed2 的同一比较由自动化链在三种子全部审计后执行。
+
+### 2026-09-24T12:10:00+08:00 里程碑：种子0 完成 50 轮并通过严格审计，队列自动切到 seed1
+
+- **种子0 训练完成**：`status=complete`、**50/50 轮**、**312,500 步**（与协议规定完全一致）；`epoch_050.pt` 与 `policy_epoch_050.pth` 于 12:08:59/12:09:00 落盘。
+- **严格审计通过**（`checkpoints/formal_main_v1_seed0/training_audit.json`）：status=passed、epochs=50、steps=312500；逐轮读回 50 个 `epoch_*.pt` + 50 个 `policy_epoch_*.pth`，核对每轮 Adam 状态步数、优化器学习率 1.5e-4、模型/优化器/RNG 有限性与保存的随机状态、以及最佳模型与验证集选择一致；验证集选中的最佳轮次是**第 50 轮**（说明该种子在训练结束时仍在改善），最佳验证总损失 **0.0229289712**，初始与最终权重哈希不同（确认确有训练发生）。
+- **队列自动切换**：编排脚本在审计通过后自动启动 seed1，容器 `yopo-formal-seed1` 于 12:10:3x 起来，新 run 目录含随机初始化的 `initial_policy.pth`、`run_manifest.json`，已进入第 1 轮（step 150）。**这是"训练→严格审计→下一个种子"整条自动化链首次端到端跑通，全程无人工干预。**
+- 记录：种子0 的 50 轮在最后一段进程内耗时约 1.85 小时（另有 06:02–09:57 的首段进程），期间经历了 Docker 掉线恢复与宿主内存压力导致的降速。
+- 机械验收中 `three_seed_training` 仍为 pending（需 seed1/2 完成），其余项状态不变。
+
+### 2026-09-24T11:54:00+08:00 修正驱动器的一个会引入选择偏差的行为：崩溃被当作"证据不合格"重试
+
+- **问题**：协议把 `crashed` 视为合法结局（计入失败分母，聚合器只要求它带 `traceback` 诊断证据，不要求 `validation.json`）。但我的矩阵驱动对所有 episode 一律要求 `validation.json status=passed`，因此一个**真实崩溃**会被判为"证据被拒"→ 隔离 → 用新 run 名重试（最多 3 次）。这等于"崩溃就重跑到成功为止"，正是协议明令禁止的选择偏差，还会白烧 GPU。
+- **修法**：把证据门抽成 `evidence_problems()` 并**逐字对齐聚合器的规则**——非崩溃结局必须通过 validate（返回码 0 + `validation.json status=passed`）、evaluate（返回码 0 + `metrics_available=true`）；`crashed` 结局只要求 evaluate 成功且带诊断 `traceback`，**不重试**。`read_flight_summary` 现在暴露 `traceback_present`。
+- 新增测试：崩溃+带 traceback → 判为可接受（终态、不重试）；崩溃但无诊断 → 仍被拒；`success` 仍必须走完整校验链；driver timeout 一律被拒。仓库完整测试套件 **88 项全部通过**。
+- 训练状态：seed0 完成 47/50 轮，第 48 轮 batch 5920/6250。
+
+### 2026-09-24T11:46:00+08:00 收紧矩阵验收判定：必须"覆盖满"且"聚合判定干净"
+
+- 原本矩阵验收只要求 `completed==expected==1800` 且驱动无失败；但聚合器在存在**无效证据或重复主尝试**时会把自己的 status 记为 `invalid_evidence`——这种情况下"覆盖满"仍可能伴随不可信数据。现已改为同时要求：聚合器 status 为 `outcome_coverage_complete`、`invalid_evidence` 为空、`duplicate_primary_attempts` 为空、驱动失败为 0；任一不满足即为 pending，并在 detail 里逐项打印计数。
+- 新增测试 `test_matrix_item_requires_a_clean_aggregate_not_only_coverage`：构造"覆盖 1800/1800 但存在 1 条 invalid evidence"的汇总，断言该项必须保持 pending 且 detail 明确指出 `invalid_evidence=1`、`aggregate_status=invalid_evidence`。
+- 仓库完整测试套件 **84 项全部通过**。
+
+### 2026-09-24T11:44:00+08:00 发现并修掉会拖垮准入阶段的缺口：Agile CUDA 一致性证据无人产生
+
+- **问题**：runner 对 agile episode 有硬前置——必须存在 `artifacts/agile_autonomy/torch_export_v1/torch_cuda_parity.json` 且 `status=passed` 与 `original_tf24_comparison.status=passed`；而此前只有 **CPU** 版本（`torch_cpu_parity.json`）。这会连锁失败：准入 phase A 的 agile 一失败 → `validated_backends` 缺 agile → 准入记录判为 failed → 后处理链在 admission 阶段终止，后面 1800 矩阵全部无法开始。这正是"跑完训练才发现"的类型。
+- **修法**：`scripts/probe_agile_torch.py --device cuda` 正是产出该证据的脚本（对 24 组固定输入与原始 TF2.4 输出做真实数值对照、关闭 TF32 与混合精度）；已在准入阶段最前面接入该步骤（幂等：已存在且 passed 则复用），失败即终止并留下日志。新增测试断言该步骤必须出现在 `record_runtime_validation.py` **之前**且含失败处理，防止未来被误删。
+- 仓库完整测试套件 **83 项全部通过**；训练仍在 seed0 第 47 轮（GPU 19%、显存 6.2GB，瓶颈仍是宿主内存/IO）。
+
+### 2026-09-24T11:42:00+08:00 验收审计本身转为可测试，并修掉一处真实弱点
+
+- `scripts/final_acceptance_audit.py` 新增 `--root`（默认项目根，行为不变），使"最终验收审计"可以在合成证据树上被测试；新增 `tests/test_final_acceptance_audit.py`（2 项，通过）：
+  - 构造**完整的合成证据树**（三种子审计+结果+全部 epoch/policy 文件、三份最终权重 Table I 对比 + 随机初始化、runtime 准入 passed + Agile CUDA 一致性、DAgger 聚合与微调结果、1800 满覆盖汇总、矩阵批次无失败、绑定审计权重的展示清单、文档审计 passed），断言审计能真正翻成 **6 项 verified + 1 项 documented_gap**——证明完成条件可达且接线正确，不会在终点出现"明明做完了却报 pending"的假阴性；
+  - 删除其中三处证据（一个 epoch 文件、一份网络对比、展示清单），断言对应三项各自回到 `pending`，而未被波及的项仍保持 `verified`。
+- **测试抓到一处真实弱点**：原审计统计了 epoch/policy 文件数量却**没有把它们作为通过条件**（只依赖 `training_audit.json`/`result.json`）。现已修正为必须存在满 50 个 `epoch_*.pt` 与 50 个 `policy_epoch_*.pth`，否则该项为 pending——避免"审计文件在而权重文件丢失"这种情况被误判为通过。
+- 仓库完整测试套件 **82 项全部通过**；当前实际验收状态仍为 `pending 5 / missing_evidence 1 / documented_gap 1`（0 verified）。
+
+### 2026-09-24T11:40:00+08:00 DAgger 构建链真实演练（含参考 SDF 容器调用）
+
+- 新增 `scripts/rehearse_dagger_build.py` 并在**宿主**上实跑通过：构造一个"结构真实但合成"的飞行记录（相机块、聚合作用域标记、按场景射线渲染的探针像素），然后调用**真实构建器**完成 `surface_points → pointcloud.ply → pointcloud_esdf → occupancy.u8 → docker compose 调 `yopo_math_reference sdf_reference` → sdf.npy → 分片/清单/QA` 全流程。
+- 结果证据：生成分片 id=28（6 帧、3 帧 QA，射线最大误差 **9.3e-7 m**）、索引 29 个分片（28 基础 + 1 演练）、`map.json` 后端为 `original_main_bucket`；SDF 实测 min −0.447 / max 7.800 / mean 2.045、全有限、非零占比 100%——**确认是真实 ESDF 而非占位数组**。证据目录 `artifacts/dagger_rehearsal/`（`rehearsal_result.json` 内明确标注"合成演练，非 on-policy 数据"，可在真正采集前删除）。
+- 意义：DAgger 链上此前唯一没有真跑过的环节（参考 SDF 的容器调用）现已验证；单测里那部分是注入的假实现，无法覆盖这类"容器参数/挂载路径写错"的问题。
+- 训练状态：seed0 完成 46/50 轮（第 47 轮进行中）。
+
+### 2026-09-24T11:38:00+08:00 运行时两个入口的 CLI 面预检
+
+- `run_ros2_navigation.py --help`（宿主 Python）列出 `--run/--checkpoint/--backend/--device/--topo-config/--episode-id/--protocol/--map-seed/--speed/--duration/--camera-hz/--scope`，与本项目四处调用（准入录制 phase A/B、矩阵驱动、DAgger 采集、最终展示）实际传入的参数完全一致，排除参数名不匹配这一类"跑到那一步才炸"的问题。
+- `scripts/ros2/serve_planner.py --help`（容器内）列出 `--backend/--checkpoint/--device/--agile-engine/--speed/--run/--wall-timeout`，与 runner 启动规划容器时构造的命令一致；同时证明该镜像里 `yopo_runtime` 包可正常导入（此前只由真实飞行间接证明）。
+- GPU 现状：利用率约 19%、显存 6.2GB（训练仍是 CPU/IO 受限而非 GPU 受限），训练进行到 seed0 第 47 轮。
+
+### 2026-09-24T11:37:00+08:00 600 集批次交付物预演（图表路径先跑通）
+
+- 新增 `tests/test_paper_figures_rehearsal.py`（2 项，通过）：用**真实协议 + 合成的 600 条 paper 子集记录**跑真实聚合器，再跑真实的 `make_paper_figures.py`，断言 600 集批次的交付物确实能产出——Figure 7 的 PNG/PDF 正常生成（曲线与空心"覆盖不全"标记都有）、Table II 出现 4 m/s 各行且延迟列有值、清单把覆盖状态标为 `incomplete_coverage` 并逐格列出缺失；第二项专门制造一个十集缺口，断言缺口会被**显式列进图表的 missing_cells**而不是被曲线掩盖。
+- 顺带修掉 `make_paper_figures.py` 里的一处路径处理缺陷（当汇总 JSON 位于项目根之外时 `relative_to` 会抛错），现在与矩阵驱动一致地使用"根内相对路径、根外绝对路径"的显示规则。
+- 意义：600 集批次（约 9 小时）跑完时，图表与表格步骤已经是被测试锁定的，不会出现"数据有了但图表脚本炸了"的情况。仓库完整测试套件 **80 项全部通过**。
+
+### 2026-09-24T11:35:00+08:00 矩阵分批：先跑 600 集论文子集，再跑满 1800
+
+- 采纳基准工作流此前的建议并把顺序固化进无人值守链：矩阵驱动新增 `--paper-first10` 过滤器（实测选中 **600** 个 `paper_first10=true` 的固定位置，覆盖全部 6 个模型），`supervise_post_training.ps1` 现在按顺序执行两批——先 `matrix --execute --paper-first10`（600 集，约 9 小时），再 `matrix --execute`（剩余 1200 集；已完成的 600 个位置由驱动自身的 resume 逻辑跳过）。
+- 动机是风险与交付节奏：第一批结束时就能给出论文规模的曲线（n=10 的 Wilson 区间、成功率-速度关系）并**提前暴露任何测量/证据链缺陷**，而不必等 27 小时后才发现；终点仍然是全部 1800 个位置，不是把子集当结果。
+- 新增测试断言该过滤器确实选出 600 个且覆盖 6 个模型；`plan.json` 已重新生成为完整的 1800 集计划（子集计划不覆盖它）。仓库完整测试套件 **78 项全部通过**。
+
+### 2026-09-24T11:33:00+08:00 种子审计路径预检（避免完成后再暴露环境问题）
+
+- 预检一：在容器内直接运行 `scripts/audit_training_run.py --run formal_main_v1_seed0 --seed 0`，它停在 `result.json` 缺失（训练尚未完成）这一步——说明审计脚本的导入与运行环境正常，不会在 seed0 跑完后因环境原因崩溃。该脚本只在全部断言通过后才写 `training_audit.json`，因此提前运行不会留下半成品证据。
+- 预检二：在真实完成的小规模 run（`checkpoints/resume_split_v2`，2 轮）上调用审计所用的同一函数 `training_audit_utils.verify_model_selection`，它正确核对 epoch 行、把 `best_policy.pth` 对应到 `policy_epoch_002.pth`，并确认初始权重哈希与 manifest 一致。50 轮审计依赖的选择逻辑因此已被真实产物验证过。
+- 失败场景已被显式记录：若某个种子跑完 50 轮但**严格审计未通过**，队列会在审计步骤抛错退出，后处理链会在 `audit` 阶段停止（不会静默继续，也不会陷入无限重训循环）——需要人工介入检查，机械验收审计会把该种子标为未通过。
+
+### 2026-09-24T11:31:00+08:00 DAgger 阶段接入无人值守链
+
+- 新增流水线阶段 **`dagger`**（`scripts/run_post_training_pipeline.ps1`），由 `supervise_post_training.ps1` 在主链末尾、终审之前调用，顺序为 `aggregate,figures,docs,showcase,dagger,acceptance`。该阶段五步：① 用审计后的 seed0 权重复采 33 架次 on-policy 飞行（7000–7015 中 11 张可用地图）；② 在**宿主 Python** 上构建聚合数据（因为参考 SDF 需要通过宿主 docker 调固定容器，容器内没有 docker CLI）；③ 容器内 `validate_dataset.py` 全量校验；④ `stage_aggregation_dataset.py` 灌入 `/data`；⑤ 从审计权重微调 10 轮到**独立 run** `dagger_main_v1_seed0`。该阶段在检测到训练容器存活时**拒绝启动**（已实测并留下 `[dagger] refused` 日志），并对已完成步骤做幂等跳过（聚合数据已构建或微调已完成则不重跑）。
+- 逐条核对了该阶段用到的 CLI 参数确实存在：`build_dagger_dataset.py`（--base/--flights/--output/--allow-map-seeds/--qa-frames/--self-check-frame）、`train_dagger_finetune.py`（--dataset/--run/--seed/--epochs/--base-run）、采集驱动与 `validate_dataset.py`/`stage_aggregation_dataset.py` 的参数均已打印确认。
+- 至此，八项验收里唯一没有自动化路径的是"参考17 MPPI"（已记录为 documented gap），其余各项都有对应阶段与前置条件检查。
+
+### 2026-09-24T11:30:00+08:00 驱动器证据门加固、流水线调用修复与宿主内存压力确认
+
+- 采纳基准工作流提出的缺陷并**已修复**：矩阵驱动原先忽略 `validate_ros2_flight.py`/`evaluate_ros2_flight.py` 的返回码，可能把"聚合器之后会拒绝"的 episode 记成终态。现在必须同时满足：runner/driver 为 completed、飞行状态属于终态集合、validate 返回码 0 且 `validation.json` status=passed、evaluate 返回码 0 且 `metrics_available=true`，才写 `evidence_status=accepted`。
+- 被拒证据的**隔离与重试**：整目录移入 `artifacts/ros2_flights_quarantine/<run>/`（保留全部原始文件并写 `quarantine.json`：原因 + 逐文件 SHA256），episode 以新 run 名重试（`_r2`/`_r3`，用尽记为 `not_attempted_attempts_exhausted`）；真实飞行结局不得重跑或改写。
+- **我自己的流水线缺陷也已修复**：`matrix` 阶段原先用 pwsh 直接执行 `.py`（会失败），现改为用 Isaac Python 以参数数组调用，并已验证该调用形式能正常产出计划；`matrix`/`admission` 阶段在检测到 formal trainer 存活时会在日志里留下明确的 `refused` 记录后再终止。
+- 测试：新增重试命名、隔离搬迁（含目标已存在保护与字节保留）、证据结果读取等用例；仓库完整测试套件 **63 项全部通过**。
+- **训练降速根因独立确认**（与基准工作流测量一致）：宿主总内存 31.7GB、**可用仅 2.44GB**、`vmemWSL` 工作集 **15.13GB**、系统提交 96GB。训练数据是 mmap 读取，内存压力使页缓存反复被逐出并从那块虚拟磁盘重读（容器块读取累计数十 GB），因此 epoch 由 369s 升到 680–920s，而 GPU 利用率仅 8–12%。**未对用户程序或其它项目容器做任何处置**——这是需要用户决定的杠杆。
+- 矩阵墙钟投影不变（26.7h）。心跳看护（id `yopo`）措辞已更新：600 集 paper 子集只能作为第一批，跑满 1800 才是终点。
+- 针对约 27 小时的无人值守批次再加两道保护：**引擎熔断**（每个 episode 之前检查 Docker 引擎；不可用即停止本批，写 `batch_stopped_engine_unavailable` 并保留剩余待执行位置，不消耗重试预算）与**连续失败熔断**（默认连续 3 次证据门失败即停止并写 `batch_stopped_consecutive_failures`，提示先检查隔离证据）。执行开始时即写入空的 `matrix_progress.json` 账本，便于观察。测试增至 **64 项全部通过**。
+
+### 2026-09-24T11:29:00+08:00 飞行证据契约测试与冻结清单补漏
+
+- 发现并修正冻结清单遗漏：`scripts/evaluate_ros2_flight.py` 与 `scripts/run_benchmark_matrix.py` 都会影响矩阵测量与证据口径，却不在 runtime_files 里。现冻结清单为 **20 个文件**（`record_runtime_validation.py` 与 `configs/benchmark_runtime/v1.json` 已同步，配置测试断言这两项必须在列）。
+- `scripts/evaluate_ros2_flight.py` 增加 `--root`（默认仍为项目根，行为不变），使其可在临时树里被测试；新增 `tests/test_flight_evidence_contract.py`（2 项，通过）：用**合成但结构真实的飞行日志**（30 列 60 样本、planning_events、资源采样）跑真实评测器，断言产出满足聚合器的全部断言——`metrics_available=True`、`instrumentation_gaps=[]`、逐命令应用审计可用、资源采样可用、路径/速度/端到端延迟/mapping 分解字段就位；另一项断言"缺少逐命令事件或资源采样时"会**明确列为 gaps**而不是静默通过。
+- 仓库完整测试套件 **78 项全部通过**。
+
+### 2026-09-24T11:28:00+08:00 准入记录生产者↔消费者契约测试与状态总览
+
+- 新增 `tests/test_runtime_admission_contract.py`（2 项）：用**打桩的真实流程**跑通 `record_runtime_validation.py` 的两个阶段，断言产出的 `runtime_validation.json`（status=passed、validated_backends、consumed_episode_ids、18 个 runtime_files 哈希、phase_a 无问题）**能被 `src/yopo_eval/task_spec.py::verify_runtime_admission` 接受**；随后篡改一个运行时文件必须被拒；失败的后端绝不出现在 `validated_backends` 中，且其记录会被消费者拒绝。这把"解锁 27 小时 GPU 工作的那道门"在花钱之前就验证了生产者与消费者一致。
+- 新增 `scripts/make_status_overview.py` → 生成用户可直接阅读的 `reports/复现状态总览.md`（同时落 `artifacts/environment/status_overview.json`）：训练三种子进度与审计、运行时准入、1800 矩阵计划/账本/汇总、Table I 口径的离线对比（只列 10000 全量，小样本自检单独标注）、八项验收的机械状态。内容全部读自权威产物并逐项标注来源，末尾明确声明"不是完成声明"。该脚本已接入后处理链的 `acceptance` 阶段，随流水线自动刷新。
+- 仓库完整测试套件 **76 项全部通过**。
+
+### 2026-09-24T11:25:00+08:00 运行时配置冻结（v1）与 DAgger 采集种子实测
+
+- 补齐 `benchmarks/README.md` 里"正式运行配置尚未冻结"的缺口：新增 **`configs/benchmark_runtime/v1.json`** 与说明 `reports/基准运行配置冻结.md`。内容为机体/传感器/任务/判据/命令应用/计时/18 个运行时文件清单，判据与协议 `criteria` **逐字符一致**，超时公式可复现全部 1800 个 episode 的 `timeout_s`；显式声明 TopoTraj 的 4.5m 建图范围与 6.0m/s² 加速度上限差异、Agile 的 CUDA 一致性仍 pending、MPPI 300 个位置未填充、官方 YOPO 权重与其它 MPPI 项目禁止顶替。状态写为 `declared_pending_native_admission`——**声明不等于准入**，真正解锁矩阵的仍是只能由真实飞行产生的 `runtime_validation.json`。
+- 新增机械校验 `tests/test_benchmark_runtime_config.py`（6 项）：运行时文件齐备、判据逐字符一致、机体/相机常量与源码一致、超时公式覆盖全部 episode、每个模型都有方法条目、差异声明与禁令存在。仓库完整测试套件 **70 项全部通过**；文档/证据审计在 13 份报告上通过。
+- DAgger 采集地图种子实测（默认起终点净空 ≥1.0m 才可飞）：7000–7015 中可用种子为 7000/7002/7003/7005/7006/7007/7009/7011/7012/7014/7015（7001、7004、7008、7010、7013 会被驱动跳过），采集时按此集合下发。
+
+### 2026-09-24T11:22:00+08:00 聚合口径满规模演练与最终展示自动化
+
+- 新增 `tests/test_benchmark_aggregation_full_scale.py`（3 项）：在**真实的 1800 规模**上演练最终统计口径——满覆盖得到 `outcome_coverage_complete` 且分组数为 6 模型×2 密度×5 速度×(all30/paper_first10)=120；抽掉 1 个 episode 后只有它所在的 all30 与 first10 两组受影响，成功率可能区间分别变为 [29/30,1] 与 [9/10,1]，其余 59 组保持 [1,1]；混合结局下成功率与各失败率之和恒为 1（失败始终留在分母）。这一步把"最后汇总会不会算错"提前在 CPU 上验证，而不是等 27 小时后才发现。
+- 新增 `scripts/run_final_showcase.ps1`（验收项 8 的自动化）：先要求该种子的 `training_audit.json` 已 passed/50 轮，且 `best_policy.pth` 的 SHA256 与审计记录的验证集选择哈希一致；再在正式训练占用 GPU 时**拒绝启动**；飞行使用非主矩阵作用域 `final_audited_checkpoint_showcase`（不会占用任何基准位置），随后调用 CPU 渲染器并把 `audited_best_policy_sha256`、`training_audit_sha256`、`metrics_sha256`、`flight_status` 写入渲染清单，使视频可追溯到审计权重。当前实测：因 seed0 尚无 50 轮审计，脚本按其前置条件正确拒绝。
+- 后处理链已接入 showcase 阶段，现在的顺序是：`audit,table1,admission` → `matrix` → `aggregate,figures,docs,showcase,acceptance`（4 个 PowerShell 脚本均已通过语法解析）。
+- 仓库完整测试套件 **74 项全部通过**。
+
+### 2026-09-24T11:12:00+08:00 训练完成后处理链统一为单一看门狗
+
+- 发现两条“训练完成后自动跑后处理”的看门狗会重复执行 CPU 阶段（`supervise_formal_training.ps1` 的 `-PostTrainingStages audit,table1,figures,docs` 与新建的 `supervise_post_training.ps1`）。已统一：训练看门狗改为 `-PostTrainingStages none`（PID 5992），只保留“队列掉线才重启”职责，三种子完成后自行退出；**后处理链唯一归属** `scripts/supervise_post_training.ps1`（PID 105388，120s 轮询、96h 上限）。
+- 后处理链顺序：`audit,table1,admission`（必须先通过，否则链终止）→ `matrix --execute`（非零退出只记录、不隐藏，且不阻塞后续聚合）→ `aggregate,figures,docs,acceptance`。启动条件严格：三个 `result.json` 均存在、无 `run_formal_training.ps1` 编排进程、无 `yopo-formal-seed*` 容器存活；只运行一次（sentinel `artifacts/environment/post_training_pipeline_launched.json`）。每个 GPU 阶段在真正启动 Isaac 前还会再次自查是否有 formal trainer 存活，因此不会与训练抢卡。
+- `scripts/run_post_training_pipeline.ps1` 新增 `acceptance` 阶段（调用 `scripts/final_acceptance_audit.py`），使流水线结束时自动刷新机械验收审计。
+- 停用方式：结束 PID 105388，或在 sentinel 写入前删除它（sentinel 写入即代表链已启动）。
+
+### 2026-09-24T11:05:00+08:00 矩阵驱动交付、墙钟投影与验收审计（更新 11:00 条目的"尚未交付"）
+
+- 交付 **1800 任务矩阵驱动** `scripts/run_benchmark_matrix.py`（此前 11:00 条目记录的缺口已闭合）：默认 dry-run 只写 `artifacts/benchmark_summary/plan.json`，`--execute` 才启动 Isaac；串行执行；resume 安全（已有终态证据、或 runtime 准入阶段已消费的 episode 自动跳过并记账）；拒绝覆盖既有证据；启动前强制要求与该协议哈希匹配的 runtime 准入记录，并在正式训练占用 GPU 时拒绝启动；对挂起 episode 有墙钟守卫（记为 driver timeout 并清理遗留容器）；`mppi_reference17` 等未通过准入的 backend 记录为 `not_attempted_*`，不做顶替。测试 `tests/test_benchmark_matrix_driver.py` 6 项通过（含 DAgger 测试合计 **13 项通过**）。
+- Dry-run 计划实测：**1800 集（6 方法各 300）、待执行 1800、runtime 准入已消费 0**；**串行墙钟投影约 26.7 小时**。投影依据：真实飞行 `artifacts/ros2_flights/ros2_scratch_checkpoint_20260924_061715/metrics.json`（25.24 m、17.06 s 仿真、39.45 s 墙钟、RTF 0.4326）+ 每集固定启动 20 s（该次运行 `planner_status.json` 容器存活 54.03 s 减去飞行 39.45 s，上界约 15 s）。计划文件显式标注这是投影、不是测量。
+- 新增 **最终验收审计** `scripts/final_acceptance_audit.py` → `artifacts/environment/final_acceptance_audit.json`：7 个机械检查项各自绑定权威证据。当前：`pending` 5、`missing_evidence` 1（runtime 准入记录尚未产生）、`documented_gap` 1（参考17 MPPI 仅文献参考、无官方实现），**尚无一项 verified**——这与目标未完成的事实一致。
+- 新增 **准入门的 CPU 测试** `tests/test_runtime_admission.py`（14 项）：对崩溃、应用轨迹不足、无深度帧、独立校验失败/缺失、evaluation 缺失、规划器错误/错 episode/过期结果等情形逐一断言拒绝，健康样例通过；并断言冻结运行时文件齐备、backend 映射正确。仓库完整测试套件 **60 项全部通过**。
+- Table II 的**延迟分解**（mapping 融合/ESDF、front 队列、back 规划发布、取像发布、端到端、传输残差）已加入 `scripts/make_paper_figures.py`，数据来源是驱动账本与 runtime 准入记录关联的逐 episode `evaluation.json`；当前无矩阵 episode，故输出为空表并标注 pending。
+- 专家比较的**子样本一致性核查**：用前 512 样本重跑，主要统计量与全量 10,000 差异 ≤5%（平均代价 −3.3%、最优代价 −3.6%、一致率 −4.6%、位置误差 +1.6%），见 `reports/专家50步比较.md`。
+- 训练：种子0 完成 42/50 轮（第43轮进行中），守护进程与编排进程均在运行。
+
+### 2026-09-24T11:00:00+08:00 协议快照差异登记与训练后流水线
+
+- `configs/reproduction_protocol.json` 与冻结快照（`artifacts/provenance/formal_main_v1/source.zip` 内副本）哈希不一致：快照 `5a661bd8c149300310b2e5e0f28d9bcd3fafe12f07acf518a899d74fa474ebd8`，当前 `8316d576cd26979290cf3ffa0679fb51b7e8346485917aafc5bf2a60bb267320`。逐 hunk 审查确认差异全部是状态字符串与证据指针更新（gates 状态、FastPlanner/AgileAutonomy 状态、MPPI 身份闭合、新增 dataset/vehicle/intermediate_flight 证据指针），**未触及** `training`、`data`、`benchmark` 的实验参数；且没有任何代码读取该文件（基准脚本读 `benchmarks/protocol_v1/protocol.json`），故不影响续训指纹与验收结论。证据：`artifacts/environment/protocol_snapshot_delta.json`（改动 JSON 指针清单、审查方法、复现命令）。
+- 训练后流水线 `scripts/run_post_training_pipeline.ps1` 已建立：`audit,table1,admission,matrix,aggregate,figures,docs` 有序阶段，各阶段独立日志；GPU 阶段（admission/matrix）在检测到 formal trainer 存活时**拒绝启动**，不会与三种子训练抢占显卡。
+- 该流水线的 `matrix` 阶段依赖 `scripts/run_benchmark_matrix.py`（1800 任务增量执行驱动），该脚本尚未交付，已向基准冻结工作流确认归属与 CLI 约定。
+- 训练监督进程 `scripts/supervise_formal_training.ps1` 仍在轮询（队列缺失时重启、三种子全部 `result.json` 完成后自动退出）；当前编排 PID 91464、容器 `yopo-formal-seed0`。
+
+### 2026-09-24T10:50:00+08:00 专家比较完成（中间权重）与训练降速观察
+
+- 「专家50步比较」在独立测试集上完成全量 10000 样本对比（脚本 `scripts/compare_expert_network.py`，样本与专家缓存逐位对齐，最大绝对误差 0.0）：自训练第39轮权重 15 候选平均代价 **0.023105**、最优候选 **0.017892**；随机初始化网络 0.082267 / 0.039556；两种专家重建 scaled_gd50 0.024253 / 0.021824、mma50 0.021451 / 0.018753。证据与诚实性声明见 `reports/专家50步比较.md`、`artifacts/expert/network_comparison_trained.json`、`artifacts/expert/network_comparison_random_initial.json`。**该结果使用第39轮中间权重，三种子50轮权重完成后必须重跑。**
+- 论文对照表/图生成器 `scripts/make_paper_figures.py` 已建立（Table I 已可填充，Table II 与 Figure 7 由覆盖感知汇总驱动，覆盖不全时用空心标记并列出缺口；当前主矩阵 0/1800，故 Figure 7 为占位）。
+- 文档命令/证据审计脚本 `scripts/audit_command_evidence.py` 通过：10 份报告中的链接、被引用脚本与 JSON 证据全部可解析（`artifacts/environment/command_evidence_audit.json`）。
+- **训练降速（环境）**：Docker/WSL 恢复后，种子0 的 epoch 耗时由约 369s 升到约 680s（步率由约16.9步/s 降到约8.5步/s）。宿主 CPU 负载仅约26%、GPU 利用率约12%，训练容器块读取累计 29.2GB，指向恢复后页面缓存冷却与同一 WSL VM 内多容器（另有两个其它项目容器）造成的 I/O 竞争。已停止并行跑CPU重任务以减小干扰；ETA 需要按当前步率重估。
+
+### 2026-09-24T10:24:00+08:00 Docker 中断与续训恢复
+
+- 约09:57，Docker Desktop／WSL 后端不可用，训练容器随守护进程消失（该容器为 `--rm`），容器外编排进程随之退出；宿主未重启（系统启动时间未变，System 日志无09:5x关机/启动事件）。
+- 10:04 启动 Docker Desktop，引擎就绪后先以 `docker run --rm --gpus all yopo-repro:train-cu128-jammy` 实测容器内 CUDA 可用（RTX 5070 Ti），再于10:19 用 `scripts/run_formal_training.ps1 -DatasetName isaac_full_v1 -RunPrefix formal_main_v1` 重启队列（编排PID 91464，容器08cb757719f9），脚本据 `latest.pt` 存在自动加 `--resume`。
+- 续训完整性以权威的 `checkpoints/formal_main_v1_seed0/metrics.jsonl` 步序列为准：全文件无缺口，唯一重复为步244510与244520，且两行负载逐位相同——这正是从游标步244500的检查点恢复随机状态后确定性重放的结果，未丢失已训练进度。
+- 证据：`artifacts/environment/docker_outage_20260924_0957.json`（含检测症状、恢复动作、续训完整性判定，以及 resume 时刻 `latest.pt`/`policy_epoch_039.pth`/`epoch_039.pt`/`best_policy.pth` 的 SHA256）。
+- 训练记录前值：种子0完成39/50轮、步244520；恢复后继续第40轮。无关容器 `fastlivo2-ros1` 随引擎恢复自动重启，未做任何操作。
+- 本轮同时启动三个 CPU 侧并行工作流（训练继续占用GPU）：专家50步与自训练网络的比较、参考17 MPPI 材料调查与实现、基准运行配置冻结与1800任务增量执行驱动。三者均不得修改进入续训指纹的文件。
+
+### 2026-09-24T08:18:21.074484+08:00 基准执行准备更新
+
+- 种子0完成22/50轮、累计142840步，训练进程持续运行。
+- 固定任务已接入仿真参数，核对模型种子、验证集选择权重和运行文件哈希；未验收的配置不能启动正式矩阵。
+- 主矩阵覆盖审计当前为0/1800，明确排除已有中间模型演示；失败、缺失和重复尝试分别处理。
+- TopoTraj已补充来源帧时间、建图/ESDF耗时与初始化完成回执，三任务复位/时钟回跳测试通过。Python规划器的初始化失败与下一任务恢复测试通过。
+- Native入口已接入YOPO、Agile和TopoTraj的不同身份及源时间戳；最新集成仍等待训练释放GPU后的实际验证。没有把CPU消息测试当作Native闭环成功。
+
+
+### 2026-09-24T07:17:56.834992+08:00 继续执行更新
+
+- 种子0完成12/50轮、累计77250步，原训练容器保持运行。
+- Agile官方模型完成PyTorch CPU转换及原版TF2.4/完整轨迹数值对照，GPU验证仍待训练释放资源。
+- 完成逐帧规划遥测、资源采样接入、指标计算/置信区间检查，以及逐epoch检查点读回审计准备。
+- 完整基准、外部基线Native闭环、MPPI原实现/全文、专家50步比较与最终50轮视频仍未完成。
+
+
+### 2026-09-24T06:33:13.203552+08:00 自训练实际闭环更新
+
+- 全量120K数据校验通过，种子0正在执行正式50轮训练，种子1/2排队。
+- 统一PhysX机型0–10m/s控制验收通过，正式数据第2轮权重已完成一次真实ROS2/Isaac闭环，目标误差0.065m、最小净空1.230m、零物理接触。
+- 已导出并验证全局地图视频/图片，显著标注为中间检查点。详见 `reports/自训练ROS2闭环阶段报告.md`。三种子与论文完整基准尚未完成。
+
+
+### 2026-09-24 05:30 基线阶段更新
+
+- 正式数据采集与三种子等待队列持续运行；尚未获得任何正式50轮自训练模型。保持GPU重任务串行。
+- TopoTraj原版在线建图、拓扑搜索、优化器、管理器和FSM已在22.04/Humble运行；完整标准接口通过三任务复位测试，包括时钟回跳与旧帧注入。仍待Isaac动力学验证和正式计时配置。
+- Agile Autonomy官方基线已在22.04分别运行原版TF2.4和兼容TF2.15，165个网络权重数组逐位相同，4组输入最大误差4.77e-6。原版C++轨迹拟合/弧长后端及5组真实ROS2消息测试通过；不是YOPO自训练权重，也不是飞行成功率。
+- 基线详细证据、源码改动、实际执行命令见 `reports/ROS2基线迁移记录.md`。MPPI身份锁定为原论文参考17的Hybrid A*版本；精确实现与全文仍在调查，不以其他MPPI项目替代。
+
+
+### 2026-09-24 04:55 更新
+
+- 新目标仍未完成。正式120K数据正在串行采集，已完成至少8张训练地图；完整数据验证成功后，已启动的等待队列将依次训练种子0/1/2，各50轮。不会同时运行多个重型GPU任务。
+- `datasets/smoke_v1`已完成2000训练样本及各128独立地图验证/测试样本，并通过逐帧哈希与几何检查。
+- `checkpoints/resume_split_v2`已完成随机初始化的2轮小规模训练，共250步，最佳验证总损失0.0415028836；该结果只证明训练链路，不算正式训练完成。
+- 恢复验证跨越验证阶段和epoch边界：中断/恢复与连续运行至126步的133个模型张量、Adam状态、采样位置及全部随机状态逐位相同。证据为`artifacts/environment/resume_equivalence.json`。
+- ROS2乱序配对、旧任务/错误帧、重复帧、时钟回跳、过期结果、后端复位检查通过。真实自训练小模型已在ROS2节点中接收5组独立地图记录输入并输出21点轨迹；证据`artifacts/environment/trained_ros2_node.json`。尚未完成动力学闭环，不能据此报告飞行成功率。
+- 正式采集在map101/frame4700遇到轮廓射线差异并按关卡停止。复现证明像素±0.001处穿过树干轮廓，渲染深度与近邻独立几何射线误差0.000295m。已增加严格限额的轮廓歧义检查，同时保留原始深度与误差；错误深度仍会拒绝。恢复从最后提交位置继续，既有数据未覆盖。诊断为`artifacts/diagnostics/map101_frame4700/report.json`。
+- TopoTraj原版样条/多项式已迁移ament，导数检查误差3.95e-11；建图、拓扑搜索与后端优化ROS2移植进行中，尚不能作为完整基线。
+- 基线C++镜像已构建，正在补充pcl_conversions依赖。正式训练器、数值核心和主配置已冻结；基线修改不改变训练恢复指纹。
+- 活跃进程与日志见`artifacts/environment/active_jobs.json`；下文历史记录不代表当前状态。
+
+
+### 2026-09-24 03:33 更新
+
+- Ubuntu22.04/ROS2 Humble镜像与训练镜像已构建成功。PyTorch2.7.1+cu128矩阵反向传播、cuDNN卷积反向传播及NVCC通过；完整包版本与镜像信息保存在 `artifacts/environment/pip_freeze_training.txt`、`runtime_images.jsonl`。
+- 三个ROS2包已通过colcon编译，运行时4项测试在容器内通过。未使用ROS1或20.04作为本项目运行依赖。
+- 未修改原版C++代码的五次多项式矩阵、204个体素查询对照通过。原轨迹优化器在解析平面距离场的32个样例上，代价最大误差约6.9e-15、梯度约1.6e-15。解析平面测试不等于所有真实地图边界均已验证。
+- 已实现100帧校验场景的点云/ESDF。对照发现SciPy EDT与原版桶式距离变换不同：完整640万体素场有315个体素相差超过1e-6m，最大约0.06863m。因此主训练使用提取的原版数值算法，SciPy仅作诊断。产物位于 `artifacts/maps/calibration_v2_main_backend`。
+- Isaac内置Humble与容器之间的标准Image已经经DDS/TCP完成10帧、每帧57,600字节的双向逐字节验证。修复点为Docker NAT下双向发现定位信息。采用Docker回环映射50142及Windows进程回环监听50143，未修改系统防火墙或portproxy。配置脚本会重新解析Docker主机网关。
+- 当前全部本轮构建/有界探针均已结束，无本项目训练或采集长任务在后台运行。跨边界时钟/里程计配对、轨迹有效期、复位集成仍待验证；当前通信样例不是闭环性能基准。
+- 正式数据集、模型训练器/恢复、三种子50轮训练、外部基线迁移和完整基准均未完成。目标保持active。
+
+以下保留前期实施记录，遇到状态差异时以上述更新为准。
+
+- 新目标已经开始，尚未完成。
+- 已固定验收协议：`configs/reproduction_protocol.json`。
+- 已建立Ubuntu22.04 CUDA12.8.1与ROS2 Humble容器构建文件、Compose和基础验收脚本。
+- CUDA12.8.1/Ubuntu22.04基础镜像已下载完成，并在容器内编译、运行sm_120 CUDA内核验证256个结果。证据：`artifacts/environment/cuda_native.json`。PyTorch训练容器尚未完成，不能据此宣布训练环境整体通过。
+- ROS构建与CUDA镜像解耦。已处理Docker构建客户端未使用既有代理导致的认证超时，仅设置进程内代理，没有改系统代理或防火墙。
+- 一次Ubuntu apt包下载遇到HTTP500/EOF。已加入独立yopo-jammy缓存、5次重试，并减少非必要依赖；新的ROS构建正在运行，成功后会自动验证ROS、colcon及原C++矩阵对照。活跃句柄见 `artifacts/environment/active_jobs.json`。
+- 原版main的182个文本源码文件已逐项通过Git blob哈希校验。
+- Isaac原生Humble Bridge与rclpy已实测启动，Image/CameraInfo/Odometry/Clock/MultiDOFJointTrajectory均可导入，同进程发布订阅通过。证据：`artifacts/environment/isaac_humble_probe.json`。此结果不代表Docker跨边界通信已通过。
+- ROS2运行时配对/过期/重复/时钟回跳保护4项单元测试通过；五次多项式边界、数值积分、有限差分梯度、零jerk4项测试通过。
+- 已建立由未修改上游C++源码构建的矩阵参考包，尚待容器编译后进行跨实现一致性检查。
+- 容器PyTorch、跨边界ROS2、完整代价对齐、正式数据集和正式训练仍未完成。
+- 现已完成100帧真实Isaac配对校验数据（213树干+64低矮障碍）。V1发现圆柱轮廓的几何表示差异；V2采用显式64面网格和独立多面体射线验证，12,800条射线最大误差0.000093m、P95约0.000003m。数据位于 `datasets/calibration_v2`；仅为配对/几何关卡，点云/ESDF及正式120K数据尚未完成。
+- Fast-Planner和Agile Autonomy官方源码已下载并固定提交，身份记录在复现协议中，尚未移植。相关RAPA-Planner仓库目前只有发布预告且属于另一方法，不将其代替目标MPPI基线。
+- 未创建Ubuntu20.04容器、未安装ROS1、未修改宿主驱动或系统网络。
+
+## 必须闭合的差异
+
+1. `main`与Simple的原语范围、目标代价、加速度代价、优化器、梯度裁剪和筛选机制不同。
+2. 论文中的轨迹筛选阈值与公开main默认`unselect=0`并不等价；不能未经核对直接套用阈值。
+3. Simple数据加载器默认在同地图内切分验证集；正式训练必须采用独立地图划分。
+4. 现有训练入口没有可用的恢复CLI；正式长训练前需要恢复一致性测试。
+5. 本机Isaac含Humble ROS2库，但跨Docker Desktop网络、QoS、标准消息和仿真时钟尚未验证。
+6. 原始MPPI公开源码身份尚未确认；不能用通用MPPI替代后冒称原论文基线。
+
+7. 原版体素索引使用向零截断而非floor；已在数值实现中保留并通过原C++查询对照。
+8. 原版ESDF桶算法并不处处等于精确欧氏距离变换；不能用SciPy结果静默替换。原版核心函数已按源码内容提取、保留来源哈希，并用于主地图缓存。
+9. main的归一化加速度上限为vel_max/segment_time（默认4.5m/s²），与Simple默认6m/s²不同。main训练深度resize默认双线性，Simple用最近邻；正式数据/模型配置必须分别锁定。
+
+## 阶段关卡
+
+环境/GPU → ROS2接口与时钟 → 算法数值对齐 → 配对数据质量 → 训练及恢复 → 三种子正式训练 → 外部基线 → 完整基准 → 自训练展示与最终审计。
+
+GPU重任务串行；文件在本目录，Docker管理镜像和项目专用卷。所有未通过关卡保持pending，不借用旧演示结果填充。

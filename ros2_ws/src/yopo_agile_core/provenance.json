@@ -1,0 +1,29 @@
+{
+  "commit": "958c0d22e11d28a4d73b627029cf62ef1a1a95ab",
+  "source": "external\\agile_autonomy\\data_generation\\agile_autonomy_utils\\src\\trajectory_ext.cpp",
+  "source_sha256": "2303e7d988f30d592ce243ea064925a79b78a415d2e138a57acfa59a73935aae",
+  "functions": [
+    {
+      "signature": "void TrajectoryExt::fitPolynomialCoeffs(",
+      "line": 204,
+      "sha256": "ebf5764524fd73094c01cef6ed3b5bacb8c1e673e6617bd66fe5957d8bdb2bb3"
+    },
+    {
+      "signature": "void TrajectoryExt::resamplePointsFromPolyCoeffs()",
+      "line": 351,
+      "sha256": "f270f22f9a345fc5822de9a992933f90db4ca98e2648e630381a1641e852b1b9"
+    },
+    {
+      "signature": "Eigen::Vector3d TrajectoryExt::evaluatePoly(",
+      "line": 486,
+      "sha256": "5a0fa9a556e48802c29056e91d07fa4c9eac2c0297f2e90d936b29ac83c818d1"
+    },
+    {
+      "signature": "bool TrajectoryExt::setConstantArcLengthSpeed(",
+      "line": 629,
+      "sha256": "fbd2915ed18a818ae2fb81c209cd85731005a05f682712036ed5ba3917b9b358"
+    }
+  ],
+  "changes": "None inside extracted method bodies",
+  "boundary_note": "Caller initializes every state derivative; fixes upstream undefined initial jerk when no previous reference. Preserve constructor time rebase (0.1..1.0 minus0.1), replaceFirstPoint (10 points), and original arc-length sampler quirks."
+}

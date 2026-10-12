@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "status": "solver_settings_inferred_from_incomplete_public_materials",
+  "objective": "Unmodified pinned YOPO main GradTrajOptimizer, original bucket ESDF, identical quintic horizon, same15 initial primitive end states",
+  "gradient": "Raw world-frame gradient, without network-only asymmetric clipping",
+  "primary_candidate": "scaled_gd50",
+  "variants": {
+    "scaled_gd50": {
+      "classification": "explicit reconstruction, not an exact claim about the unpublished paper expert driver",
+      "gradient_update_attempts": 50,
+      "coordinate_scales_pva": [4.0, 6.0, 4.5],
+      "initial_step": 1.0,
+      "normalized_direction_norm_cap": 1.0,
+      "backtracking_trials_per_attempt": 12,
+      "backtracking_ratio": 0.5,
+      "armijo_coefficient": 0.0001,
+      "return_policy": "best finite evaluated endpoint; accepted updates and total evaluations both reported"
+    },
+    "mma50_evaluations": {
+      "classification": "cited2017 algorithm choice, adapted objective-evaluation budget; NOT50gradient updates",
+      "nlopt_algorithm": "LD_MMA (24)",
+      "nlopt_version": "2.7.1",
+      "maximum_objective_evaluations": 50,
+      "hard_endpoint_bounds": false,
+      "difference_from_2017": "fixed single-segment main objective/free endpoints, no original2017 position/velocity/acceleration box constraints or time budgets"
+    }
+  },
+  "data_rule": "Validate numerical implementation on development/training maps first. Freeze settings before evaluating independent formal test maps.",
+  "latency_rule": "Report C++ optimization wall time separately from Python setup/batching and neural inference; do not present Python overhead as the original expert latency."
+}

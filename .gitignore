@@ -1,0 +1,40 @@
+# Python and test caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.pytest_basetemp/
+.pytest_tmp/
+.mypy_cache/
+
+# ROS2 generated outputs
+ros2_ws/build/
+ros2_ws/install/
+ros2_ws/log/
+
+# Runtime logs and temporary outputs
+artifacts/ros2_logs/
+artifacts/ros2_flights_quarantine/
+artifacts/quarantine/
+artifacts/ros2_flights/
+artifacts/navigation/
+artifacts/*/logs/
+artifacts/formal_training/*.log
+*.tmp
+*.staging
+
+# Local tools and secrets
+.env
+.env.*
+*.key
+*.pem
+.DS_Store
+Thumbs.db
+
+# Keep curated manifests and selected artifacts tracked.
+
+# Raw experiment data and full checkpoint history are published separately.
+datasets/isaac_full_v1/shards/
+datasets/isaac_dagger_v1/shards/
+checkpoints/formal_main_v1_seed*/epoch_*.pt
+checkpoints/formal_main_v1_seed*/policy_epoch_*.pth
+

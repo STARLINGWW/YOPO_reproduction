@@ -1,0 +1,71 @@
+# 自训练 YOPO / ROS2 / Isaac Sim 阶段报告
+
+> **报告同步 2026-10-08：** 这是第2轮中间权重的阶段报告，以下未完成项属于2026-09-24时点；三种子最终训练、专家比较、准入、最终展示及DAgger现在已完成。 当前状态见 [复现状态总览](复现状态总览.md)，阅读顺序见 [报告索引](README.md)。
+
+记录时间：2026-09-24T06:33:13.203552+08:00。**整体Goal仍未完成。当前视频使用100K正式数据训练第2轮的中间检查点，不是三个种子的50轮最终结果。**
+
+## 本轮已验证的成果
+
+1. 自生成100,000训练、10,000验证、10,000测试样本，按地图隔离。全体深度帧/文件哈希通过；采集抽样几何检查重新读回通过。证据：[全量数据校验](D:/_AAA_CODE_ALL/Tech_reproduction/YOPO_reproduction/datasets/isaac_full_v1/validation.json)。
+2. Ubuntu22.04/ROS2 Humble主线实际运行，Windows原生Isaac经DDS/TCP发送标准深度/里程计并接收轨迹。无ROS1桥接运行依赖。
+3. 种子0正式训练已从随机初始化开始。当前完成4轮、累计28900步，正在继续50轮训练；种子1、2由同一队列串行执行。已经在正式数据训练中执行两次批次边界检查点暂停/恢复，数值核心/配置指纹匹配，未重新初始化。
+4. 统一PhysX机型完成悬停、2/4/6/8/10m/s圆弧跟踪。10m/s平均稳态速度9.918m/s，RMSE0.113m、最大误差0.156m；全部工况零接触、零电机饱和。证据：[PhysX控制验收](D:/_AAA_CODE_ALL/Tech_reproduction/YOPO_reproduction/artifacts/control_validation/physx_unified_20260924_061715/result.json)。
+5. 第2轮本地权重在独立地图seed3000上完成真实ROS2/PhysX闭环，并通过记录读回、权重哈希和动态深度几何复核。
+
+## 本地权重与实际飞行指标
+
+权重：[policy_epoch_002.pth](D:/_AAA_CODE_ALL/Tech_reproduction/YOPO_reproduction/checkpoints/formal_main_v1_seed0/policy_epoch_002.pth)。
+
+初始化和配置：[run_manifest.json](D:/_AAA_CODE_ALL/Tech_reproduction/YOPO_reproduction/checkpoints/formal_main_v1_seed0/run_manifest.json)。完整网络随机初始化，`pretrained=False`，未加载YOPO官方权重或ImageNet骨干。外部Agile Autonomy基线使用的官方权重与此结果无关。
+
+模型SHA256：`d0e4dab6d89b09b79c455c2ce95f38150110f46d13b01249b0a96ad8b101d6dd`。
+
+| 指标 | 实测 |
+|---|---:|
+| 导航结果 | success |
+| 目标速度 | 2m/s |
+| 最大实测速度 | 1.960m/s |
+| 实际路径长度 | 25.245m |
+| 终点误差 | 0.0654m |
+| 最小机体包络净空 | 1.230m |
+| 跟踪RMSE | 0.126m |
+| 最大物理接触力 | 0.0N |
+| 实际应用轨迹数 | 231 |
+| 深度帧数 | 232 |
+| 仿真时长 / 墙钟时长 | 17.064s / 39.448s |
+| 实时因子 | 0.433 |
+| 获取观测到轨迹回包墙钟P50 / P95 | 105.47 / 115.01ms |
+| 动态几何校验 | 232帧×128射线，最大误差0.00005903m，无未解决异常 |
+
+成功判定：无碰撞，位置误差<0.5m且速度<0.3m/s持续0.5s。净空采用0.322m保守球形包络；同时读取PhysX接触力。该模型有转子延迟、阻力和SO3控制，初始复位后未用位置/速度赋值驱动飞行。
+
+墙钟延迟包含渲染获取、通信和CPU规划，不是网络纯推理耗时。执行器将该延迟计入仿真中的指令可用时间；不能将0.433实时因子当作实时运行。原始第一次集成记录没有逐命令应用事件明细，已在后续执行器补齐；该限制不影响本次原始位姿与深度复核。
+
+## 可直接查看的展示与原始证据
+
+- [全局地图航迹视频 MP4](D:/_AAA_CODE_ALL/Tech_reproduction/YOPO_reproduction/artifacts/ros2_showcase/ros2_scratch_checkpoint_20260924_061715_v2/global_trajectory.mp4)：1280×720、20fps、1倍播放、末帧停留2s，共383帧逐帧解码验证。
+- [全局地图与局部航迹 PNG](D:/_AAA_CODE_ALL/Tech_reproduction/YOPO_reproduction/artifacts/ros2_showcase/ros2_scratch_checkpoint_20260924_061715_v2/global_overview.png)。
+- [飞行中段 PNG](D:/_AAA_CODE_ALL/Tech_reproduction/YOPO_reproduction/artifacts/ros2_showcase/ros2_scratch_checkpoint_20260924_061715_v2/flight_midpoint.png)。
+- [视频来源/哈希清单](D:/_AAA_CODE_ALL/Tech_reproduction/YOPO_reproduction/artifacts/ros2_showcase/ros2_scratch_checkpoint_20260924_061715_v2/render_manifest.json)。
+- [飞行指标](D:/_AAA_CODE_ALL/Tech_reproduction/YOPO_reproduction/artifacts/ros2_flights/ros2_scratch_checkpoint_20260924_061715/metrics.json)、[实际位姿/参考/接触净空 CSV](D:/_AAA_CODE_ALL/Tech_reproduction/YOPO_reproduction/artifacts/ros2_flights/ros2_scratch_checkpoint_20260924_061715/flight.csv)、[原始深度/姿态/延迟 NPZ](D:/_AAA_CODE_ALL/Tech_reproduction/YOPO_reproduction/artifacts/ros2_flights/ros2_scratch_checkpoint_20260924_061715/flight.npz)。
+- [232帧动态深度校验](D:/_AAA_CODE_ALL/Tech_reproduction/YOPO_reproduction/artifacts/ros2_flights/ros2_scratch_checkpoint_20260924_061715/validation.json)、[Ubuntu容器规划器记录](D:/_AAA_CODE_ALL/Tech_reproduction/YOPO_reproduction/artifacts/ros2_flights/ros2_scratch_checkpoint_20260924_061715/planner_status.json)。
+
+视频是实际PhysX日志的CPU地图回放，包含完整80×80m地图与放大航迹；它不是新生成的飞行，也没有重新规划或平滑实际航迹。所有画面显著标注中间检查点，不能作为完整论文复现完成证据。
+
+## 已定位和修复的问题
+
+- 首次PhysX启动没有继承项目已有的`OMNI_KIT_ACCEPT_EULA`设置，未进入仿真。日志与失败标记保留。
+- 第一轮接触验收发现车辆先在原点创建、与地面相交，再移到初始位置，造成首帧接触缓存残留。现改为在World.reset之前直接于真实初始位置创建；全部工况接触力重新验证为0，没有忽略首帧来掩盖问题。
+- SO3原版90度限幅式的判别式存在浮点负零问题。256例中7例原版产生NaN，保存了输入；修正仅将舍入产生的微小负判别式截为0。其余249例与原版C++最大误差约6.7e-16。
+- 初次视频验收使用了Isaac不含FFmpeg的OpenCV构建而失败。现使用项目已有imageio-ffmpeg完整解码383帧；未更换宿主OpenCV或驱动。v1产物保留，交付v2。
+- 本次日志15.47s的`trajectory_expired_hold`事件实际是15.464s进入终点悬停后的状态切换，`expired_in_control=0`。原始日志保留；后续已改为明确的`terminal_hold_started`标签。
+
+## 训练时间更新与未完成事项
+
+前两个100K训练/10K验证完整epoch平均308.2s。单种子50轮约4.28小时，三种子合计约12.84小时，另计进程初始化、验证窗口和资源争用。此估计不包含1800次闭环及最终渲染。
+
+八项最终验收尚未全部满足：三种子50轮未结束；正式模型的独立地图统计、专家50步比较、完整基线闭环与1800任务矩阵、失败案例汇总、最终模型展示和最终复现命令审计仍待完成。TopoTraj与Agile Autonomy已完成ROS2接口/核心验证，但正式计时配置、统一高度约束和GPU部署公平性还需要核查。MPPI身份已定位，原实现/全文材料仍在调查。
+
+[固定1800任务清单](D:/_AAA_CODE_ALL/Tech_reproduction/YOPO_reproduction/benchmarks/protocol_v1/protocol.json)使用额外20张独立地图（5000–5009、6000–6009），不包含调试地图3000。原论文TableI/TableII/Fig7/Fig8与数据聚合微调均保留在实验清单中。
+
+平台例外：Isaac物理执行、转子与500Hz内环留在获准的Windows原生仿真进程，避免2ms控制周期跨Docker网络；训练和在线YOPO规划在22.04/Humble容器中。所有基线仍将使用同一机型与执行器。

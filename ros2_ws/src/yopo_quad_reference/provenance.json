@@ -1,0 +1,14 @@
+{
+  "commit": "41be219fe4ecc43bf0e0c2b42a523f8755ccc0bd",
+  "files": [
+    {
+      "source": "external\\Fast-Planner\\uav_simulator\\so3_control\\src\\SO3Control.cpp",
+      "sha256": "f39837ded9313b2bbedbbb5492b697e18c2446792c02ddcd45d4a4753d4ca99e"
+    },
+    {
+      "source": "external\\Fast-Planner\\uav_simulator\\so3_control\\include\\so3_control\\SO3Control.h",
+      "sha256": "9b85792475e34f1c0ecf66976979ddd309a09995a93adfc0c06e74e32a66b0e4"
+    }
+  ],
+  "change": "Unused ros/ros.h include only; original numerical control implementation unchanged"
+}

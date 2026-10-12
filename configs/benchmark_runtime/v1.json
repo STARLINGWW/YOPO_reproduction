@@ -1,0 +1,140 @@
+{
+  "version": 1,
+  "recorded_at": "2026-09-24T11:20:00+08:00",
+  "status": "declared_pending_native_admission",
+  "scope": "Frozen runtime declaration for the 1800-episode primary matrix. The authoritative runtime gate is benchmarks/protocol_v1/runtime_validation.json, which can only be produced by real native runs (scripts/record_runtime_validation.py). Nothing here substitutes for that evidence.",
+  "authoritative_sources": {
+    "task_matrix": "benchmarks/protocol_v1/protocol.json",
+    "vehicle": "configs/unified_quad.json",
+    "runner": "scripts/run_ros2_navigation.py",
+    "trajectory_buffer": "src/yopo_sim/trajectory_buffer.py",
+    "task_resolution": "src/yopo_eval/task_spec.py",
+    "evaluation": "src/yopo_eval/metrics.py",
+    "aggregation": "src/yopo_eval/aggregate.py",
+    "topotraj_config": "configs/topotraj/isaac_development.yaml",
+    "agile_conversion": "artifacts/agile_autonomy/torch_export_v1/manifest.json"
+  },
+  "common": {
+    "vehicle": {
+      "config": "configs/unified_quad.json",
+      "mass_kg": 0.98,
+      "collision_envelope_radius_m": 0.322,
+      "physics_dt_s": 0.002,
+      "control_dt_s": 0.01,
+      "classification": "Common Isaac equivalent vehicle from the pinned Fast-Planner SO3 sources; PhysX replaces the upstream ODE integration. Not a claim of YOPO platform identity."
+    },
+    "sensor": {
+      "width": 160,
+      "height": 90,
+      "fx": 80.0,
+      "fy": 80.0,
+      "cx_pixel_index": 79.5,
+      "cy_pixel_index": 44.5,
+      "body_translation_m": [0.0, 0.0, 0.1],
+      "max_depth_m": 20.0,
+      "publish_hz": 15.0,
+      "enforcement": "scripts/record_runtime_validation.py validate_camera() rejects any flight whose camera block differs; the aggregation builder enforces the same block for on-policy data."
+    },
+    "task_definition": {
+      "map_size_m": [80.0, 80.0, 8.0],
+      "straight_distance_m": 50.0,
+      "altitude_m": 2.5,
+      "densities_per_m2": [0.03333333333333333, 0.05],
+      "speeds_mps": [2, 4, 6, 8, 10],
+      "trials_per_condition": 30,
+      "paper_subset_trials": 10,
+      "timeout_rule": "max(30, 1.5*straight_distance_m/speed_mps + 10) as frozen in scripts/create_benchmark_protocol.py",
+      "criteria": {
+        "collision": "Any physical contact or conservative vehicle-envelope signed distance<=0",
+        "goal": "Within0.5m and speed<0.3m/s continuously0.5s, without collision",
+        "terminal_hold_entry_m": 1.0,
+        "all_failures_in_denominator": true,
+        "missing_episode_is_not_success": true,
+        "confidence_interval": "Wilson95% with n30, and separate first10 paper-size subset",
+        "latency": "Count wall acquisition/communication/planning delay in simulation-time command availability; report wall and simulation times and RTF",
+        "safety": "Report both center-to-obstacle distance and net envelope clearance",
+        "smoothness": "Report reference jerk integral and separately measured-state derivative metrics with any filtering disclosed",
+        "verbatim_source": "benchmarks/protocol_v1/protocol.json criteria block, copied character-for-character"
+      }
+    },
+    "command_application": {
+      "rule": "a trajectory becomes available at capture_sim_time + measured wall acquisition/communication/planning delay",
+      "physics_never_waits_for_the_planner": true,
+      "no_pose_or_velocity_setter_after_initial_reset": true,
+      "buffer": "src/yopo_sim/trajectory_buffer.py"
+    },
+    "timing_reporting": {
+      "clock": "ROS simulation clock published by the native process",
+      "required_reported_fields": ["end_to_end_wall_ms", "capture_and_publish_wall_ms", "planner_queue_wall_ms", "planner_and_publish_wall_ms", "map_fusion_wall_ms", "map_esdf_wall_ms", "transport_and_other_scheduling_residual_ms", "real_time_factor", "applied_simulation_delay_ms"]
+    },
+    "matrix_episodes": {
+      "total": 1800,
+      "per_method": 300,
+      "models": ["yopo_seed0", "yopo_seed1", "yopo_seed2", "topotraj", "agile_autonomy", "mppi_reference17"]
+    }
+  },
+  "methods": {
+    "yopo_seed0": {"kind": "learned_closed_loop", "backend": "yopo", "device": "cuda", "training_seed": 0,
+      "weights": "checkpoints/formal_main_v1_seed0/best_policy.pth",
+      "admission_requirement": "training_audit.json passed with 50 epochs and the checkpoint hash equal to selection.best_policy_file_sha256",
+      "network_input": {"depth": "160x90 raw metres resized to 160x96 with cv2.INTER_LINEAR", "depth_normalisation": "min(depth,20)/20",
+                        "observation": "9 values: body velocity, body acceleration, body-frame goal direction", "primitive_candidates": 15},
+      "notes": ["official YOPO weights are explicitly excluded from the primary matrix"]},
+    "yopo_seed1": {"kind": "learned_closed_loop", "backend": "yopo", "device": "cuda", "training_seed": 1,
+      "weights": "checkpoints/formal_main_v1_seed1/best_policy.pth",
+      "admission_requirement": "same as yopo_seed0 with seed=1"},
+    "yopo_seed2": {"kind": "learned_closed_loop", "backend": "yopo", "device": "cuda", "training_seed": 2,
+      "weights": "checkpoints/formal_main_v1_seed2/best_policy.pth",
+      "admission_requirement": "same as yopo_seed0 with seed=2"},
+    "topotraj": {"kind": "analytic_closed_loop", "backend": "topotraj", "device": "cpu",
+      "weights": null,
+      "config": "configs/topotraj/isaac_development.yaml",
+      "per_episode_overrides": {"manager.max_vel": "episode speed", "optimization.max_vel": "episode speed"},
+      "declared_differences": [
+        "The original mapping/ESDF pipeline is limited to the 4.5 m depth filter and max ray length (sdf_map.depth_filter_maxdist=4.5, sdf_map.max_ray_length=4.5) while the common sensor supplies 20 m depth. This is a genuine difference and must be reported with the method's results.",
+        "sdf_map.max_acc stays at the config value 6.0 m/s^2 while episode speeds reach 10 m/s; whether this is a fair configuration for the high-speed cells is an open fairness question and is recorded as pending, not silently adjusted.",
+        "sdf_map.resolution is 0.1 m and obstacles_inflation is 0.099 m; the TopoTraj result therefore has a different collision margin than the network methods."
+      ],
+      "status": "pending_native_admission"},
+    "agile_autonomy": {"kind": "learned_closed_loop_official_weights", "backend": "agile", "device": "cuda",
+      "weights": "official Agile Autonomy ckpt-50 converted without training",
+      "conversion_manifest": "artifacts/agile_autonomy/torch_export_v1/manifest.json",
+      "source_checkpoint_sha256": "074c1a09b0fad2c64a72a14e79edeac4676720103d657d28f859440ceaf46132",
+      "network_input": {"depth": "224x224", "use_rgb": false, "output_horizon": 10},
+      "admission_requirement": "artifacts/agile_autonomy/torch_export_v1/torch_cuda_parity.json must be passed for the requested device",
+      "status": "pending_measurement",
+      "notes": ["the official Agile weights are an external baseline only and are never used as YOPO evidence"]},
+    "mppi_reference17": {"kind": "unfilled_baseline", "backend": "mppi_reference17", "device": "cuda",
+      "weights": null,
+      "slots": 300,
+      "status": "documented_gap_no_official_implementation",
+      "evidence": ["artifacts/paper_sources/mppi_identity.json", "artifacts/paper_sources/mppi_reference17_lookup.json", "reports/MPPI参考17身份与可得性.md"],
+      "prohibition": "No other MPPI project may be substituted; the 300 slots stay explicitly unexecuted until a paper-based re-implementation is commissioned or the authors' code is obtained."},
+    "expert_50_steps": {"kind": "offline_offline_only", "backend": null, "device": "cpu",
+      "in_1800_matrix": false,
+      "evidence": ["artifacts/expert/formal_test_v1/", "artifacts/expert/network_comparison_trained.json", "reports/专家50步比较.md"],
+      "note": "Table I comparison on the independent offline test set; it is not a closed-loop episode model and therefore has no slots in the 1800 matrix."}
+  },
+  "runtime_files": {
+    "note": "scripts/record_runtime_validation.py hashes exactly this list into benchmarks/protocol_v1/runtime_validation.json at admission time; any later edit invalidates admission.",
+    "list": ["scripts/run_ros2_navigation.py", "scripts/ros2/serve_planner.py", "scripts/validate_ros2_flight.py",
+             "scripts/evaluate_ros2_flight.py", "scripts/run_benchmark_matrix.py",
+             "src/yopo_sim/trajectory_buffer.py", "src/yopo_sim/unified_quad.py", "src/yopo_sim/physx_vehicle.py",
+             "src/yopo_sim/evaluation_geometry.py", "src/yopo_sim/resource_sampler.py", "src/yopo_sim/job_guard.py",
+             "src/yopo_eval/task_spec.py", "src/yopo_eval/metrics.py", "src/yopo_repro/forest.py",
+             "configs/unified_quad.json", "configs/topotraj/isaac_development.yaml",
+             "ros2_ws/src/yopo_runtime/yopo_runtime/protocol_node.py", "ros2_ws/src/yopo_runtime/yopo_runtime/main_planner.py",
+             "ros2_ws/src/yopo_runtime/yopo_runtime/agile_planner.py", "ros2_ws/src/yopo_runtime/yopo_runtime/frame_gate.py"]
+  },
+  "pending_items": [
+    "No native admission record exists yet: benchmarks/protocol_v1/runtime_validation.json is produced only after the three-seed training releases the GPU.",
+    "Agile CUDA parity has not been measured; the CPU conversion parity exists.",
+    "TopoTraj's 4.5 m mapping range and fixed 6.0 m/s^2 acceleration ceiling are documented differences whose fairness impact is not yet quantified.",
+    "MPPI reference 17 has no implementation; its 300 slots remain unfilled and are reported as such."
+  ],
+  "prohibitions": [
+    "No official YOPO weights or the Simple profile may fill primary-matrix slots.",
+    "No other MPPI project may stand in for reference 17.",
+    "No tuning on the frozen benchmark maps; all thresholds are fixed before execution."
+  ]
+}
