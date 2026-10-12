@@ -14,4 +14,5 @@
 - 文档审计扩展到 plan/implement/report/根文档：59 份、0 缺失链接、0 缺失路径、0 不可解析 JSON → artifacts/refactor_20261012/document_audit_all.json。
 - 运行 scripts/check_training_integrity.py 生成 artifacts/environment/seed_training_integrity_v2.json（三种子指标流检查通过，无异常）。
 - 清理 12:18 误建的空目录 YOPO_reproduction/YOPO_reproduction（0 文件）。
-- 未修改固定协议、验收脚本、审计权重和正式实验结果。
+- 独立复跑复核：`python -m compileall -q src scripts` 通过；59 份文档扩展审计 0 缺失链接、0 缺失路径；终审 JSON 与提交内容一一对应。
+- 未修改固定协议、审计权重和正式实验结果；验收脚本仅做上述向后兼容扩展。
