@@ -33,6 +33,7 @@
 
 ## 权重与运行栈对照
 
+- 官方权重 vs 自训练权重总对照（离线 10k + 闭环 36 架次 + 两阶段展示）：[01_official_vs_selftrained.md](01_official_vs_selftrained.md)。
 - 36 架次官方/本地权重批量对照（30 成功 / 4 超时 / 2 碰撞，样本量限制不可外推总体排名）：[权重批量对照实验](../../reports/权重批量对照实验.md)，数据在 [artifacts/weights_ab_demo](../../artifacts/weights_ab_demo)。
 - 运行栈准入（agile/topotraj/yopo 三后端）：[runtime_validation.json](../../benchmarks/protocol_v1/runtime_validation.json)。
 

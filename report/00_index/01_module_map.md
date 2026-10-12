@@ -99,7 +99,7 @@ ResNet18 编码深度，与 3×5 运动原语网格、速度、加速度和目�
 
 离线 1 万样本：本地 seed0 平均代价 ≈0.0231、最优候选 ≈0.0179，优于官方 0.0296 / 0.0220 与随机初始化 0.0823 / 0.0396；本地平均代价弱于 mma50（0.0215），最优候选优于两个专家重建。权重对照 36 架次：30 成功 / 4 超时 / 2 碰撞。遗留：参考[17] MPPI 的 300 个槽位未执行。
 
-入口：[network_comparison_trained_seed0.json](../../artifacts/expert/network_comparison_trained_seed0.json)、[expert_variants.json](../../configs/expert_variants.json)、[protocol.json](../../benchmarks/protocol_v1/protocol.json)、[专家50步比较](../../reports/专家50步比较.md)、[权重批量对照实验](../../reports/权重批量对照实验.md)、[MPPI参考17身份与可得性](../../reports/MPPI参考17身份与可得性.md)。
+入口：[network_comparison_trained_seed0.json](../../artifacts/expert/network_comparison_trained_seed0.json)、[expert_variants.json](../../configs/expert_variants.json)、[protocol.json](../../benchmarks/protocol_v1/protocol.json)、[专家50步比较](../../reports/专家50步比较.md)、[权重批量对照实验](../../reports/权重批量对照实验.md)、[官方权重 vs 自训练权重对照](../04_evaluation/01_official_vs_selftrained.md)、[MPPI参考17身份与可得性](../../reports/MPPI参考17身份与可得性.md)。
 
 ### 11 DAgger 聚合微调（⑤ 评估与收尾，待闭合：闭环收益未验证）
 

@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "reports_scanned": 59,
+  "reports_scanned": 61,
   "missing_link_count": 0,
   "missing_path_count": 0,
   "unparsable_json_count": 0,
@@ -519,6 +519,7 @@
         "plan/02_environment_ros2/README.md",
         "report/01_status/README.md",
         "report/02_method/01_paper_to_code.md",
+        "report/04_evaluation/01_official_vs_selftrained.md",
         "report/05_visualization/README.md",
         "report/99_artifact_index/README.md",
         "reports/DAgger聚合与微调方案.md",
@@ -653,6 +654,35 @@
       "unparsable_json": []
     },
     {
+      "report": "report/04_evaluation/01_official_vs_selftrained.md",
+      "links": [
+        "artifacts/benchmark_summary/summary.json",
+        "artifacts/expert/official_checkpoint_mapping.json",
+        "artifacts/expert/official_epoch50_policy_layout.pth",
+        "artifacts/paper_figures/table_i_expert_vs_network.md",
+        "artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/metrics.json",
+        "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_trajectory.mp4",
+        "artifacts/showcase/forest_seed7_v3/render_manifest.json",
+        "artifacts/showcase/forest_seed7_v3/yopo_global_flight.mp4",
+        "artifacts/weights_ab_demo/batch_analysis.json",
+        "artifacts/weights_ab_demo/batch_logs",
+        "artifacts/weights_ab_demo/batch_summary.json",
+        "checkpoints/formal_main_v1_seed0/best_policy.pth",
+        "checkpoints/formal_main_v1_seed0/training_audit.json",
+        "checkpoints/official_epoch50_reference/best_policy.pth",
+        "external/audit_sources/YOPO-Simple/YOPO/saved/YOPO_1/epoch50.pth",
+        "reports/专家50步比较.md",
+        "reports/完成验收与成果路径.md",
+        "reports/权重批量对照实验.md",
+        "scripts/compare_expert_network.py",
+        "scripts/run_weights_ab_batch.py"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
       "report": "report/04_evaluation/README.md",
       "links": [
         "artifacts/benchmark_summary/summary.json",
@@ -670,6 +700,7 @@
         "implement/06_validation/README.md",
         "report/00_index/01_module_map.md",
         "report/01_status/README.md",
+        "report/04_evaluation/01_official_vs_selftrained.md",
         "report/05_visualization/README.md",
         "reports/ROS2基线迁移记录.md",
         "reports/基准运行配置冻结.md",
@@ -708,6 +739,30 @@
       "unparsable_json": []
     },
     {
+      "report": "report/06_migration/01_local_environment.md",
+      "links": [
+        "MIGRATION_UBUNTU22.md",
+        "artifacts/environment/base_image_lock.json",
+        "artifacts/refactor_20261012/docker_images.jsonl",
+        "artifacts/refactor_20261012/docker_info.json",
+        "artifacts/refactor_20261012/docker_version.json",
+        "artifacts/refactor_20261012/migration_smoke_resume40.log",
+        "artifacts/refactor_20261012/migration_smoke_resume_final.log",
+        "artifacts/refactor_20261012/migration_smoke_stop20.log",
+        "artifacts/refactor_20261012/train_env_gpu_probe.log",
+        "checkpoints/migration_smoke_v1/result.json",
+        "plan/06_github_migration/01_release_checklist.md",
+        "plan/06_github_migration/README.md",
+        "report/06_migration/README.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [
+        "scripts/ros2/verify_environment.py"
+      ],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
       "report": "report/06_migration/README.md",
       "links": [
         ".gitattributes",
@@ -715,7 +770,8 @@
         "CONTRIBUTING.md",
         "MIGRATION_UBUNTU22.md",
         "plan/06_github_migration/01_release_checklist.md",
-        "plan/06_github_migration/README.md"
+        "plan/06_github_migration/README.md",
+        "report/06_migration/01_local_environment.md"
       ],
       "missing_links": [],
       "referenced_paths": [],
@@ -757,10 +813,12 @@
         "artifacts/weights_ab_demo",
         "checkpoints",
         "checkpoints/dagger_main_v1_seed0/result.json",
+        "checkpoints/migration_smoke_v1/result.json",
         "datasets/isaac_dagger_v1/aggregation_manifest.json",
         "datasets/isaac_full_v1/validation.json",
         "plan/06_github_migration/01_release_checklist.md",
         "plan/06_github_migration/README.md",
+        "report/06_migration/01_local_environment.md",
         "reports/权重批量对照实验.md"
       ],
       "missing_links": [],
@@ -1236,7 +1294,9 @@
     },
     {
       "report": "MIGRATION_UBUNTU22.md",
-      "links": [],
+      "links": [
+        "report/06_migration/01_local_environment.md"
+      ],
       "missing_links": [],
       "referenced_paths": [
         "scripts/audit_training_run.py",

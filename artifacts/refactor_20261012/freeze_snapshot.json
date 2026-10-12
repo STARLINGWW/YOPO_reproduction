@@ -1,0 +1,120 @@
+{
+  "generated_at": "2026-10-12T20:43:17+08:00",
+  "scope": "refactor freeze snapshot: protected hashes, audited weights, dataset/checkpoint sizes; not an experiment result",
+  "git_head": "a6048c4269e08bcbf184dcf0f547fe76e376307b",
+  "protected_files": [
+    {
+      "path": "benchmarks/protocol_v1/protocol.json",
+      "exists": true,
+      "sha256": "d2fd30527be661d7df089b40adef5a118d94df0cdd09c1b9327906283018267c"
+    },
+    {
+      "path": "benchmarks/protocol_v1/runtime_validation.json",
+      "exists": true,
+      "sha256": "25649f9dfb5c0cd494fa754737bd8883fbdeeadfce8c3243e6c6e81841355f2e"
+    },
+    {
+      "path": "artifacts/environment/final_acceptance_audit.json",
+      "exists": true,
+      "sha256": "c976f41f925f30460cef79f69d84630e2a0ccf1ee70d5ed49439c4d912898e67"
+    },
+    {
+      "path": "artifacts/benchmark_summary/summary.json",
+      "exists": true,
+      "sha256": "18cba3783e0454d7a9cf3d434823211ff663b81240acbbc951df70123908b2e9"
+    },
+    {
+      "path": "artifacts/environment/status_overview.json",
+      "exists": true,
+      "sha256": "437eed72e2e66b8aa1bc043060b699bbf02f61e32e9adf237763a4ce07a74b8d"
+    },
+    {
+      "path": "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/render_manifest.json",
+      "exists": true,
+      "sha256": "ab1464015b741e98b66df2024f914d04966c64abeb0f675a903b63c7134c8f01"
+    }
+  ],
+  "weights": [
+    {
+      "path": "checkpoints/formal_main_v1_seed0",
+      "stats": {
+        "files": 112,
+        "bytes": 9286310508
+      },
+      "best_policy_exists": true,
+      "best_policy_sha256": "af2ea0faf568443b1a30ef3e00bf882a6f002f4e89bf0b9f50e17e22e32df274",
+      "audit_recorded_sha256": "af2ea0faf568443b1a30ef3e00bf882a6f002f4e89bf0b9f50e17e22e32df274",
+      "audit_match": true
+    },
+    {
+      "path": "checkpoints/formal_main_v1_seed1",
+      "stats": {
+        "files": 109,
+        "bytes": 9286274639
+      },
+      "best_policy_exists": true,
+      "best_policy_sha256": "908e79f6b5cbd49eaedb5c31b63f36d82a7377cf5aea2aebf6aa3e117fbd94c8",
+      "audit_recorded_sha256": "908e79f6b5cbd49eaedb5c31b63f36d82a7377cf5aea2aebf6aa3e117fbd94c8",
+      "audit_match": true
+    },
+    {
+      "path": "checkpoints/formal_main_v1_seed2",
+      "stats": {
+        "files": 109,
+        "bytes": 9286274774
+      },
+      "best_policy_exists": true,
+      "best_policy_sha256": "eaf157f7857e54cd03a68d8112cdee43c733dd5d2c1a5cd9d6616a2e46da6c1d",
+      "audit_recorded_sha256": "eaf157f7857e54cd03a68d8112cdee43c733dd5d2c1a5cd9d6616a2e46da6c1d",
+      "audit_match": true
+    },
+    {
+      "path": "checkpoints/dagger_main_v1_seed0",
+      "stats": {
+        "files": 28,
+        "bytes": 2038407729
+      },
+      "best_policy_exists": true,
+      "best_policy_sha256": "82abb402cefa5f3cbb298a85d42e709b62cb0628bca674831ffe295bbc739544",
+      "audit_recorded_sha256": null,
+      "audit_match": null
+    }
+  ],
+  "datasets": [
+    {
+      "path": "datasets/isaac_full_v1",
+      "exists": true,
+      "stats": {
+        "files": 310,
+        "bytes": 9541585298
+      }
+    },
+    {
+      "path": "datasets/isaac_dagger_v1",
+      "exists": true,
+      "stats": {
+        "files": 101,
+        "bytes": 1403836785
+      }
+    },
+    {
+      "path": "datasets/smoke_v1",
+      "exists": true,
+      "stats": {
+        "files": 46,
+        "bytes": 503400989
+      }
+    }
+  ],
+  "doc_counts": {
+    "plan": {
+      "markdown_files": 12
+    },
+    "implement": {
+      "markdown_files": 10
+    },
+    "report": {
+      "markdown_files": 14
+    }
+  }
+}

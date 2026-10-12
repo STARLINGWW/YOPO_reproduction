@@ -4,6 +4,10 @@
 
 训练代码和Docker工作区可以迁移到Ubuntu 22.04。Windows原生Isaac Sim展示链、已生成的Windows路径和视频不需要在Ubuntu重建；需要重新运行闭环时，按支持的Isaac/ROS2方案单独验证。
 
+## 本机容器验证（2026-10-12）
+
+本机已在 Docker Desktop（Linux 引擎）的 Ubuntu 22.04 容器完成 GPU/ROS2 环境探针与 smoke 训练停止/恢复（`checkpoints/migration_smoke_v1`，status=complete）。环境画像、启动故障修复与全部证据见 [report/06_migration/01_local_environment.md](report/06_migration/01_local_environment.md)。以下步骤用于独立 Ubuntu 22.04 主机。
+
 ## 快速迁移
 
 ```bash

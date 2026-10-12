@@ -16,3 +16,8 @@
 - 清理 12:18 误建的空目录 YOPO_reproduction/YOPO_reproduction（0 文件）。
 - 独立复跑复核：`python -m compileall -q src scripts` 通过；59 份文档扩展审计 0 缺失链接、0 缺失路径；终审 JSON 与提交内容一一对应。
 - 未修改固定协议、审计权重和正式实验结果；验收脚本仅做上述向后兼容扩展。
+- 新增 report/04_evaluation/01_official_vs_selftrained.md：官方权重 vs 自训练权重总对照（离线 10k + 闭环 36 架次 + 两阶段展示）。
+- 新增 report/06_migration/01_local_environment.md：本机 Docker/环境基线、启动故障修复与 2026-10-12 容器验证记录。
+- 验证通过：GPU/ROS2 探针、smoke 训练停止/恢复（`checkpoints/migration_smoke_v1`，status=complete，不进入正式矩阵）。
+- 新增证据 artifacts/refactor_20261012/{docker_version.json,docker_images.jsonl,docker_info.json,train_env_gpu_probe.log,migration_smoke_*.log}。
+- 新增 scripts/refactor_freeze_snapshot.py 与 artifacts/refactor_20261012/freeze_snapshot.json（阶段0 冻结）：受保护文件哈希、三种子 best_policy 哈希实算复核（全部与 training_audit 一致）、数据与 checkpoint 规模快照。

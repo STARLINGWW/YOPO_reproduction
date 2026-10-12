@@ -1,0 +1,16 @@
+ Container yopo-ros2-reproduction-train-run-c10a9513fad4 Creating 
+ Container yopo-ros2-reproduction-train-run-c10a9513fad4 Created 
+---------------------
+| max speed =  6.0  |
+| traj time =  1.3  |
+| max radio =  8.0  |
+---------------------
+TRAIN {"kind": "train_step", "step": 50, "epoch": 0, "batch": 50, "total": 0.05631105779974913, "trajectory": 0.053185438983389705, "score": 0.0003125618816359426, "gradient_norm_before_clip": 0.18315167725086212}
+TRAIN {"kind": "train_step", "step": 60, "epoch": 0, "batch": 60, "total": 0.04866684542943496, "trajectory": 0.046158400485925226, "score": 0.00025084449435097315, "gradient_norm_before_clip": 0.2833919823169708}
+TRAIN {"kind": "train_step", "step": 70, "epoch": 0, "batch": 70, "total": 0.0499737338033564, "trajectory": 0.04653421896898133, "score": 0.00034395148343750715, "gradient_norm_before_clip": 0.36933547258377075}
+TRAIN {"kind": "train_step", "step": 80, "epoch": 0, "batch": 80, "total": 0.06309434693548836, "trajectory": 0.05819045701103459, "score": 0.0004903889924453772, "gradient_norm_before_clip": 0.21920353174209595}
+TRAIN {"kind": "train_step", "step": 90, "epoch": 0, "batch": 90, "total": 0.04314315077408768, "trajectory": 0.0416202727562969, "score": 0.00015228780177907822, "gradient_norm_before_clip": 0.2140989750623703}
+TRAIN {"kind": "train_step", "step": 100, "epoch": 0, "batch": 100, "total": 0.05930919590457918, "trajectory": 0.05498470401395151, "score": 0.00043244918906276675, "gradient_norm_before_clip": 0.5298471450805664}
+TRAIN {"kind": "train_step", "step": 110, "epoch": 0, "batch": 110, "total": 0.044736250583370926, "trajectory": 0.041765347302353754, "score": 0.0002970903281017168, "gradient_norm_before_clip": 0.4239233732223511}
+TRAIN {"kind": "train_step", "step": 120, "epoch": 0, "batch": 120, "total": 0.05659200105142298, "trajectory": 0.052939059024528716, "score": 0.00036529420268942644, "gradient_norm_before_clip": 0.580962061882019}
+EPOCH {"kind": "epoch", "epoch": 1, "step": 125, "train_mean": [0.05802211628697526, 0.0524271860072672, 0.000559493027970802], "validation_total": 0.04632359673992635, "wall_elapsed_s": 6.9684053170000055}

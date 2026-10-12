@@ -9,7 +9,8 @@
 | Git 初始化与结构基线 | 已完成（3 个提交，`main`） | `git log`：plan/implement/report 结构、迁移文档、可复现来源 |
 | GitHub 远端 | 已配置并同步源码与文档 | `origin` = github.com/STARLINGWW/YOPO_reproduction；结构基线已推送 |
 | 大文件（数据/权重/视频） | 未上传；按 LFS/Release 规则另行发布 | [发布检查清单](../../plan/06_github_migration/01_release_checklist.md) |
-| Ubuntu 22.04 smoke 迁移 | 待执行 | [MIGRATION_UBUNTU22.md](../../MIGRATION_UBUNTU22.md) |
+| 本机 Ubuntu 22.04 容器验证 | 已完成（2026-10-12：GPU/ROS2 探针 + smoke 停止/恢复） | [01_local_environment.md](01_local_environment.md) |
+| 独立 Ubuntu 主机迁移 | 待执行（驱动、NVIDIA Container Toolkit、数据归档） | [MIGRATION_UBUNTU22.md](../../MIGRATION_UBUNTU22.md) |
 
 ## 迁移设计
 
@@ -30,6 +31,7 @@
 
 ## 相关文档
 
+- [本机环境与 Docker 基线](01_local_environment.md)（含启动故障修复记录）
 - [plan/06 GitHub 与 Ubuntu 迁移计划](../../plan/06_github_migration/README.md)
 - [发布检查清单](../../plan/06_github_migration/01_release_checklist.md)
 - [CONTRIBUTING.md](../../CONTRIBUTING.md)、[.gitignore](../../.gitignore)、[.gitattributes](../../.gitattributes)

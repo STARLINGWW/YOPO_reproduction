@@ -10,6 +10,7 @@
 | DAgger 微调权重 | [checkpoints/dagger_main_v1_seed0](../../checkpoints/dagger_main_v1_seed0/result.json) | `result.json` / `run_manifest.json` |
 | 正式数据 | [datasets/isaac_full_v1](../../datasets/isaac_full_v1/validation.json) | `dataset_sha256=ee0330a7…`（validation.json） |
 | 聚合数据 | [datasets/isaac_dagger_v1](../../datasets/isaac_dagger_v1/aggregation_manifest.json) | `dataset_sha256=4d45354a…`（aggregation_manifest.json） |
+| 迁移 smoke 运行 | [checkpoints/migration_smoke_v1](../../checkpoints/migration_smoke_v1/result.json) | 本机 Ubuntu 22.04 容器验证（不进入正式矩阵），见[环境基线](../06_migration/01_local_environment.md) |
 
 ## 评测与验收
 
@@ -20,6 +21,7 @@
 | 命令/证据审计 | [command_evidence_audit.json](../../artifacts/environment/command_evidence_audit.json) | 链接与 JSON 解析审计（`status=passed`） |
 | 进度简报 | [progress_brief.json](../../artifacts/environment/progress_brief.json) | 由既有 JSON 生成 |
 | 文档刷新审计 | [refactor_20261012/document_audit.json](../../artifacts/refactor_20261012/document_audit.json) | 报告链接与证据路径一致性 |
+| 冻结快照 | [refactor_20261012/freeze_snapshot.json](../../artifacts/refactor_20261012/freeze_snapshot.json) | 受保护文件哈希、权重哈希复核（与审计一致）与数据规模 |
 
 ## 展示与图表
 
