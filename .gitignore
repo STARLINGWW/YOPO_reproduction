@@ -38,3 +38,7 @@ datasets/isaac_dagger_v1/shards/
 checkpoints/formal_main_v1_seed*/epoch_*.pt
 checkpoints/formal_main_v1_seed*/policy_epoch_*.pth
 
+# External snapshots may contain their own Git metadata; the parent repository
+# tracks the audited source files, never nested repository objects.
+external/**/.git/
+

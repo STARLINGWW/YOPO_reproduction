@@ -1,0 +1,543 @@
+# 提案补丁（未应用）：选项 B —— 主矩阵验收范围冻结为已验证后端的 1500 槽 + 300 个 mppi_reference17 槽位逐槽显式排除
+# 生成时间 2026-09-26；在隔离沙箱中实现并测试通过。本文件只是补丁：仓库中对应文件尚未被改动。
+# 规格来源 docs/proposals/optionB_matrix_scope_proposal.md 第 2.1-2.5 节；判据冲突证据 artifacts/environment/completion_criteria_gap.json
+# 沙箱实测：改动后 scripts/final_acceptance_audit.py 在真实 1500 集证据 + 真实 driver ledger + 真实 runtime admission 下输出 6 verified + 1 documented_gap + 0 pending。
+# 落地方式：由 Codex 按本补丁修改这 7 个文件（推荐），或 git apply -p1 本补丁；落地后必须重跑 aggregate_benchmarks.py、final_acceptance_audit.py、make_status_overview.py 并更新 protocol_snapshot_delta.json。
+
+--- a/scripts/aggregate_benchmarks.py
++++ b/scripts/aggregate_benchmarks.py
+@@ -3,10 +3,15 @@
+ import argparse,hashlib,json,sys
+ import numpy as np
+ ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'src'))
+-from yopo_eval.aggregate import aggregate,TERMINAL
++from yopo_eval.aggregate import aggregate,collect_exclusions,TERMINAL
+ from yopo_eval.task_spec import resolve_episode,verify_formal_yopo_checkpoint
+-parser=argparse.ArgumentParser();parser.add_argument('--protocol',type=Path,default=ROOT/'benchmarks/protocol_v1/protocol.json');args=parser.parse_args()
++parser=argparse.ArgumentParser();parser.add_argument('--protocol',type=Path,default=ROOT/'benchmarks/protocol_v1/protocol.json')
++parser.add_argument('--progress',type=Path,default=ROOT/'artifacts/benchmark_summary/matrix_progress.json',help='driver ledger that records skipped slots')
++parser.add_argument('--runtime-validation',type=Path,default=ROOT/'benchmarks/protocol_v1/runtime_validation.json')
++args=parser.parse_args()
+ protocol_path=args.protocol.resolve();protocol=json.loads(protocol_path.read_text());digest=hashlib.sha256(protocol_path.read_bytes()).hexdigest()
++admission=json.loads(args.runtime_validation.read_text()) if args.runtime_validation.is_file() else {}
++ledger=json.loads(args.progress.read_text()) if args.progress.is_file() else {}
+ records={};duplicates=[];invalid=[];ignored=[];measurement_gaps=[]
+ for path in sorted((ROOT/'artifacts/ros2_flights').glob('*/metrics.json')):
+     source=json.loads(path.read_text());mission=source.get('mission')
+@@ -48,8 +53,13 @@
+         records[identity]={'status':source['status'],'run':folder.name,'metrics':evaluation,'latency_samples_ms':samples}
+     except Exception as exc:invalid.append({'run':folder.name,'episode_id':identity,'error':repr(exc)})
+ for duplicate in duplicates:records.pop(duplicate['episode_id'],None)
+-report=aggregate(protocol,records);report.update(protocol_sha256=digest,ignored_diagnostic_runs=ignored,
+-    duplicate_primary_attempts=duplicates,invalid_evidence=invalid,measurement_gaps=measurement_gaps)
++excluded,exclusion_problems=collect_exclusions(protocol,ledger,admission.get('validated_backends') or [])
++if not args.progress.is_file():exclusion_problems.append({'problem':'driver ledger missing: %s'%args.progress})
++report=aggregate(protocol,records,excluded=excluded,exclusion_problems=exclusion_problems)
++report.update(protocol_sha256=digest,ignored_diagnostic_runs=ignored,
++    duplicate_primary_attempts=duplicates,invalid_evidence=invalid,measurement_gaps=measurement_gaps,
++    runtime_validation_path=str(args.runtime_validation),driver_ledger_path=str(args.progress),
++    driver_ledger_sha256=hashlib.sha256(args.progress.read_bytes()).hexdigest() if args.progress.is_file() else None)
+ if duplicates or invalid:report['status']='invalid_evidence'
+ destination=ROOT/'artifacts/benchmark_summary';destination.mkdir(exist_ok=True)
+ (destination/'summary.json').write_text(json.dumps(report,indent=2)+'\n')
+--- a/scripts/final_acceptance_audit.py
++++ b/scripts/final_acceptance_audit.py
+@@ -114,18 +114,53 @@
+     summary = read_json(ROOT/'artifacts/benchmark_summary/summary.json')
+     result = read_json(ROOT/'artifacts/benchmark_summary/matrix_result.json')
+     plan = read_json(ROOT/'artifacts/benchmark_summary/plan.json')
+-    completed = (summary or {}).get('completed_episodes');expected = (summary or {}).get('expected_episodes')
+-    failures = len((result or {}).get('failures') or []) if result else None
+-    invalid = len((summary or {}).get('invalid_evidence') or [])
+-    duplicates = len((summary or {}).get('duplicate_primary_attempts') or [])
+-    aggregate_clean = (summary or {}).get('status')=='outcome_coverage_complete'
+-    if summary and completed==expected==1800 and failures==0 and invalid==0 and duplicates==0 and aggregate_clean:
+-        return item('benchmark_matrix','Frozen 1800-episode matrix executed with coverage-aware failure statistics',
+-                    'verified','all 1800 episodes have terminal evidence, no invalid or duplicate primary evidence, and the aggregate reports outcome_coverage_complete',
+-                    [ROOT/'artifacts/benchmark_summary/summary.json'])
+-    detail = 'completed=%s expected=%s driver_failures=%s invalid_evidence=%s duplicates=%s aggregate_status=%s plan_pending=%s'%(
+-        completed,expected,failures,invalid,duplicates,(summary or {}).get('status'),(plan or {}).get('pending_episodes'))
+-    return item('benchmark_matrix','Frozen 1800-episode matrix executed with coverage-aware failure statistics',
++    summary = summary or {}
++    completed = summary.get('completed_episodes');expected = summary.get('expected_episodes')
++    admitted = summary.get('admitted_expected_episodes')
++    excluded = summary.get('excluded_episodes') or []
++    excluded_ids = {entry.get('id') for entry in excluded}
++    driver_failures = (result or {}).get('failures')
++    driver_failures = [] if driver_failures is None else driver_failures
++    non_excluded_failures = [failure for failure in driver_failures if (failure or {}).get('episode_id') not in excluded_ids]
++    invalid = len(summary.get('invalid_evidence') or [])
++    duplicates = len(summary.get('duplicate_primary_attempts') or [])
++    exclusion_problems = summary.get('exclusion_problems') or []
++    aggregate_status = summary.get('status')
++    aggregate_clean = aggregate_status in ('outcome_coverage_complete','outcome_coverage_complete_for_admitted_scope')
++    # Re-derive the legal exclusion set from the frozen protocol and the runtime
++    # admission record instead of trusting the aggregator's own bookkeeping.
++    from yopo_eval.aggregate import BACKEND_BY_MODEL
++    admission = read_json(ROOT/'benchmarks/protocol_v1/runtime_validation.json') or {}
++    protocol = read_json(ROOT/'benchmarks/protocol_v1/protocol.json') or {}
++    validated = set(admission.get('validated_backends') or [])
++    episode_model = {episode.get('id'):episode.get('model') for episode in (protocol.get('episodes') or [])}
++    expected_excluded = {episode_id for episode_id,model in episode_model.items()
++                         if BACKEND_BY_MODEL.get(model) not in validated}
++    recorded_excluded = {entry.get('id') for entry in excluded}
++    exclusion_scope_ok = (validated and expected_excluded==recorded_excluded
++                          and recorded_excluded <= set(episode_model))
++    requirement = ('Frozen matrix executed with coverage-aware failure statistics; slots whose backend never passed '
++                   'native runtime admission are recorded as explicit per-slot exclusions')
++    clean = (summary and admitted is not None and completed==admitted and admitted>0
++             and not non_excluded_failures and invalid==0 and duplicates==0 and aggregate_clean
++             and not exclusion_problems and exclusion_scope_ok)
++    if clean:
++        reasons = sorted({entry.get('reason') for entry in excluded})
++        detail = ('completed=%s of admitted_expected=%s (frozen protocol expects %s); excluded_by_policy=%s; '
++                  'driver_failures(non-excluded)=0; invalid_evidence=0; duplicates=0; aggregate_status=%s'%(
++                      completed,admitted,expected,len(excluded),aggregate_status))
++        if reasons:detail += '; exclusion_reasons=%s'%reasons
++        detail += '; scope evidence: artifacts/environment/completion_criteria_gap.json'
++        return item('benchmark_matrix',requirement,'verified',detail,
++                    [ROOT/'artifacts/benchmark_summary/summary.json',
++                     ROOT/'artifacts/benchmark_summary/matrix_result.json'])
++    detail = ('completed=%s admitted_expected=%s expected=%s driver_failures=%s non_excluded_driver_failures=%s '
++              'excluded_by_policy=%s (legally_excludable=%s) exclusion_problems=%s invalid_evidence=%s duplicates=%s '
++              'aggregate_status=%s plan_pending=%s'%(
++                  completed,admitted,expected,len(driver_failures),len(non_excluded_failures),len(excluded),
++                  len(expected_excluded),len(exclusion_problems),invalid,duplicates,aggregate_status,
++                  (plan or {}).get('pending_episodes')))
++    return item('benchmark_matrix',requirement,
+                 'pending' if plan else 'missing_evidence',detail,
+                 [ROOT/'artifacts/benchmark_summary/summary.json',ROOT/'artifacts/benchmark_summary/plan.json'])
+ 
+--- a/scripts/make_status_overview.py
++++ b/scripts/make_status_overview.py
+@@ -48,7 +48,10 @@
+     return {'plan_pending':plan.get('pending_episodes'),'plan_projection_hours':(plan.get('projection') or {}).get('projected_serial_wall_hours'),
+             'ledger_records':len(episodes),'ledger_status_counts':counts,
+             'last_batch':result.get('status'),'aggregate_status':summary.get('status'),
+-            'aggregate_completed':summary.get('completed_episodes'),'aggregate_expected':summary.get('expected_episodes')}
++            'aggregate_completed':summary.get('completed_episodes'),'aggregate_expected':summary.get('expected_episodes'),
++            'aggregate_admitted':summary.get('admitted_expected_episodes'),
++            'aggregate_excluded':len(summary.get('excluded_episodes') or []),
++            'exclusion_problems':len(summary.get('exclusion_problems') or [])}
+ 
+ 
+ def expert_rows():
+@@ -113,7 +116,11 @@
+               '| 账本记录数 | %s |'%matrix['ledger_records'],
+               '| 账本状态分布 | %s |'%(matrix['ledger_status_counts'] or '{}'),
+               '| 最近批次结果 | %s |'%(matrix['last_batch'] or '未开始'),
+-              '| 覆盖感知汇总 | completed=%s / expected=%s（%s） |'%(matrix['aggregate_completed'],matrix['aggregate_expected'],matrix['aggregate_status']),
++              '| 覆盖感知汇总 | completed=%s / admitted=%s / expected=%s（%s） |'%(matrix['aggregate_completed'],
++                                 matrix['aggregate_admitted'],matrix['aggregate_expected'],matrix['aggregate_status']),
++              '| 逐槽显式排除 | %s 槽（按政策未执行，不计入已执行数，也从不计为成功） |'%matrix['aggregate_excluded'],
++              '| 排除合法性检查 | %s |'%('通过（无问题）' if not matrix['exclusion_problems'] else
++                                 '%d 条问题，见 summary.json 的 exclusion_problems'%matrix['exclusion_problems']),
+               '','## 4. 专家／网络离线对比（Table I 口径）','',
+               '| 证据文件 | 来源 | 样本 | 15候选平均代价 | 15候选最优代价 | 样本对齐误差 |','|---|---|---:|---:|---:|---:|']
+     for row in experts:
+--- a/src/yopo_eval/aggregate.py
++++ b/src/yopo_eval/aggregate.py
+@@ -1,4 +1,4 @@
+-"""Coverage-aware benchmark aggregation; missing and duplicate runs stay visible."""
++"""Coverage-aware benchmark aggregation; missing, excluded and duplicate runs stay visible."""
+ from collections import Counter,defaultdict
+ import numpy as np
+ from .metrics import wilson_interval,percentiles
+@@ -8,8 +8,68 @@
+         'reference_curve_squared_jerk_integral_m2_per_s5','measured_raw_fd_squared_jerk_integral_m2_per_s5',
+         'max_speed_mps','real_time_factor','motor_saturation_fraction']
+ 
++# Mirrors the frozen episode resolver (src/yopo_eval/task_spec.py:resolve_episode). The
++# frozen resolver may not be edited for scoring purposes, so the mapping is repeated
++# here as a lightweight lookup; tests assert the two agree for every model of the
++# frozen protocol.
++BACKEND_BY_MODEL={'yopo_seed0':'yopo','yopo_seed1':'yopo','yopo_seed2':'yopo',
++                  'agile_autonomy':'agile','topotraj':'topotraj','mppi_reference17':'mppi_reference17'}
++ALLOWED_EXCLUSION_REASONS=('not_attempted_backend_unavailable','not_attempted_backend_unvalidated')
+ 
+-def aggregate(protocol,records):
++
++def collect_exclusions(protocol,ledger,validated_backends):
++    """Turn driver `not_attempted_*` ledger records into legal per-slot exclusions.
++
++    A slot may only be excluded when its backend never passed native runtime
++    admission, when the frozen protocol still contains that slot, when the driver
++    recorded one of the allowed reasons, and when the recorded model matches the
++    frozen protocol. The recorded exclusions must cover exactly the slots of the
++    unvalidated backends: a short or oversized list is a problem, never a pass.
++    """
++    episodes={episode['id']:episode for episode in protocol['episodes']}
++    validated=set(validated_backends or [])
++    excluded={};problems=[]
++    if not validated:
++        problems.append({'problem':'no backend passed runtime admission; exclusions cannot be justified'})
++        return excluded,problems
++    for episode_id,record in sorted((ledger.get('episodes') or {}).items()):
++        status=str((record or {}).get('status') or '')
++        if not status.startswith('not_attempted'):continue
++        episode=episodes.get(episode_id)
++        if episode is None:
++            problems.append({'episode_id':episode_id,'problem':'excluded slot is not in the frozen protocol'});continue
++        if status not in ALLOWED_EXCLUSION_REASONS:
++            problems.append({'episode_id':episode_id,'problem':'exclusion reason not allowed: %s'%status});continue
++        backend=BACKEND_BY_MODEL.get(episode['model'])
++        if backend in validated:
++            problems.append({'episode_id':episode_id,
++                             'problem':'backend %s passed runtime admission; exclusion is illegal'%backend});continue
++        recorded_model=(record or {}).get('model')
++        if recorded_model!=episode['model']:
++            problems.append({'episode_id':episode_id,
++                             'problem':'ledger model %r differs from frozen protocol model %r'%(recorded_model,episode['model'])});continue
++        excluded[episode_id]={'id':episode_id,'model':episode['model'],'reason':status}
++    expected={episode['id'] for episode in protocol['episodes']
++              if BACKEND_BY_MODEL.get(episode['model']) not in validated}
++    if set(excluded)!=expected:
++        problems.append({'problem':'exclusion scope differs from the policy-defined slot set',
++                         'expected_excluded':len(expected),'recorded_excluded':len(excluded),
++                         'missing':sorted(expected-set(excluded))[:5],
++                         'unexpected':sorted(set(excluded)-expected)[:5]})
++    return excluded,problems
++
++
++def aggregate(protocol,records,excluded=None,exclusion_problems=None):
++    excluded=dict(excluded or {});exclusion_problems=list(exclusion_problems or [])
++    protocol_ids={episode['id'] for episode in protocol['episodes']}
++    unknown=sorted(set(excluded)-protocol_ids)
++    if unknown:
++        exclusion_problems.append({'problem':'excluded ids are not in the frozen protocol','episode_ids':unknown[:5]})
++    overlap=sorted(set(excluded)&set(records))
++    if overlap:
++        exclusion_problems.append({'problem':'excluded slots have terminal evidence','episode_ids':overlap[:5]})
++    legal={key:value for key,value in excluded.items() if key in protocol_ids}
++    admitted=[episode for episode in protocol['episodes'] if episode['id'] not in legal]
+     groups=defaultdict(list)
+     for episode in protocol['episodes']:
+         task=protocol['tasks'][episode['task_index']]
+@@ -18,15 +78,18 @@
+     for key,episodes in sorted(groups.items()):
+         for subset in ['all30','paper_first10']:
+             expected=[e for e in episodes if subset=='all30' or e['paper_first10']]
+-            found=[records[e['id']] for e in expected if e['id'] in records]
++            admitted_expected=[e for e in expected if e['id'] not in legal]
++            excluded_here=[e['id'] for e in expected if e['id'] in legal]
++            found=[records[e['id']] for e in admitted_expected if e['id'] in records]
+             if any(r['status'] not in TERMINAL for r in found):raise ValueError('Nonterminal record cannot be counted')
+-            counts=Counter(r['status'] for r in found);success=counts['success'];n=len(found);missing=len(expected)-n
++            counts=Counter(r['status'] for r in found);success=counts['success'];n=len(found);missing=len(admitted_expected)-n
+             row={'model':key[0],'condition':key[1],'speed_mps':key[2],'subset':subset,
+-                 'expected':len(expected),'completed':n,'missing':missing,'complete':missing==0,
++                 'expected':len(expected),'admitted_expected':len(admitted_expected),'excluded':len(excluded_here),
++                 'completed':n,'missing':missing,'complete':missing==0,
+                  'outcomes':dict(counts),'success_rate_among_completed':success/n if n else None,
+                  'failure_rates_among_completed':{status:counts[status]/n if n else None for status in sorted(TERMINAL-{'success'})},
+                  'wilson95_among_completed':wilson_interval(success,n),
+-                 'possible_final_success_rate_bounds':[success/len(expected),(success+missing)/len(expected)]}
++                 'possible_final_success_rate_bounds':[success/len(expected),(success+missing+len(excluded_here))/len(expected)]}
+             for scope,selected in [('all_attempts',found),('successful_only',[r for r in found if r['status']=='success'])]:
+                 metrics={}
+                 for field in FIELDS:
+@@ -38,7 +101,20 @@
+             row['pooled_end_to_end_wall_ms']=percentiles(latency)
+             row['latency_sample_count']=len(latency)
+             summaries.append(row)
+-    completed=sum(e['id'] in records for e in protocol['episodes']);expected=len(protocol['episodes'])
+-    return {'status':'outcome_coverage_complete' if completed==expected else 'incomplete','expected_episodes':expected,
+-            'completed_episodes':completed,'missing_episodes':expected-completed,'groups':summaries,
+-            'statistics_note':'Outcome coverage is not full measurement or goal completion. Failures remain in success denominators; missing runs are unknown. Wilson intervals describe completed trials, not missing coverage. Path/safety/smoothness are reported both across attempts and conditional on success.'}
++    completed=sum(1 for episode in admitted if episode['id'] in records)
++    admitted_expected=len(admitted);expected=len(protocol['episodes']);missing=admitted_expected-completed
++    if admitted_expected==expected:
++        status='outcome_coverage_complete' if completed==expected else 'incomplete'
++    elif completed==admitted_expected and admitted_expected>0 and not exclusion_problems:
++        status='outcome_coverage_complete_for_admitted_scope'
++    else:
++        status='incomplete'
++    return {'status':status,'expected_episodes':expected,'admitted_expected_episodes':admitted_expected,
++            'completed_episodes':completed,'missing_episodes':missing,
++            'excluded_episodes':[excluded[key] for key in sorted(legal)],
++            'exclusion_problems':exclusion_problems,'groups':summaries,
++            'statistics_note':('Outcome coverage is not full measurement or goal completion. Failures remain in success '
++                               'denominators; missing runs are unknown. Slots excluded by policy stay in the denominator '
++                               'of the reported bounds and are never counted as successes. Wilson intervals describe '
++                               'completed trials, not missing or excluded coverage. Path/safety/smoothness are reported '
++                               'both across attempts and conditional on success.')}
+--- a/tests/test_final_acceptance_audit.py
++++ b/tests/test_final_acceptance_audit.py
+@@ -1,8 +1,8 @@
+-"""The final acceptance audit must be able to report 'verified' when every
+-piece of evidence exists, and must keep reporting gaps when anything is
+-missing. A false 'pending' at the very end would hide finished work, and a
+-false 'verified' would be worse, so both directions are checked here against a
+-synthetic complete tree (no GPU, no Isaac)."""
++"""The final acceptance audit must report 'verified' only when the executed part of
++the frozen matrix is complete and every excluded slot is provably excludable, and
++must keep reporting pending when anything is missing, illegal or contradictory.
++A false 'verified' at the very end would hide unfinished work, so both directions
++are checked here against synthetic trees (no GPU, no Isaac)."""
+ from pathlib import Path
+ import json
+ import sys
+@@ -12,13 +12,28 @@
+ sys.path.insert(0,str(ROOT/'scripts'))
+ import final_acceptance_audit as audit
+ 
++MODELS = ('yopo_seed0','yopo_seed1','yopo_seed2','topotraj','agile_autonomy','mppi_reference17')
++VALIDATED = ('yopo','agile','topotraj')
++
+ 
+ def write(path,payload):
+     path.parent.mkdir(parents=True,exist_ok=True)
+     path.write_text(json.dumps(payload),encoding='utf-8')
+ 
+ 
+-def complete_tree(root,prefix='formal_main_v1'):
++def synthetic_protocol():
++    episodes = [{'id':'%s_sparse_v2_trial%02d'%(model,index),'model':model} for model in MODELS for index in range(300)]
++    return {'episodes':episodes,'tasks':[{'condition':'sparse'}]}
++
++
++def legal_exclusions():
++    return [{'id':'mppi_reference17_sparse_v2_trial%02d'%index,'model':'mppi_reference17',
++             'reason':'not_attempted_backend_unavailable'} for index in range(300)]
++
++
++def complete_tree(root,prefix='formal_main_v1',executed=1500,excluded=None,validated=None):
++    excluded = legal_exclusions() if excluded is None else excluded
++    validated = VALIDATED if validated is None else validated
+     for seed in (0,1,2):
+         folder = root/'checkpoints'/('%s_seed%d'%(prefix,seed))
+         write(folder/'training_audit.json',{'status':'passed','epochs':50,'seed':seed,
+@@ -37,17 +52,23 @@
+           {'status':'complete','samples':10000,'sample_alignment_max_abs_error':0.0,
+            'checkpoint':{'kind':'random_initial'},'network_vs_expert':{'scaled_gd50':{}}})
+     write(root/'benchmarks/protocol_v1/runtime_validation.json',
+-          {'status':'passed','protocol_sha256':'x','validated_backends':['yopo','agile','topotraj'],
++          {'status':'passed','protocol_sha256':'x','validated_backends':list(validated),
+            'runtime_files':{'a':'b'},'consumed_episode_ids':[]})
++    write(root/'benchmarks/protocol_v1/protocol.json',synthetic_protocol())
+     write(root/'artifacts/agile_autonomy/torch_export_v1/torch_cuda_parity.json',{'status':'passed'})
+     write(root/'configs/reproduction_protocol.json',
+           {'baseline_sources':{'MPPI':{'status':'reference_only_no_official_release_found_reimplementation_required'}}})
+     write(root/'artifacts/paper_sources/mppi_identity.json',{'status':'closed'})
+     write(root/'datasets/isaac_dagger_v1/aggregation_manifest.json',{'status':'complete'})
+     write(root/'checkpoints/dagger_main_v1_seed0/result.json',{'status':'complete','scope':'dagger_aggregation_finetune_not_formal_seed'})
+-    write(root/'artifacts/benchmark_summary/summary.json',{'status':'outcome_coverage_complete',
+-          'completed_episodes':1800,'expected_episodes':1800,'invalid_evidence':[],'duplicate_primary_attempts':[]})
+-    write(root/'artifacts/benchmark_summary/matrix_result.json',{'status':'batch_finished','failures':[]})
++    expected = 1800;admitted = expected-len(excluded)
++    write(root/'artifacts/benchmark_summary/summary.json',{
++          'status':'outcome_coverage_complete_for_admitted_scope' if excluded else 'outcome_coverage_complete',
++          'completed_episodes':executed,'expected_episodes':expected,'admitted_expected_episodes':admitted,
++          'missing_episodes':admitted-executed,'excluded_episodes':excluded,'exclusion_problems':[],
++          'invalid_evidence':[],'duplicate_primary_attempts':[]})
++    write(root/'artifacts/benchmark_summary/matrix_result.json',{'status':'batch_finished',
++          'failures':[{'episode_id':entry['id'],'problem':'not attempted'} for entry in excluded]})
+     write(root/'artifacts/benchmark_summary/plan.json',{'pending_episodes':0})
+     showcase = root/'artifacts/ros2_showcase/showcase_final'
+     video = showcase/'global_trajectory.mp4';video.parent.mkdir(parents=True,exist_ok=True);video.write_bytes(b'video')
+@@ -63,17 +84,30 @@
+     return json.loads((tmp_path/'audit.json').read_text(encoding='utf-8'))
+ 
+ 
+-def test_audit_flips_to_verified_when_the_whole_chain_is_present(tmp_path,monkeypatch):
++def statuses_of(report):
++    return {item['id']:item['status'] for item in report['items']}
++
++
++def test_executed_slots_plus_documented_exclusions_verify(tmp_path,monkeypatch):
+     root = tmp_path/'project';complete_tree(root)
+     report = run_audit(root,monkeypatch,tmp_path)
+-    statuses = {item['id']:item['status'] for item in report['items']}
++    statuses = statuses_of(report)
++    assert statuses['benchmark_matrix']=='verified'
++    assert 'excluded_by_policy=300' in next(i for i in report['items'] if i['id']=='benchmark_matrix')['detail']
++    assert statuses['mppi_reference17']=='documented_gap'
+     assert statuses['three_seed_training']=='verified'
+     assert statuses['expert_50_step_comparison']=='verified'
+     assert statuses['baseline_native_validation']=='verified'
+     assert statuses['dagger_finetune']=='verified'
+-    assert statuses['benchmark_matrix']=='verified'
+     assert statuses['final_showcase_and_audit']=='verified'
+-    assert statuses['mppi_reference17']=='documented_gap'
++    assert report['counts']=={'verified':6,'documented_gap':1}
++
++
++def test_full_matrix_without_exclusions_still_verifies(tmp_path,monkeypatch):
++    root = tmp_path/'project'
++    complete_tree(root,executed=1800,excluded=[],validated=VALIDATED+('mppi_reference17',))
++    report = run_audit(root,monkeypatch,tmp_path)
++    assert statuses_of(report)['benchmark_matrix']=='verified'
+     assert report['counts']=={'verified':6,'documented_gap':1}
+ 
+ 
+@@ -84,7 +118,7 @@
+     (root/'artifacts/expert/network_comparison_trained_seed2.json').unlink()
+     (root/'artifacts/ros2_showcase/showcase_final/render_manifest.json').unlink()
+     report = run_audit(root,monkeypatch,tmp_path)
+-    statuses = {item['id']:item['status'] for item in report['items']}
++    statuses = statuses_of(report)
+     assert statuses['three_seed_training']=='pending'
+     assert statuses['expert_50_step_comparison']=='pending'
+     assert statuses['final_showcase_and_audit']=='pending'
+@@ -95,7 +129,8 @@
+ def test_matrix_item_requires_a_clean_aggregate_not_only_coverage(tmp_path,monkeypatch):
+     root = tmp_path/'project';complete_tree(root)
+     write(root/'artifacts/benchmark_summary/summary.json',{'status':'invalid_evidence',
+-          'completed_episodes':1800,'expected_episodes':1800,
++          'completed_episodes':1500,'expected_episodes':1800,'admitted_expected_episodes':1500,
++          'excluded_episodes':legal_exclusions(),'exclusion_problems':[],
+           'invalid_evidence':[{'run':'some_run','episode_id':'some_episode','error':'validation missing'}],
+           'duplicate_primary_attempts':[]})
+     report = run_audit(root,monkeypatch,tmp_path)
+@@ -103,3 +138,30 @@
+     assert items['benchmark_matrix']['status']=='pending'
+     assert 'invalid_evidence=1' in items['benchmark_matrix']['detail']
+     assert 'aggregate_status=invalid_evidence' in items['benchmark_matrix']['detail']
++
++
++def test_excluding_a_validated_backend_slot_keeps_the_matrix_pending(tmp_path,monkeypatch):
++    root = tmp_path/'project'
++    excluded = legal_exclusions()[:-1]+[{'id':'yopo_seed0_sparse_v2_trial00','model':'yopo_seed0',
++                                        'reason':'not_attempted_backend_unavailable'}]
++    complete_tree(root,excluded=excluded)
++    report = run_audit(root,monkeypatch,tmp_path)
++    item = next(i for i in report['items'] if i['id']=='benchmark_matrix')
++    assert item['status']=='pending'
++    assert 'excluded_by_policy=300 (legally_excludable=300)' in item['detail']
++
++
++def test_one_missing_executed_slot_keeps_the_matrix_pending(tmp_path,monkeypatch):
++    root = tmp_path/'project';complete_tree(root,executed=1499)
++    report = run_audit(root,monkeypatch,tmp_path)
++    item = next(i for i in report['items'] if i['id']=='benchmark_matrix')
++    assert item['status']=='pending'
++    assert 'completed=1499 admitted_expected=1500' in item['detail']
++
++
++def test_mppi_item_falls_back_to_pending_when_the_gap_declaration_changes(tmp_path,monkeypatch):
++    root = tmp_path/'project';complete_tree(root)
++    write(root/'configs/reproduction_protocol.json',{'baseline_sources':{'MPPI':{'status':'reproduced_from_paper'}}})
++    report = run_audit(root,monkeypatch,tmp_path)
++    assert statuses_of(report)['mppi_reference17']=='pending'
++    assert report['all_verified'] is False
+--- a/tests/test_aggregate_admitted_scope.py
++++ b/tests/test_aggregate_admitted_scope.py
+@@ -0,0 +1,98 @@
++"""Anti-abuse tests for policy-declared exclusions in the frozen matrix.
++
++An exclusion may only remove slots of a backend that never passed native runtime
++admission, it must cover exactly those slots, and it must never hide a missing
++executed slot, an illegal reason, a substituted model or a slot that already has
++terminal evidence."""
++from pathlib import Path
++import json
++import sys
++
++ROOT = Path(__file__).resolve().parents[1]
++sys.path.insert(0,str(ROOT/'src'))
++from yopo_eval.aggregate import aggregate,BACKEND_BY_MODEL,collect_exclusions
++from yopo_eval.task_spec import resolve_episode
++
++MODELS = ('yopo_seed0','mppi_reference17')
++MPPI_IDS = ('mppi_reference17_t00','mppi_reference17_t01')
++YOPO_IDS = ('yopo_seed0_t00','yopo_seed0_t01')
++
++
++def protocol():
++    episodes = [{'id':'%s_t%02d'%(model,index),'model':model,'task_index':0,'speed_mps':2,'paper_first10':True}
++                for model in MODELS for index in range(2)]
++    return {'tasks':[{'condition':'sparse'}],'episodes':episodes}
++
++
++def skip(episode_id,model='mppi_reference17',status='not_attempted_backend_unavailable'):
++    return {'episode_id':episode_id,'model':model,'status':status}
++
++
++def ledger(entries):
++    return {'episodes':{entry['episode_id']:entry for entry in entries}}
++
++
++def records_for(ids,status='success'):
++    return {episode_id:{'status':status,'metrics':{}} for episode_id in ids}
++
++
++def test_legal_exclusions_reach_admitted_scope_complete():
++    excluded,problems = collect_exclusions(protocol(),ledger([skip(i) for i in MPPI_IDS]),['yopo'])
++    assert problems==[]
++    report = aggregate(protocol(),records_for(YOPO_IDS),excluded=excluded)
++    assert report['status']=='outcome_coverage_complete_for_admitted_scope'
++    assert report['admitted_expected_episodes']==2 and report['completed_episodes']==2
++    assert len(report['excluded_episodes'])==2 and report['exclusion_problems']==[]
++    yopo = next(row for row in report['groups'] if row['model']=='yopo_seed0')
++    assert (yopo['expected'],yopo['admitted_expected'],yopo['excluded'],yopo['completed'])==(2,2,0,2)
++    assert yopo['possible_final_success_rate_bounds']==[1.0,1.0]
++    mppi = next(row for row in report['groups'] if row['model']=='mppi_reference17')
++    assert (mppi['expected'],mppi['admitted_expected'],mppi['excluded'],mppi['completed'])==(2,0,2,0)
++    assert mppi['success_rate_among_completed'] is None
++    assert mppi['possible_final_success_rate_bounds']==[0.0,1.0]  # excluded slots stay unknown
++
++
++def test_exclusion_list_must_match_the_policy_slot_set_exactly():
++    for ids in (MPPI_IDS[:1],MPPI_IDS+YOPO_IDS):
++        excluded,problems = collect_exclusions(protocol(),ledger([skip(i) for i in ids]),['yopo'])
++        report = aggregate(protocol(),records_for(YOPO_IDS),excluded=excluded,exclusion_problems=problems)
++        assert problems and report['status']=='incomplete'
++
++
++def test_validated_backend_slot_cannot_be_excluded():
++    entries = [skip(i) for i in MPPI_IDS]+[skip('yopo_seed0_t00','yopo_seed0')]
++    excluded,problems = collect_exclusions(protocol(),ledger(entries),['yopo'])
++    assert any('illegal' in entry.get('problem','') for entry in problems)
++    report = aggregate(protocol(),records_for(['yopo_seed0_t01']),excluded=excluded,exclusion_problems=problems)
++    assert report['status']=='incomplete'
++
++
++def test_unknown_exclusion_reason_is_rejected():
++    entries = [skip(i,status='not_attempted_attempts_exhausted') for i in MPPI_IDS]
++    excluded,problems = collect_exclusions(protocol(),ledger(entries),['yopo'])
++    assert any('reason not allowed' in entry.get('problem','') for entry in problems)
++    report = aggregate(protocol(),records_for(YOPO_IDS),excluded=excluded,exclusion_problems=problems)
++    assert report['status']=='incomplete'
++
++
++def test_excluded_slot_with_terminal_evidence_is_a_problem():
++    excluded,problems = collect_exclusions(protocol(),ledger([skip(i) for i in MPPI_IDS]),['yopo'])
++    report = aggregate(protocol(),records_for(YOPO_IDS+MPPI_IDS),excluded=excluded,exclusion_problems=problems)
++    assert any('terminal evidence' in entry.get('problem','') for entry in report['exclusion_problems'])
++    assert report['status']=='incomplete'
++
++
++def test_no_validated_backend_means_no_exclusions_are_legal():
++    excluded,problems = collect_exclusions(protocol(),ledger([skip(i) for i in MPPI_IDS]),[])
++    assert excluded=={} and problems
++
++
++def test_backend_mapping_agrees_with_the_frozen_resolver():
++    protocol_path = ROOT/'benchmarks/protocol_v1/protocol.json'
++    data = json.loads(protocol_path.read_text(encoding='utf-8'))
++    seen = {}
++    for episode in data['episodes']:
++        seen.setdefault(episode['model'],episode['id'])
++    assert set(seen)==set(BACKEND_BY_MODEL)
++    for model,episode_id in seen.items():
++        assert resolve_episode(protocol_path,episode_id)['backend']==BACKEND_BY_MODEL[model]
+--- a/tests/test_benchmark_matrix_driver.py
++++ b/tests/test_benchmark_matrix_driver.py
+@@ -83,10 +83,16 @@
+ 
+ 
+ def test_execute_requires_admission(tmp_path,monkeypatch):
++    # The admission record is part of the frozen protocol directory, so this test
++    # builds its own protocol copy without one (the real directory now has it).
++    protocol_dir = tmp_path/'protocol'
++    protocol_dir.mkdir()
++    shutil.copy2(PROTOCOL,protocol_dir/'protocol.json')
++    shutil.copytree(PROTOCOL.parent/'maps',protocol_dir/'maps')
+     monkeypatch.setattr(sys,'argv',['run_benchmark_matrix.py','--methods','yopo_seed0','--limit','1','--execute',
+                                     '--plan',str(tmp_path/'plan.json'),'--progress',str(tmp_path/'progress.json'),
+                                     '--result',str(tmp_path/'result.json'),
+-                                    '--protocol',str(PROTOCOL)])
++                                    '--protocol',str(protocol_dir/'protocol.json')])
+     with pytest.raises(SystemExit,match='Runtime admission record is missing'):
+         driver.main()
+ 
