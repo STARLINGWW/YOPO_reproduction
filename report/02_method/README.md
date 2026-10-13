@@ -5,6 +5,7 @@
 ## 本地对照入口
 
 - [论文方法与本地实现逐项对照](01_paper_to_code.md)：按论文 II-A、II-B、III 分节的代码对照与差异清单（2026-10-12 整理）。
+- [YOPO 阅读笔记（精读）](reading_note/README.md)：12 节精读 + 自绘原理图；[汇报幻灯片（50 页 PDF）](reading_note/slides/yopo_report.pdf)（源：用户论文精读笔记，已随复现分发）。
 
 ## 原始来源报告
 

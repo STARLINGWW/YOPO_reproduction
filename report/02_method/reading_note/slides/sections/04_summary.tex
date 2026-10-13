@@ -1,0 +1,129 @@
+% ============================ 04 小结 ============================
+
+\section{小结、易错点与待核对项}
+
+\begin{frame}{主要结论}
+  \scriptsize
+  \begin{block}{一、前向推理：网络预测的是“修正量”，不是轨迹}
+    \scriptsize
+    候选 $=$ 固定锚点 $+$ \textbf{网络预测的有界偏移与终端导数}；
+    曲线由“当前状态 $+$ 终端状态”代入五次多项式边界值问题\textbf{解析求出}。
+    在线只解被选中的一条；输入以\textbf{深度图为主}，状态次之，
+    且状态会被旋转到 15 个基元系各一份。
+  \end{block}
+  \begin{block}{二、引导训练：监督来自“可求导的代价”，不是专家}
+    \scriptsize
+    评价器是手写的代价函数 $+$ 特权地图查询：
+    平滑项与目标项给\textbf{闭式}梯度，避障项给\textbf{数值}梯度。
+    自定义 autograd 层把 $\partial J/\partial\mathbf q$ 接进计算图，
+    链式法则沿“解码链 $\to$ 网络权重”完成更新。
+  \end{block}
+  \begin{block}{三、两种输出、两条信号，一套权重}
+    \scriptsize
+    轨迹参数靠\textbf{外部代价梯度}改进（不经过预测评分）；
+    评分靠\textbf{回归当前代价}学会排序；
+    两者作用于共享骨干，是联合优化而非两个独立网络。
+  \end{block}
+\end{frame}
+
+% ---------------------------------------------------------------
+\begin{frame}{易混淆概念对照}
+  \scriptsize
+  \begin{center}
+  \begin{tabular}{@{}p{0.33\textwidth}p{0.6\textwidth}@{}}
+    \toprule
+    \textbf{常见但不准确的理解} & \textbf{准确理解} \\
+    \midrule
+    15 个固定动作中选一个 & 固定的是锚点，终点是可预测的 \\
+    15 个区域各运行搜索线程 & 共享网络并行产生多个空间位置的输出 \\
+    只输出 2\,s 后的位置 & 还输出终端速度、加速度与评分 \\
+    网络直接输出多项式系数 & 输出边界参数，系数由解析映射得到 \\
+    在线生成全部曲线再查地图评分 & 参数与评分同时预测，只求解选中曲线 \\
+    轨迹分支经“学出的评分”反传 & 主轨迹梯度来自外部代价评价器 \\
+    无监督 $=$ 没有监督信号 & 无专家轨迹标签，但有代价与评分目标 \\
+    终端限幅 $\Rightarrow$ 全程安全可执行 & 限幅与软代价改善表现，非全程硬约束证明 \\
+    特权训练让网络知晓所有遮挡 & 部署仍受有限视野与部分可观测性限制 \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \vspace{0.2em}
+  \begin{reading}
+    \scriptsize
+    由此可进一步推论：遇到严重遮挡、异常观测或训练分布之外的场景时，
+    快速预测的评分可能失准。原文证明了特定场景中的有效性，
+    \textbf{没有给出任意未知环境的完整安全保证}。
+  \end{reading}
+\end{frame}
+
+% ---------------------------------------------------------------
+\begin{frame}{待核对事项}
+  \small
+  \begin{columns}[t]
+    \begin{column}{0.5\textwidth}
+      \begin{block}{实现层面待确认}
+        \footnotesize
+        \begin{itemize}\tight
+          \item 代价权重、归一化与时间采样间隔；
+          \item 终端导数缩放的分量含义与坐标变换约定；
+          \item 评分目标的符号、筛选阈值与比较方向；
+          \item 自定义梯度、评分目标的停止梯度、聚合尺度；
+          \item 重规划起点来自当前估计还是旧参考，
+                以及拼接处的连续性。
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \begin{block}{验证层面待确认}
+        \footnotesize
+        \begin{itemize}\tight
+          \item 用简单障碍场景比较有限差分与解析/数值梯度；
+          \item 轨迹表示换成其他参数化（如 MINCO）后，
+                梯度的哪一段会失效；
+          \item 论文与公开代码在评分符号、候选筛选、时域上的差异需要逐一记录。
+        \end{itemize}
+      \end{block}
+      \begin{reading}
+        \scriptsize
+        作者仓库已有后续重构版本与不同轨迹表示的分支，
+        参考时\textbf{应记录具体 commit}，
+        避免把新版表示或部署指标写回 2024 年原文。
+      \end{reading}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------
+\begin{frame}{来源与说明}
+  \small
+  \begin{columns}[t]
+    \begin{column}{0.5\textwidth}
+      \begin{block}{本报告的依据}
+        \footnotesize
+        \begin{itemize}\tight
+          \item 原文 PDF：\texttt{YOPO\_original.pdf}（8 页）；
+                页码指该 PDF 页序，非期刊页码；
+          \item 阅读笔记：\texttt{YOPO/papernote.md}（2026-10-08 版）；
+          \item 原文配图：MinerU 提取结果中的图像文件；
+          \item 笔记配图：由笔记作者绘制的教学示意图。
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \begin{reading}[三类内容的标注]
+        \footnotesize
+        \begin{itemize}\tight
+          \item \textbf{蓝色块}：原文可查证的结论，已注明图/表/式编号；
+          \item \textbf{绿色块}：为便于理解构造的教学数字，
+                不是论文实验数据；
+          \item \textbf{橙色块}：本笔记的整理与推论，
+                与原文陈述需区分。
+        \end{itemize}
+      \end{reading}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.4em}
+  \begin{center}
+    \Large\color{yopoblue}\bfseries 谢谢，欢迎讨论
+  \end{center}
+\end{frame}

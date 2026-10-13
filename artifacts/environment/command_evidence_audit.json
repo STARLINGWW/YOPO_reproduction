@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "reports_scanned": 76,
+  "reports_scanned": 78,
   "missing_link_count": 0,
   "missing_path_count": 0,
   "unparsable_json_count": 0,
@@ -44,11 +44,13 @@
         "plan/00_charter/01_refactor_master_plan.md",
         "plan/01_paper_protocol/README.md",
         "plan/02_environment_ros2/README.md",
+        "report/00_index/04_pipeline_flowchart.png",
         "report/01_status/02_复现状态总览.md",
         "report/01_status/README.md",
         "report/02_method/01_paper_to_code.md",
         "report/02_method/02_YOPO笔记与本地复现逐项对照_2026-10-08.md",
         "report/02_method/03_原论文与源码差异审计.md",
+        "report/02_method/reading_note/README.md",
         "report/03_training/02_DAgger聚合与微调方案.md",
         "report/03_training/03_专家50步比较.md",
         "report/04_evaluation/01_official_vs_selftrained.md",
@@ -242,11 +244,45 @@
       "unparsable_json": []
     },
     {
+      "report": "report/02_method/reading_note/README.md",
+      "links": [
+        "artifacts/paper_sources/YOPO_author_version.pdf",
+        "plan/01_paper_protocol/references/YOPO_原始笔记对话_conversation.txt",
+        "report/01_status/02_复现状态总览.md",
+        "report/02_method/README.md",
+        "report/02_method/reading_note/assets/01_online_pipeline.png",
+        "report/02_method/reading_note/assets/02_primitive_anchors.png",
+        "report/02_method/reading_note/assets/03_training_gradients.png",
+        "report/02_method/reading_note/assets/04_score_learning.png",
+        "report/02_method/reading_note/tools/generate_figures.py",
+        "report/README.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/02_method/reading_note/slides/README.md",
+      "links": [
+        "artifacts/paper_sources/YOPO_author_version.pdf",
+        "report/02_method/reading_note/README.md",
+        "report/02_method/reading_note/assets",
+        "report/02_method/reading_note/tools/generate_offset_geometry.py"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
       "report": "report/02_method/README.md",
       "links": [
         "report/02_method/01_paper_to_code.md",
         "report/02_method/02_YOPO笔记与本地复现逐项对照_2026-10-08.md",
         "report/02_method/03_原论文与源码差异审计.md",
+        "report/02_method/reading_note/README.md",
+        "report/02_method/reading_note/slides/yopo_report.pdf",
         "report/90_archive/04_YOPO本地复现调研与方案.md"
       ],
       "missing_links": [],
@@ -1365,19 +1401,27 @@
     {
       "report": "README.md",
       "links": [
+        "LICENSE",
         "MIGRATION_UBUNTU22.md",
+        "artifacts/benchmark_summary/summary.json",
+        "artifacts/environment/final_acceptance_audit.json",
         "benchmarks/archive/README.md",
         "implement/README.md",
         "implement/workspace/README.md",
-        "plan/00_charter/02_new_root_refactor_plan.md",
         "plan/06_github_migration/01_release_checklist.md",
         "plan/06_github_migration/README.md",
+        "plan/99_change_log/CHANGELOG.md",
         "plan/README.md",
         "report/00_index/01_module_map.md",
         "report/00_index/02_执行手册.md",
         "report/00_index/03_project_map.html",
+        "report/00_index/04_pipeline_flowchart.png",
         "report/01_status/01_当前进度简报.md",
         "report/01_status/02_复现状态总览.md",
+        "report/02_method/01_paper_to_code.md",
+        "report/02_method/03_原论文与源码差异审计.md",
+        "report/02_method/reading_note/README.md",
+        "report/02_method/reading_note/slides/yopo_report.pdf",
         "report/04_evaluation/01_official_vs_selftrained.md",
         "report/05_visualization/media/global_overview.png",
         "report/05_visualization/media/global_trajectory.mp4",
@@ -1388,14 +1432,13 @@
         "report/05_visualization/media/official_vs_selftrained/04_terminal_phase.png",
         "report/05_visualization/media/paper_figures",
         "report/05_visualization/media/render_manifest.json",
+        "report/06_migration/03_github_release_verification.md",
         "report/06_migration/README.md",
-        "report/90_archive/mppi/README.md",
         "report/99_artifact_index/README.md",
         "report/README.md"
       ],
       "missing_links": [],
       "referenced_paths": [
-        "scripts/audit_command_evidence.py",
         "scripts/ros2/verify_environment.py",
         "scripts/train_scratch.py"
       ],

@@ -1,0 +1,99 @@
+% =====================================================================
+%  YOPO 技术汇报 —— 前向推理 / 引导训练
+%  编译：xelatex -> xelatex（需要 ctex/beamer；第二次编译页码才正确）
+%  依据：YOPO/papernote.md（2026-10-08）与原文 PDF
+% =====================================================================
+% !TEX program = xelatex
+\documentclass[aspectratio=169,11pt]{beamer}
+
+% ---------- 中文与数学 ----------
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,calc,decorations.pathreplacing}
+
+% ---------- 配色 ----------
+\definecolor{yopoblue}{HTML}{1F4E79}
+\definecolor{yopomid}{HTML}{2E75B6}
+\definecolor{yopoorange}{HTML}{D2691E}
+\definecolor{yopogreen}{HTML}{2E8B57}
+\definecolor{yopogray}{HTML}{5A5A5A}
+\definecolor{yopopale}{HTML}{EEF3F8}
+\definecolor{yopowarm}{HTML}{FDF3E7}
+
+% ---------- 主题 ----------
+\usetheme{default}
+\useinnertheme{rectangles}
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{structure}{fg=yopoblue}
+\setbeamercolor{frametitle}{bg=yopoblue,fg=white}
+\setbeamercolor{title}{fg=yopoblue}
+\setbeamercolor{subtitle}{fg=yopogray}
+\setbeamercolor{block title}{bg=yopomid,fg=white}
+\setbeamercolor{block body}{bg=yopopale}
+\setbeamercolor{block title example}{bg=yopogreen,fg=white}
+\setbeamercolor{block body example}{bg=yopopale}
+\setbeamercolor{block title alerted}{bg=yopoorange,fg=white}
+\setbeamercolor{block body alerted}{bg=yopowarm}
+\setbeamercolor{itemize item}{fg=yopomid}
+\setbeamercolor{itemize subitem}{fg=yopomid}
+\setbeamercolor{normal text}{fg=black}
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+\setbeamerfont{footline}{size=\tiny}
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{itemize subitem}[triangle]
+
+\setbeamertemplate{frametitle}{%
+  \nointerlineskip
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.1ex,leftskip=0.35cm]{frametitle}%
+    \usebeamerfont{frametitle}\insertframetitle%
+  \end{beamercolorbox}%
+}
+
+\setbeamertemplate{footline}{%
+  \hbox{}\hfill
+  {\usebeamerfont{footline}\color{yopogray}%
+   YOPO 技术汇报\quad\insertframenumber\,/\,\inserttotalframenumber}
+  \hspace{0.35cm}\vspace{3pt}%
+}
+
+% ---------- 语义化区块：与笔记约定一致，区分原文/教学/推论 ----------
+\newenvironment{paperfinding}[1][原文结论]{%
+  \begin{block}{#1}}{\end{block}}
+\newenvironment{teach}[1][教学示例（构造数字，非原文）]{%
+  \begin{exampleblock}{#1}}{\end{exampleblock}}
+\newenvironment{reading}[1][阅读推论（笔记整理）]{%
+  \begin{alertblock}{#1}}{\end{alertblock}}
+
+% 小号两栏辅助
+\newcommand{\tight}{\setlength{\itemsep}{2pt}\setlength{\parskip}{0pt}}
+
+% 元信息
+\title[YOPO 技术汇报]{YOPO：一次前向的视觉规划器}
+\subtitle{前向推理 \& 引导训练 —— 技术细节汇报}
+\author{基于 \emph{You Only Plan Once}（RA-L 2024, 9(7): 6083--6090）整理}
+\institute{笔记依据：\texttt{YOPO/papernote.md}（2026-10-08 版）}
+\date{汇报日期：\today}
+
+\begin{document}
+
+% ============================ 封面 ============================
+\begin{frame}[plain]
+  \titlepage
+  \begin{center}
+    \small\color{yopogray}
+    原文 PDF 与配图来源见末页；所有“原文结论 / 教学示例 / 阅读推论”已分色标注
+  \end{center}
+\end{frame}
+
+\input{sections/00_overview.tex}
+\input{sections/01_forward.tex}
+\input{sections/02_training.tex}
+\input{sections/03_experiment.tex}
+\input{sections/04_summary.tex}
+
+\end{document}

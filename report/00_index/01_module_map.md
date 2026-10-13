@@ -1,6 +1,6 @@
 # YOPO 复现模块总图：12 个模块 × 论文对照
 
-更新：2026-10-13 ｜ 范围：YOPO 复现全部内容（YOPO-only 活动范围） ｜ 论文快照：[YOPO_author_version.pdf](../../artifacts/paper_sources/YOPO_author_version.pdf) ｜ 配套交互式预览：工作区根目录 `_sandbox/yopo-project-map-preview.html`（本地查看，未纳入仓库）
+更新：2026-10-13 ｜ 范围：YOPO 复现全部内容（YOPO-only 活动范围） ｜ 论文快照：[YOPO_author_version.pdf](../../artifacts/paper_sources/YOPO_author_version.pdf) ｜ 总流程图：[04_pipeline_flowchart.png](04_pipeline_flowchart.png)（README 首屏同图） ｜ 精读笔记：[report/02_method/reading_note](../02_method/reading_note/README.md) ｜ 配套交互式预览：工作区根目录 `_sandbox/yopo-project-map-preview.html`（本地查看，未纳入仓库）
 
 本图把整个复现分成 5 个阶段、12 个模块，每个模块给出“定位 → 本地实现 → 证据与结果 → 状态”，并标注论文对应位置，便于对照论文逐节阅读。运行代码没有被移动：`src、scripts、configs、ros2_ws、docker、tests、external、datasets、checkpoints、artifacts、reports` 仍是根目录运行兼容层，`plan / implement / report` 是新增的管理、导航和阅读入口（原因见[重构总计划](../../plan/00_charter/01_refactor_master_plan.md)）。
 
