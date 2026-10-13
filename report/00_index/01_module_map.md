@@ -91,7 +91,7 @@ ResNet18 编码深度，与 3×5 运动原语网格、速度、加速度和目�
 
 参考轨迹 → 位置/速度外环 → SO3 姿态控制 → 电机推力与力矩分配（含电机响应滞后）→ PhysX 刚体积分；飞行中不直接设置位置或速度。自训练 seed0 展示飞行：成功、航迹 24.641 m、最小净空 1.188 m、终点误差 0.099 m、跟踪 RMSE 0.116 m、最大接触力 0 N；物理步长 2 ms、控制步长 10 ms。
 
-入口：[unified_quad.py](../../src/yopo_sim/unified_quad.py)、[physx_vehicle.py](../../src/yopo_sim/physx_vehicle.py)、[run_ros2_navigation.py](../../scripts/run_ros2_navigation.py)、[run_navigation.py](../../scripts/run_navigation.py)、[飞行 metrics.json](../../artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/metrics.json)。
+入口：[unified_quad.py](../../src/yopo_sim/unified_quad.py)、[physx_vehicle.py](../../src/yopo_sim/physx_vehicle.py)、[run_ros2_navigation.py](../../scripts/run_ros2_navigation.py)、[run_navigation.py](../../scripts/run_navigation.py)、`artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/metrics.json`（外部归档：完整飞行记录与逐架次证据见 report/06_migration）。
 
 ### 10 专家与基线对照（⑤ 评估与收尾，待闭合：MPPI 300 槽）
 

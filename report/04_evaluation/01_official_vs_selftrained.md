@@ -9,7 +9,7 @@
 | 类别 | 权重 | SHA256 | 说明 |
 |---|---|---|---|
 | 官方（原生 Simple 布局） | [external/audit_sources/YOPO-Simple/YOPO/saved/YOPO_1/epoch50.pth](../../external/audit_sources/YOPO-Simple/YOPO/saved/YOPO_1/epoch50.pth) | `09ec3109…229f` | 官方发布预训练权重，45,264,872 B |
-| 官方（main 布局映射） | [checkpoints/official_epoch50_reference/best_policy.pth](../../checkpoints/official_epoch50_reference/best_policy.pth)（等同 [artifacts/expert/official_epoch50_policy_layout.pth](../../artifacts/expert/official_epoch50_policy_layout.pth)） | `7d5dc46f…a94e` | 7 个键名映射进 main 布局，张量不变，见 [official_checkpoint_mapping.json](../../artifacts/expert/official_checkpoint_mapping.json) |
+| 官方（main 布局映射） | `checkpoints/official_epoch50_reference/best_policy.pth`（外部归档：官方权重转换参考；官方原件见 external/audit_sources/YOPO-Simple/YOPO/saved/YOPO_1/epoch50.pth）（等同 [artifacts/expert/official_epoch50_policy_layout.pth](../../artifacts/expert/official_epoch50_policy_layout.pth)） | `7d5dc46f…a94e` | 7 个键名映射进 main 布局，张量不变，见 [official_checkpoint_mapping.json](../../artifacts/expert/official_checkpoint_mapping.json) |
 | 自训练 seed0 | [checkpoints/formal_main_v1_seed0/best_policy.pth](../../checkpoints/formal_main_v1_seed0/best_policy.pth) | `af2ea0fa…f274` | 50 轮 / 312,500 步，随机初始化，最佳轮 50 |
 | 自训练 seed1 | checkpoints/formal_main_v1_seed1/best_policy.pth | `908e79f6…94c8` | 最佳轮 47（哈希记录于 training_audit.json） |
 | 自训练 seed2 | checkpoints/formal_main_v1_seed2/best_policy.pth | `eaf157f7…6c1d` | 最佳轮 50（哈希记录于 training_audit.json） |
@@ -68,7 +68,7 @@
 | 阶段 | 权重 | 视频与清单 |
 |---|---|---|
 | 官方预训练部署阶段（2026-09 早期） | 官方 Simple epoch50 | [yopo_global_flight.mp4](../../artifacts/showcase/forest_seed7_v3/yopo_global_flight.mp4)、[render_manifest.json](../../artifacts/showcase/forest_seed7_v3/render_manifest.json)、[完成验收与成果路径](../90_archive/01_完成验收与成果路径.md) |
-| 自训练最终展示（50 轮审计权重） | 自训练 seed0 | [global_trajectory.mp4](../../artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_trajectory.mp4)、[metrics.json](../../artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/metrics.json)（成功、RMSE 0.116 m、最小净空 1.188 m、端到端 p50 92.7 ms） |
+| 自训练最终展示（50 轮审计权重） | 自训练 seed0 | [global_trajectory.mp4](../../artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_trajectory.mp4)、`artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/metrics.json`（外部归档：完整飞行记录与逐架次证据见 report/06_migration）（成功、RMSE 0.116 m、最小净空 1.188 m、端到端 p50 92.7 ms） |
 
 两个展示的场景、栈与录制方式不同，只用于说明两个阶段各自能飞，不构成对照结论。
 
@@ -81,6 +81,6 @@
 
 ## 7. 证据与复跑入口
 
-- 逐架次原始指标：`artifacts/navigation/wab2_<arm>_s<scene>_v<speed>/metrics.json`（36 个目录）；日志见 [batch_logs](../../artifacts/weights_ab_demo/batch_logs)。
+- 逐架次原始指标：`artifacts/navigation/wab2_<arm>_s<scene>_v<speed>/metrics.json`（36 个目录）；日志见 `artifacts/weights_ab_demo/batch_logs`（外部归档：运行日志）。
 - 批量驱动：[scripts/run_weights_ab_batch.py](../../scripts/run_weights_ab_batch.py)（支持 `--skip-existing` 续跑）；离线对照：[scripts/compare_expert_network.py](../../scripts/compare_expert_network.py)。
 - 权重身份：官方映射记录 [official_checkpoint_mapping.json](../../artifacts/expert/official_checkpoint_mapping.json)；自训练审计 [checkpoints/formal_main_v1_seed0/training_audit.json](../../checkpoints/formal_main_v1_seed0/training_audit.json)。

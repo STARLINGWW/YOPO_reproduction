@@ -49,8 +49,8 @@ python scripts/evaluate_ros2_flight.py --help
 | 产物 | 路径 | 说明 |
 |---|---|---|
 | 运行协议准入 | [runtime_validation.json](../../benchmarks/protocol_v1/runtime_validation.json) | `status=passed`；agile/topotraj/yopo 三后端；含运行时文件哈希 |
-| 飞行原始记录 | [artifacts/ros2_flights](../../artifacts/ros2_flights) | 按 run 分目录；体积巨大，勿递归扫描 |
-| 演示飞行指标 | [showcase … 014921/metrics.json](../../artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/metrics.json) | 最终展示链的测量日志 |
+| 飞行原始记录 | `artifacts/ros2_flights`（外部归档：完整飞行记录与逐架次证据见 report/06_migration） | 按 run 分目录；体积巨大，勿递归扫描 |
+| 演示飞行指标 | `artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/metrics.json`（外部归档：完整飞行记录与逐架次证据见 report/06_migration） | 最终展示链的测量日志 |
 
 ## 验证方法
 

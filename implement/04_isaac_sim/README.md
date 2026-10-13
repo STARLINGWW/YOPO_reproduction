@@ -53,7 +53,7 @@ Isaac 相关命令需要 Windows 原生 Isaac Sim 环境；容器内训练不依
 | 深度探针 | [artifacts/isaac_depth_probe](../../artifacts/isaac_depth_probe)、[artifacts/probes](../../artifacts/probes) | 采集正确性与物理探针 |
 | 传输与环境探针 | `artifacts/environment/isaac_transport*.log`、`isaac_humble_probe.json` | Isaac↔ROS2 传输验证 |
 | 数据校验 | [datasets/isaac_full_v1/validation.json](../../datasets/isaac_full_v1/validation.json) | 深度帧、位姿、地图隔离的机械校验 |
-| 闭环飞行 | [artifacts/ros2_flights](../../artifacts/ros2_flights) | 按 run 分目录（体积大，勿递归扫描） |
+| 闭环飞行 | `artifacts/ros2_flights`（外部归档：完整飞行记录与逐架次证据见 report/06_migration） | 按 run 分目录（体积大，勿递归扫描） |
 
 ## 验证方法
 

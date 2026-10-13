@@ -1,0 +1,49 @@
+{
+  "dataset_sha256": "ee0330a7d86683b5c0d2ebd884467a728176983709ccd1ee4889002b587eca1a",
+  "state_seed": 0,
+  "split": "test",
+  "samples": 10000,
+  "source_sha256": {
+    "scripts/run_expert_cache.py": "76cd33587364e0347e3c9137f7a0512a955f170608ba9cc9430264ba544803fb",
+    "src/yopo_expert/core.py": "85b8dd15b1667f369f84cea96f9dc2cd40f1393c981f4e4970362f9406595821",
+    "src/yopo_repro/dataset.py": "fa118fc68acea884967c70decffbc7c71a223c3347640fde9d1770ba6d9d832a",
+    "configs/expert_variants.json": "1df6593e24ca5ad85396b0f14fccbbd0a1667cf87b64385b97f2b41be4d6c247",
+    "external/audit_sources/main/flightlib/configs/traj_opt.yaml": "5024a57773d7305e4eaf0964f97ecc1e47a6e6fa8baad3318a8f0ab46bf087cc",
+    "ros2_ws/install/yopo_expert_core/lib/libyopo_expert.so": "1113ec476551c4e79fa6ca691abfa1c74c83761d25624192c773345c5a7c41b0"
+  },
+  "variants": {
+    "version": 1,
+    "status": "solver_settings_inferred_from_incomplete_public_materials",
+    "objective": "Unmodified pinned YOPO main GradTrajOptimizer, original bucket ESDF, identical quintic horizon, same15 initial primitive end states",
+    "gradient": "Raw world-frame gradient, without network-only asymmetric clipping",
+    "primary_candidate": "scaled_gd50",
+    "variants": {
+      "scaled_gd50": {
+        "classification": "explicit reconstruction, not an exact claim about the unpublished paper expert driver",
+        "gradient_update_attempts": 50,
+        "coordinate_scales_pva": [
+          4.0,
+          6.0,
+          4.5
+        ],
+        "initial_step": 1.0,
+        "normalized_direction_norm_cap": 1.0,
+        "backtracking_trials_per_attempt": 12,
+        "backtracking_ratio": 0.5,
+        "armijo_coefficient": 0.0001,
+        "return_policy": "best finite evaluated endpoint; accepted updates and total evaluations both reported"
+      },
+      "mma50_evaluations": {
+        "classification": "cited2017 algorithm choice, adapted objective-evaluation budget; NOT50gradient updates",
+        "nlopt_algorithm": "LD_MMA (24)",
+        "nlopt_version": "2.7.1",
+        "maximum_objective_evaluations": 50,
+        "hard_endpoint_bounds": false,
+        "difference_from_2017": "fixed single-segment main objective/free endpoints, no original2017 position/velocity/acceleration box constraints or time budgets"
+      }
+    },
+    "data_rule": "Validate numerical implementation on development/training maps first. Freeze settings before evaluating independent formal test maps.",
+    "latency_rule": "Report C++ optimization wall time separately from Python setup/batching and neural inference; do not present Python overhead as the original expert latency."
+  },
+  "scope": "Expert-only offline test cache, explicitly reconstructed solver settings. Final network comparison pending; no test-based tuning."
+}

@@ -65,7 +65,7 @@ wsl -d FASTLIVO-Ubuntu-22.04 -e bash -c "rm -f '/mnt/c/Users/<用户名>/AppData
 | GPU/ROS2 环境探针 | `docker compose --profile training run --rm train python3 scripts/ros2/verify_environment.py --gpu` | passed：ROS2 pub/sub 通、CUDA/CuDNN 反向通、nvcc 12.8 | [train_env_gpu_probe.log](../../artifacts/refactor_20261012/train_env_gpu_probe.log) |
 | smoke 训练（停止） | `train_scratch.py --dataset /workspace/datasets/smoke_v1 --run migration_smoke_v1 --seed 0 --epochs 1 --batch-size 16 --stop-after-steps 20` | 第 20 步写入检查点 | [migration_smoke_stop20.log](../../artifacts/refactor_20261012/migration_smoke_stop20.log) |
 | smoke 恢复 1 | 同命令 `--resume --stop-after-steps 40` | 30→40 步，游标与 RNG 正常恢复 | [migration_smoke_resume40.log](../../artifacts/refactor_20261012/migration_smoke_resume40.log) |
-| smoke 恢复 2（完成） | 同命令 `--resume` | 1 epoch / 125 步，`status=complete` | [migration_smoke_resume_final.log](../../artifacts/refactor_20261012/migration_smoke_resume_final.log)、[result.json](../../checkpoints/migration_smoke_v1/result.json) |
+| smoke 恢复 2（完成） | 同命令 `--resume` | 1 epoch / 125 步，`status=complete` | [migration_smoke_resume_final.log](../../artifacts/refactor_20261012/migration_smoke_resume_final.log)、`checkpoints/migration_smoke_v1/result.json`（外部归档：同类记录见 checkpoints/migration_smoke_newroot/） |
 
 补充：smoke run 使用确定性随机初始化（`initial_model_sha256=8b00d0cc…`，与正式种子同源），运行目录 `checkpoints/migration_smoke_v1/`，不进入任何正式矩阵或验收统计。
 

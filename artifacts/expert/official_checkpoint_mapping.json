@@ -1,0 +1,23 @@
+{
+  "recorded_at": "2026-09-26T02:32:14+0000",
+  "scope": "key rename only between two official branches; values are bit-identical, strict load verified",
+  "source_checkpoint": "/workspace/external/audit_sources/YOPO-Simple/YOPO/saved/YOPO_1/epoch50.pth",
+  "source_sha256": "09ec31094ed83e09702efc1facf18076564ebbe1afc164960c41036e16ba229f",
+  "output_checkpoint": "/workspace/artifacts/expert/official_epoch50_policy_layout.pth",
+  "output_sha256": "7d5dc46f22a39993d3944a02f82a519dd1aafbda33e268509b22569be2aaa94e",
+  "source_keys": 133,
+  "target_keys": 133,
+  "renamed_keys": 7,
+  "renamed_count_applied": 7,
+  "identical_keys": 126,
+  "rename_map": {
+    "image_backbone.cnn.output_layer.weight": "image_backbone.cnn.fc.weight",
+    "yopo_head.model.0.weight": "yopo_header.0.weight",
+    "yopo_head.model.0.bias": "yopo_header.0.bias",
+    "yopo_head.model.2.weight": "yopo_header.2.weight",
+    "yopo_head.model.2.bias": "yopo_header.2.bias",
+    "yopo_head.model.4.weight": "yopo_header.4.weight",
+    "yopo_head.model.4.bias": "yopo_header.4.bias"
+  },
+  "strict_load": "passed"
+}

@@ -1,0 +1,106 @@
+{
+  "status": "passed",
+  "scope": "Independent re-computation of a seeded random sample of the frozen expert test cache; not a new Table-I measurement",
+  "cache": "artifacts/expert/formal_test_v1",
+  "samples_requested": 24,
+  "samples_compared": 24,
+  "sample_seed": 20260924,
+  "sample_indices": [
+    417,
+    434,
+    657,
+    697,
+    1559,
+    2307,
+    2661,
+    2727,
+    2980,
+    3399,
+    3700,
+    4343,
+    5034,
+    5191,
+    5348,
+    5573,
+    5911,
+    6262,
+    6471,
+    6625,
+    6776,
+    7156,
+    8360,
+    9328
+  ],
+  "dataset_identity_match": true,
+  "cached_file_hashes": {
+    "initial_cost.npy": {
+      "expected": "5de9310647c43809e7ef56948b2028dcf84736c098128be949fb3a063d43e5d4",
+      "actual": "5de9310647c43809e7ef56948b2028dcf84736c098128be949fb3a063d43e5d4",
+      "match": true
+    },
+    "states.npy": {
+      "expected": "e492de3a359debb78ec480db0ae690dcaaa7eeaf2ab3e1fc3a477a5102613c26",
+      "actual": "e492de3a359debb78ec480db0ae690dcaaa7eeaf2ab3e1fc3a477a5102613c26",
+      "match": true
+    },
+    "scaled_gd50_cost.npy": {
+      "expected": "cd26c103830aa48f5fdcea09d260b825058ac6be412ed30a4bdae28cca7440c8",
+      "actual": "cd26c103830aa48f5fdcea09d260b825058ac6be412ed30a4bdae28cca7440c8",
+      "match": true
+    },
+    "scaled_gd50_ends_world.npy": {
+      "expected": "7e36144a300e73f2d1905abea030ae0bfecea4ebe4f059740f673ad47381d753",
+      "actual": "7e36144a300e73f2d1905abea030ae0bfecea4ebe4f059740f673ad47381d753",
+      "match": true
+    },
+    "scaled_gd50_diagnostics.npy": {
+      "expected": "bfefc6dc631fd1e51b0d9d8a46b5288d6a89e8203b5ae1358fc442a2e7bf7773",
+      "actual": "bfefc6dc631fd1e51b0d9d8a46b5288d6a89e8203b5ae1358fc442a2e7bf7773",
+      "match": true
+    },
+    "mma50_evaluations_cost.npy": {
+      "expected": "093812dd79df3ffaf0c2a8c1895dda894ef1f7d48d8e179ee5eb534bc31dc1d1",
+      "actual": "093812dd79df3ffaf0c2a8c1895dda894ef1f7d48d8e179ee5eb534bc31dc1d1",
+      "match": true
+    },
+    "mma50_evaluations_ends_world.npy": {
+      "expected": "aa477b68fcee2b928d1154c1be25cbbb415186d14966a7993ca406fb88443969",
+      "actual": "aa477b68fcee2b928d1154c1be25cbbb415186d14966a7993ca406fb88443969",
+      "match": true
+    },
+    "mma50_evaluations_diagnostics.npy": {
+      "expected": "41ddbfaf55805bf3c7a697c26bb99fd845df9c3aa95b014df0c70469b6bbf4e0",
+      "actual": "41ddbfaf55805bf3c7a697c26bb99fd845df9c3aa95b014df0c70469b6bbf4e0",
+      "match": true
+    }
+  },
+  "tolerances": {
+    "states_max_abs": 0.0,
+    "initial_cost_max_abs": 1e-12,
+    "scaled_gd50_cost_max_abs": 1e-12,
+    "scaled_gd50_ends_world_max_abs": 1e-12,
+    "scaled_gd50_deterministic_diagnostics_max_abs": 0.0,
+    "mma50_evaluations_cost_max_abs": 1e-12,
+    "mma50_evaluations_ends_world_max_abs": 1e-12,
+    "mma50_evaluations_deterministic_diagnostics_max_abs": 0.0
+  },
+  "observed_max_abs": {
+    "states_max_abs": 0.0,
+    "initial_cost_max_abs": 0.0,
+    "scaled_gd50_cost_max_abs": 0.0,
+    "scaled_gd50_ends_world_max_abs": 0.0,
+    "scaled_gd50_deterministic_diagnostics_max_abs": 0.0,
+    "scaled_gd50_timing_column_max_abs_ms": 10.168372000000002,
+    "mma50_evaluations_cost_max_abs": 0.0,
+    "mma50_evaluations_ends_world_max_abs": 0.0,
+    "mma50_evaluations_deterministic_diagnostics_max_abs": 0.0,
+    "mma50_evaluations_timing_column_max_abs_ms": 2.110658
+  },
+  "timing_only_differences": {
+    "scaled_gd50_timing_column_max_abs_ms": 10.168372000000002,
+    "mma50_evaluations_timing_column_max_abs_ms": 2.110658
+  },
+  "timing_note": "Diagnostics column 4 is C++ wall time in ms and is re-measured per run; it is excluded from the pass/fail decision.",
+  "tolerance_exceeded": {},
+  "wall_seconds": 2.7656174060000467
+}

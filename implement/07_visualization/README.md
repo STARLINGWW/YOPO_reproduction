@@ -47,7 +47,7 @@ python scripts/make_paper_figures.py
 | 全局飞行视频 | [global_trajectory.mp4](../../artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_trajectory.mp4) | 自训练 seed0 审计权重 |
 | 全局轨迹图片 | [global_overview.png](../../artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_overview.png) | 同上 |
 | 渲染来源清单 | [render_manifest.json](../../artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/render_manifest.json) | 记录权重 SHA256 与飞行状态 |
-| 原始飞行指标 | [metrics.json](../../artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/metrics.json) | 测量日志 |
+| 原始飞行指标 | `artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/metrics.json`（外部归档：完整飞行记录与逐架次证据见 report/06_migration） | 测量日志 |
 | 论文图表 | [figure_7_success_vs_speed.png](../../artifacts/paper_figures/figure_7_success_vs_speed.png)、[table_ii_latency_split.md](../../artifacts/paper_figures/table_ii_latency_split.md) | 由矩阵数据生成 |
 | 图表清单 | [manifest.json](../../artifacts/paper_figures/manifest.json) | 图表来源与生成信息 |
 

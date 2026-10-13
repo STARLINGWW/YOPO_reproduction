@@ -1,0 +1,53 @@
+{
+  "scope": "static Isaac depth + official YOPO inference; no dynamics or closed-loop flight",
+  "wall_expected_depth_m": 4.95,
+  "wall_measured_median_m": 4.950000286102295,
+  "sensor_resolution_wh": [
+    160,
+    90
+  ],
+  "depth_range_m": [
+    2.6999998092651367,
+    4.950000762939453
+  ],
+  "render_readback_samples": 30,
+  "render_readback_p50_ms": 40.48395005520433,
+  "render_readback_p95_ms": 44.89480998599902,
+  "network_output_finite": true,
+  "endstate_shape": [
+    1,
+    9,
+    3,
+    5
+  ],
+  "score_shape": [
+    1,
+    3,
+    5
+  ],
+  "scores": [
+    [
+      [
+        2.7721710205078125,
+        2.7411930561065674,
+        2.628830671310425,
+        2.6383025646209717,
+        2.622187614440918
+      ],
+      [
+        2.810363292694092,
+        2.7041919231414795,
+        2.639704942703247,
+        2.680724859237671,
+        2.6191318035125732
+      ],
+      [
+        2.7686052322387695,
+        2.7200984954833984,
+        2.682882785797119,
+        2.6623456478118896,
+        2.59708833694458
+      ]
+    ]
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "status": "complete",
+  "scope": "Expert comparison on independent offline test maps with an explicitly reconstructed expert solver setting; no test-based tuning.",
+  "samples": 10000,
+  "dataset_sha256": "ee0330a7d86683b5c0d2ebd884467a728176983709ccd1ee4889002b587eca1a",
+  "expert_cache": {
+    "path": "artifacts/expert/formal_test_v1",
+    "result_sha256": "5fde084486c7d3f4f778a9ec2f7c0edf2beeb2d5117c80247903c2539e8ad588",
+    "variants": {
+      "scaled_gd50": {
+        "average_of15_cost": 0.024252854751018457,
+        "average_best_of15_cost": 0.02182416520095215,
+        "objective_evaluations_range": [
+          51,
+          601
+        ],
+        "accepted_update_range": [
+          0,
+          50
+        ],
+        "cpp_wall_ms_per_sample_mean": 23.058716852799996,
+        "nonfinite_evaluations": 0
+      },
+      "mma50_evaluations": {
+        "average_of15_cost": 0.02145129448489212,
+        "average_best_of15_cost": 0.018753243453710076,
+        "objective_evaluations_range": [
+          50,
+          50
+        ],
+        "accepted_update_range": [
+          -1,
+          -1
+        ],
+        "cpp_wall_ms_per_sample_mean": 7.3409049771,
+        "nonfinite_evaluations": 0
+      }
+    },
+    "scope": "Expert-only offline test cache, explicitly reconstructed solver settings. Final network comparison pending; no test-based tuning."
+  },
+  "checkpoint": {
+    "kind": "official_epoch50",
+    "path": "artifacts/expert/official_epoch50_policy_layout.pth",
+    "sha256": "7d5dc46f22a39993d3944a02f82a519dd1aafbda33e268509b22569be2aaa94e",
+    "initialization": "locally scratch-trained weights"
+  },
+  "sample_alignment_max_abs_error": 0.0,
+  "expert": {
+    "scaled_gd50": {
+      "mean_of15_cost": 0.024252854751018457,
+      "mean_best_of15_cost": 0.02182416520095215,
+      "cpp_wall_ms_per_sample": 23.058716852799996,
+      "objective_evaluations_mean": 326.0
+    },
+    "mma50_evaluations": {
+      "mean_of15_cost": 0.02145129448489212,
+      "mean_best_of15_cost": 0.018753243453710076,
+      "cpp_wall_ms_per_sample": 7.3409049771,
+      "objective_evaluations_mean": 50.0
+    }
+  },
+  "network_vs_expert": {
+    "scaled_gd50": {
+      "expert_mean_of15_cost": 0.024252854751018457,
+      "expert_mean_best_of15_cost": 0.02182416520095215,
+      "network_cost_of_predictions_mean_of15": 0.02961401220171462,
+      "network_cost_of_predictions_mean_best_of15": 0.02196270826422669,
+      "cost_argmin_agreement_fraction": 0.1521,
+      "score_head_argmin_agreement_fraction": 0.2059,
+      "selected_position_error_m": {
+        "n": 10000,
+        "mean": 2.623052911428451,
+        "p50": 2.5776561011515255,
+        "p95": 4.007063366431983,
+        "max": 6.8838418927627405
+      },
+      "per_candidate_position_error_m": {
+        "n": 150000,
+        "mean": 2.862009425707772,
+        "p50": 2.824152348454828,
+        "p95": 4.390407176582547,
+        "max": 7.192877148245584
+      }
+    },
+    "mma50_evaluations": {
+      "expert_mean_of15_cost": 0.02145129448489212,
+      "expert_mean_best_of15_cost": 0.018753243453710076,
+      "network_cost_of_predictions_mean_of15": 0.02961401220171462,
+      "network_cost_of_predictions_mean_best_of15": 0.02196270826422669,
+      "cost_argmin_agreement_fraction": 0.1004,
+      "score_head_argmin_agreement_fraction": 0.1054,
+      "selected_position_error_m": {
+        "n": 10000,
+        "mean": 1.8730807165080827,
+        "p50": 1.6703750831566415,
+        "p95": 3.894496952723629,
+        "max": 7.926053379478933
+      },
+      "per_candidate_position_error_m": {
+        "n": 150000,
+        "mean": 2.8660127229937755,
+        "p50": 2.7163751447975057,
+        "p95": 5.05225254675357,
+        "max": 9.742772582796682
+      }
+    },
+    "selected_candidate_matches_expert_best_fraction": 0.1521,
+    "position_error_m": {
+      "n": 10000,
+      "mean": 2.623052911428451,
+      "p50": 2.5776561011515255,
+      "p95": 4.007063366431983,
+      "max": 6.8838418927627405
+    },
+    "velocity_error_mps": {
+      "scaled_gd50": {
+        "n": 10000,
+        "mean": 3.763840954645154,
+        "p50": 3.7544139362414763,
+        "p95": 5.323531627462603,
+        "max": 9.00214285102518
+      },
+      "mma50_evaluations": {
+        "n": 10000,
+        "mean": 2.8893262148228747,
+        "p50": 2.655306193916349,
+        "p95": 5.580537674146935,
+        "max": 10.281060932976606
+      }
+    },
+    "acceleration_error_mps2": {
+      "scaled_gd50": {
+        "n": 10000,
+        "mean": 1.4407065989499865,
+        "p50": 1.397157234080191,
+        "p95": 2.404056912313615,
+        "max": 5.41287461359469
+      },
+      "mma50_evaluations": {
+        "n": 10000,
+        "mean": 2.795015264761901,
+        "p50": 2.5673819194933136,
+        "p95": 5.277467382109984,
+        "max": 11.207812386313982
+      }
+    }
+  },
+  "network_cost_of_predictions": {
+    "n": 150000,
+    "mean": 0.02961401220171462,
+    "p50": 0.026823553659289692,
+    "p95": 0.0568279604542833,
+    "max": 0.1547859582229573
+  },
+  "score_head_cost_gap": {
+    "n": 150000,
+    "mean": 2.2013690234143657,
+    "p50": 2.2143825565945305,
+    "p95": 2.7728338959515497,
+    "max": 3.63103738614284
+  },
+  "timing": {
+    "network_inference_ms_per_sample": 2.6829142471862726,
+    "network_inference_scope": "policy forward only, CPU, batch 16, threads 4",
+    "wall_ms_per_sample_including_expert_evaluation": 3.2365053168003213
+  },
+  "notes": [
+    "The network is scored with the same original C++ objective used for the expert cache.",
+    "The expert driver in the public main repository is not published; the variants are explicit reconstructions.",
+    "Network inference timing is CPU-only and is not a GPU latency claim."
+  ],
+  "baselines": {
+    "official_epoch50": {
+      "mean_of15_cost": 0.02961401220171462,
+      "mean_best_of15_cost": 0.02196270826422669,
+      "position_error_vs_expert_m": {
+        "mean": 2.623052911428451,
+        "p95": 4.007063366431983
+      }
+    }
+  }
+}

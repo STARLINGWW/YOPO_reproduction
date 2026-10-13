@@ -1,0 +1,47 @@
+{
+  "status": "complete",
+  "scope": "Expert-only offline test cache, explicitly reconstructed solver settings. Final network comparison pending; no test-based tuning.",
+  "samples": 10000,
+  "primitive_average_cost": 0.08509492501413396,
+  "primitive_best_cost": 0.04108539396649525,
+  "variants": {
+    "scaled_gd50": {
+      "average_of15_cost": 0.024252854751018457,
+      "average_best_of15_cost": 0.02182416520095215,
+      "objective_evaluations_range": [
+        51,
+        601
+      ],
+      "accepted_update_range": [
+        0,
+        50
+      ],
+      "cpp_wall_ms_per_sample_mean": 23.058716852799996,
+      "nonfinite_evaluations": 0
+    },
+    "mma50_evaluations": {
+      "average_of15_cost": 0.02145129448489212,
+      "average_best_of15_cost": 0.018753243453710076,
+      "objective_evaluations_range": [
+        50,
+        50
+      ],
+      "accepted_update_range": [
+        -1,
+        -1
+      ],
+      "cpp_wall_ms_per_sample_mean": 7.3409049771,
+      "nonfinite_evaluations": 0
+    }
+  },
+  "files_sha256": {
+    "initial_cost.npy": "5de9310647c43809e7ef56948b2028dcf84736c098128be949fb3a063d43e5d4",
+    "states.npy": "e492de3a359debb78ec480db0ae690dcaaa7eeaf2ab3e1fc3a477a5102613c26",
+    "scaled_gd50_cost.npy": "cd26c103830aa48f5fdcea09d260b825058ac6be412ed30a4bdae28cca7440c8",
+    "scaled_gd50_ends_world.npy": "7e36144a300e73f2d1905abea030ae0bfecea4ebe4f059740f673ad47381d753",
+    "scaled_gd50_diagnostics.npy": "bfefc6dc631fd1e51b0d9d8a46b5288d6a89e8203b5ae1358fc442a2e7bf7773",
+    "mma50_evaluations_cost.npy": "093812dd79df3ffaf0c2a8c1895dda894ef1f7d48d8e179ee5eb534bc31dc1d1",
+    "mma50_evaluations_ends_world.npy": "aa477b68fcee2b928d1154c1be25cbbb415186d14966a7993ca406fb88443969",
+    "mma50_evaluations_diagnostics.npy": "41ddbfaf55805bf3c7a697c26bb99fd845df9c3aa95b014df0c70469b6bbf4e0"
+  }
+}

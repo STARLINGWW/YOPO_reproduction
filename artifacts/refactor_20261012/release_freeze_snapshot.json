@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-13T16:07:25+08:00",
+  "generated_at": "2026-10-13T16:13:15+08:00",
   "scope": "refactor freeze snapshot: protected hashes, audited weights, dataset/checkpoint sizes; not an experiment result",
-  "git_head": "aad29fcc44dc2685fa2376741474059b79defb56",
+  "git_head": "2037820b23899f1ed16591ad8c863104c6f14bf9",
   "protected_files": [
     {
       "path": "benchmarks/protocol_v1/protocol.json",
@@ -26,7 +26,7 @@
     {
       "path": "artifacts/environment/status_overview.json",
       "exists": true,
-      "sha256": "c5b79e26f92b9de2bccba19d10a89dac3e40276b52bf90a451a4a7bdc7aeb2d6"
+      "sha256": "5b5fe832936239e06b84423699cfa6da2dd8927d3d2bba88c930b3b61fbffab5"
     },
     {
       "path": "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/render_manifest.json",

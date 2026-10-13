@@ -10,7 +10,7 @@
 | DAgger 微调权重 | [checkpoints/dagger_main_v1_seed0](../../checkpoints/dagger_main_v1_seed0/result.json) | `result.json` / `run_manifest.json` |
 | 正式数据 | [datasets/isaac_full_v1](../../datasets/isaac_full_v1/validation.json) | `dataset_sha256=ee0330a7…`（validation.json） |
 | 聚合数据 | [datasets/isaac_dagger_v1](../../datasets/isaac_dagger_v1/aggregation_manifest.json) | `dataset_sha256=4d45354a…`（aggregation_manifest.json） |
-| 迁移 smoke 运行 | [checkpoints/migration_smoke_v1](../../checkpoints/migration_smoke_v1/result.json) | 本机 Ubuntu 22.04 容器验证（不进入正式矩阵），见[环境基线](../06_migration/01_local_environment.md) |
+| 迁移 smoke 运行 | `checkpoints/migration_smoke_v1/result.json`（外部归档：同类记录见 checkpoints/migration_smoke_newroot/） | 本机 Ubuntu 22.04 容器验证（不进入正式矩阵），见[环境基线](../06_migration/01_local_environment.md) |
 | YOPO-only 活动范围声明 | [active_scope_yopo_only.json](../../benchmarks/protocol_v1/active_scope_yopo_only.json) | 五模型 × 300 = 1,500；MPPI 排除并归档（2026-10-13） |
 
 ## 评测与验收
@@ -29,7 +29,7 @@
 | 产物 | 路径 | 哈希/校验来源 |
 |---|---|---|
 | 最终视频与总览图 | [showcase … _final](../../artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final) | `render_manifest.json`（含权重 SHA256） |
-| 原始飞行指标 | [ros2_flights/showcase…/metrics.json](../../artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/metrics.json) | 测量日志 |
+| 原始飞行指标 | `artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/metrics.json`（外部归档：完整飞行记录与逐架次证据见 report/06_migration） | 测量日志 |
 | 论文图表 | [paper_figures](../../artifacts/paper_figures/manifest.json) | `manifest.json` |
 | 官方/本地权重对照 | [weights_ab_demo](../../artifacts/weights_ab_demo) | 详见 [权重批量对照实验](../04_evaluation/02_权重批量对照实验.md) |
 | 训练图核查 | [note_alignment_20261008](../../artifacts/note_alignment_20261008/training_graph_trace.json) | CPU 计算图探针脚本与结果 |

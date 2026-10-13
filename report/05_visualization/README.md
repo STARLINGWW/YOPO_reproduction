@@ -20,7 +20,7 @@
 | 全局飞行视频 | [global_trajectory.mp4](../../artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_trajectory.mp4) |
 | 全局轨迹图片 | [global_overview.png](../../artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_overview.png) |
 | 渲染来源清单 | [render_manifest.json](../../artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/render_manifest.json)（记录权重 SHA256 与飞行状态） |
-| 原始飞行指标 | [metrics.json](../../artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/metrics.json) |
+| 原始飞行指标 | `artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/metrics.json`（外部归档：完整飞行记录与逐架次证据见 report/06_migration） |
 
 视频是测量 PhysX 日志的回放渲染。回放、接口探针不是新飞行；每个新演示都必须保存 `metrics.json` 和 `render_manifest.json`。
 
