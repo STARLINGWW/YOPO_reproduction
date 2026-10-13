@@ -36,12 +36,14 @@
 
 设计：3 个程序化森林场景（简单 5002 / 中等 5004 / 困难 5001）× 3 档速度（2/4/6 m/s）× 4 个「栈 × 权重」组合；每格 1 架次、上限 120 s；判定为终点误差 <0.5 m 且速度 <0.2 m/s 连续 1 s 且无碰撞。全量原始记录见 [batch_summary.json](../../artifacts/weights_ab_demo/batch_summary.json)与 [batch_analysis.json](../../artifacts/weights_ab_demo/batch_analysis.json)。
 
-| 组合（栈×权重） | 成功 | 超时 | 碰撞 | 到达中位 | 跟踪 RMSE 中位 | 网络时延中位 |
-|---|---:|---:|---:|---:|---:|---:|
-| Simple 栈 + 官方 | 8/9 | 1 | 0 | 6.82 s | 0.249 m | 4.5 ms |
-| Simple 栈 + 自训练 seed0 | 8/9 | 1 | 0 | 11.75 s | 0.235 m | 4.5 ms |
-| main 栈 + 官方 | 7/9 | 1 | 1 | **4.61 s** | 1.103 m | 16.5 ms |
-| main 栈 + 自训练 seed0 | 7/9 | 1 | 1 | 13.93 s | **0.512 m** | 16.2 ms |
+| 组合（栈×权重） | 成功 | 超时 | 碰撞 | 入圈中位（1 m） | 稳定达标中位 | 跟踪 RMSE 中位 | 网络时延中位 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Simple 栈 + 官方 | 8/9 | 1 | 0 | 6.82 s | **9.28 s** | 0.249 m | 4.5 ms |
+| Simple 栈 + 自训练 seed0 | 8/9 | 1 | 0 | 11.75 s | 14.18 s | 0.235 m | 4.5 ms |
+| main 栈 + 官方 | 7/9 | 1 | 1 | **4.61 s** | 11.28 s | 1.103 m | 16.5 ms |
+| main 栈 + 自训练 seed0 | 7/9 | 1 | 1 | 13.93 s | 16.07 s | **0.512 m** | 16.2 ms |
+
+**判据与时间口径**：本批次（legacy 闭环）的 success 判据为终点误差 <0.5 m 且速度 <0.2 m/s 连续 1 s、无碰撞；`arrival_time_s` 记录首次进入终点 **1 m** 半径（终端保持的切换点）的时刻，「稳定达标」为持续条件满足、episode 正常结束的时刻。终点附近可见的折返成因：`run_navigation.py` 在首次进入 1 m 半径时切换为低带宽终点位置保持（姿态增益减半；水平位置/速度增益 0.08/0.12；积分清零），且切换只看距离不看速度——入圈时官方仍有 ≈4.9 m/s、自训练 ≈3.8 m/s 的水平速度（场景 5001 · 4 m/s），低增益回路无法立刻抵消动量，因此过冲（官方最远 2.04 m @5.5 s；自训练 1.70 m @8.2 s）后被缓慢拉回；折返即过冲回稳弧线，与判据无关（判据只决定何时计为完成并终止 episode）。标注图见 [04_terminal_phase.png](../05_visualization/media/official_vs_selftrained/04_terminal_phase.png)。
 
 按速度的成功数（官方/自训练，Simple 与 main 两栈）：
 
@@ -54,7 +56,7 @@
 关键结论（与[权重批量对照实验](02_权重批量对照实验.md)一致）：
 
 - 成功率分不出两类权重：同栈下观察成功数相同（8/9 与 8/9、7/9 与 7/9），每格仅 1 架次，不具统计显著性。
-- 权衡点不同：官方更快（main 栈到达中位 4.61 s vs 13.93 s），自训练跟踪更准（main 栈 RMSE 中位 0.512 m vs 1.103 m；官方在 6 m/s 单格最高 4.77 m）。
+- 权衡点不同：官方入圈更早（main 栈 4.61 s vs 13.93 s），但过冲回稳更久（稳定达标 11.28 s vs 16.07 s，官方仍更快）；自训练跟踪更准（main 栈 RMSE 中位 0.512 m vs 1.103 m；官方在 6 m/s 单格最高 4.77 m）。
 - 栈的匹配效应大于权重差异：同一权重换栈引起的 RMSE 变化幅度大于换权重，不能单独归因于权重退化。
 - 失败模式：4 个超时都是「飞得动但收敛不到终点」（航迹 134–352 m）；2 个碰撞都发生在 6 m/s，安全裕度主要被速度与场景吃掉。
 - 场景相关：官方在 main 栈的旧网格场景曾两次超时，但在 3 个森林场景 7/9 成功——单点结论不可推广。
@@ -81,7 +83,7 @@
 
 ## 7. 证据与复跑入口
 
-- README 首屏对照（同场景轨迹大图 + 官方/自训练同步动画）：[report/05_visualization/media/official_vs_selftrained](../05_visualization/media/official_vs_selftrained/)；生成脚本 [scripts/make_official_vs_selftrained_figure.py](../../scripts/make_official_vs_selftrained_figure.py)。
+- README 首屏对照（同场景轨迹大图 + 「轨迹/机载深度」同步动画 + 深度帧静态对照）：[report/05_visualization/media/official_vs_selftrained](../05_visualization/media/official_vs_selftrained/)（`01_same_scene_trajectories.png`、`02_same_scene_compare.gif`、`03_depth_frames.png`；前三组轨迹均为双方都到达的同类场景）；生成脚本 [scripts/make_official_vs_selftrained_figure.py](../../scripts/make_official_vs_selftrained_figure.py)。
 - 逐架次原始指标：`artifacts/navigation/wab2_<arm>_s<scene>_v<speed>/metrics.json`（36 个目录）；日志见 `artifacts/weights_ab_demo/batch_logs`（外部归档：运行日志）。
 - 批量驱动：[scripts/run_weights_ab_batch.py](../../scripts/run_weights_ab_batch.py)（支持 `--skip-existing` 续跑）；离线对照：[scripts/compare_expert_network.py](../../scripts/compare_expert_network.py)。
 - 权重身份：官方映射记录 [official_checkpoint_mapping.json](../../artifacts/expert/official_checkpoint_mapping.json)；自训练审计 [checkpoints/formal_main_v1_seed0/training_audit.json](../../checkpoints/formal_main_v1_seed0/training_audit.json)。

@@ -290,6 +290,9 @@ artifacts/*/logs/
 .DS_Store
 Thumbs.db
 
+# Local-only auxiliary content kept on disk but never uploaded (see its README)
+local_only/
+
 # External snapshots may contain their own Git metadata; the parent repository
 # tracks the audited source files, never nested repository objects.
 external/**/.git/

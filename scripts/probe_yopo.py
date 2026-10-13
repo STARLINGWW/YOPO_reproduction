@@ -11,7 +11,10 @@ SOURCE = ROOT / "external/audit_sources/YOPO-Simple/YOPO"
 OUTPUT = ROOT / "artifacts/probes"
 OUTPUT.mkdir(parents=True, exist_ok=True)
 sys.path.insert(0, str(SOURCE))
-sys.path.insert(0, str(ROOT / "vendor/probe_deps"))
+for vendor_dir in (ROOT / "vendor/probe_deps", ROOT / "local_only/vendor/probe_deps"):
+    if vendor_dir.is_dir():
+        sys.path.insert(0, str(vendor_dir))
+        break
 
 import numpy as np
 import torch

@@ -11,7 +11,7 @@
 | [render_manifest.json](media/render_manifest.json) | 渲染来源清单（权重 SHA256、飞行状态） |
 | [showcase_metrics.json](media/showcase_metrics.json) | 展示飞行原始指标（成功、RMSE 0.116 m、净空 1.188 m） |
 | [official_pretrained_flight.mp4](media/official_pretrained_flight.mp4) | 官方 Simple 预训练演示（早期阶段，单独保留） |
-| [media/official_vs_selftrained](media/official_vs_selftrained) | README 首屏对照：同场景轨迹大图（官方 vs 自训练）+ 同步动画（36 架次受控对照精选） |
+| [media/official_vs_selftrained](media/official_vs_selftrained) | README 首屏对照：同场景轨迹大图 + 「轨迹/机载深度」同步动画 + 深度帧静态对照 + 终端阶段标注（折返成因） |
 | [media/paper_figures](media/paper_figures) | Fig.7 曲线、Table I/II 汇总（png/pdf/csv/md） |
 
 ## 最终自训练成果（seed0，50 轮审计权重）

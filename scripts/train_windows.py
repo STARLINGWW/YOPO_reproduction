@@ -28,7 +28,10 @@ def main():
     if not dataset.is_dir() or not list(dataset.glob("pointcloud-*.ply")):
         parser.error("dataset must exist and contain pointcloud-N.ply")
     sys.path.insert(0, str(ROOT / "external/audit_sources/YOPO-Simple/YOPO"))
-    sys.path.insert(0, str(ROOT / "vendor/probe_deps"))
+    for vendor_dir in (ROOT / "vendor/probe_deps", ROOT / "local_only/vendor/probe_deps"):
+        if vendor_dir.is_dir():
+            sys.path.insert(0, str(vendor_dir))
+            break
     import torch
     from config.config import cfg
     from train_yopo import configure_random_seed

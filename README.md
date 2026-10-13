@@ -6,11 +6,21 @@
 
 ## 图文速览：官方预训练 vs 自训练（同场景直接对照）
 
-![同场景闭环轨迹对照（官方 vs 自训练，main 栈）](report/05_visualization/media/official_vs_selftrained/01_same_scene_trajectories.png)
+![同场景闭环轨迹对照（官方 vs 自训练，main 栈；三组均为双方都到达）](report/05_visualization/media/official_vs_selftrained/01_same_scene_trajectories.png)
 
-![同场景动画对照：官方（左）｜自训练（右），场景 5001 · 2 m/s，共同时间窗 0–20 s](report/05_visualization/media/official_vs_selftrained/02_same_scene_compare.gif)
+![同场景动态对照（上：俯视轨迹；下：机载深度相机）：官方（左）｜自训练（右），场景 5001 · 4 m/s](report/05_visualization/media/official_vs_selftrained/02_same_scene_compare.gif)
 
-「同场景」= 同一地图种子、同起点/终点、同速度。官方权重原生属于 Simple 栈，上面的直接对照统一在 **main 栈**内完成；交叉栈对照用于避免把「栈差异」误读为「权重差异」。
+![机载深度帧对照（场景 5001 · 4 m/s，t = 0.5 / 2.0 / 4.0 s，色标 0–20 m）](report/05_visualization/media/official_vs_selftrained/03_depth_frames.png)
+
+「同场景」= 同一地图种子、同起点/终点、同速度；上方三组轨迹均为**双方都到达**的直接对照（官方更快、自训练跟踪更稳），动画与深度帧取自其中一组。官方权重原生属于 Simple 栈，直接对照统一在 **main 栈**内完成；交叉栈对照用于避免把「栈差异」误读为「权重差异」。全量 36 架次中的单方失败案例、失败模式与口径见[官方权重 vs 自训练权重对照](report/04_evaluation/01_official_vs_selftrained.md)。
+
+**到达判据与「折返」成因**（本对照批次为 legacy 闭环；冻结 1500 槽矩阵的判据为「< 0.5 m 且 < 0.3 m/s 连续 0.5 s」）：
+
+- **判据**：终点误差 < 0.5 m 且速度 < 0.2 m/s 连续 1 s、无碰撞。「入圈」= 首次进入终点 1 m 半径的时刻；「稳定达标」= 持续条件满足、episode 正常结束的时刻。
+- **折返的成因（既不是判据差异，也不是绕行）**：`run_navigation.py` 在**首次进入 1 m 半径**时，把参考从「网络规划轨迹」切换为「终点位置保持」，并换成低带宽保持控制器（姿态增益减半；水平位置增益 0.08、速度增益 0.12、积分清零）。该切换只看距离、不看速度——切换瞬间飞机仍有约 4–5 m/s 的水平速度（该场景巡航峰值约 7.5 m/s），低增益回路无法立刻抵消动量，飞机沿切向继续飞并**过冲**，随后被位置保持环缓慢拉回终点。轨迹上看到的折返/绕圈，就是这段**过冲回稳弧线**。
+- **定量锚点（场景 5001 · 4 m/s）**：官方 入圈 4.6 s（速度 ≈4.9 m/s）→ 最远 2.04 m（t=5.5 s）→ 稳定达标 9.3 s；自训练 入圈 7.4 s（≈3.8 m/s）→ 最远 1.70 m（t=8.2 s）→ 稳定达标 11.7 s。判据只决定“何时计为完成、何时终止 episode”，不产生航迹；网络仅负责入圈前的候选原语选择。
+
+![终端阶段标注：入圈（1 m 虚线）→ 过冲最远点 → 稳定达标（虚线）](report/05_visualization/media/official_vs_selftrained/04_terminal_phase.png)
 
 **离线对照（10,000 独立测试样本，Table I 口径）**
 
@@ -25,12 +35,14 @@
 
 | 组合（栈 + 权重） | 成功 | 超时 | 碰撞 | 到达中位 | 跟踪 RMSE 中位 |
 |---|---:|---:|---:|---:|---:|
-| Simple + 官方 | 8/9 | 1 | 0 | 6.8 s | 0.25 m |
-| Simple + 自训练 seed0 | 8/9 | 1 | 0 | 11.8 s | 0.23 m |
-| main + 官方 | 7/9 | 1 | 1 | **4.6 s** | 1.10 m |
-| main + 自训练 seed0 | 7/9 | 1 | 1 | 13.9 s | **0.51 m** |
+| 组合（栈 + 权重） | 成功 | 超时 | 碰撞 | 入圈中位（1 m） | 稳定达标中位 | 跟踪 RMSE 中位 |
+|---|---:|---:|---:|---:|---:|---:|
+| Simple + 官方 | 8/9 | 1 | 0 | 6.8 s | **9.3 s** | 0.25 m |
+| Simple + 自训练 seed0 | 8/9 | 1 | 0 | 11.8 s | 14.2 s | 0.23 m |
+| main + 官方 | 7/9 | 1 | 1 | **4.6 s** | 11.3 s | 1.10 m |
+| main + 自训练 seed0 | 7/9 | 1 | 1 | 13.9 s | 16.1 s | **0.51 m** |
 
-读法：成功率上分不出高低——**官方更快、自训练更稳**（main 栈跟踪误差约为官方一半），且栈匹配效应大于权重差异。每格仅 1 架次，不做显著性宣称；完整口径、失败模式与限制见[官方权重 vs 自训练权重对照](report/04_evaluation/01_official_vs_selftrained.md)。
+读法：成功率上分不出高低——**官方入圈更早、回稳更久（main 栈 4.6→11.3 s），自训练入圈稍晚、回稳更快（13.9→16.1 s）**；按「稳定达标」口径官方仍更快，自训练跟踪更稳（误差约为官方一半），且栈匹配效应大于权重差异。每格仅 1 架次，不做显著性宣称；完整口径、失败模式与限制见[官方权重 vs 自训练权重对照](report/04_evaluation/01_official_vs_selftrained.md)。
 
 ## 三层入口
 
@@ -94,3 +106,7 @@ python scripts/audit_command_evidence.py --reports "report,plan,benchmarks,imple
 | `benchmarks/` | 冻结协议与准入记录 |
 | `datasets/`、`checkpoints/` | 数据与权重（本地引用归档，不入普通 Git；发布走 LFS/Release） |
 | `artifacts/` | 证据与演示（小体量复制；重目录本地引用归档） |
+| `assets/` | Isaac Sim 载具资产（cf21b USD 链，Git LFS 保存） |
+| `tests/` | 主机可运行的 pytest 用例（协议、评测、驱动契约等） |
+| `local_only/` | 本地专用辅助内容，**不上传**（vendor 探查依赖、上游过期编译产物）；见其 README |
+| 根文件 | `README.md`（本文件）；`AGENTS.md`、`CONTRIBUTING.md`（协作/实施约定）；`LICENSE`；`MIGRATION_UBUNTU22.md`（Ubuntu 迁移步骤）；`compose.yaml`（容器编排）；`pytest.ini`（测试配置）；`.gitignore`/`.gitattributes`/`.dockerignore`（忽略、字节锚定与构建上下文规则） |
