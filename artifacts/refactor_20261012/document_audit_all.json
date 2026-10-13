@@ -662,7 +662,6 @@
     {
       "report": "report/90_archive/05_YOPO三个任务完整分析报告_2026-10-02.md",
       "links": [
-        "<旧项目根>/YOPO_reproduction_new",
         "<旧项目根>/artifacts/expert",
         "<旧项目根>/artifacts/expert/network_comparison_official_epoch50.json",
         "<旧项目根>/artifacts/expert/official_checkpoint_mapping.json",
