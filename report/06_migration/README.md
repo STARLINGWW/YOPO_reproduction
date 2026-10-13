@@ -35,6 +35,8 @@
 
 - [本机环境与 Docker 基线](01_local_environment.md)（含启动故障修复记录）
 - [新根重构验证记录](02_new_root_verification.md)
+- [GitHub 发布与干净 clone 验证记录](03_github_release_verification.md)
+- [完整训练历史清单（逐文件 SHA256）](yopo_full_checkpoint_manifest.json)
 - [plan/06 GitHub 与 Ubuntu 迁移计划](../../plan/06_github_migration/README.md)
 - [发布检查清单](../../plan/06_github_migration/01_release_checklist.md)
 - [CONTRIBUTING.md](../../CONTRIBUTING.md)、[.gitignore](../../.gitignore)、[.gitattributes](../../.gitattributes)

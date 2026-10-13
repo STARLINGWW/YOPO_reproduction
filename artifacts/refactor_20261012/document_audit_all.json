@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "reports_scanned": 75,
+  "reports_scanned": 76,
   "missing_link_count": 0,
   "missing_path_count": 0,
   "unparsable_json_count": 0,
@@ -580,6 +580,17 @@
       "unparsable_json": []
     },
     {
+      "report": "report/06_migration/03_github_release_verification.md",
+      "links": [
+        "report/06_migration/README.md",
+        "report/06_migration/yopo_full_checkpoint_manifest.json"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
       "report": "report/06_migration/README.md",
       "links": [
         ".gitattributes",
@@ -590,7 +601,9 @@
         "plan/06_github_migration/README.md",
         "plan/90_decisions/DEC-20261013-01_MPPI移出活动范围与YOPO-only归档.md",
         "report/06_migration/01_local_environment.md",
-        "report/06_migration/02_new_root_verification.md"
+        "report/06_migration/02_new_root_verification.md",
+        "report/06_migration/03_github_release_verification.md",
+        "report/06_migration/yopo_full_checkpoint_manifest.json"
       ],
       "missing_links": [],
       "referenced_paths": [],
@@ -897,7 +910,8 @@
     {
       "report": "plan/06_github_migration/01_release_checklist.md",
       "links": [
-        "report/06_migration/02_new_root_verification.md"
+        "report/06_migration/02_new_root_verification.md",
+        "report/06_migration/03_github_release_verification.md"
       ],
       "missing_links": [],
       "referenced_paths": [],

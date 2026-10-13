@@ -15,6 +15,7 @@
 - 证据归一化：`report/05_visualization/media` 三份渲染/指标 JSON 与 `assets/cf21b/payloads/base.usda` 的构建机路径改为项目相对路径或占位符（base.usda 仅 `doc` 元数据字符串变化）；`report/99_artifact_index/implementation_sha256.json` 按发布字节重算（5 个条目变化，含 run_showcase.ps1）。
 - 发布清理：移除 `vendor/probe_deps/bin/{markdown-it,pygmentize}.exe`（pip 生成的启动器 stub，内嵌构建机路径且无脚本引用；旧根与 git 历史保留）；4 份 `document_audit*.json` 的机器路径归一化为占位符并重跑全量审计（73 份、0 缺失）。
 - 未修改：固定超集协议字节、既有飞行与训练证据；未重跑矩阵或新增飞行。
+- GitHub 发布执行：旧 main 归档 tag `archive/pre-yopo-only-20261013`（→ `7321edf`）；`main` 以 force-with-lease 替换为发布提交链 `2037820 → e718a77 → 243a1f8`；LFS 147 对象、约 656 MB 推送。干净 clone 全量验证通过：grep 0、75 份文档审计 0 缺失、compileall、pytest 87、终审 6/6、权重哈希一致、Docker GPU 探针与 smoke 停止/恢复通过；详见 report/06_migration/03_github_release_verification.md。
 
 ## 2026-10-12 新根重构（v2）
 
