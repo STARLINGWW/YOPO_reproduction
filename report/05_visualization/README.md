@@ -27,7 +27,7 @@
 ## 命令
 
 ```powershell
-Set-Location 'D:\_AAA_CODE_ALL\Tech_reproduction\YOPO_reproduction\YOPO_reproduction_new'
+cd <项目根目录>   # 克隆后的项目根目录
 
 ./scripts/demo_flight.ps1                          # 演示入口（含查看与再运行）
 ./scripts/run_final_showcase.ps1 -Seed 0 -Speed 2 -MapSeed 3000 -Duration 60   # 重跑完整展示链

@@ -1,0 +1,2709 @@
+{
+  "note": "Extracted from benchmarks/protocol_v1/protocol.json on 2026-10-13 for historical reference only; these 300 slots are excluded from the active YOPO-only scope and must not re-enter the matrix without a new scope decision.",
+  "source": "benchmarks/protocol_v1/protocol.json",
+  "verified_protocol_sha256": "d2fd30527be661d7df089b40adef5a118d94df0cdd09c1b9327906283018267c",
+  "model": "mppi_reference17",
+  "slots": 300,
+  "episodes": [
+    {
+      "id": "mppi_reference17_sparse_v2_trial00",
+      "model": "mppi_reference17",
+      "task_index": 0,
+      "speed_mps": 2,
+      "paper_first10": true,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial00",
+      "model": "mppi_reference17",
+      "task_index": 0,
+      "speed_mps": 4,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial00",
+      "model": "mppi_reference17",
+      "task_index": 0,
+      "speed_mps": 6,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial00",
+      "model": "mppi_reference17",
+      "task_index": 0,
+      "speed_mps": 8,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial00",
+      "model": "mppi_reference17",
+      "task_index": 0,
+      "speed_mps": 10,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial01",
+      "model": "mppi_reference17",
+      "task_index": 1,
+      "speed_mps": 2,
+      "paper_first10": true,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial01",
+      "model": "mppi_reference17",
+      "task_index": 1,
+      "speed_mps": 4,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial01",
+      "model": "mppi_reference17",
+      "task_index": 1,
+      "speed_mps": 6,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial01",
+      "model": "mppi_reference17",
+      "task_index": 1,
+      "speed_mps": 8,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial01",
+      "model": "mppi_reference17",
+      "task_index": 1,
+      "speed_mps": 10,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial02",
+      "model": "mppi_reference17",
+      "task_index": 2,
+      "speed_mps": 2,
+      "paper_first10": true,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial02",
+      "model": "mppi_reference17",
+      "task_index": 2,
+      "speed_mps": 4,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial02",
+      "model": "mppi_reference17",
+      "task_index": 2,
+      "speed_mps": 6,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial02",
+      "model": "mppi_reference17",
+      "task_index": 2,
+      "speed_mps": 8,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial02",
+      "model": "mppi_reference17",
+      "task_index": 2,
+      "speed_mps": 10,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial03",
+      "model": "mppi_reference17",
+      "task_index": 3,
+      "speed_mps": 2,
+      "paper_first10": true,
+      "timeout_s": 47.50000000000001,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial03",
+      "model": "mppi_reference17",
+      "task_index": 3,
+      "speed_mps": 4,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial03",
+      "model": "mppi_reference17",
+      "task_index": 3,
+      "speed_mps": 6,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial03",
+      "model": "mppi_reference17",
+      "task_index": 3,
+      "speed_mps": 8,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial03",
+      "model": "mppi_reference17",
+      "task_index": 3,
+      "speed_mps": 10,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial04",
+      "model": "mppi_reference17",
+      "task_index": 4,
+      "speed_mps": 2,
+      "paper_first10": true,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial04",
+      "model": "mppi_reference17",
+      "task_index": 4,
+      "speed_mps": 4,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial04",
+      "model": "mppi_reference17",
+      "task_index": 4,
+      "speed_mps": 6,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial04",
+      "model": "mppi_reference17",
+      "task_index": 4,
+      "speed_mps": 8,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial04",
+      "model": "mppi_reference17",
+      "task_index": 4,
+      "speed_mps": 10,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial05",
+      "model": "mppi_reference17",
+      "task_index": 5,
+      "speed_mps": 2,
+      "paper_first10": true,
+      "timeout_s": 47.50000000000001,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial05",
+      "model": "mppi_reference17",
+      "task_index": 5,
+      "speed_mps": 4,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial05",
+      "model": "mppi_reference17",
+      "task_index": 5,
+      "speed_mps": 6,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial05",
+      "model": "mppi_reference17",
+      "task_index": 5,
+      "speed_mps": 8,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial05",
+      "model": "mppi_reference17",
+      "task_index": 5,
+      "speed_mps": 10,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial06",
+      "model": "mppi_reference17",
+      "task_index": 6,
+      "speed_mps": 2,
+      "paper_first10": true,
+      "timeout_s": 47.49999999999999,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial06",
+      "model": "mppi_reference17",
+      "task_index": 6,
+      "speed_mps": 4,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial06",
+      "model": "mppi_reference17",
+      "task_index": 6,
+      "speed_mps": 6,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial06",
+      "model": "mppi_reference17",
+      "task_index": 6,
+      "speed_mps": 8,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial06",
+      "model": "mppi_reference17",
+      "task_index": 6,
+      "speed_mps": 10,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial07",
+      "model": "mppi_reference17",
+      "task_index": 7,
+      "speed_mps": 2,
+      "paper_first10": true,
+      "timeout_s": 47.49999999999999,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial07",
+      "model": "mppi_reference17",
+      "task_index": 7,
+      "speed_mps": 4,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial07",
+      "model": "mppi_reference17",
+      "task_index": 7,
+      "speed_mps": 6,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial07",
+      "model": "mppi_reference17",
+      "task_index": 7,
+      "speed_mps": 8,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial07",
+      "model": "mppi_reference17",
+      "task_index": 7,
+      "speed_mps": 10,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial08",
+      "model": "mppi_reference17",
+      "task_index": 8,
+      "speed_mps": 2,
+      "paper_first10": true,
+      "timeout_s": 47.50000000000001,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial08",
+      "model": "mppi_reference17",
+      "task_index": 8,
+      "speed_mps": 4,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial08",
+      "model": "mppi_reference17",
+      "task_index": 8,
+      "speed_mps": 6,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial08",
+      "model": "mppi_reference17",
+      "task_index": 8,
+      "speed_mps": 8,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial08",
+      "model": "mppi_reference17",
+      "task_index": 8,
+      "speed_mps": 10,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial09",
+      "model": "mppi_reference17",
+      "task_index": 9,
+      "speed_mps": 2,
+      "paper_first10": true,
+      "timeout_s": 47.50000000000001,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial09",
+      "model": "mppi_reference17",
+      "task_index": 9,
+      "speed_mps": 4,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial09",
+      "model": "mppi_reference17",
+      "task_index": 9,
+      "speed_mps": 6,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial09",
+      "model": "mppi_reference17",
+      "task_index": 9,
+      "speed_mps": 8,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial09",
+      "model": "mppi_reference17",
+      "task_index": 9,
+      "speed_mps": 10,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial10",
+      "model": "mppi_reference17",
+      "task_index": 10,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial10",
+      "model": "mppi_reference17",
+      "task_index": 10,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial10",
+      "model": "mppi_reference17",
+      "task_index": 10,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial10",
+      "model": "mppi_reference17",
+      "task_index": 10,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial10",
+      "model": "mppi_reference17",
+      "task_index": 10,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial11",
+      "model": "mppi_reference17",
+      "task_index": 11,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.50000000000001,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial11",
+      "model": "mppi_reference17",
+      "task_index": 11,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial11",
+      "model": "mppi_reference17",
+      "task_index": 11,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial11",
+      "model": "mppi_reference17",
+      "task_index": 11,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial11",
+      "model": "mppi_reference17",
+      "task_index": 11,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial12",
+      "model": "mppi_reference17",
+      "task_index": 12,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.49999999999999,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial12",
+      "model": "mppi_reference17",
+      "task_index": 12,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial12",
+      "model": "mppi_reference17",
+      "task_index": 12,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial12",
+      "model": "mppi_reference17",
+      "task_index": 12,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial12",
+      "model": "mppi_reference17",
+      "task_index": 12,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial13",
+      "model": "mppi_reference17",
+      "task_index": 13,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial13",
+      "model": "mppi_reference17",
+      "task_index": 13,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial13",
+      "model": "mppi_reference17",
+      "task_index": 13,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial13",
+      "model": "mppi_reference17",
+      "task_index": 13,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial13",
+      "model": "mppi_reference17",
+      "task_index": 13,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial14",
+      "model": "mppi_reference17",
+      "task_index": 14,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial14",
+      "model": "mppi_reference17",
+      "task_index": 14,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial14",
+      "model": "mppi_reference17",
+      "task_index": 14,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial14",
+      "model": "mppi_reference17",
+      "task_index": 14,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial14",
+      "model": "mppi_reference17",
+      "task_index": 14,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial15",
+      "model": "mppi_reference17",
+      "task_index": 15,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial15",
+      "model": "mppi_reference17",
+      "task_index": 15,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial15",
+      "model": "mppi_reference17",
+      "task_index": 15,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial15",
+      "model": "mppi_reference17",
+      "task_index": 15,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial15",
+      "model": "mppi_reference17",
+      "task_index": 15,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial16",
+      "model": "mppi_reference17",
+      "task_index": 16,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial16",
+      "model": "mppi_reference17",
+      "task_index": 16,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial16",
+      "model": "mppi_reference17",
+      "task_index": 16,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial16",
+      "model": "mppi_reference17",
+      "task_index": 16,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial16",
+      "model": "mppi_reference17",
+      "task_index": 16,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial17",
+      "model": "mppi_reference17",
+      "task_index": 17,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.49999999999999,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial17",
+      "model": "mppi_reference17",
+      "task_index": 17,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial17",
+      "model": "mppi_reference17",
+      "task_index": 17,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial17",
+      "model": "mppi_reference17",
+      "task_index": 17,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial17",
+      "model": "mppi_reference17",
+      "task_index": 17,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial18",
+      "model": "mppi_reference17",
+      "task_index": 18,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.49999999999999,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial18",
+      "model": "mppi_reference17",
+      "task_index": 18,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial18",
+      "model": "mppi_reference17",
+      "task_index": 18,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial18",
+      "model": "mppi_reference17",
+      "task_index": 18,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial18",
+      "model": "mppi_reference17",
+      "task_index": 18,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial19",
+      "model": "mppi_reference17",
+      "task_index": 19,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial19",
+      "model": "mppi_reference17",
+      "task_index": 19,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial19",
+      "model": "mppi_reference17",
+      "task_index": 19,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial19",
+      "model": "mppi_reference17",
+      "task_index": 19,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial19",
+      "model": "mppi_reference17",
+      "task_index": 19,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial20",
+      "model": "mppi_reference17",
+      "task_index": 20,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.49999999999999,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial20",
+      "model": "mppi_reference17",
+      "task_index": 20,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial20",
+      "model": "mppi_reference17",
+      "task_index": 20,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial20",
+      "model": "mppi_reference17",
+      "task_index": 20,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial20",
+      "model": "mppi_reference17",
+      "task_index": 20,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial21",
+      "model": "mppi_reference17",
+      "task_index": 21,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.50000000000001,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial21",
+      "model": "mppi_reference17",
+      "task_index": 21,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial21",
+      "model": "mppi_reference17",
+      "task_index": 21,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial21",
+      "model": "mppi_reference17",
+      "task_index": 21,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial21",
+      "model": "mppi_reference17",
+      "task_index": 21,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial22",
+      "model": "mppi_reference17",
+      "task_index": 22,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial22",
+      "model": "mppi_reference17",
+      "task_index": 22,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial22",
+      "model": "mppi_reference17",
+      "task_index": 22,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial22",
+      "model": "mppi_reference17",
+      "task_index": 22,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial22",
+      "model": "mppi_reference17",
+      "task_index": 22,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial23",
+      "model": "mppi_reference17",
+      "task_index": 23,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.50000000000001,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial23",
+      "model": "mppi_reference17",
+      "task_index": 23,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial23",
+      "model": "mppi_reference17",
+      "task_index": 23,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial23",
+      "model": "mppi_reference17",
+      "task_index": 23,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial23",
+      "model": "mppi_reference17",
+      "task_index": 23,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial24",
+      "model": "mppi_reference17",
+      "task_index": 24,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial24",
+      "model": "mppi_reference17",
+      "task_index": 24,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial24",
+      "model": "mppi_reference17",
+      "task_index": 24,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial24",
+      "model": "mppi_reference17",
+      "task_index": 24,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial24",
+      "model": "mppi_reference17",
+      "task_index": 24,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial25",
+      "model": "mppi_reference17",
+      "task_index": 25,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.49999999999999,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial25",
+      "model": "mppi_reference17",
+      "task_index": 25,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial25",
+      "model": "mppi_reference17",
+      "task_index": 25,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial25",
+      "model": "mppi_reference17",
+      "task_index": 25,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial25",
+      "model": "mppi_reference17",
+      "task_index": 25,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial26",
+      "model": "mppi_reference17",
+      "task_index": 26,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial26",
+      "model": "mppi_reference17",
+      "task_index": 26,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial26",
+      "model": "mppi_reference17",
+      "task_index": 26,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial26",
+      "model": "mppi_reference17",
+      "task_index": 26,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial26",
+      "model": "mppi_reference17",
+      "task_index": 26,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial27",
+      "model": "mppi_reference17",
+      "task_index": 27,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial27",
+      "model": "mppi_reference17",
+      "task_index": 27,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial27",
+      "model": "mppi_reference17",
+      "task_index": 27,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial27",
+      "model": "mppi_reference17",
+      "task_index": 27,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial27",
+      "model": "mppi_reference17",
+      "task_index": 27,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial28",
+      "model": "mppi_reference17",
+      "task_index": 28,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.49999999999999,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial28",
+      "model": "mppi_reference17",
+      "task_index": 28,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial28",
+      "model": "mppi_reference17",
+      "task_index": 28,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial28",
+      "model": "mppi_reference17",
+      "task_index": 28,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial28",
+      "model": "mppi_reference17",
+      "task_index": 28,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v2_trial29",
+      "model": "mppi_reference17",
+      "task_index": 29,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.50000000000001,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v4_trial29",
+      "model": "mppi_reference17",
+      "task_index": 29,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v6_trial29",
+      "model": "mppi_reference17",
+      "task_index": 29,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v8_trial29",
+      "model": "mppi_reference17",
+      "task_index": 29,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_sparse_v10_trial29",
+      "model": "mppi_reference17",
+      "task_index": 29,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial00",
+      "model": "mppi_reference17",
+      "task_index": 30,
+      "speed_mps": 2,
+      "paper_first10": true,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial00",
+      "model": "mppi_reference17",
+      "task_index": 30,
+      "speed_mps": 4,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial00",
+      "model": "mppi_reference17",
+      "task_index": 30,
+      "speed_mps": 6,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial00",
+      "model": "mppi_reference17",
+      "task_index": 30,
+      "speed_mps": 8,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial00",
+      "model": "mppi_reference17",
+      "task_index": 30,
+      "speed_mps": 10,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial01",
+      "model": "mppi_reference17",
+      "task_index": 31,
+      "speed_mps": 2,
+      "paper_first10": true,
+      "timeout_s": 47.50000000000001,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial01",
+      "model": "mppi_reference17",
+      "task_index": 31,
+      "speed_mps": 4,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial01",
+      "model": "mppi_reference17",
+      "task_index": 31,
+      "speed_mps": 6,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial01",
+      "model": "mppi_reference17",
+      "task_index": 31,
+      "speed_mps": 8,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial01",
+      "model": "mppi_reference17",
+      "task_index": 31,
+      "speed_mps": 10,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial02",
+      "model": "mppi_reference17",
+      "task_index": 32,
+      "speed_mps": 2,
+      "paper_first10": true,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial02",
+      "model": "mppi_reference17",
+      "task_index": 32,
+      "speed_mps": 4,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial02",
+      "model": "mppi_reference17",
+      "task_index": 32,
+      "speed_mps": 6,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial02",
+      "model": "mppi_reference17",
+      "task_index": 32,
+      "speed_mps": 8,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial02",
+      "model": "mppi_reference17",
+      "task_index": 32,
+      "speed_mps": 10,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial03",
+      "model": "mppi_reference17",
+      "task_index": 33,
+      "speed_mps": 2,
+      "paper_first10": true,
+      "timeout_s": 47.50000000000001,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial03",
+      "model": "mppi_reference17",
+      "task_index": 33,
+      "speed_mps": 4,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial03",
+      "model": "mppi_reference17",
+      "task_index": 33,
+      "speed_mps": 6,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial03",
+      "model": "mppi_reference17",
+      "task_index": 33,
+      "speed_mps": 8,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial03",
+      "model": "mppi_reference17",
+      "task_index": 33,
+      "speed_mps": 10,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial04",
+      "model": "mppi_reference17",
+      "task_index": 34,
+      "speed_mps": 2,
+      "paper_first10": true,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial04",
+      "model": "mppi_reference17",
+      "task_index": 34,
+      "speed_mps": 4,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial04",
+      "model": "mppi_reference17",
+      "task_index": 34,
+      "speed_mps": 6,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial04",
+      "model": "mppi_reference17",
+      "task_index": 34,
+      "speed_mps": 8,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial04",
+      "model": "mppi_reference17",
+      "task_index": 34,
+      "speed_mps": 10,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial05",
+      "model": "mppi_reference17",
+      "task_index": 35,
+      "speed_mps": 2,
+      "paper_first10": true,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial05",
+      "model": "mppi_reference17",
+      "task_index": 35,
+      "speed_mps": 4,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial05",
+      "model": "mppi_reference17",
+      "task_index": 35,
+      "speed_mps": 6,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial05",
+      "model": "mppi_reference17",
+      "task_index": 35,
+      "speed_mps": 8,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial05",
+      "model": "mppi_reference17",
+      "task_index": 35,
+      "speed_mps": 10,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial06",
+      "model": "mppi_reference17",
+      "task_index": 36,
+      "speed_mps": 2,
+      "paper_first10": true,
+      "timeout_s": 47.49999999999999,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial06",
+      "model": "mppi_reference17",
+      "task_index": 36,
+      "speed_mps": 4,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial06",
+      "model": "mppi_reference17",
+      "task_index": 36,
+      "speed_mps": 6,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial06",
+      "model": "mppi_reference17",
+      "task_index": 36,
+      "speed_mps": 8,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial06",
+      "model": "mppi_reference17",
+      "task_index": 36,
+      "speed_mps": 10,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial07",
+      "model": "mppi_reference17",
+      "task_index": 37,
+      "speed_mps": 2,
+      "paper_first10": true,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial07",
+      "model": "mppi_reference17",
+      "task_index": 37,
+      "speed_mps": 4,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial07",
+      "model": "mppi_reference17",
+      "task_index": 37,
+      "speed_mps": 6,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial07",
+      "model": "mppi_reference17",
+      "task_index": 37,
+      "speed_mps": 8,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial07",
+      "model": "mppi_reference17",
+      "task_index": 37,
+      "speed_mps": 10,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial08",
+      "model": "mppi_reference17",
+      "task_index": 38,
+      "speed_mps": 2,
+      "paper_first10": true,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial08",
+      "model": "mppi_reference17",
+      "task_index": 38,
+      "speed_mps": 4,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial08",
+      "model": "mppi_reference17",
+      "task_index": 38,
+      "speed_mps": 6,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial08",
+      "model": "mppi_reference17",
+      "task_index": 38,
+      "speed_mps": 8,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial08",
+      "model": "mppi_reference17",
+      "task_index": 38,
+      "speed_mps": 10,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial09",
+      "model": "mppi_reference17",
+      "task_index": 39,
+      "speed_mps": 2,
+      "paper_first10": true,
+      "timeout_s": 47.49999999999999,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial09",
+      "model": "mppi_reference17",
+      "task_index": 39,
+      "speed_mps": 4,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial09",
+      "model": "mppi_reference17",
+      "task_index": 39,
+      "speed_mps": 6,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial09",
+      "model": "mppi_reference17",
+      "task_index": 39,
+      "speed_mps": 8,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial09",
+      "model": "mppi_reference17",
+      "task_index": 39,
+      "speed_mps": 10,
+      "paper_first10": true,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial10",
+      "model": "mppi_reference17",
+      "task_index": 40,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial10",
+      "model": "mppi_reference17",
+      "task_index": 40,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial10",
+      "model": "mppi_reference17",
+      "task_index": 40,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial10",
+      "model": "mppi_reference17",
+      "task_index": 40,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial10",
+      "model": "mppi_reference17",
+      "task_index": 40,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial11",
+      "model": "mppi_reference17",
+      "task_index": 41,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial11",
+      "model": "mppi_reference17",
+      "task_index": 41,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial11",
+      "model": "mppi_reference17",
+      "task_index": 41,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial11",
+      "model": "mppi_reference17",
+      "task_index": 41,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial11",
+      "model": "mppi_reference17",
+      "task_index": 41,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial12",
+      "model": "mppi_reference17",
+      "task_index": 42,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial12",
+      "model": "mppi_reference17",
+      "task_index": 42,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial12",
+      "model": "mppi_reference17",
+      "task_index": 42,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial12",
+      "model": "mppi_reference17",
+      "task_index": 42,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial12",
+      "model": "mppi_reference17",
+      "task_index": 42,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial13",
+      "model": "mppi_reference17",
+      "task_index": 43,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial13",
+      "model": "mppi_reference17",
+      "task_index": 43,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial13",
+      "model": "mppi_reference17",
+      "task_index": 43,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial13",
+      "model": "mppi_reference17",
+      "task_index": 43,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial13",
+      "model": "mppi_reference17",
+      "task_index": 43,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial14",
+      "model": "mppi_reference17",
+      "task_index": 44,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial14",
+      "model": "mppi_reference17",
+      "task_index": 44,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial14",
+      "model": "mppi_reference17",
+      "task_index": 44,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial14",
+      "model": "mppi_reference17",
+      "task_index": 44,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial14",
+      "model": "mppi_reference17",
+      "task_index": 44,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial15",
+      "model": "mppi_reference17",
+      "task_index": 45,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial15",
+      "model": "mppi_reference17",
+      "task_index": 45,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial15",
+      "model": "mppi_reference17",
+      "task_index": 45,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial15",
+      "model": "mppi_reference17",
+      "task_index": 45,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial15",
+      "model": "mppi_reference17",
+      "task_index": 45,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial16",
+      "model": "mppi_reference17",
+      "task_index": 46,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial16",
+      "model": "mppi_reference17",
+      "task_index": 46,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial16",
+      "model": "mppi_reference17",
+      "task_index": 46,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial16",
+      "model": "mppi_reference17",
+      "task_index": 46,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial16",
+      "model": "mppi_reference17",
+      "task_index": 46,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial17",
+      "model": "mppi_reference17",
+      "task_index": 47,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.50000000000001,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial17",
+      "model": "mppi_reference17",
+      "task_index": 47,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial17",
+      "model": "mppi_reference17",
+      "task_index": 47,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial17",
+      "model": "mppi_reference17",
+      "task_index": 47,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial17",
+      "model": "mppi_reference17",
+      "task_index": 47,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial18",
+      "model": "mppi_reference17",
+      "task_index": 48,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial18",
+      "model": "mppi_reference17",
+      "task_index": 48,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial18",
+      "model": "mppi_reference17",
+      "task_index": 48,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial18",
+      "model": "mppi_reference17",
+      "task_index": 48,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial18",
+      "model": "mppi_reference17",
+      "task_index": 48,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial19",
+      "model": "mppi_reference17",
+      "task_index": 49,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.49999999999999,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial19",
+      "model": "mppi_reference17",
+      "task_index": 49,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial19",
+      "model": "mppi_reference17",
+      "task_index": 49,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial19",
+      "model": "mppi_reference17",
+      "task_index": 49,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial19",
+      "model": "mppi_reference17",
+      "task_index": 49,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial20",
+      "model": "mppi_reference17",
+      "task_index": 50,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.50000000000001,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial20",
+      "model": "mppi_reference17",
+      "task_index": 50,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial20",
+      "model": "mppi_reference17",
+      "task_index": 50,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial20",
+      "model": "mppi_reference17",
+      "task_index": 50,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial20",
+      "model": "mppi_reference17",
+      "task_index": 50,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial21",
+      "model": "mppi_reference17",
+      "task_index": 51,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial21",
+      "model": "mppi_reference17",
+      "task_index": 51,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial21",
+      "model": "mppi_reference17",
+      "task_index": 51,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial21",
+      "model": "mppi_reference17",
+      "task_index": 51,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial21",
+      "model": "mppi_reference17",
+      "task_index": 51,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial22",
+      "model": "mppi_reference17",
+      "task_index": 52,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.50000000000001,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial22",
+      "model": "mppi_reference17",
+      "task_index": 52,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial22",
+      "model": "mppi_reference17",
+      "task_index": 52,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial22",
+      "model": "mppi_reference17",
+      "task_index": 52,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial22",
+      "model": "mppi_reference17",
+      "task_index": 52,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial23",
+      "model": "mppi_reference17",
+      "task_index": 53,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.50000000000001,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial23",
+      "model": "mppi_reference17",
+      "task_index": 53,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial23",
+      "model": "mppi_reference17",
+      "task_index": 53,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial23",
+      "model": "mppi_reference17",
+      "task_index": 53,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial23",
+      "model": "mppi_reference17",
+      "task_index": 53,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial24",
+      "model": "mppi_reference17",
+      "task_index": 54,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial24",
+      "model": "mppi_reference17",
+      "task_index": 54,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial24",
+      "model": "mppi_reference17",
+      "task_index": 54,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial24",
+      "model": "mppi_reference17",
+      "task_index": 54,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial24",
+      "model": "mppi_reference17",
+      "task_index": 54,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial25",
+      "model": "mppi_reference17",
+      "task_index": 55,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial25",
+      "model": "mppi_reference17",
+      "task_index": 55,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial25",
+      "model": "mppi_reference17",
+      "task_index": 55,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial25",
+      "model": "mppi_reference17",
+      "task_index": 55,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial25",
+      "model": "mppi_reference17",
+      "task_index": 55,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial26",
+      "model": "mppi_reference17",
+      "task_index": 56,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial26",
+      "model": "mppi_reference17",
+      "task_index": 56,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial26",
+      "model": "mppi_reference17",
+      "task_index": 56,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial26",
+      "model": "mppi_reference17",
+      "task_index": 56,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial26",
+      "model": "mppi_reference17",
+      "task_index": 56,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial27",
+      "model": "mppi_reference17",
+      "task_index": 57,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial27",
+      "model": "mppi_reference17",
+      "task_index": 57,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial27",
+      "model": "mppi_reference17",
+      "task_index": 57,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial27",
+      "model": "mppi_reference17",
+      "task_index": 57,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial27",
+      "model": "mppi_reference17",
+      "task_index": 57,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial28",
+      "model": "mppi_reference17",
+      "task_index": 58,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial28",
+      "model": "mppi_reference17",
+      "task_index": 58,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial28",
+      "model": "mppi_reference17",
+      "task_index": 58,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial28",
+      "model": "mppi_reference17",
+      "task_index": 58,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial28",
+      "model": "mppi_reference17",
+      "task_index": 58,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v2_trial29",
+      "model": "mppi_reference17",
+      "task_index": 59,
+      "speed_mps": 2,
+      "paper_first10": false,
+      "timeout_s": 47.5,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v4_trial29",
+      "model": "mppi_reference17",
+      "task_index": 59,
+      "speed_mps": 4,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v6_trial29",
+      "model": "mppi_reference17",
+      "task_index": 59,
+      "speed_mps": 6,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v8_trial29",
+      "model": "mppi_reference17",
+      "task_index": 59,
+      "speed_mps": 8,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    },
+    {
+      "id": "mppi_reference17_dense_v10_trial29",
+      "model": "mppi_reference17",
+      "task_index": 59,
+      "speed_mps": 10,
+      "paper_first10": false,
+      "timeout_s": 30.0,
+      "status": "pending"
+    }
+  ]
+}

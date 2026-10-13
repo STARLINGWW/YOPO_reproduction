@@ -56,7 +56,7 @@ DAgger   : run_dagger_collection → build_dagger_dataset → validate_dataset �
 ## 运行命令
 
 ```powershell
-Set-Location 'D:\_AAA_CODE_ALL\Tech_reproduction\YOPO_reproduction'
+Set-Location '<项目根目录>'
 
 # 端到端正式链（校验数据门→staging→seed0/1/2 训练→审计）
 ./scripts/run_formal_training.ps1 -DatasetName isaac_full_v1 -RunPrefix formal_main_next
@@ -88,7 +88,7 @@ docker compose --profile training run --rm --name yopo-dagger-seed0 train python
 ## 测试
 
 ```powershell
-Set-Location 'D:\_AAA_CODE_ALL\Tech_reproduction\YOPO_reproduction'
+Set-Location '<项目根目录>'
 python -m pytest -q tests/test_dagger_pipeline.py tests/test_dagger_collection_plan.py tests/test_policy_runtime.py
 
 # 只读完整性检查（不打开张量检查点，可在训练进行时运行）
@@ -103,7 +103,7 @@ python scripts/check_training_integrity.py --runs formal_main_v1_seed0 formal_ma
 - 训练镜像 `yopo-repro:train-cu128-jammy` 需要 Docker Linux engine 与可用 GPU（`train` profile 声明 `gpus: all`）。
 - DAgger 微调权重不是第四个正式 seed，也不进入原 1800 矩阵；其闭环收益需要另做独立比较。
 - 恢复等价性证据目前覆盖 1 轮/126 步的逐位一致；更长跨度的逐位等价未单独留证。
-- 正式矩阵仍缺 300 个 MPPI 槽位，属基准验收范围，见 [report/04_evaluation/05_MPPI参考17身份与可得性.md)。
+- 正式矩阵仍缺 300 个 MPPI 槽位，属基准验收范围，见 [report/90_archive/mppi/05_MPPI参考17身份与可得性.md)。
 
 ## 相关入口
 

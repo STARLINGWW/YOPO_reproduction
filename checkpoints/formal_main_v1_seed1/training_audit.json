@@ -1,0 +1,217 @@
+{
+  "status": "passed",
+  "run": "formal_main_v1_seed1",
+  "seed": 1,
+  "epochs": 50,
+  "steps": 312500,
+  "selection": {
+    "best_epoch": 47,
+    "best_validation_total": 0.022934675648982397,
+    "best_model_tensor_sha256": "927c0b6d5f51dc04d8ece08f695c30598a26928fbdd610d5abf921ebfa8d3e9b",
+    "initial_model_tensor_sha256": "51e3ed69dda76c899b11f03c310b2558150788318327ee0c0a136688581e3366",
+    "best_policy_file_sha256": "908e79f6b5cbd49eaedb5c31b63f36d82a7377cf5aea2aebf6aa3e117fbd94c8"
+  },
+  "every_epoch_state_read_back": [
+    {
+      "epoch": 1,
+      "model_tensor_sha256": "8abd3c94531b060dcfc1a48fc320e0b97bd99b0d2f11bc91c6da795100738f7c"
+    },
+    {
+      "epoch": 2,
+      "model_tensor_sha256": "0d24712f9cf3649bdcca2ef77eed69da6a2b812714c712218a52b980e25ce2fc"
+    },
+    {
+      "epoch": 3,
+      "model_tensor_sha256": "3c061bb37e17efc059bc3c264a0475bb9b0bf18e517951c72280e3a652eff557"
+    },
+    {
+      "epoch": 4,
+      "model_tensor_sha256": "de3726470b93fa1ff7176ab2b9af62863a988dac5bd3ee09c29b022ac1c25226"
+    },
+    {
+      "epoch": 5,
+      "model_tensor_sha256": "20ff6e9eb0ab5f0bfcc060005e30b311991abfef41ea9f9aa4a87a770c13ebce"
+    },
+    {
+      "epoch": 6,
+      "model_tensor_sha256": "8d88835d3215eca4a6ab264f8bd600a74624fc40c84f0f504dc4dda5dca5e556"
+    },
+    {
+      "epoch": 7,
+      "model_tensor_sha256": "a57fcfd47e3296b9ad699f9d77122db6ec190ff7195866b963d0597d788c76c7"
+    },
+    {
+      "epoch": 8,
+      "model_tensor_sha256": "6d1b10f11e758bf35a6f3c66169660a70e4f74ce1ca49247e54133813a4f79a3"
+    },
+    {
+      "epoch": 9,
+      "model_tensor_sha256": "a4bb2bd2d0dbc7d5d325c197356d9b8ea8bad4f571a72b10c13af0237320d222"
+    },
+    {
+      "epoch": 10,
+      "model_tensor_sha256": "8c7737d3a1c2235604b11504c5d86d23989b63d9d9b1d49d2e4eb51435adf597"
+    },
+    {
+      "epoch": 11,
+      "model_tensor_sha256": "5760d20544034e919bc48d49b8af5741d0c2cdb60251ef2dfd65f0e2e5fd455f"
+    },
+    {
+      "epoch": 12,
+      "model_tensor_sha256": "a31e40bf799944a90820dfd3809cda4205d15e43e6899980d9c43a8c8712f057"
+    },
+    {
+      "epoch": 13,
+      "model_tensor_sha256": "d274d460657ff9aebb493b81d197fdde6955f6d90308a018945d6fa6eec708c0"
+    },
+    {
+      "epoch": 14,
+      "model_tensor_sha256": "accd6487e905f64431cda44f426c796be1b90cd7e188a61ac2f7bb92dd254e0e"
+    },
+    {
+      "epoch": 15,
+      "model_tensor_sha256": "b9ec66034961fc9d5224ad71ecd4ee15c50e50a4a9a2bc4277024b7856d13e66"
+    },
+    {
+      "epoch": 16,
+      "model_tensor_sha256": "476ff4952ceb033837776d718c596c5b23a472f940584f5b4e169390ef6e81e5"
+    },
+    {
+      "epoch": 17,
+      "model_tensor_sha256": "08efb9ede8bd4efdf43ac8d588baf0622577325f2f9f1b3375405c5d0b6a3674"
+    },
+    {
+      "epoch": 18,
+      "model_tensor_sha256": "1f7d6ddfe074c079cfaac3d9dd5442006d43591a18ec20d34b63fa05b57fc858"
+    },
+    {
+      "epoch": 19,
+      "model_tensor_sha256": "3e1c6168eedad08483f04a46b6371d7b39f87d4a927be06f8450bfc60171458b"
+    },
+    {
+      "epoch": 20,
+      "model_tensor_sha256": "aa045d03d18e6fc46af98a87334571d7d7ced90d816e7d54410fe8488c2880a2"
+    },
+    {
+      "epoch": 21,
+      "model_tensor_sha256": "c94db6c7031a8e8fb00e035274d6f55bd4063aa802cfd0a3237ded27eb6c9fce"
+    },
+    {
+      "epoch": 22,
+      "model_tensor_sha256": "6585056b1f85c7ddbdcf1dff5fe4264f69b2161f30f6003eb5892dda120951ec"
+    },
+    {
+      "epoch": 23,
+      "model_tensor_sha256": "afcffdaae3fdba7167367aab62b4974249714cb2e947683eae727fb76ec518a4"
+    },
+    {
+      "epoch": 24,
+      "model_tensor_sha256": "4c05f654572e63b7ca5765b45bc8fd6d2bc902eb3bd41484a0edd9706c25f4dc"
+    },
+    {
+      "epoch": 25,
+      "model_tensor_sha256": "80cdbc7a4c2af44d2cbb2cf1a0b59104a97550e07305193e6bc56577a7518192"
+    },
+    {
+      "epoch": 26,
+      "model_tensor_sha256": "bb7f72403a336f8ab754d33a4f374115a9dbd88401a3c7f04fb7f35352211c6a"
+    },
+    {
+      "epoch": 27,
+      "model_tensor_sha256": "5e838dc32c285a31bf79ed67f81c57054e77343076f252a2680188fb8da53e23"
+    },
+    {
+      "epoch": 28,
+      "model_tensor_sha256": "6f310abfffe696e3ff0e566e0f3b4597d00783a0de1bbc42f5cbc6470c4ee5d4"
+    },
+    {
+      "epoch": 29,
+      "model_tensor_sha256": "c8435f517d53b040136a74589718b8b0480a70f97a6918d6b0230a5b570b63cf"
+    },
+    {
+      "epoch": 30,
+      "model_tensor_sha256": "5f2881296e6065aaef57f36dae96e0e868b112e0dea9ff2f5caf04cf387feb1e"
+    },
+    {
+      "epoch": 31,
+      "model_tensor_sha256": "028499b2ca0acbdd828e6a8b2da64a3f28283805570499fe31832edf31b84bb3"
+    },
+    {
+      "epoch": 32,
+      "model_tensor_sha256": "974d76bf0d90cf980ca8ab2812ace9a4d3ad0edcbfa778e9232e702fe77176da"
+    },
+    {
+      "epoch": 33,
+      "model_tensor_sha256": "8ade8a1854badf25de0ba732cff83779f560bf444655b06ae20b66a57698e5ce"
+    },
+    {
+      "epoch": 34,
+      "model_tensor_sha256": "a2254bb3b979f4ac7606fe57e26a54c82cde330c2e8d23a2038b5322e342f10e"
+    },
+    {
+      "epoch": 35,
+      "model_tensor_sha256": "7f9c8a78822097cd409378025a014fff55c8ed40130f44bde4fe34c498d22edc"
+    },
+    {
+      "epoch": 36,
+      "model_tensor_sha256": "3ba2648554380edfd9479957a97b101eb7a2b5651341ed98bf973adb6a8fa389"
+    },
+    {
+      "epoch": 37,
+      "model_tensor_sha256": "0ebc8ca06dfa0fe85e4db11e6ea6aae924dcfe3ab2dc569b2bd0fa60e714aa47"
+    },
+    {
+      "epoch": 38,
+      "model_tensor_sha256": "1470974eb313d2fd0a9b36d3824c96187239ecb3c245f8a3821d739aa0fc1898"
+    },
+    {
+      "epoch": 39,
+      "model_tensor_sha256": "7fb6e43c37138a430f6fdf8a4c7d21069322716144be79bda529a526038e9420"
+    },
+    {
+      "epoch": 40,
+      "model_tensor_sha256": "215cdc7eb738b3da46d587d68ba4003bfa8a80e7a5c5cea0e0c5aba5c35915b6"
+    },
+    {
+      "epoch": 41,
+      "model_tensor_sha256": "b7ee3642225d27db4b4e15de766a40e322ecf74cceb7e1391846429f6fa7d56a"
+    },
+    {
+      "epoch": 42,
+      "model_tensor_sha256": "9c5841660190d9c6f53df43c7cda19546d6d3719fee695d4578e6849c4565b07"
+    },
+    {
+      "epoch": 43,
+      "model_tensor_sha256": "521ad46679eed9824d4a04ca7b59e7734d9e85d4866d7145e1839a86153e909a"
+    },
+    {
+      "epoch": 44,
+      "model_tensor_sha256": "fd5f4a3b2ef3625b3f71b1bb35d850fe13de7858dbb1f58ffd8a0726e76c4910"
+    },
+    {
+      "epoch": 45,
+      "model_tensor_sha256": "a536a18711b380a3a9566488c9c734653e5c4a815d2c560e87e222212ae986d9"
+    },
+    {
+      "epoch": 46,
+      "model_tensor_sha256": "862a6270d2041ce250a076c6d6452fee4ef04c8d88cd41a91d5a25cb241ae0a5"
+    },
+    {
+      "epoch": 47,
+      "model_tensor_sha256": "927c0b6d5f51dc04d8ece08f695c30598a26928fbdd610d5abf921ebfa8d3e9b"
+    },
+    {
+      "epoch": 48,
+      "model_tensor_sha256": "77306533d68dcd1c5e84d7e9b0ca74f88a1fcdd6718c27476800376fdbd57289"
+    },
+    {
+      "epoch": 49,
+      "model_tensor_sha256": "469647dea4c4df6401cd4bfbd1f00dca0504cef66eb8c71e0764480568de277a"
+    },
+    {
+      "epoch": 50,
+      "model_tensor_sha256": "886b3afa2a0a33a8163db5cae17ce5c434f950f97764a81a4c920a002c7a3e92"
+    }
+  ],
+  "scope": "formal training provenance/checkpoints/finite weights only; closed-loop and paper benchmarks remain separate"
+}

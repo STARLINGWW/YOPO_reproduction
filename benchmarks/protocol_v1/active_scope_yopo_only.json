@@ -1,0 +1,28 @@
+{
+  "id": "yopo_only_1500",
+  "created": "2026-10-13",
+  "decision": "User decision 2026-10-13: drop the MPPI reference-[17] branch from the active reproduction and freeze a YOPO-only archive for the GitHub release and Ubuntu 22.04 migration.",
+  "active_models": ["yopo_seed0", "yopo_seed1", "yopo_seed2", "topotraj", "agile_autonomy"],
+  "per_model_episodes": 300,
+  "expected_episodes": 1500,
+  "superset_protocol": {
+    "path": "benchmarks/protocol_v1/protocol.json",
+    "label": "historical_protocol_v1",
+    "status": "not_used_by_active_yopo_only_release",
+    "expected_episodes": 1800,
+    "note": "Kept byte-identical: every recorded primary flight embeds this file's sha256 and runtime_validation.json references it. The active scope is the strict subset of the 1500 executed slots; the remaining 300 mppi_reference17 slots are excluded, not relocated."
+  },
+  "excluded_models": [
+    {
+      "model": "mppi_reference17",
+      "slots": 300,
+      "reason": "Excluded by user decision 2026-10-13. Documentation archived under report/90_archive/mppi and plan/90_decisions/archive_mppi; it must not appear as current pending work."
+    }
+  ],
+  "consumers": [
+    "scripts/aggregate_benchmarks.py (active-scope coverage)",
+    "scripts/final_acceptance_audit.py (benchmark_matrix item)",
+    "scripts/make_status_overview.py (active matrix section)",
+    "tests/test_benchmark_runtime_config.py"
+  ]
+}

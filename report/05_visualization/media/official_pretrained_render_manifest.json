@@ -1,5 +1,5 @@
 {
-  "source_flight": "D:\\_AAA_CODE_ALL\\Tech_reproduction\\YOPO_reproduction\\artifacts\\navigation\\forest_seed7_v3\\flight.npz",
+  "source_flight": "artifacts/navigation/forest_seed7_v3/flight.npz",
   "video": "yopo_global_flight.mp4",
   "resolution": [
     1600,
@@ -11,5 +11,6 @@
   "final_hold_frames": 40,
   "replay_of_measured_states": true,
   "navigation_status": "success",
-  "preview_only": false
+  "preview_only": false,
+  "path_note": "Build-machine absolute paths normalised to project-relative POSIX paths on 2026-10-13 for the YOPO-only release; the original values remain in the v1 archive and git history."
 }

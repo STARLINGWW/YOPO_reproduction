@@ -1,0 +1,11 @@
+{
+  "status": "complete",
+  "epochs": 50,
+  "steps": 312500,
+  "initial_model_sha256": "40c9765fe145aa27661438928dcfc1286ad805a475cd8b259e3fba4749139785",
+  "final_model_sha256": "c3d91af52ca2056f3bf9a161dee27260c795b2e427603879b3b67846373a5e89",
+  "best_validation_total": 0.02293797327885099,
+  "wall_this_process_s": 15776.184186209004,
+  "steps_this_process": 312500,
+  "official_weights_loaded": false
+}

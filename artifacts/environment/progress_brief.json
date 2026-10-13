@@ -1,0 +1,94 @@
+{
+  "recorded_at": "2026-10-08T17:16:56+08:00",
+  "scope": "Current documentation progress brief derived from existing artifacts; no training, flight or acceptance-rule change.",
+  "overall": {
+    "goal_complete": false,
+    "acceptance_counts": {
+      "verified": 5,
+      "documented_gap": 1,
+      "pending": 1
+    },
+    "acceptance_audit": "artifacts/environment/final_acceptance_audit.json",
+    "status_overview_generator": "scripts/make_status_overview.py",
+    "test_note": "Historical test counts are not a fresh test run. This update verifies document links and protected hashes separately."
+  },
+  "training": {
+    "seed0": {
+      "status": "complete",
+      "epochs": 50,
+      "steps": 312500,
+      "audit": "passed",
+      "best_epoch": 50,
+      "best_validation_total": 0.022928971253956588,
+      "epoch_files": 50,
+      "policy_files": 50,
+      "audited_hash_matches_best_policy": true,
+      "evidence": "checkpoints/formal_main_v1_seed0/training_audit.json"
+    },
+    "seed1": {
+      "status": "complete",
+      "epochs": 50,
+      "steps": 312500,
+      "audit": "passed",
+      "best_epoch": 47,
+      "best_validation_total": 0.022934675648982397,
+      "epoch_files": 50,
+      "policy_files": 50,
+      "audited_hash_matches_best_policy": true,
+      "evidence": "checkpoints/formal_main_v1_seed1/training_audit.json"
+    },
+    "seed2": {
+      "status": "complete",
+      "epochs": 50,
+      "steps": 312500,
+      "audit": "passed",
+      "best_epoch": 50,
+      "best_validation_total": 0.02293797327885099,
+      "epoch_files": 50,
+      "policy_files": 50,
+      "audited_hash_matches_best_policy": true,
+      "evidence": "checkpoints/formal_main_v1_seed2/training_audit.json"
+    }
+  },
+  "runtime_admission": {
+    "status": "passed",
+    "validated_backends": [
+      "agile",
+      "topotraj",
+      "yopo"
+    ]
+  },
+  "matrix": {
+    "completed_episodes": 1500,
+    "expected_episodes": 1800,
+    "missing_episodes": 300,
+    "status": "incomplete",
+    "invalid_evidence": 0,
+    "duplicate_primary_attempts": 0,
+    "measurement_gaps": 0
+  },
+  "dagger": {
+    "status": "complete",
+    "rehearsal": false,
+    "epochs": 10,
+    "steps": 67260,
+    "flights": 33,
+    "flight_outcomes": {
+      "timeout": 15,
+      "success": 18
+    },
+    "skipped_map_seeds": 5,
+    "added_samples": 7620
+  },
+  "guards": {
+    "post_training_sentinel_written": true,
+    "runtime_admission_present": true,
+    "matrix_ledger_present": true,
+    "note": "File presence only; no claim that supervisors or Docker are running now."
+  },
+  "next_automated_stages": [],
+  "open_questions_for_user": [
+    "Choose A: implement reference17 and execute 300 slots; B: explicitly accept admitted scope; or C: retain current gap. Full paper is already archived."
+  ],
+  "historical_brief": "artifacts/document_refresh_20261008/backups/artifacts/environment/progress_brief.json"
+}

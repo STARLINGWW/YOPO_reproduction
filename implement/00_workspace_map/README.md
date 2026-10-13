@@ -4,7 +4,7 @@
 
 ## 职责范围
 
-项目的**运行根目录就是项目根目录** `D:\_AAA_CODE_ALL\Tech_reproduction\YOPO_reproduction`。代码没有被移动，因为脚本通过相对路径访问 external、configs、datasets、checkpoints 和 artifacts（多数脚本以 `Path(__file__).resolve().parents[1]` 解析根目录），Docker 把同一根目录挂载到 `/workspace`。`plan / implement / report` 是新增的管理与阅读入口，不承载可执行代码。
+项目的**运行根目录就是项目根目录**（即本仓库检出目录；旧机器上为 `<旧项目根>`）。代码没有被移动，因为脚本通过相对路径访问 external、configs、datasets、checkpoints 和 artifacts（多数脚本以 `Path(__file__).resolve().parents[1]` 解析根目录），Docker 把同一根目录挂载到 `/workspace`。`plan / implement / report` 是新增的管理与阅读入口，不承载可执行代码。
 
 ## 代码地图
 
@@ -26,7 +26,7 @@
 ## 常用命令（项目根目录执行）
 
 ```powershell
-Set-Location 'D:\_AAA_CODE_ALL\Tech_reproduction\YOPO_reproduction'
+Set-Location '<项目根目录>'
 
 # 训练与审计
 ./scripts/run_formal_training.ps1                 # 正式三种子训练（需容器与 GPU）

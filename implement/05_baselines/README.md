@@ -31,7 +31,7 @@
 ## 常用命令（项目根目录执行）
 
 ```powershell
-Set-Location 'D:\_AAA_CODE_ALL\Tech_reproduction\YOPO_reproduction'
+Set-Location '<项目根目录>'
 
 # 专家缓存与对照
 python scripts/run_expert_cache.py --help
@@ -62,7 +62,7 @@ python scripts/probe_agile_torch.py --help
 
 ## 已知限制与论文差异
 
-- 参考[17] MPPI 只有身份材料与全文归档，未找到官方发布、需要重实现：300 槽未执行，状态为 documented_gap（见 [MPPI参考17身份与可得性](../../report/04_evaluation/05_MPPI参考17身份与可得性.md)）。
+- 参考[17] MPPI 只有身份材料与全文归档，未找到官方发布、需要重实现：300 槽未执行，状态为 documented_gap（见 [MPPI参考17身份与可得性](../../report/90_archive/mppi/05_MPPI参考17身份与可得性.md)）。
 - 专家为本地重建（原 C++ 代价 + 明确记录的求解器变体），不是论文作者的原始实现二进制。
 - TopoTraj 从 Fast-Planner 生态移植（含 vendored 源码），本地面向同一 Isaac 场与协议做过适配。
 - Agile 为官方网络的导出与接入，用于对照，不是官方完整工程栈的逐文件复刻。

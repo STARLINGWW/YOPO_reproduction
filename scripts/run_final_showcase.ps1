@@ -15,7 +15,8 @@ param(
 $ErrorActionPreference = 'Stop'
 $projectPath = Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $projectPath
-$python = 'D:\_AAA_FILE_ALL\Anaconda_file\Anaconda_env\isaac61\python.exe'
+$python = if ($env:YOPO_ISAAC_PYTHON) { $env:YOPO_ISAAC_PYTHON } else { 'python' }
+if (-not (Get-Command $python -ErrorAction SilentlyContinue)) { throw "Python interpreter not found: '$python'. Set YOPO_ISAAC_PYTHON to the Isaac Sim python.exe (or put python on PATH)." }
 $seedFolder = 'checkpoints/' + $RunPrefix + '_seed' + $Seed
 $auditPath = Join-Path $seedFolder 'training_audit.json'
 if (-not (Test-Path -LiteralPath $auditPath)) { throw "No training audit for seed $Seed; the final showcase requires a passed 50-epoch audit" }

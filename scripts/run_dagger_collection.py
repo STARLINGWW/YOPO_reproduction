@@ -10,6 +10,7 @@ from pathlib import Path
 import argparse
 import json
 import os
+import shutil
 import subprocess
 import sys
 import time
@@ -40,11 +41,17 @@ def main():
     parser.add_argument('--speeds',default='1.5,2.5,3.5')
     parser.add_argument('--durations',default='20,30')
     parser.add_argument('--camera-hz',type=float,default=15.)
-    parser.add_argument('--python',default=r'D:\_AAA_FILE_ALL\Anaconda_file\Anaconda_env\isaac61\python.exe')
+    parser.add_argument('--python',default=None,help='Isaac Sim python interpreter (default: $YOPO_ISAAC_PYTHON or python on PATH)')
     parser.add_argument('--plan-only',action='store_true',
                         help='Write the flight plan (seeds, clearance, speeds, durations) without launching Isaac')
     args = parser.parse_args()
     if not args.plan_only:require_training_gpu_released()
+    if args.python is None:args.python = os.environ.get('YOPO_ISAAC_PYTHON','python')
+    if not args.plan_only and not Path(args.python).is_file():
+        resolved = shutil.which(args.python)
+        if resolved is None:
+            raise SystemExit('Isaac Sim python not found: %s (set YOPO_ISAAC_PYTHON or pass --python)'%args.python)
+        args.python = resolved
     checkpoint = (ROOT/'checkpoints'/args.checkpoint).resolve()
     if not checkpoint.is_relative_to(ROOT/'checkpoints') or not checkpoint.is_file():
         raise ValueError('Expected a project checkpoint inside checkpoints/')

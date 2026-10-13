@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "reference": "resume_reference_v2",
+  "resumed": "resume_from_epoch_boundary",
+  "steps": 126,
+  "completed_epochs": 1,
+  "batch_cursor": 1,
+  "model_tensor_count": 133,
+  "bitwise_equal": true,
+  "differences": [],
+  "scope": "model, optimizer, permutation/cursor and all RNG states; includes an epoch boundary and validation"
+}

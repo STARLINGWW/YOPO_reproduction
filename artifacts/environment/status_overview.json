@@ -1,0 +1,243 @@
+{
+  "recorded_at": "2026-10-13T16:07:25+08:00",
+  "run_prefix": "formal_main_v1",
+  "training": [
+    {
+      "seed": 0,
+      "status": "complete",
+      "epochs_done": 50,
+      "step": 312500,
+      "target_epochs": 50,
+      "result": "complete",
+      "audit": "passed",
+      "best_epoch": 50,
+      "folder": "checkpoints/formal_main_v1_seed0"
+    },
+    {
+      "seed": 1,
+      "status": "complete",
+      "epochs_done": 50,
+      "step": 312500,
+      "target_epochs": 50,
+      "result": "complete",
+      "audit": "passed",
+      "best_epoch": 47,
+      "folder": "checkpoints/formal_main_v1_seed1"
+    },
+    {
+      "seed": 2,
+      "status": "complete",
+      "epochs_done": 50,
+      "step": 312500,
+      "target_epochs": 50,
+      "result": "complete",
+      "audit": "passed",
+      "best_epoch": 50,
+      "folder": "checkpoints/formal_main_v1_seed2"
+    }
+  ],
+  "matrix": {
+    "plan_pending": 310,
+    "plan_projection_hours": 4.581963871484913,
+    "ledger_records": 1794,
+    "ledger_status_counts": {
+      "success": 618,
+      "timeout": 254,
+      "collision": 622,
+      "not_attempted_backend_unavailable": 300
+    },
+    "last_batch": "batch_finished",
+    "aggregate_status": "outcome_coverage_complete",
+    "aggregate_completed": 1500,
+    "aggregate_expected": 1500,
+    "current_missing": 0,
+    "invalid_evidence": 0,
+    "duplicate_primary_attempts": 0,
+    "measurement_gaps": 0,
+    "missing_by_model": {
+      "agile_autonomy": 0,
+      "topotraj": 0,
+      "yopo_seed0": 0,
+      "yopo_seed1": 0,
+      "yopo_seed2": 0
+    },
+    "plan_note": "Historical scheduling snapshot; not current remaining work. Use aggregate coverage.",
+    "model_outcomes": {
+      "agile_autonomy": {
+        "collision": 269,
+        "success": 30,
+        "timeout": 1
+      },
+      "topotraj": {
+        "success": 71,
+        "collision": 227,
+        "timeout": 2
+      },
+      "yopo_seed0": {
+        "success": 184,
+        "timeout": 74,
+        "collision": 42
+      },
+      "yopo_seed1": {
+        "success": 163,
+        "timeout": 87,
+        "collision": 50
+      },
+      "yopo_seed2": {
+        "success": 174,
+        "timeout": 90,
+        "collision": 36
+      }
+    }
+  },
+  "expert_comparison": [
+    {
+      "file": "artifacts/expert/network_comparison_official_epoch50.json",
+      "samples": 10000,
+      "kind": "official_epoch50",
+      "checkpoint_sha256": "7d5dc46f22a39993d3944a02f82a519dd1aafbda33e268509b22569be2aaa94e",
+      "mean_of15_cost": 0.02961401220171462,
+      "best_of15_cost": 0.02196270826422669,
+      "alignment_max_abs_error": 0.0
+    },
+    {
+      "file": "artifacts/expert/network_comparison_random_initial.json",
+      "samples": 10000,
+      "kind": "random_initial",
+      "checkpoint_sha256": null,
+      "mean_of15_cost": 0.08226726595453586,
+      "best_of15_cost": 0.03955591713872595,
+      "alignment_max_abs_error": 0.0
+    },
+    {
+      "file": "artifacts/expert/network_comparison_trained.json",
+      "samples": 10000,
+      "kind": "trained",
+      "checkpoint_sha256": "a65c7dca6d523af76c6b9f21fe89a92c8d4857209761768e643900c05ba7f339",
+      "mean_of15_cost": 0.023105158569538705,
+      "best_of15_cost": 0.017891728488225504,
+      "alignment_max_abs_error": 0.0
+    },
+    {
+      "file": "artifacts/expert/network_comparison_trained_seed0.json",
+      "samples": 10000,
+      "kind": "trained_seed0",
+      "checkpoint_sha256": "af2ea0faf568443b1a30ef3e00bf882a6f002f4e89bf0b9f50e17e22e32df274",
+      "mean_of15_cost": 0.023061823204297466,
+      "best_of15_cost": 0.017854693668584293,
+      "alignment_max_abs_error": 0.0
+    },
+    {
+      "file": "artifacts/expert/network_comparison_trained_seed1.json",
+      "samples": 10000,
+      "kind": "trained_seed1",
+      "checkpoint_sha256": "908e79f6b5cbd49eaedb5c31b63f36d82a7377cf5aea2aebf6aa3e117fbd94c8",
+      "mean_of15_cost": 0.023073407863061928,
+      "best_of15_cost": 0.017866613524171022,
+      "alignment_max_abs_error": 0.0
+    },
+    {
+      "file": "artifacts/expert/network_comparison_trained_seed2.json",
+      "samples": 10000,
+      "kind": "trained_seed2",
+      "checkpoint_sha256": "eaf157f7857e54cd03a68d8112cdee43c733dd5d2c1a5cd9d6616a2e46da6c1d",
+      "mean_of15_cost": 0.02307186064275685,
+      "best_of15_cost": 0.017881724421530215,
+      "alignment_max_abs_error": 0.0
+    }
+  ],
+  "expert_comparison_partial_self_checks": [
+    {
+      "file": "artifacts/expert/network_comparison_trained_limit512.json",
+      "samples": 512,
+      "kind": "trained",
+      "checkpoint_sha256": "a65c7dca6d523af76c6b9f21fe89a92c8d4857209761768e643900c05ba7f339",
+      "mean_of15_cost": 0.022336789070948056,
+      "best_of15_cost": 0.01724254031534332,
+      "alignment_max_abs_error": 0.0
+    },
+    {
+      "file": "artifacts/expert/network_comparison_trained_limit64.json",
+      "samples": 64,
+      "kind": "trained",
+      "checkpoint_sha256": "a65c7dca6d523af76c6b9f21fe89a92c8d4857209761768e643900c05ba7f339",
+      "mean_of15_cost": 0.020705771699562454,
+      "best_of15_cost": 0.016031096622688604,
+      "alignment_max_abs_error": 0.0
+    }
+  ],
+  "runtime_admission": {
+    "present": true,
+    "status": "passed",
+    "validated_backends": [
+      "agile",
+      "topotraj",
+      "yopo"
+    ],
+    "consumed_episode_ids": [
+      "yopo_seed0_sparse_v2_trial00",
+      "yopo_seed0_sparse_v2_trial01",
+      "agile_autonomy_sparse_v2_trial00",
+      "agile_autonomy_sparse_v2_trial01",
+      "topotraj_sparse_v2_trial00",
+      "topotraj_sparse_v2_trial01"
+    ]
+  },
+  "runtime_declaration": {
+    "path": "configs/benchmark_runtime/v1.json",
+    "status": "yopo_only_scope_declared_native_admission_passed",
+    "open_items": 1,
+    "note": "Historical declaration snapshot; the YOPO-only scope update (2026-10-13) removed the MPPI method and marked the superset matrix historical."
+  },
+  "dagger": {
+    "status": "complete",
+    "rehearsal": false,
+    "epochs": 10,
+    "steps": 67260,
+    "added_samples": 7620,
+    "evidence": "checkpoints/dagger_main_v1_seed0/result.json"
+  },
+  "mppi_archive": {
+    "excluded": true,
+    "note": "MPPI reference [17] was excluded from the active YOPO-only scope on 2026-10-13; identity/full-text records archived under report/90_archive/mppi."
+  },
+  "acceptance": {
+    "counts": {
+      "verified": 6
+    },
+    "all_verified": true,
+    "items": [
+      {
+        "id": "three_seed_training",
+        "status": "verified",
+        "detail": "all three seeds audited at 50 epochs / 312500 steps; per-epoch artifacts are published with the external checkpoint archive"
+      },
+      {
+        "id": "expert_50_step_comparison",
+        "status": "verified",
+        "detail": "three seeds plus random initial at full sample count"
+      },
+      {
+        "id": "baseline_native_validation",
+        "status": "verified",
+        "detail": "admission passed and agile CUDA parity passed"
+      },
+      {
+        "id": "dagger_finetune",
+        "status": "verified",
+        "detail": "aggregation dataset and fine-tuned run both complete"
+      },
+      {
+        "id": "benchmark_matrix",
+        "status": "verified",
+        "detail": "all 1500 active-scope episodes have terminal evidence, no invalid or duplicate primary evidence, and the aggregate reports outcome_coverage_complete"
+      },
+      {
+        "id": "final_showcase_and_audit",
+        "status": "verified",
+        "detail": "showcase runs trace to audited checkpoints and the command/evidence audit passes"
+      }
+    ]
+  },
+  "note": "Current result coverage comes from summary.json; historical plan/declaration fields are not current pending work. Acceptance rules are unchanged."
+}

@@ -17,6 +17,7 @@ from pathlib import Path
 import argparse
 import json
 import os
+import shutil
 import subprocess
 import sys
 import time
@@ -26,7 +27,14 @@ sys.path.insert(0,str(ROOT/'src'))
 from yopo_repro.io import sha256_file,write_json_atomic
 from yopo_sim.job_guard import require_training_gpu_released
 
-ISAAC_PYTHON = os.environ.get('YOPO_ISAAC_PYTHON',r'D:\_AAA_FILE_ALL\Anaconda_file\Anaconda_env\isaac61\python.exe')
+ISAAC_PYTHON = os.environ.get('YOPO_ISAAC_PYTHON','python')
+
+
+def require_isaac_python():
+    resolved = ISAAC_PYTHON if os.path.isfile(ISAAC_PYTHON) else shutil.which(ISAAC_PYTHON)
+    if not resolved:
+        raise SystemExit('Isaac Sim python not found: %s (set YOPO_ISAAC_PYTHON or put the interpreter on PATH)'%ISAAC_PYTHON)
+    return resolved
 BACKENDS = {
     'yopo_seed0':{'backend':'yopo','device':'cuda','checkpoint':'formal_main_v1_seed0/best_policy.pth',
                   'model':'yopo_seed0'},
@@ -67,7 +75,7 @@ def pick_episodes(protocol,model,count):
 
 def native_command(run_name,key,extra):
     config = BACKENDS[key]
-    command = [ISAAC_PYTHON,str(ROOT/'scripts/run_ros2_navigation.py'),'--run',run_name,
+    command = [require_isaac_python(),str(ROOT/'scripts/run_ros2_navigation.py'),'--run',run_name,
                '--backend',config['backend'],'--device',config['device']]
     if config.get('checkpoint'):command += ['--checkpoint',config['checkpoint']]
     if config.get('topo-config'):command += ['--topo-config',config['topo-config']]
@@ -82,7 +90,7 @@ def run_native(run_name,key,extra):
                                    stdout=handle,stderr=subprocess.STDOUT)
     steps = {}
     for name,script in [('validate','scripts/validate_ros2_flight.py'),('evaluate','scripts/evaluate_ros2_flight.py')]:
-        outcome = subprocess.run([ISAAC_PYTHON,str(ROOT/script),'--run',run_name],cwd=ROOT,capture_output=True,text=True)
+        outcome = subprocess.run([require_isaac_python(),str(ROOT/script),'--run',run_name],cwd=ROOT,capture_output=True,text=True)
         (ROOT/'artifacts/environment'/(run_name+'_'+name+'.log')).write_text(outcome.stdout+outcome.stderr,encoding='utf-8')
         steps[name+'_returncode'] = int(outcome.returncode)
     return {'returncode':int(completed.returncode),'log':str(log.relative_to(ROOT).as_posix()),**steps}

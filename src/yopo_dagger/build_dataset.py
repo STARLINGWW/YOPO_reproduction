@@ -261,9 +261,9 @@ def aggregate(base_root,output_root,flights_root,allow_seeds,qa_count=30,qa_prob
              'shards':base_shards+records}
     write_json_atomic(output_root/'dataset.json',index)
     # Record the base dataset as a path relative to the project root. The stager
-    # runs inside the Linux container (ROOT=/workspace), so an absolute host path
-    # such as D:\... made it fail with FileNotFoundError; the container resolves
-    # the relative form under /workspace, which is the mounted project root.
+    # runs inside the Linux container (ROOT=/workspace); an absolute host path
+    # made it fail with FileNotFoundError, while the relative form resolves
+    # under /workspace, which is the mounted project root.
     try:
         base_dataset_field = base_root.relative_to(ROOT).as_posix()
     except ValueError:

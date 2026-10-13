@@ -94,7 +94,7 @@ losses                        total = 1.0 * mean(J) + 10.0 * SmoothL1(score, J.d
 ## 测试
 
 ```powershell
-Set-Location 'D:\_AAA_CODE_ALL\Tech_reproduction\YOPO_reproduction'
+Set-Location '<项目根目录>'
 python -m pytest -q tests/test_quintic.py tests/test_main_cost.py tests/test_maps.py tests/test_forest.py tests/test_policy_runtime.py
 ```
 

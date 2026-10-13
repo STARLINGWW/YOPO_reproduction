@@ -1,12 +1,12 @@
 # YOPO 复现模块总图：12 个模块 × 论文对照
 
-更新：2026-10-12 ｜ 范围：YOPO 复现全部内容 ｜ 论文快照：[YOPO_author_version.pdf](../../artifacts/paper_sources/YOPO_author_version.pdf) ｜ 配套交互式预览：工作区根目录 `_sandbox/yopo-project-map-preview.html`（本地查看，未纳入仓库）
+更新：2026-10-13 ｜ 范围：YOPO 复现全部内容（YOPO-only 活动范围） ｜ 论文快照：[YOPO_author_version.pdf](../../artifacts/paper_sources/YOPO_author_version.pdf) ｜ 配套交互式预览：工作区根目录 `_sandbox/yopo-project-map-preview.html`（本地查看，未纳入仓库）
 
 本图把整个复现分成 5 个阶段、12 个模块，每个模块给出“定位 → 本地实现 → 证据与结果 → 状态”，并标注论文对应位置，便于对照论文逐节阅读。运行代码没有被移动：`src、scripts、configs、ros2_ws、docker、tests、external、datasets、checkpoints、artifacts、reports` 仍是根目录运行兼容层，`plan / implement / report` 是新增的管理、导航和阅读入口（原因见[重构总计划](../../plan/00_charter/01_refactor_master_plan.md)）。
 
 ## 0. 模块总览
 
-状态口径：9 个模块已完成，3 个待闭合——待闭合项正是全项目仅存的三个缺口（MPPI 300 槽、DAgger 收益验证、终审矩阵 1500/1800）。
+状态口径：YOPO-only 活动范围内 12 个模块全部收官（活动矩阵 1,500/1,500、终审 6 verified、all_verified=true）。参考[17] MPPI 于 2026-10-13 移出活动范围并归档；剩余为研究限制（DAgger 闭环收益独立验证、实机未复现）。
 
 | 阶段 | 模块 | 论文对应 | 实现导航 | 状态 |
 |---|---|---|---|---|
@@ -19,9 +19,9 @@
 | ③ 网络与学习 | 07 Guidance Learning 训练 | II-B | [implement/02 训练流水线](../../implement/02_training_pipeline/README.md) | 已完成 |
 | ④ 系统与规划 | 08 在线候选选择与规划 | II-A（推理） | [implement/03 ROS2运行时](../../implement/03_ros2_runtime/README.md) | 已完成 |
 | ④ 系统与规划 | 09 控制器与 Isaac 闭环 | III-C（本地仿真替代实机） | [implement/04 Isaac仿真](../../implement/04_isaac_sim/README.md) | 已完成 |
-| ⑤ 评估与收尾 | 10 专家与基线对照 | III-A、III-B | [implement/05 基线](../../implement/05_baselines/README.md) | 待闭合（MPPI 300 槽） |
-| ⑤ 评估与收尾 | 11 DAgger 聚合微调 | 论文外的本地扩展 | [implement/02 训练流水线](../../implement/02_training_pipeline/README.md) | 待闭合（闭环收益未验证） |
-| ⑤ 评估与收尾 | 12 验收与成果 | III（图表与结论） | [implement/06 验证](../../implement/06_validation/README.md)、[implement/07 可视化](../../implement/07_visualization/README.md) | 待闭合（终审未闭合） |
+| ⑤ 评估与收尾 | 10 专家与基线对照 | III-A、III-B | [implement/05 基线](../../implement/05_baselines/README.md) | 已完成（MPPI 已移出活动范围并归档） |
+| ⑤ 评估与收尾 | 11 DAgger 聚合微调 | 论文外的本地扩展 | [implement/02 训练流水线](../../implement/02_training_pipeline/README.md) | 已完成（微调完成；闭环收益仍为研究限制） |
+| ⑤ 评估与收尾 | 12 验收与成果 | III（图表与结论） | [implement/06 验证](../../implement/06_validation/README.md)、[implement/07 可视化](../../implement/07_visualization/README.md) | 已完成（终审 6 verified） |
 
 ## 1. 按论文章节读复现
 
@@ -97,19 +97,19 @@ ResNet18 编码深度，与 3×5 运动原语网格、速度、加速度和目�
 
 三层对照：专家重建（scaled_gd50 / mma50_evaluations）在独立测试集比较候选质量；TopoTraj 与 Agile Autonomy 接入冻结协议；官方与本地权重在 Simple / main 栈 × 3 场景 × 2/4/6 m/s 的 36 架次同场景对照。
 
-离线 1 万样本：本地 seed0 平均代价 ≈0.0231、最优候选 ≈0.0179，优于官方 0.0296 / 0.0220 与随机初始化 0.0823 / 0.0396；本地平均代价弱于 mma50（0.0215），最优候选优于两个专家重建。权重对照 36 架次：30 成功 / 4 超时 / 2 碰撞。遗留：参考[17] MPPI 的 300 个槽位未执行。
+离线 1 万样本：本地 seed0 平均代价 ≈0.0231、最优候选 ≈0.0179，优于官方 0.0296 / 0.0220 与随机初始化 0.0823 / 0.0396；本地平均代价弱于 mma50（0.0215），最优候选优于两个专家重建。权重对照 36 架次：30 成功 / 4 超时 / 2 碰撞。参考[17] MPPI 于 2026-10-13 移出活动范围：身份/全文与旧方案归档于 report/90_archive/mppi 与 plan/90_decisions/archive_mppi。
 
-入口：[network_comparison_trained_seed0.json](../../artifacts/expert/network_comparison_trained_seed0.json)、[expert_variants.json](../../configs/expert_variants.json)、[protocol.json](../../benchmarks/protocol_v1/protocol.json)、[专家50步比较](../03_training/03_专家50步比较.md)、[权重批量对照实验](../04_evaluation/02_权重批量对照实验.md)、[官方权重 vs 自训练权重对照](../04_evaluation/01_official_vs_selftrained.md)、[MPPI参考17身份与可得性](../04_evaluation/05_MPPI参考17身份与可得性.md)。
+入口：[network_comparison_trained_seed0.json](../../artifacts/expert/network_comparison_trained_seed0.json)、[expert_variants.json](../../configs/expert_variants.json)、[protocol.json](../../benchmarks/protocol_v1/protocol.json)、[专家50步比较](../03_training/03_专家50步比较.md)、[权重批量对照实验](../04_evaluation/02_权重批量对照实验.md)、[官方权重 vs 自训练权重对照](../04_evaluation/01_official_vs_selftrained.md)、[MPPI参考17身份与可得性（归档）](../90_archive/mppi/05_MPPI参考17身份与可得性.md)。
 
 ### 11 DAgger 聚合微调（⑤ 评估与收尾，待闭合：闭环收益未验证）
 
-用基础 seed0 权重在新地图闭环飞行，收集策略实际访问的观测与位姿，聚合成分片数据集后从 seed0 最佳权重微调 10 轮。33 架次（18 成功 / 15 超时）、11 个分片、新增 7,620 样本、67,260 步微调完成；闭环收益尚未独立验证，微调权重未进入正式 1,800 矩阵。
+用基础 seed0 权重在新地图闭环飞行，收集策略实际访问的观测与位姿，聚合成分片数据集后从 seed0 最佳权重微调 10 轮。33 架次（18 成功 / 15 超时）、11 个分片、新增 7,620 样本、67,260 步微调完成；闭环收益尚未独立验证，微调权重未进入正式活动矩阵。
 
 入口：[aggregation_manifest.json](../../datasets/isaac_dagger_v1/aggregation_manifest.json)、[dagger result.json](../../checkpoints/dagger_main_v1_seed0/result.json)、[DAgger聚合与微调方案](../03_training/02_DAgger聚合与微调方案.md)。
 
 ### 12 验收与成果（⑤ 评估与收尾，待闭合：终审矩阵 1500/1800）
 
-机械验收审计逐项核对证据链；成果包括全局飞行视频、轨迹总览图、成功率-速度图与延迟/安全/平滑度统计表；文档链接与命令证据审计通过。终审 5 verified / 1 documented_gap（MPPI）/ 1 pending（基准矩阵 1,500 / 1,800），整体目标尚未全部验收。
+机械验收审计逐项核对证据链；成果包括全局飞行视频、轨迹总览图、成功率-速度图与延迟/安全/平滑度统计表；文档链接与命令证据审计通过。终审 6 verified、all_verified=true（YOPO-only 活动范围；活动矩阵 1,500/1,500）。
 
 入口：[final_acceptance_audit.json](../../artifacts/environment/final_acceptance_audit.json)、[global_trajectory.mp4](../../artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_trajectory.mp4)、[global_overview.png](../../artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_overview.png)、[figure_7_success_vs_speed.png](../../artifacts/paper_figures/figure_7_success_vs_speed.png)、[table_i_expert_vs_network.md](../../artifacts/paper_figures/table_i_expert_vs_network.md)、[table_ii_latency_safety_smoothness.md](../../artifacts/paper_figures/table_ii_latency_safety_smoothness.md)、[完成验收与成果路径](../90_archive/01_完成验收与成果路径.md)、[演示程序与权重飞行验证命令](../05_visualization/01_演示程序与权重飞行验证命令.md)。
 
@@ -131,9 +131,9 @@ ResNet18 编码深度，与 3×5 运动原语网格、速度、加速度和目�
 | D10 | 专家标签 | 需要专家生成标签再训练 | 训练器不加载专家缓存；专家仅用于离线比较 |
 | D11 | 实机实验 | III-C 实机飞行 | 本地为 Isaac + ROS2 仿真闭环，实机未复现 |
 
-## 4. 状态边界与 300 槽分解
+## 4. 状态边界与活动矩阵分解
 
-正式矩阵 1500/1800（622 成功 / 624 碰撞 / 254 超时），每个模型 300 槽：
+YOPO-only 活动矩阵 1,500/1,500（622 成功 / 624 碰撞 / 254 超时），五个活动模型各 300 槽：
 
 | 模型 | 成功 | 超时 | 碰撞 | 说明 |
 |---|---:|---:|---:|---|
@@ -142,12 +142,12 @@ ResNet18 编码深度，与 3×5 运动原语网格、速度、加速度和目�
 | YOPO seed2 | 174 | 90 | 36 | 本地自训练权重 |
 | TopoTraj | 71 | 2 | 227 | 外部基线，已准入 |
 | Agile Autonomy | 30 | 1 | 269 | 外部基线，已准入 |
-| MPPI（参考[17]） | — | — | — | 未执行：无官方发布，需要重实现 |
+| MPPI（参考[17]） | — | — | — | 已移出活动范围并归档（见 benchmarks/archive、report/90_archive/mppi） |
 
 阅读时不要越界解读：
 
-- 缺的 300 槽全部是 MPPI（pending 来源），不是数据丢失。
-- 终审 `all_verified=false`：MPPI 为 documented_gap，矩阵为 pending；其余 5 项 verified。
+- 参考[17] MPPI 的 300 槽按用户决定（2026-10-13）移出活动范围；不是数据丢失。
+- 终审 `all_verified=true`：6 项验收全部 verified；MPPI 不再是验收项。
 - DAgger 微调已完成，但现有证据不支持“微调一定改善闭环成功率”。
 - 实机实验（论文 III-C）未复现；飞行结论均来自 Isaac 仿真闭环。
 - 训练完成 ≠ 所有飞行成功；verified 只表示该项有证据。

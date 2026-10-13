@@ -1,0 +1,182 @@
+{
+  "status": "complete",
+  "scope": "Expert comparison on independent offline test maps with an explicitly reconstructed expert solver setting; no test-based tuning.",
+  "samples": 10000,
+  "dataset_sha256": "ee0330a7d86683b5c0d2ebd884467a728176983709ccd1ee4889002b587eca1a",
+  "expert_cache": {
+    "path": "artifacts/expert/formal_test_v1",
+    "result_sha256": "5fde084486c7d3f4f778a9ec2f7c0edf2beeb2d5117c80247903c2539e8ad588",
+    "variants": {
+      "scaled_gd50": {
+        "average_of15_cost": 0.024252854751018457,
+        "average_best_of15_cost": 0.02182416520095215,
+        "objective_evaluations_range": [
+          51,
+          601
+        ],
+        "accepted_update_range": [
+          0,
+          50
+        ],
+        "cpp_wall_ms_per_sample_mean": 23.058716852799996,
+        "nonfinite_evaluations": 0
+      },
+      "mma50_evaluations": {
+        "average_of15_cost": 0.02145129448489212,
+        "average_best_of15_cost": 0.018753243453710076,
+        "objective_evaluations_range": [
+          50,
+          50
+        ],
+        "accepted_update_range": [
+          -1,
+          -1
+        ],
+        "cpp_wall_ms_per_sample_mean": 7.3409049771,
+        "nonfinite_evaluations": 0
+      }
+    },
+    "scope": "Expert-only offline test cache, explicitly reconstructed solver settings. Final network comparison pending; no test-based tuning."
+  },
+  "checkpoint": {
+    "kind": "trained_seed1",
+    "path": "checkpoints/formal_main_v1_seed1/best_policy.pth",
+    "sha256": "908e79f6b5cbd49eaedb5c31b63f36d82a7377cf5aea2aebf6aa3e117fbd94c8",
+    "initialization": "locally scratch-trained weights"
+  },
+  "sample_alignment_max_abs_error": 0.0,
+  "expert": {
+    "scaled_gd50": {
+      "mean_of15_cost": 0.024252854751018457,
+      "mean_best_of15_cost": 0.02182416520095215,
+      "cpp_wall_ms_per_sample": 23.058716852799996,
+      "objective_evaluations_mean": 326.0
+    },
+    "mma50_evaluations": {
+      "mean_of15_cost": 0.02145129448489212,
+      "mean_best_of15_cost": 0.018753243453710076,
+      "cpp_wall_ms_per_sample": 7.3409049771,
+      "objective_evaluations_mean": 50.0
+    }
+  },
+  "network_vs_expert": {
+    "scaled_gd50": {
+      "expert_mean_of15_cost": 0.024252854751018457,
+      "expert_mean_best_of15_cost": 0.02182416520095215,
+      "network_cost_of_predictions_mean_of15": 0.023073407863061928,
+      "network_cost_of_predictions_mean_best_of15": 0.017866613524171022,
+      "cost_argmin_agreement_fraction": 0.2238,
+      "score_head_argmin_agreement_fraction": 0.1677,
+      "selected_position_error_m": {
+        "n": 10000,
+        "mean": 2.0844429466896583,
+        "p50": 2.0661042595941055,
+        "p95": 3.2570035390680245,
+        "max": 6.523505291020679
+      },
+      "per_candidate_position_error_m": {
+        "n": 150000,
+        "mean": 2.173574740902888,
+        "p50": 2.108604929108445,
+        "p95": 3.7655239734786745,
+        "max": 6.132636578923644
+      }
+    },
+    "mma50_evaluations": {
+      "expert_mean_of15_cost": 0.02145129448489212,
+      "expert_mean_best_of15_cost": 0.018753243453710076,
+      "network_cost_of_predictions_mean_of15": 0.023073407863061928,
+      "network_cost_of_predictions_mean_best_of15": 0.017866613524171022,
+      "cost_argmin_agreement_fraction": 0.121,
+      "score_head_argmin_agreement_fraction": 0.106,
+      "selected_position_error_m": {
+        "n": 10000,
+        "mean": 1.1444583519102078,
+        "p50": 0.952406034062968,
+        "p95": 2.6903071918872015,
+        "max": 6.832278183917744
+      },
+      "per_candidate_position_error_m": {
+        "n": 150000,
+        "mean": 2.166768646521102,
+        "p50": 1.9130375346066517,
+        "p95": 4.496662568832297,
+        "max": 9.207633689008002
+      }
+    },
+    "selected_candidate_matches_expert_best_fraction": 0.2238,
+    "position_error_m": {
+      "n": 10000,
+      "mean": 2.0844429466896583,
+      "p50": 2.0661042595941055,
+      "p95": 3.2570035390680245,
+      "max": 6.523505291020679
+    },
+    "velocity_error_mps": {
+      "scaled_gd50": {
+        "n": 10000,
+        "mean": 3.8415270444534757,
+        "p50": 3.8514611654620534,
+        "p95": 5.280266169761752,
+        "max": 8.711121814015323
+      },
+      "mma50_evaluations": {
+        "n": 10000,
+        "mean": 2.3236521813616644,
+        "p50": 2.09723660388907,
+        "p95": 4.7319409556361105,
+        "max": 9.234755074512968
+      }
+    },
+    "acceleration_error_mps2": {
+      "scaled_gd50": {
+        "n": 10000,
+        "mean": 4.3926250068197925,
+        "p50": 4.5259750913593635,
+        "p95": 6.244951376350986,
+        "max": 7.616671549245974
+      },
+      "mma50_evaluations": {
+        "n": 10000,
+        "mean": 3.180719313351275,
+        "p50": 3.1275793191333316,
+        "p95": 5.206099964257512,
+        "max": 10.218811179451462
+      }
+    }
+  },
+  "network_cost_of_predictions": {
+    "n": 150000,
+    "mean": 0.023073407863061928,
+    "p50": 0.020676407873893382,
+    "p95": 0.04626278914146717,
+    "max": 0.10995389057395659
+  },
+  "score_head_cost_gap": {
+    "n": 150000,
+    "mean": -0.0002950602718350104,
+    "p50": 8.51503648481352e-05,
+    "p95": 0.00409908830241274,
+    "max": 0.026711806796405876
+  },
+  "timing": {
+    "network_inference_ms_per_sample": 2.4835419130096854,
+    "network_inference_scope": "policy forward only, CPU, batch 16, threads 4",
+    "wall_ms_per_sample_including_expert_evaluation": 2.9810547098997633
+  },
+  "notes": [
+    "The network is scored with the same original C++ objective used for the expert cache.",
+    "The expert driver in the public main repository is not published; the variants are explicit reconstructions.",
+    "Network inference timing is CPU-only and is not a GPU latency claim."
+  ],
+  "baselines": {
+    "trained_seed1": {
+      "mean_of15_cost": 0.023073407863061928,
+      "mean_best_of15_cost": 0.017866613524171022,
+      "position_error_vs_expert_m": {
+        "mean": 2.0844429466896583,
+        "p95": 3.2570035390680245
+      }
+    }
+  }
+}

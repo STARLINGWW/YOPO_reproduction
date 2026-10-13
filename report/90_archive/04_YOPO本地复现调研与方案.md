@@ -8,7 +8,7 @@
 
 **结论：可以在这台电脑完成主要算法复现，包括官方权重推理、数据生成、从头训练、仿真闭环和定量评估，无需先购买显卡或租服务器。当前环境尚不具备一键运行官方全链路的条件，需要补齐 Windows 数据生成与仿真适配接口，并调整旧依赖。**
 
-**已按用户最新要求调整：全部主要文件与成果位于 `D:\_AAA_CODE_ALL\Tech_reproduction\YOPO_reproduction`；主线为 Windows 原生 + YOPO-Simple 的 Python/PyTorch 核心 + Isaac Sim 6.1。暂不考虑 WSL、Docker，也不以 ROS 为前置条件。** 原官方 Linux 仿真器不在当前实施范围。
+**已按用户最新要求调整：全部主要文件与成果位于 `<旧项目根>`（历史记录：本机绝对路径已泛化为占位符）；主线为 Windows 原生 + YOPO-Simple 的 Python/PyTorch 核心 + Isaac Sim 6.1。暂不考虑 WSL、Docker，也不以 ROS 为前置条件。** 原官方 Linux 仿真器不在当前实施范围。
 
 本次工作是调研和有界可行性验证，没有运行正式数据采集、完成 50 epoch 训练或闭环飞行。所有“预计”均为工程估计，不是已测结果。
 
@@ -50,7 +50,7 @@
 复测命令（PowerShell，工作区根目录）：
 
 ```powershell
-& 'D:\_AAA_FILE_ALL\Anaconda_file\Anaconda_env\isaac61\python.exe' YOPO_reproduction/scripts/probe_yopo.py
+& '<本机Isaac环境>\python.exe' YOPO_reproduction/scripts/probe_yopo.py
 ```
 
 这会更新本报告内的人工样例和结果文件，并在内存中更新网络；不会覆盖官方权重。

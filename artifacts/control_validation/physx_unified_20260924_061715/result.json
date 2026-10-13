@@ -1,0 +1,151 @@
+{
+  "status": "passed",
+  "scope": "Actual PhysX force-driven vehicle/controller in empty space; not a learned navigation benchmark",
+  "config": {
+    "name": "fast_planner_parameters_physx_equivalent_v1",
+    "mass_kg": 0.98,
+    "gravity_mps2": 9.81,
+    "inertia_kgm2": [
+      0.00264,
+      0.00264,
+      0.00496
+    ],
+    "arm_length_m": 0.26,
+    "propeller_radius_m": 0.062,
+    "thrust_coefficient_N_per_rpm2": 8.98132e-09,
+    "moment_to_thrust_ratio_m": 0.01302,
+    "motor_time_constant_s": 0.03333333333333333,
+    "rpm_limits": [
+      1200.0,
+      35000.0
+    ],
+    "quadratic_drag_coefficient": 0.021237166,
+    "position_gains": [
+      5.7,
+      5.7,
+      6.2
+    ],
+    "velocity_gains": [
+      3.4,
+      3.4,
+      4.0
+    ],
+    "attitude_gains": [
+      1.5,
+      1.5,
+      1.0
+    ],
+    "angular_rate_gains": [
+      0.13,
+      0.13,
+      0.1
+    ],
+    "physics_dt_s": 0.002,
+    "control_dt_s": 0.01,
+    "collision_envelope_radius_m": 0.322,
+    "controller_numeric_fix": "Clamp roundoff-negative90-degree limiter discriminant to0; original failing inputs retained in controller parity evidence",
+    "source_commit": "41be219fe4ecc43bf0e0c2b42a523f8755ccc0bd",
+    "source_dynamics": "external/Fast-Planner/uav_simulator/so3_quadrotor_simulator/src/dynamics/Quadrotor.cpp",
+    "source_control": "external/Fast-Planner/uav_simulator/so3_control/src/SO3Control.cpp",
+    "classification": "Common Isaac equivalent vehicle. Source mass/inertia/rotor/drag/control parameters; PhysX replaces upstream ODE integration. Does not claim YOPO physical platform identity."
+  },
+  "config_sha256": "c639b9a6bba1836e4fd1c5d5d36733413bd2c0ffd94df3f814960696d5298b37",
+  "cases": [
+    {
+      "target_mps": 0.0,
+      "tracking_rmse_m": 0.0,
+      "tracking_max_error_m": 0.0,
+      "steady_mean_speed_mps": 0.0,
+      "saturation_fraction": 0.0,
+      "wall_s": 4.130991599988192,
+      "real_time_factor": 2.4207262972959285,
+      "physics_clock_error_s": 4.7497451305389404e-07,
+      "samples": 1000,
+      "max_physical_contact_force_N": 0.0,
+      "passed": true
+    },
+    {
+      "target_mps": 2.0,
+      "tracking_rmse_m": 0.010226077547592291,
+      "tracking_max_error_m": 0.013177493214550284,
+      "steady_mean_speed_mps": 1.9992799953459648,
+      "saturation_fraction": 0.0,
+      "wall_s": 5.098321799887344,
+      "real_time_factor": 1.9614297395313427,
+      "physics_clock_error_s": 4.7497451305389404e-07,
+      "samples": 1000,
+      "max_physical_contact_force_N": 0.0,
+      "passed": true
+    },
+    {
+      "target_mps": 4.0,
+      "tracking_rmse_m": 0.03513398931641709,
+      "tracking_max_error_m": 0.04382091936682932,
+      "steady_mean_speed_mps": 3.9934445044425564,
+      "saturation_fraction": 0.0,
+      "wall_s": 5.094733199803159,
+      "real_time_factor": 1.962811320597978,
+      "physics_clock_error_s": 4.7497451305389404e-07,
+      "samples": 1000,
+      "max_physical_contact_force_N": 0.0,
+      "passed": true
+    },
+    {
+      "target_mps": 6.0,
+      "tracking_rmse_m": 0.06605235776640221,
+      "tracking_max_error_m": 0.0799372224036047,
+      "steady_mean_speed_mps": 5.975678700131979,
+      "saturation_fraction": 0.0,
+      "wall_s": 5.043314600130543,
+      "real_time_factor": 1.98282296324349,
+      "physics_clock_error_s": 4.7497451305389404e-07,
+      "samples": 1000,
+      "max_physical_contact_force_N": 0.0,
+      "passed": true
+    },
+    {
+      "target_mps": 8.0,
+      "tracking_rmse_m": 0.09410756370582424,
+      "tracking_max_error_m": 0.11078060160413271,
+      "steady_mean_speed_mps": 7.945873902912376,
+      "saturation_fraction": 0.0,
+      "wall_s": 5.097981399856508,
+      "real_time_factor": 1.9615607072009853,
+      "physics_clock_error_s": 4.7497451305389404e-07,
+      "samples": 1000,
+      "max_physical_contact_force_N": 0.0,
+      "passed": true
+    },
+    {
+      "target_mps": 10.0,
+      "tracking_rmse_m": 0.11265626523521705,
+      "tracking_max_error_m": 0.1562876797973823,
+      "steady_mean_speed_mps": 9.917735777314844,
+      "saturation_fraction": 0.0,
+      "wall_s": 5.0567189999856055,
+      "real_time_factor": 1.9775668768678794,
+      "physics_clock_error_s": 4.7497451305389404e-07,
+      "samples": 1000,
+      "max_physical_contact_force_N": 0.0,
+      "passed": true
+    }
+  ],
+  "observed_physx_mass_kg": 0.9800000190734863,
+  "observed_physx_inertia_kgm2": [
+    [
+      0.0026400000788271427,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0026400000788271427,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0049600000493228436
+    ]
+  ]
+}

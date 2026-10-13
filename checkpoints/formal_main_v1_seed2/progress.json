@@ -1,0 +1,8 @@
+{
+  "status": "complete",
+  "epoch_completed": 50,
+  "batch_cursor": 0,
+  "step": 312500,
+  "target_epochs": 50,
+  "elapsed_this_process_s": 15776.126600512998
+}

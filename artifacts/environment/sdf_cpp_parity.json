@@ -1,0 +1,42 @@
+{
+  "status": "difference_found",
+  "scope": "six complete small occupancy grids compared with original distance-transform function bodies",
+  "cases": [
+    {
+      "case": "plane",
+      "voxels": 2184,
+      "max_error": 0.0,
+      "mismatched_gt_1e_6": 0
+    },
+    {
+      "case": "single",
+      "voxels": 2184,
+      "max_error": 0.0,
+      "mismatched_gt_1e_6": 0
+    },
+    {
+      "case": "random_0",
+      "voxels": 4199,
+      "max_error": 0.0,
+      "mismatched_gt_1e_6": 0
+    },
+    {
+      "case": "random_1",
+      "voxels": 4199,
+      "max_error": 0.06677007675170898,
+      "mismatched_gt_1e_6": 4
+    },
+    {
+      "case": "random_2",
+      "voxels": 4199,
+      "max_error": 0.0,
+      "mismatched_gt_1e_6": 0
+    },
+    {
+      "case": "random_3",
+      "voxels": 4199,
+      "max_error": 0.0,
+      "mismatched_gt_1e_6": 0
+    }
+  ]
+}

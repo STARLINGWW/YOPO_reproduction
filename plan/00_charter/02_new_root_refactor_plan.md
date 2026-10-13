@@ -59,7 +59,7 @@ YOPO_reproduction_new/
     01_status/              当前进度简报、复现状态总览
     02_method/              论文对照、笔记对照、原文差异审计
     03_training/            从头训练进度、DAgger、专家对比
-    04_evaluation/          官方vs自训练对照、权重实验、冻结口径、MPPI、ROS2 迁移
+    04_evaluation/          官方vs自训练对照、权重实验、冻结口径、ROS2 迁移（MPPI 归档至 90_archive/mppi）
     05_visualization/       演示命令 + media/（视频、图片、图表实体文件）
     06_migration/           环境基线、新根验证记录
     90_archive/             历史阶段报告
@@ -76,7 +76,7 @@ YOPO_reproduction_new/
 |---|---|---|
 | v1 的 plan/、implement/、report/ 文档 | **转移** | 整体复制进新根作为基础，并按编号规范增强（本表即增强产物之一） |
 | reports/ 20 份详细报告 | **转移** | 迁入 report 编号文件夹并加序号前缀；`reports/README.md` 由 `report/README.md`+`00_index` 取代（不复制） |
-| docs/proposals/（A/B 提案 4 件） | **转移** | → `plan/90_decisions/references/`（计划参考文件） |
+| docs/proposals/（A/B 提案 4 件） | **转移** | → `plan/90_decisions/references/`，2026-10-13 再移入 `plan/90_decisions/archive_mppi/`（历史归档） |
 | 项目外参考：笔记对话 conversation.txt | **转移** | → `plan/01_paper_protocol/references/`（SHA256 `b5d70813…` 校验一致） |
 | 项目外参考：isaac61_env.md | **转移** | → `plan/02_environment_ros2/references/` |
 | 运行代码 src/scripts/configs/docker/ros2_ws/src/tests/external/benchmarks/vendor/assets | **转移（复制）** | 保持相对位置不动；旧根保留为冻结镜像 |
@@ -94,4 +94,4 @@ YOPO_reproduction_new/
 3. **大文件归档**：按 manifest 上传 datasets/checkpoints/代表视频（LFS 或 Release），记录 SHA256 与下载地址。
 4. **独立 Ubuntu 22.04 主机迁移**：clone →（可选）`bash implement/workspace/bootstrap_links.sh` → 数据恢复校验 → GPU 探针 → smoke 停止/恢复 →（需要闭环时）Isaac 单独验证。
 5. **旧根归档说明**：迁移验证通过后，在旧根 README 顶部标注“已迁移至新根”，旧仓库打 tag 冻结。
-6. **实验线路未闭项**（不属结构重构）：MPPI 300 槽实现与执行、DAgger 收益独立验证、矩阵 1500/1800 收尾。
+6. **实验线路**（2026-10-13 更新）：YOPO-only 活动矩阵 1,500 槽收官，MPPI 移出活动范围并归档；剩余研究限制为 DAgger 收益独立验证。

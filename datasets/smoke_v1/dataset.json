@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "status": "complete",
+  "scale": "smoke",
+  "format": "raw_float_depth_and_body_pose",
+  "provenance": "Isaac-equivalent procedural forest, original YOPO bucket SDF",
+  "shards": [
+    {
+      "id": 0,
+      "split": "train",
+      "map_seed": 100,
+      "pose_seed": 10123,
+      "samples": 1000,
+      "density": 0.03333333333333333,
+      "path": "shards/000",
+      "manifest_sha256": "588bf7d5a8c5d32af3de294959c8203a32d5b6959408b9e61777bd1993f908a4",
+      "map_sha256": "1498dfade4f3d482addb95fb60c3af81ae055f8185137989e7cbee2435338d08"
+    },
+    {
+      "id": 1,
+      "split": "train",
+      "map_seed": 101,
+      "pose_seed": 10223,
+      "samples": 1000,
+      "density": 0.05,
+      "path": "shards/001",
+      "manifest_sha256": "84d6e8705dbebdaca785d7c993e6f34b8b0a704f422b6817251f210b15ec87e5",
+      "map_sha256": "0580f1daacd7a8fc86695dd973081da7079e9bf8225a0ff3db91d79fc987fa32"
+    },
+    {
+      "id": 2,
+      "split": "valid",
+      "map_seed": 1000,
+      "pose_seed": 100123,
+      "samples": 128,
+      "density": 0.03333333333333333,
+      "path": "shards/002",
+      "manifest_sha256": "81e9c33887443f3ef7130e21a0c53b8829765a6a65a3bbd0d773d7c4c7734a1c",
+      "map_sha256": "5f372c35674d1854059751f497240602513bf72b430f5af4e3fbaed8be16c778"
+    },
+    {
+      "id": 3,
+      "split": "test",
+      "map_seed": 2000,
+      "pose_seed": 200123,
+      "samples": 128,
+      "density": 0.05,
+      "path": "shards/003",
+      "manifest_sha256": "56cfaaa7685eec7a6b3dcfcc1d22f2d2f844a28563cc201d5e1b7f4021c352ab",
+      "map_sha256": "dc875d57ec3aa748ef3571d78b9b63e8345cc26c245de126700ae3bd0f6b8460"
+    }
+  ]
+}

@@ -1,0 +1,292 @@
+{
+  "status": "passed",
+  "counts": {
+    "train": 100000,
+    "valid": 10000,
+    "test": 10000
+  },
+  "shards": [
+    {
+      "id": 0,
+      "map_seed": 100,
+      "split": "train",
+      "samples": 5000,
+      "ray_checked_frames": 60,
+      "max_raw_ray_error_m": 2.931301791875285e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 1,
+      "map_seed": 101,
+      "split": "train",
+      "samples": 5000,
+      "ray_checked_frames": 60,
+      "max_raw_ray_error_m": 4.797520637512207,
+      "subpixel_ambiguous_pixels": 1,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 2,
+      "map_seed": 102,
+      "split": "train",
+      "samples": 5000,
+      "ray_checked_frames": 60,
+      "max_raw_ray_error_m": 2.8119662577097415e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 3,
+      "map_seed": 103,
+      "split": "train",
+      "samples": 5000,
+      "ray_checked_frames": 60,
+      "max_raw_ray_error_m": 8.385133521215948e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 4,
+      "map_seed": 104,
+      "split": "train",
+      "samples": 5000,
+      "ray_checked_frames": 60,
+      "max_raw_ray_error_m": 0.0001487630682213137,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 5,
+      "map_seed": 105,
+      "split": "train",
+      "samples": 5000,
+      "ray_checked_frames": 60,
+      "max_raw_ray_error_m": 2.258271877764173e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 6,
+      "map_seed": 106,
+      "split": "train",
+      "samples": 5000,
+      "ray_checked_frames": 60,
+      "max_raw_ray_error_m": 3.870644682990587e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 7,
+      "map_seed": 107,
+      "split": "train",
+      "samples": 5000,
+      "ray_checked_frames": 60,
+      "max_raw_ray_error_m": 2.6706770819284742e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 8,
+      "map_seed": 108,
+      "split": "train",
+      "samples": 5000,
+      "ray_checked_frames": 60,
+      "max_raw_ray_error_m": 1.7769746484930238e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 9,
+      "map_seed": 109,
+      "split": "train",
+      "samples": 5000,
+      "ray_checked_frames": 60,
+      "max_raw_ray_error_m": 2.532044667447053e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 10,
+      "map_seed": 110,
+      "split": "train",
+      "samples": 5000,
+      "ray_checked_frames": 60,
+      "max_raw_ray_error_m": 3.637230527786528e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 11,
+      "map_seed": 111,
+      "split": "train",
+      "samples": 5000,
+      "ray_checked_frames": 60,
+      "max_raw_ray_error_m": 7.03530413073139e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 12,
+      "map_seed": 112,
+      "split": "train",
+      "samples": 5000,
+      "ray_checked_frames": 60,
+      "max_raw_ray_error_m": 5.699913584522598e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 13,
+      "map_seed": 113,
+      "split": "train",
+      "samples": 5000,
+      "ray_checked_frames": 60,
+      "max_raw_ray_error_m": 2.7205613413627816e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 14,
+      "map_seed": 114,
+      "split": "train",
+      "samples": 5000,
+      "ray_checked_frames": 60,
+      "max_raw_ray_error_m": 3.497360039972364e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 15,
+      "map_seed": 115,
+      "split": "train",
+      "samples": 5000,
+      "ray_checked_frames": 60,
+      "max_raw_ray_error_m": 3.641633283102408e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 16,
+      "map_seed": 116,
+      "split": "train",
+      "samples": 5000,
+      "ray_checked_frames": 60,
+      "max_raw_ray_error_m": 2.650610851517854e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 17,
+      "map_seed": 117,
+      "split": "train",
+      "samples": 5000,
+      "ray_checked_frames": 60,
+      "max_raw_ray_error_m": 1.867322376014613e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 18,
+      "map_seed": 118,
+      "split": "train",
+      "samples": 5000,
+      "ray_checked_frames": 60,
+      "max_raw_ray_error_m": 7.422192287442897e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 19,
+      "map_seed": 119,
+      "split": "train",
+      "samples": 5000,
+      "ray_checked_frames": 60,
+      "max_raw_ray_error_m": 0.00013904402541520255,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 20,
+      "map_seed": 1000,
+      "split": "valid",
+      "samples": 2500,
+      "ray_checked_frames": 35,
+      "max_raw_ray_error_m": 1.7803938066052183e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 21,
+      "map_seed": 1001,
+      "split": "valid",
+      "samples": 2500,
+      "ray_checked_frames": 35,
+      "max_raw_ray_error_m": 2.0629257608817397e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 22,
+      "map_seed": 1002,
+      "split": "valid",
+      "samples": 2500,
+      "ray_checked_frames": 35,
+      "max_raw_ray_error_m": 1.926293784082489e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 23,
+      "map_seed": 1003,
+      "split": "valid",
+      "samples": 2500,
+      "ray_checked_frames": 35,
+      "max_raw_ray_error_m": 2.291164981116367e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 24,
+      "map_seed": 2000,
+      "split": "test",
+      "samples": 2500,
+      "ray_checked_frames": 35,
+      "max_raw_ray_error_m": 1.9482505148715745e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 25,
+      "map_seed": 2001,
+      "split": "test",
+      "samples": 2500,
+      "ray_checked_frames": 35,
+      "max_raw_ray_error_m": 2.123570217094084e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 26,
+      "map_seed": 2002,
+      "split": "test",
+      "samples": 2500,
+      "ray_checked_frames": 35,
+      "max_raw_ray_error_m": 6.297114482123334e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    },
+    {
+      "id": 27,
+      "map_seed": 2003,
+      "split": "test",
+      "samples": 2500,
+      "ray_checked_frames": 35,
+      "max_raw_ray_error_m": 1.621181654165582e-05,
+      "subpixel_ambiguous_pixels": 0,
+      "unresolved_pixels": 0
+    }
+  ],
+  "dataset_sha256": "ee0330a7d86683b5c0d2ebd884467a728176983709ccd1ee4889002b587eca1a",
+  "scope": "all stored depth frames, hashes, poses, map provenance and disjoint map seeds; not navigation performance"
+}

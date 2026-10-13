@@ -1,9 +1,10 @@
-"""Mechanical audit of the eight acceptance items against authoritative evidence.
+"""Mechanical audit of the six YOPO-only acceptance items against authoritative evidence.
 
 Every item reports one of: verified (evidence proves it), pending (some evidence
-exists but the item is not finished), missing_evidence (the required artifact
-does not exist yet), or documented_gap (the protocol records the item as
-explicitly not satisfied). Nothing is inferred from intent or from a plan.
+exists but the item is not finished), or missing_evidence (the required artifact
+does not exist yet). Nothing is inferred from intent or from a plan. MPPI
+reference [17] left the active scope on 2026-10-13 and is archived instead of
+being audited as an acceptance item.
 """
 from pathlib import Path
 import argparse
@@ -20,33 +21,42 @@ def read_json(path):
     except Exception:return None
 
 
+def evidence_path(path):
+    path = Path(path)
+    for candidate in (path, path.resolve()):
+        try:return Path(candidate).relative_to(ROOT).as_posix()
+        except ValueError:continue
+    return path.as_posix()
+
+
 def item(id_,requirement,status,detail,evidence=None):
     return {'id':id_,'requirement':requirement,'status':status,'detail':detail,
-            'evidence':[str(p) for p in (evidence or [])]}
+            'evidence':[evidence_path(p) for p in (evidence or [])]}
 
 
 def seeds_folder(prefix,seed):return ROOT/'checkpoints'/('%s_seed%d'%(prefix,seed))
 
 
 def check_three_seed_training(prefix):
-    rows = [];missing = [];pending = []
+    rows = [];pending = []
     for seed in 0,1,2:
         folder = seeds_folder(prefix,seed)
         audit = read_json(folder/'training_audit.json');result = read_json(folder/'result.json')
-        epochs = sum(1 for epoch in range(1,51) if (folder/('epoch_%03d.pt'%epoch)).is_file())
-        policies = sum(1 for epoch in range(1,51) if (folder/('policy_epoch_%03d.pth'%epoch)).is_file())
-        if (audit and audit.get('status')=='passed' and result and result.get('status')=='complete'
-                and result.get('steps')==312500 and epochs==50 and policies==50):
-            rows.append({'seed':seed,'audit':'passed','steps':result['steps'],'epoch_files':epochs,
-                         'policy_files':policies,'best_epoch':audit.get('selection',{}).get('best_epoch')})
+        if (audit and audit.get('status')=='passed' and audit.get('epochs')==50
+                and result and result.get('status')=='complete' and result.get('epochs')==50
+                and result.get('steps')==312500):
+            rows.append({'seed':seed,'audit':'passed','epochs':audit['epochs'],'steps':result['steps'],
+                         'best_epoch':(audit.get('selection') or {}).get('best_epoch')})
         else:
-            pending.append({'seed':seed,'audit':(audit or {}).get('status'),'result':(result or {}).get('status'),
-                            'epoch_files':epochs,'policy_files':policies})
+            pending.append({'seed':seed,'audit':(audit or {}).get('status'),'epochs':(audit or {}).get('epochs'),
+                            'result':(result or {}).get('status'),'steps':(result or {}).get('steps')})
+    requirement = 'Three seeds each trained 50 epochs from scratch and passed the strict per-epoch audit'
     if not pending:
-        return item('three_seed_training','Three seeds each trained 50 epochs from scratch and passed the strict per-epoch audit',
-                    'verified','all three seeds audited',[seeds_folder(prefix,s)/'training_audit.json' for s in (0,1,2)])
-    return item('three_seed_training','Three seeds each trained 50 epochs from scratch and passed the strict per-epoch audit',
-                'pending','seeds without a passed audit: %s'%[r['seed'] for r in pending],
+        return item('three_seed_training',requirement,'verified',
+                    'all three seeds audited at 50 epochs / 312500 steps; per-epoch artifacts are published with the external checkpoint archive',
+                    [seeds_folder(prefix,s)/'training_audit.json' for s in (0,1,2)])
+    return item('three_seed_training',requirement,'pending',
+                'seeds without a passed audit: %s'%[r['seed'] for r in pending],
                 [seeds_folder(prefix,s)/'result.json' for s in (0,1,2)])
 
 
@@ -87,14 +97,6 @@ def check_native_validation():
                 [admission_path,ROOT/'artifacts/agile_autonomy/torch_export_v1/torch_cuda_parity.json'])
 
 
-def check_mppi():
-    protocol = read_json(ROOT/'configs/reproduction_protocol.json') or {}
-    status = (((protocol.get('baseline_sources') or {}).get('MPPI') or {}).get('status')) or 'unknown'
-    evidence = ROOT/'artifacts/paper_sources/mppi_identity.json'
-    return item('mppi_reference17','Reference-17 MPPI baseline either reproduced from the paper or explicitly recorded as unfilled',
-                'documented_gap' if 'reference_only' in status else 'pending','protocol status: %s'%status,[evidence])
-
-
 def check_dagger():
     dataset = ROOT/'datasets/isaac_dagger_v1/aggregation_manifest.json'
     finetune = read_json(ROOT/'checkpoints/dagger_main_v1_seed0/result.json')
@@ -114,19 +116,27 @@ def check_matrix():
     summary = read_json(ROOT/'artifacts/benchmark_summary/summary.json')
     result = read_json(ROOT/'artifacts/benchmark_summary/matrix_result.json')
     plan = read_json(ROOT/'artifacts/benchmark_summary/plan.json')
+    scope = read_json(ROOT/'benchmarks/protocol_v1/active_scope_yopo_only.json')
     completed = (summary or {}).get('completed_episodes');expected = (summary or {}).get('expected_episodes')
-    failures = len((result or {}).get('failures') or []) if result else None
+    scope_expected = (scope or {}).get('expected_episodes')
+    active_models = set((scope or {}).get('active_models') or [])
+    summary_models = set(((summary or {}).get('active_scope') or {}).get('models') or [])
+    raw_failures = ((result or {}).get('failures') or []) if result else None
+    failures = None if raw_failures is None else len([failure for failure in raw_failures
+        if any(str(failure.get('episode_id') or '').startswith(model+'_') for model in active_models)])
     invalid = len((summary or {}).get('invalid_evidence') or [])
     duplicates = len((summary or {}).get('duplicate_primary_attempts') or [])
     aggregate_clean = (summary or {}).get('status')=='outcome_coverage_complete'
-    if summary and completed==expected==1800 and failures==0 and invalid==0 and duplicates==0 and aggregate_clean:
-        return item('benchmark_matrix','Frozen 1800-episode matrix executed with coverage-aware failure statistics',
-                    'verified','all 1800 episodes have terminal evidence, no invalid or duplicate primary evidence, and the aggregate reports outcome_coverage_complete',
+    if (summary and scope and completed==expected==scope_expected==1500 and active_models==summary_models
+            and failures==0 and invalid==0 and duplicates==0 and aggregate_clean):
+        return item('benchmark_matrix','Frozen YOPO-only 1500-episode matrix executed with coverage-aware failure statistics',
+                    'verified','all 1500 active-scope episodes have terminal evidence, no invalid or duplicate primary evidence, and the aggregate reports outcome_coverage_complete',
                     [ROOT/'artifacts/benchmark_summary/summary.json'])
-    detail = 'completed=%s expected=%s driver_failures=%s invalid_evidence=%s duplicates=%s aggregate_status=%s plan_pending=%s'%(
-        completed,expected,failures,invalid,duplicates,(summary or {}).get('status'),(plan or {}).get('pending_episodes'))
-    return item('benchmark_matrix','Frozen 1800-episode matrix executed with coverage-aware failure statistics',
-                'pending' if plan else 'missing_evidence',detail,
+    detail = 'completed=%s expected=%s scope_expected=%s driver_failures(active)=%s (raw=%s) invalid_evidence=%s duplicates=%s aggregate_status=%s plan_pending=%s'%(
+        completed,expected,scope_expected,failures,(len(raw_failures) if raw_failures is not None else None),
+        invalid,duplicates,(summary or {}).get('status'),(plan or {}).get('pending_episodes'))
+    return item('benchmark_matrix','Frozen YOPO-only 1500-episode matrix executed with coverage-aware failure statistics',
+                'pending' if (summary or plan) else 'missing_evidence',detail,
                 [ROOT/'artifacts/benchmark_summary/summary.json',ROOT/'artifacts/benchmark_summary/plan.json'])
 
 
@@ -145,6 +155,7 @@ def check_showcase_and_audit():
         digest = manifest.get('checkpoint_sha256')
         if digest and digest in audited:
             video = Path(str(manifest.get('video') or ''))
+            if not video.is_absolute():video = ROOT/video
             if video.is_file() and manifest.get('navigation_status')=='success':
                 matched.append({'folder':str(folder.relative_to(ROOT)),'seed':audited[digest],'video':str(video)})
     if audit and audit.get('status')=='passed' and matched:
@@ -169,7 +180,7 @@ def main():
     global ROOT
     if args.root:ROOT = Path(args.root).resolve()
     checks = [check_three_seed_training(args.run_prefix),check_expert_comparison(args.run_prefix),
-              check_native_validation(),check_mppi(),check_dagger(),check_matrix(),check_showcase_and_audit()]
+              check_native_validation(),check_dagger(),check_matrix(),check_showcase_and_audit()]
     counts = {}
     for check in checks:counts[check['status']] = counts.get(check['status'],0)+1
     report = {'version':1,'scope':'mechanical acceptance audit; each item lists the authoritative evidence inspected',

@@ -5,8 +5,19 @@ import numpy as np
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'src'))
 from yopo_eval.aggregate import aggregate,TERMINAL
 from yopo_eval.task_spec import resolve_episode,verify_formal_yopo_checkpoint
-parser=argparse.ArgumentParser();parser.add_argument('--protocol',type=Path,default=ROOT/'benchmarks/protocol_v1/protocol.json');args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--protocol',type=Path,default=ROOT/'benchmarks/protocol_v1/protocol.json')
+parser.add_argument('--scope',type=Path,default=ROOT/'benchmarks/protocol_v1/active_scope_yopo_only.json')
+parser.add_argument('--superset',action='store_true',help='Aggregate the full frozen superset protocol instead of the active YOPO-only scope')
+args=parser.parse_args()
 protocol_path=args.protocol.resolve();protocol=json.loads(protocol_path.read_text());digest=hashlib.sha256(protocol_path.read_bytes()).hexdigest()
+scope=None;active_protocol=protocol
+if not args.superset:
+    scope=json.loads(args.scope.resolve().read_text())
+    active_models=set(scope['active_models'])
+    active_episodes=[episode for episode in protocol['episodes'] if episode['model'] in active_models]
+    if len(active_episodes)!=scope['expected_episodes']:
+        raise SystemExit('Active scope expects %d episodes but the protocol provides %d'%(scope['expected_episodes'],len(active_episodes)))
+    active_protocol={**protocol,'episodes':active_episodes}
 records={};duplicates=[];invalid=[];ignored=[];measurement_gaps=[]
 for path in sorted((ROOT/'artifacts/ros2_flights').glob('*/metrics.json')):
     source=json.loads(path.read_text());mission=source.get('mission')
@@ -48,8 +59,16 @@ for path in sorted((ROOT/'artifacts/ros2_flights').glob('*/metrics.json')):
         records[identity]={'status':source['status'],'run':folder.name,'metrics':evaluation,'latency_samples_ms':samples}
     except Exception as exc:invalid.append({'run':folder.name,'episode_id':identity,'error':repr(exc)})
 for duplicate in duplicates:records.pop(duplicate['episode_id'],None)
-report=aggregate(protocol,records);report.update(protocol_sha256=digest,ignored_diagnostic_runs=ignored,
+extra=set(records)-{episode['id'] for episode in active_protocol['episodes']}
+if extra:raise SystemExit('Records outside the active scope: %s'%sorted(extra)[:5])
+report=aggregate(active_protocol,records);report.update(protocol_sha256=digest,ignored_diagnostic_runs=ignored,
     duplicate_primary_attempts=duplicates,invalid_evidence=invalid,measurement_gaps=measurement_gaps)
+if scope:
+    report['active_scope']={'file':args.scope.resolve().relative_to(ROOT).as_posix(),'id':scope['id'],
+        'models':scope['active_models'],'expected_episodes':scope['expected_episodes']}
+    report['superset']={'path':'benchmarks/protocol_v1/protocol.json','label':scope['superset_protocol']['label'],
+        'status':scope['superset_protocol']['status'],'expected_episodes':scope['superset_protocol']['expected_episodes'],
+        'excluded_models':scope['excluded_models']}
 if duplicates or invalid:report['status']='invalid_evidence'
 destination=ROOT/'artifacts/benchmark_summary';destination.mkdir(exist_ok=True)
 (destination/'summary.json').write_text(json.dumps(report,indent=2)+'\n')

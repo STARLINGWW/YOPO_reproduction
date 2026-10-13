@@ -97,11 +97,12 @@ def main():
     parser.add_argument('--speed',type=float,default=2.0)
     parser.add_argument('--duration',type=float,default=30.0)
     parser.add_argument('--tag',default='')
-    parser.add_argument('--python',default=r'D:\_AAA_FILE_ALL\Anaconda_file\Anaconda_env\isaac61\python.exe',
-                        help='Isaac Sim python that can import isaacsim (the frozen runner needs it)')
+    parser.add_argument('--python',default=None,
+                        help='Isaac Sim python that can import isaacsim (default: $YOPO_ISAAC_PYTHON or python on PATH)')
     parser.add_argument('--skip-existing',action='store_true')
     parser.add_argument('--dry-run',action='store_true')
     args = parser.parse_args()
+    if args.python is None:args.python = os.environ.get('YOPO_ISAAC_PYTHON','python')
     arms = [arm.strip() for arm in args.arms.split(',') if arm.strip()]
     scenes = [int(value) for value in args.scenes.split(',') if value.strip()]
     for arm in arms:
@@ -109,7 +110,10 @@ def main():
             raise SystemExit('unknown arm %s (known: %s)'%(arm,','.join(DEFAULT_ARMS)))
     interpreter = Path(args.python)
     if not interpreter.is_file():
-        raise SystemExit('Isaac Sim python not found: %s'%interpreter)
+        resolved = shutil.which(args.python)
+        if resolved is None:
+            raise SystemExit('Isaac Sim python not found: %s (set YOPO_ISAAC_PYTHON or pass --python)'%args.python)
+        interpreter = Path(resolved)
     provenance = ensure_official_reference()
     summary_path = ROOT/'artifacts/weights_ab_demo/summary.json'
     manifest_path = ROOT/'artifacts/weights_ab_demo/manifest.json'

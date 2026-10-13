@@ -1,10 +1,10 @@
 param(
-    [string]$PythonPath = 'D:\_AAA_FILE_ALL\Anaconda_file\Anaconda_env\isaac61\python.exe',
+    [string]$PythonPath = $(if ($env:YOPO_ISAAC_PYTHON) { $env:YOPO_ISAAC_PYTHON } else { 'python' }),
     [string]$RunName = ('showcase_' + (Get-Date -Format 'yyyyMMdd_HHmmss'))
 )
 $ErrorActionPreference = 'Stop'
 $projectPath = Split-Path -Parent $PSScriptRoot
-if (-not (Test-Path -LiteralPath $PythonPath)) { throw "Python not found: $PythonPath" }
+if (-not (Get-Command $PythonPath -ErrorAction SilentlyContinue)) { throw "Python interpreter not found: '$PythonPath'. Set YOPO_ISAAC_PYTHON or pass -PythonPath with the full path to the Isaac Sim python.exe." }
 $env:OMNI_KIT_ACCEPT_EULA = 'YES'
 $flightLog = Join-Path $projectPath ('artifacts\' + $RunName + '_navigation.log')
 & $PythonPath (Join-Path $PSScriptRoot 'run_navigation.py') --run $RunName --seed 7 --speed 1.5 --duration 65 *> $flightLog

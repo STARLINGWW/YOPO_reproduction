@@ -16,6 +16,7 @@ from pathlib import Path
 import argparse
 import json
 import os
+import shutil
 import subprocess
 import sys
 import time
@@ -61,16 +62,20 @@ def main():
     parser.add_argument('--duration',type=float,default=45.)
     parser.add_argument('--density',type=float,default=1/30.)
     parser.add_argument('--tag',default='b1')
-    parser.add_argument('--python',default=r'D:\_AAA_FILE_ALL\Anaconda_file\Anaconda_env\isaac61\python.exe')
+    parser.add_argument('--python',default=None,help='Isaac Sim python interpreter (default: $YOPO_ISAAC_PYTHON or python on PATH)')
     parser.add_argument('--skip-existing',action='store_true')
     parser.add_argument('--dry-run',action='store_true')
     args = parser.parse_args()
+    if args.python is None:args.python = os.environ.get('YOPO_ISAAC_PYTHON','python')
     scenes = [int(v) for v in args.scenes.split(',') if v.strip()]
     speeds = [float(v) for v in args.speeds.split(',') if v.strip()]
     arms = [v.strip() for v in args.arms.split(',') if v.strip()]
     interpreter = Path(args.python)
     if not interpreter.is_file():
-        raise SystemExit('Isaac Sim python not found: %s'%interpreter)
+        resolved = shutil.which(args.python)
+        if resolved is None:
+            raise SystemExit('Isaac Sim python not found: %s (set YOPO_ISAAC_PYTHON or pass --python)'%args.python)
+        interpreter = Path(resolved)
     LOGS.mkdir(parents=True,exist_ok=True)
     summary = load_summary()
     known = {record['run'] for record in summary['records']}

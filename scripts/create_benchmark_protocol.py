@@ -1,4 +1,12 @@
-"""Freeze independent maps/tasks and all requested1800 primary episode slots."""
+"""Freeze independent maps/tasks and the YOPO-only 1500 active episode slots.
+
+The shipped benchmarks/protocol_v1/protocol.json is the frozen 1800-slot
+superset kept byte-identical as the evidence anchor (label historical_protocol_v1,
+status not_used_by_active_yopo_only_release); never overwrite it from here. Run
+this generator only in a fresh checkout without benchmarks/protocol_v1 to
+produce the YOPO-only active matrix for new runs; the active scope is declared
+in benchmarks/protocol_v1/active_scope_yopo_only.json.
+"""
 from pathlib import Path
 import hashlib,json,sys
 import numpy as np
@@ -25,7 +33,7 @@ for condition,density,base in [('sparse',1/30,5000),('dense',1/20,6000)]:
                 'trial':repeat*10+i,'paper_first10':repeat==0,'start':start.tolist(),'goal':goal.tolist(),
                 'initial_yaw':float(np.arctan2(goal[1]-start[1],goal[0]-start[0])),
                 'straight_distance_m':float(np.linalg.norm(goal-start)),'endpoint_sampling_attempts':attempt+1})
-models=['yopo_seed0','yopo_seed1','yopo_seed2','topotraj','agile_autonomy','mppi_reference17']
+models=['yopo_seed0','yopo_seed1','yopo_seed2','topotraj','agile_autonomy']
 episodes=[]
 for model in models:
     for task_index,task in enumerate(tasks):
@@ -33,11 +41,11 @@ for model in models:
             episodes.append({'id':f'{model}_{task["condition"]}_v{speed}_trial{task["trial"]:02d}',
                 'model':model,'task_index':task_index,'speed_mps':speed,'paper_first10':task['paper_first10'],
                 'timeout_s':max(30.,1.5*task['straight_distance_m']/speed+10.),'status':'pending'})
-assert len(tasks)==60 and len(episodes)==1800
+assert len(tasks)==60 and len(episodes)==1500
 assert {s['seed'] for s in maps}.isdisjoint(set(range(100,120))|set(range(1000,1004))|set(range(2000,2004))|{3000})
 protocol={'version':1,'status':'task_matrix_frozen_runtime_gates_pending','paper':'https://tju-air-lab.github.io/projects/YOPO/YOPO.pdf',
     'maps':maps,'tasks':tasks,'episodes':episodes,
-    'scope':'Isaac equivalent paired task matrix; no baseline silently omitted; official-weight and Simple runs excluded from primary1800',
+    'scope':'Isaac equivalent paired task matrix; YOPO-only active scope (five models x 300 = 1500); official-weight and Simple runs excluded from the active matrix; MPPI reference [17] excluded by user decision 2026-10-13 (archived)',
     'criteria':{'collision':'Any physical contact or conservative vehicle-envelope signed distance<=0',
         'goal':'Within0.5m and speed<0.3m/s continuously0.5s, without collision',
         'terminal_hold_entry_m':1.,'all_failures_in_denominator':True,'missing_episode_is_not_success':True,

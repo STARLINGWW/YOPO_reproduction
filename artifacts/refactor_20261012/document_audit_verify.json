@@ -99,7 +99,7 @@
     {
       "report": "reports/YOPO三个任务完整分析报告_2026-10-02.md",
       "links": [
-        "D:/_AAA_CODE_ALL/Tech_reproduction/YOPO_reproduction",
+        "<旧项目根>",
         "artifacts/agile_autonomy",
         "artifacts/benchmark_summary",
         "artifacts/benchmark_summary/summary.json",
@@ -216,7 +216,7 @@
     {
       "report": "reports/YOPO本地复现调研与方案.md",
       "links": [
-        "D:/_AAA_CODE_ALL/Tech_reproduction/docs/isaac61_env.md",
+        "<旧机器>/docs/isaac61_env.md",
         "artifacts/probes/probe_log.txt",
         "artifacts/probes/probe_result.json",
         "reports/README.md",
@@ -233,7 +233,7 @@
     {
       "report": "reports/YOPO笔记与本地复现逐项对照_2026-10-08.md",
       "links": [
-        "D:/_AAA_CODE_ALL/paper_reading/YOPO/sources/conversation.txt",
+        "<旧机器>/paper_reading/YOPO/sources/conversation.txt",
         "artifacts/benchmark_summary/summary.json",
         "artifacts/note_alignment_20261008/trace_training_graph.py",
         "artifacts/note_alignment_20261008/training_graph_trace.json",
@@ -1267,5 +1267,6 @@
       "missing_referenced_paths": [],
       "unparsable_json": []
     }
-  ]
+  ],
+  "path_normalisation": "Machine-specific absolute paths normalised to placeholders on 2026-10-13 for the YOPO-only release; original bytes remain in git history and the v1 archive."
 }

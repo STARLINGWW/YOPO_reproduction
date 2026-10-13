@@ -1,12 +1,12 @@
 {
-  "project_root": "D:/_AAA_CODE_ALL/Tech_reproduction/YOPO_reproduction",
+  "project_root": "<project root; run commands from the repository root>",
   "platform": "windows-native",
   "use_wsl": false,
   "use_docker": false,
   "require_ros": false,
   "upstream_branch": "YOPO-Simple",
   "upstream_commit": "bd8a7f91953cfef9f1aa9a48d7ff0ab7bceee132",
-  "validated_python": "D:/_AAA_FILE_ALL/Anaconda_file/Anaconda_env/isaac61/python.exe",
+  "validated_python": "env:YOPO_ISAAC_PYTHON (fallback: python on PATH)",
   "simulation": "Isaac Sim 6.1",
   "sensor_resolution_wh": [
     160,

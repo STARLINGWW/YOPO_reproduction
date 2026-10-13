@@ -50,13 +50,15 @@ def test_timeout_rule_reproduces_every_episode():
     assert mismatches==[]
 
 
-def test_every_matrix_model_has_a_declared_method():
-    config = load(CONFIG);protocol = load(ROOT/'benchmarks/protocol_v1/protocol.json')
-    models = {episode['model'] for episode in protocol['episodes']}
-    assert models<=set(config['methods'])
-    assert config['methods']['expert_50_steps']['in_1800_matrix'] is False
-    assert config['methods']['mppi_reference17']['slots']==300
-    assert config['methods']['mppi_reference17']['status']=='documented_gap_no_official_implementation'
+def test_every_active_scope_model_has_a_declared_method():
+    config = load(CONFIG);scope = load(ROOT/'benchmarks/protocol_v1/active_scope_yopo_only.json')
+    assert config['common']['matrix_episodes']=={'total':scope['expected_episodes'],
+        'per_method':scope['per_model_episodes'],'models':scope['active_models']}
+    assert set(scope['active_models'])<=set(config['methods'])
+    assert config['methods']['expert_50_steps']['in_active_matrix'] is False
+    excluded = config['excluded_methods'][0]
+    assert excluded['model']=='mppi_reference17' and excluded['slots']==300
+    assert excluded['status']=='excluded_from_active_yopo_only_scope'
     for seed in (0,1,2):
         entry = config['methods']['yopo_seed%d'%seed]
         assert entry['training_seed']==seed and entry['device']=='cuda'
@@ -70,4 +72,4 @@ def test_declared_differences_and_prohibitions_are_present():
     assert any('6.0' in item for item in topotraj)
     joined = ' '.join(config['prohibitions'])
     assert 'MPPI' in joined and 'official YOPO weights' in joined
-    assert config['status']=='declared_pending_native_admission'
+    assert config['status']=='yopo_only_scope_declared_native_admission_passed'

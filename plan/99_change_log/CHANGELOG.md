@@ -1,5 +1,21 @@
 # 计划与管理变更日志
 
+## 2026-10-13 YOPO-only 范围冻结、MPPI 归档与文档归一化
+
+- 活动范围冻结：新增 `benchmarks/protocol_v1/active_scope_yopo_only.json`（五模型 × 300 = 1,500）；`scripts/aggregate_benchmarks.py` 默认按活动范围汇总（`--superset` 复算 1800 口径）；`scripts/final_acceptance_audit.py`、`scripts/make_status_overview.py`、`scripts/create_benchmark_protocol.py` 与三个基准测试同步更新。
+- 派生验收重生成：`artifacts/benchmark_summary/summary.json`（`outcome_coverage_complete`，1500/1500）、`artifacts/environment/final_acceptance_audit.json`（6 verified、all_verified=true）、`artifacts/environment/status_overview.json` 与 `report/01_status/02_复现状态总览.md`。
+- 历史归档：新增 `benchmarks/archive/README.md` 与 `benchmarks/archive/protocol_v1_1800/`（1800 调度快照、超集汇总、冻结前终审、`mppi_reference17_episodes.json`）；MPPI 调查记录移入 `report/90_archive/mppi/`，A/B 方案移入 `plan/90_decisions/archive_mppi/`（标签 `historical / not_used_by_active_yopo_only_release`）。
+- 决策记录：新增 `plan/90_decisions/DEC-20261013-01_MPPI移出活动范围与YOPO-only归档.md`；90_decisions README 改为“已决”清单。
+- 证据字节锚定：`.gitattributes` 对 `benchmarks/protocol_v1/{protocol.json,maps/*.json,runtime_validation.json}`、`configs/unified_quad.json`、`configs/topotraj/isaac_development.yaml`、`datasets/**`、`artifacts/**`、`checkpoints/**`、`external/audit_sources/**` 加 `-text`，并重加 protocol/maps/runtime_validation 的原文，保证 clone 后 sha256 与记录一致（`d2fd3052…` / `25649f9d…`）。
+- 文档归一化（移植性）：清除活动文档中的本机绝对路径（README、benchmarks/README、plan/**、report/**、执行手册、project_map.html 等）；历史记录中的机器路径替换为 `<旧项目根>`/`<本机Isaac环境>` 占位符并标注（90_archive、machine_audit.json、isaac_depth_initial_failure.txt）。
+- 报告语义同步：终审口径改为 6 verified / 0 documented_gap / 0 pending；活动矩阵 1,500/1,500；MPPI 不再作为当前待办（module_map、01_status、02_method、03_training、04_evaluation、project_map.html 等）。
+- 标准文档审计（report/plan/benchmarks/implement + 根文档）：73 份、0 缺失链接、0 缺失路径、0 不可解析 JSON。
+- 准入勘误（透明记录）：`scripts/run_benchmark_matrix.py` 仅把机器解释器默认值改为 `YOPO_ISAAC_PYTHON` 环境变量（容器内启动命令不变），并在 `benchmarks/protocol_v1/runtime_validation.json` 增加 `runtime_files_amendment`（含旧/新 sha256 与原因）；其余 19 个冻结运行文件字节未变。既有飞行证据与准入阶段结果不受影响；后续任何再次修改运行时文件都会使准入失效。
+- 发布内容精选：`checkpoints/formal_main_v1_seed{0,1,2}` 与 `dagger_main_v1_seed0` 由 junction 实体化为精简副本（best_policy + 审计/结果 JSON，5+5+5+3 个文件）；`datasets/**` 保留清单类 JSON 与 smoke 子集；`artifacts/**` 保留 summary、环境审计、图表、专家对照、agile 清单与最终展示媒体。
+- 证据归一化：`report/05_visualization/media` 三份渲染/指标 JSON 与 `assets/cf21b/payloads/base.usda` 的构建机路径改为项目相对路径或占位符（base.usda 仅 `doc` 元数据字符串变化）；`report/99_artifact_index/implementation_sha256.json` 按发布字节重算（5 个条目变化，含 run_showcase.ps1）。
+- 发布清理：移除 `vendor/probe_deps/bin/{markdown-it,pygmentize}.exe`（pip 生成的启动器 stub，内嵌构建机路径且无脚本引用；旧根与 git 历史保留）；4 份 `document_audit*.json` 的机器路径归一化为占位符并重跑全量审计（73 份、0 缺失）。
+- 未修改：固定超集协议字节、既有飞行与训练证据；未重跑矩阵或新增飞行。
+
 ## 2026-10-12 新根重构（v2）
 
 - 建立 `YOPO_reproduction_new/` 新根：plan / implement / report 三大区 + 运行层（代码保持既有相对位置）。

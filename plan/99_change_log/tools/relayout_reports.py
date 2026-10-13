@@ -38,7 +38,7 @@ MAPPING = {
     "reports/权重批量对照实验.md": "report/04_evaluation/02_权重批量对照实验.md",
     "reports/权重对比演示实验.md": "report/04_evaluation/03_权重对比演示实验.md",
     "reports/基准运行配置冻结.md": "report/04_evaluation/04_基准运行配置冻结.md",
-    "reports/MPPI参考17身份与可得性.md": "report/04_evaluation/05_MPPI参考17身份与可得性.md",
+    "reports/MPPI参考17身份与可得性.md": "report/90_archive/mppi/05_MPPI参考17身份与可得性.md",
     "reports/ROS2基线迁移记录.md": "report/04_evaluation/06_ROS2基线迁移记录.md",
     "reports/演示程序与权重飞行验证命令.md": "report/05_visualization/01_演示程序与权重飞行验证命令.md",
     "reports/完成验收与成果路径.md": "report/90_archive/01_完成验收与成果路径.md",
@@ -50,10 +50,10 @@ MAPPING = {
     "reports/implementation_sha256.json": "report/99_artifact_index/implementation_sha256.json",
     "reports/machine_audit.json": "report/99_artifact_index/machine_audit.json",
     "reports/isaac_depth_initial_failure.txt": "report/99_artifact_index/isaac_depth_initial_failure.txt",
-    "docs/proposals/optionA_mppi_reference17_plan.md": "plan/90_decisions/references/optionA_mppi_reference17_plan.md",
-    "docs/proposals/optionB_matrix_scope_proposal.md": "plan/90_decisions/references/optionB_matrix_scope_proposal.md",
-    "docs/proposals/optionB_matrix_scope_implementation_report.md": "plan/90_decisions/references/optionB_matrix_scope_implementation_report.md",
-    "docs/proposals/optionB_matrix_scope_implementation.patch": "plan/90_decisions/references/optionB_matrix_scope_implementation.patch",
+    "docs/proposals/optionA_mppi_reference17_plan.md": "plan/90_decisions/archive_mppi/optionA_mppi_reference17_plan.md",
+    "docs/proposals/optionB_matrix_scope_proposal.md": "plan/90_decisions/archive_mppi/optionB_matrix_scope_proposal.md",
+    "docs/proposals/optionB_matrix_scope_implementation_report.md": "plan/90_decisions/archive_mppi/optionB_matrix_scope_implementation_report.md",
+    "docs/proposals/optionB_matrix_scope_implementation.patch": "plan/90_decisions/archive_mppi/optionB_matrix_scope_implementation.patch",
 }
 
 LINK = re.compile(r"\]\(([^)\s]+?)\)")

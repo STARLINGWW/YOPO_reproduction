@@ -70,7 +70,7 @@ optimizer.step()
 | 论文位置 | 论文内容 | 本地对应 | 证据与报告 |
 |---|---|---|---|
 | III-A Table I | 专家 vs 网络的代价与时延 | 重建专家求解器（scaled_gd50、MMA）在独立 10,000 样本测试集比较三种子与随机初始化 | [table_i_expert_vs_network.md](../../artifacts/paper_figures/table_i_expert_vs_network.md)、[network_comparison_trained_seed0.json](../../artifacts/expert/network_comparison_trained_seed0.json)、[专家50步比较](../03_training/03_专家50步比较.md) |
-| III-B Table II / Fig.7 | 与 TopoTraj、MPPI、Agile Autonomy 的仿真对比 | 正式矩阵覆盖三种子 YOPO 权重 + TopoTraj + Agile，已完成 1500/1800；MPPI 300 槽未执行 | [summary.json](../../artifacts/benchmark_summary/summary.json)、[figure_7](../../artifacts/paper_figures/figure_7_success_vs_speed.png)、[权重批量对照实验](../04_evaluation/02_权重批量对照实验.md)、[基准运行配置冻结](../04_evaluation/04_基准运行配置冻结.md) |
+| III-B Table II / Fig.7 | 与 TopoTraj、MPPI、Agile Autonomy 的仿真对比 | 活动矩阵覆盖三种子 YOPO 权重 + TopoTraj + Agile，已完成 1,500/1,500；MPPI（参考[17]）于 2026-10-13 移出活动范围并归档 | [summary.json](../../artifacts/benchmark_summary/summary.json)、[figure_7](../../artifacts/paper_figures/figure_7_success_vs_speed.png)、[权重批量对照实验](../04_evaluation/02_权重批量对照实验.md)、[基准运行配置冻结](../04_evaluation/04_基准运行配置冻结.md) |
 | III-C Real-world | 实机平台实验 | 未复现实机；本地以 Isaac + ROS2 仿真闭环替代 | [ROS2基线迁移记录](../04_evaluation/06_ROS2基线迁移记录.md)、差异 D11 |
 
 ## 5. 在线推理与执行（论文 II-A 推理阶段）

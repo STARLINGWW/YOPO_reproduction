@@ -1,16 +1,17 @@
 # 06 GitHub 与 Ubuntu 迁移
 
-更新：2026-10-12 ｜ 论文对应：工程支撑（交付与迁移，无直接论文对应）
+更新：2026-10-13 ｜ 论文对应：工程支撑（交付与迁移，无直接论文对应）
 
 ## 当前状态
 
 | 事项 | 状态 | 证据 |
 |---|---|---|
-| Git 初始化与结构基线 | 已完成（3 个提交，`main`） | `git log`：plan/implement/report 结构、迁移文档、可复现来源 |
-| GitHub 远端 | 已配置并同步源码与文档 | `origin` = github.com/STARLINGWW/YOPO_reproduction；结构基线已推送 |
-| 大文件（数据/权重/视频） | 未上传；按 LFS/Release 规则另行发布 | [发布检查清单](../../plan/06_github_migration/01_release_checklist.md) |
+| Git 初始化与结构基线 | 已完成（v2 独立 `main` 历史） | `git log` |
+| GitHub 远端 | 现仓库 `origin` = github.com/STARLINGWW/YOPO_reproduction；v2 发布时旧 main 先打 tag `archive/pre-yopo-only-20261013`，再以本目录替换 main | [发布检查清单](../../plan/06_github_migration/01_release_checklist.md) |
+| 大文件（数据/权重/视频） | 代表权重（best_policy）与媒体走 Git LFS；完整数据/中间检查点走外部归档，SHA256 随发布补录 | [发布检查清单](../../plan/06_github_migration/01_release_checklist.md) |
 | 本机 Ubuntu 22.04 容器验证 | 已完成（2026-10-12：GPU/ROS2 探针 + smoke 停止/恢复） | [01_local_environment.md](01_local_environment.md) |
 | 新根重构（YOPO_reproduction_new） | 已完成并通过复核（链接审计/编译/测试/容器 smoke） | [02_new_root_verification.md](02_new_root_verification.md) |
+| YOPO-only 活动范围冻结 | 已完成（2026-10-13；MPPI 移出并归档；终审 6 verified） | [DEC-20261013-01](../../plan/90_decisions/DEC-20261013-01_MPPI移出活动范围与YOPO-only归档.md) |
 | 独立 Ubuntu 主机迁移 | 待执行（驱动、NVIDIA Container Toolkit、数据归档） | [MIGRATION_UBUNTU22.md](../../MIGRATION_UBUNTU22.md) |
 
 ## 迁移设计

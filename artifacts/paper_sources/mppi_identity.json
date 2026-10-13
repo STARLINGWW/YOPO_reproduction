@@ -1,0 +1,66 @@
+{
+  "recorded_at": "2026-09-24T10:46:00+08:00",
+  "question": "What exactly is reference [17] of the YOPO paper, and is its implementation obtainable?",
+  "source_document": {
+    "path": "artifacts/paper_sources/YOPO_author_version.pdf",
+    "url": "https://tju-air-lab.github.io/projects/YOPO/YOPO.pdf",
+    "sha256": "91c48521ecc2837ef724db74e62e2cea8e1b1aae1f7b160f820152c6e9b143ef",
+    "extracted_text": "artifacts/paper_sources/YOPO_author_version.txt",
+    "extraction": "PyMuPDF text extraction; reference list located by the literal marker '[17]'"
+  },
+  "reference_17_verbatim": "[17] H. Lu, Q. Zong, S. Lai, B. Tian, and L. Xie, \u201cFlight with limited field of view: A parallel and gradient-free strategy for micro aerial vehicle,\u201d IEEE Transactions on Industrial Electronics, vol. 69, no. 9, pp. 9258\u20139267, 2021.",
+  "reference_17_identity": {
+    "authors": ["H. Lu", "Q. Zong", "S. Lai", "B. Tian", "L. Xie"],
+    "venue": "IEEE Transactions on Industrial Electronics",
+    "volume": 69,
+    "issue": 9,
+    "pages": "9258-9267",
+    "year": 2021,
+    "ieee_document_url": "https://ieeexplore.ieee.org/document/9552568",
+    "matches_previously_recorded_doi": true,
+    "recorded_doi": "10.1109/TIE.2021.3114744"
+  },
+  "how_yopo_uses_it": {
+    "name_in_paper": "MPPI Planner with Hybrid A* [17]",
+    "paper_claims": [
+      "Gradient-free method MPPI (Model Predictive Path Integration) solves the planning problem using forward sampling of a stochastic diffusion process.",
+      "MPPI Planner significantly reduces the mapping delay by implementing parallel on GPU, and performs back-end optimization with a Monte Carlo approximation using forward sampling.",
+      "Safety of TopoTraj with multiple topological guiding paths is superior to MPPI with a single Hybrid A* as the front end.",
+      "Baselines were fine-tuned for better real-time and safety performance trade-offs in the evaluation environment."
+    ],
+    "table_II_reference_numbers": {
+      "density_sparse_1_30": {"mapping_ms": 6.5, "frontend_ms": 5.0, "backend_ms": 8.2, "total_ms": 19.7, "safety_avg_m": 1.23, "safety_min_m": 0.08, "smoothness_m2_s5": 14.92, "trajectory_length_m": 51.58},
+      "density_dense_1_20": {"safety_avg_m": 0.94, "safety_min_m": 0.06, "smoothness_m2_s5": 16.83, "trajectory_length_m": 52.88}
+    }
+  },
+  "implementation_search": {
+    "verdict": "no_official_implementation_found",
+    "searches": [
+      {"endpoint": "https://api.github.com/search/repositories?q=MPPI+quadrotor+field+of+view&per_page=10", "result": "total_count=0"},
+      {"endpoint": "https://api.github.com/search/repositories?q=gradient-free+quadrotor+MPPI&per_page=5", "result": "total_count=0"},
+      {"endpoint": "https://api.github.com/search/repositories?q=zong+MPPI+quadrotor&per_page=5", "result": "total_count=0"},
+      {"endpoint": "https://api.github.com/users/LcolarHC/repos?per_page=100", "result": "HTTP 403 rate limit exceeded; not a source of evidence"},
+      {"endpoint": "https://html.duckduckgo.com/html/?q=%22Flight+with+Limited+Field+of+View%22+MPPI+github", "result": "single hit: the IEEE Xplore landing page (document 9552568); no code repository"},
+      {"endpoint": "https://html.duckduckgo.com/html/?q=site:github.com+MPPI+quadrotor+limited+field+of+view+planner", "result": "no results"},
+      {"endpoint": "https://html.duckduckgo.com/html/?q=%22Q.+Zong%22+MPPI+quadrotor+code+github", "result": "no results"},
+      {"endpoint": "https://html.duckduckgo.com/html/?q=MPPI+quadrotor+hybrid+A+star+github+implementation", "result": "unrelated projects only, e.g. RCILab/RCI_hybrid_astar_guided_mppi (2025) and zm0612/Hybrid_A_Star; neither is reference [17]"},
+      {"endpoint": "http://export.arxiv.org/api/query?search_query=all:%22limited%20field%20of%20view%22%20AND%20all:%22model%20predictive%20path%20integral%22", "result": "no arXiv version of reference [17]"}
+    ],
+    "known_related_but_distinct": [
+      {"repo": "https://github.com/TJU-Aerial-Robotics/RAPA-Planner", "why_not_substituted": "RAPA-Planner is a later, different method (parallel RA-MPPI) from a different group; the project explicitly forbids substituting it for reference [17]."},
+      {"repo": "https://github.com/RCILab/RCI_hybrid_astar_guided_mppi", "why_not_substituted": "Recent third-party hybrid-A*-guided MPPI; not the 2021 TIE baseline."}
+    ],
+    "search_limitations": [
+      "GitHub's unauthenticated search API returned HTTP 403 rate limiting for the user-repository probe; repository searches that did execute returned zero matches.",
+      "IEEE Xplore full text was not retrieved; only the landing page was reachable, so the algorithm parameters must be quoted from secondary descriptions or the paper, not from a reproduced implementation."
+    ]
+  },
+  "recommended_protocol_status": {
+    "baseline_sources.MPPI.paper": "Flight With Limited Field of View: A Parallel and Gradient-Free Strategy for Micro Aerial Vehicle",
+    "baseline_sources.MPPI.doi": "10.1109/TIE.2021.3114744",
+    "baseline_sources.MPPI.identity": "YOPO reference17, MPPI planner with Hybrid A* front end (Lu, Zong, Lai, Tian, Xie, IEEE TIE 69(9):9258-9267, 2021)",
+    "baseline_sources.MPPI.status": "reference_only_no_official_release_found_reimplementation_required",
+    "baseline_sources.MPPI.evidence": "artifacts/paper_sources/mppi_identity.json"
+  },
+  "consequence_for_the_frozen_matrix": "benchmarks/protocol_v1/protocol.json reserves 300 primary episodes for the model id 'mppi_reference17'. Those episodes must not be filled with any substitute planner; either a documented faithful re-implementation from the paper is produced, or the 300 slots are reported as a declared, unfilled baseline with the reason recorded."
+}

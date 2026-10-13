@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "scope": "quintic mapping and jerk matrices only; not complete trajectory loss",
+  "cases": [
+    {
+      "duration": 0.5,
+      "max_abs_errors": {
+        "L": 1.4210854715202004e-14,
+        "H": 0.0,
+        "R": 3.637978807091713e-11
+      }
+    },
+    {
+      "duration": 1.3333333333333333,
+      "max_abs_errors": {
+        "L": 1.3322676295501878e-15,
+        "H": 5.684341886080802e-14,
+        "R": 2.1600499167107046e-12
+      }
+    },
+    {
+      "duration": 1.6666666666666667,
+      "max_abs_errors": {
+        "L": 5.329070518200751e-15,
+        "H": 0.0,
+        "R": 1.3997691894473974e-12
+      }
+    },
+    {
+      "duration": 5.0,
+      "max_abs_errors": {
+        "L": 7.105427357601e-16,
+        "H": 0.0,
+        "R": 2.7755575615628914e-15
+      }
+    }
+  ]
+}

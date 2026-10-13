@@ -22,7 +22,7 @@ from yopo_repro.io import sha256_file,write_json_atomic
 from yopo_eval.task_spec import resolve_episode
 from yopo_sim.job_guard import require_training_gpu_released
 
-ISAAC_PYTHON = os.environ.get('YOPO_ISAAC_PYTHON',r'D:\_AAA_FILE_ALL\Anaconda_file\Anaconda_env\isaac61\python.exe')
+ISAAC_PYTHON = os.environ.get('YOPO_ISAAC_PYTHON','python')
 TERMINAL = {'success','collision','timeout','crashed','out_of_map'}
 REFERENCE_FLIGHT = {'path_length_m':25.244946988194357,'sim_duration_s':17.06400081049651,
                     'wall_runtime_s':39.44799740007147,'real_time_factor':0.4325695075833074,

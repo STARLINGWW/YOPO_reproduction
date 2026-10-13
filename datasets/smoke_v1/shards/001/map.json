@@ -1,0 +1,21 @@
+{
+  "backend": "original_main_bucket",
+  "origin": [
+    -40.0,
+    -40.0,
+    0.0
+  ],
+  "upper": [
+    40.0,
+    40.0,
+    7.999061584472656
+  ],
+  "resolution": 0.2,
+  "shape": [
+    400,
+    400,
+    40
+  ],
+  "sdf_sha256": "a60a3398c2aa98efd357e3f186522107b048ca173116136076913811f84582e1",
+  "pointcloud_sha256": "88b02c45d657cb22236e6aaf5775348c24a1e98438b587e0ffcf0198444750c5"
+}

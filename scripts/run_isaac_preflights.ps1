@@ -3,7 +3,8 @@ $ErrorActionPreference = 'Stop'
 $projectPath = Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $projectPath
 $stampName = Get-Date -Format 'yyyyMMdd_HHmmss'
-$nativePython = 'D:\_AAA_FILE_ALL\Anaconda_file\Anaconda_env\isaac61\python.exe'
+$nativePython = if ($env:YOPO_ISAAC_PYTHON) { $env:YOPO_ISAAC_PYTHON } else { 'python' }
+if (-not (Get-Command $nativePython -ErrorAction SilentlyContinue)) { throw "Python interpreter not found: '$nativePython'. Set YOPO_ISAAC_PYTHON to the Isaac Sim python.exe (or put python on PATH)." }
 $env:OMNI_KIT_ACCEPT_EULA = 'YES' # Same accepted project runtime setting as collection/showcase.
 $plantRun = 'physx_unified_' + $stampName
 & $nativePython scripts/probe_highspeed_physics.py --run $plantRun *> ('artifacts/formal_training/' + $plantRun + '.log')

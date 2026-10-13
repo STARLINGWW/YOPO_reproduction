@@ -31,7 +31,7 @@
 ## 常用命令（项目根目录执行）
 
 ```powershell
-Set-Location 'D:\_AAA_CODE_ALL\Tech_reproduction\YOPO_reproduction'
+Set-Location '<项目根目录>'
 
 # 原生链飞行/回放
 python scripts/run_navigation.py --help

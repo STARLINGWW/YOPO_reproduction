@@ -9,7 +9,7 @@ param(
     [ValidateSet('forest','grid')]
     [string]$Scene = 'forest',
     [string]$RunName = '',
-    [string]$PythonPath = 'D:\_AAA_FILE_ALL\Anaconda_file\Anaconda_env\isaac61\python.exe',
+    [string]$PythonPath = $(if ($env:YOPO_ISAAC_PYTHON) { $env:YOPO_ISAAC_PYTHON } else { 'python' }),
     [switch]$RenderOnly,
     [switch]$DryRun,
     [switch]$OpenVideo
@@ -19,7 +19,7 @@ param(
 $ErrorActionPreference = 'Stop'
 $projectPath = Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $projectPath
-if (-not (Test-Path -LiteralPath $PythonPath -PathType Leaf)) { throw "Python not found: $PythonPath" }
+if (-not (Get-Command $PythonPath -ErrorAction SilentlyContinue)) { throw "Python interpreter not found: '$PythonPath'. Set YOPO_ISAAC_PYTHON or pass -PythonPath with the full path to the Isaac Sim python.exe." }
 if ($Speed -le 0 -or $Duration -le 0) { throw 'Speed and Duration must be positive' }
 if ($RenderOnly -and -not $RunName) { throw 'RenderOnly requires an existing RunName' }
 if (-not $RunName) {

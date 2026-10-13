@@ -1,0 +1,18 @@
+[
+  {
+    "source": "reports/YOPO三个任务完整分析报告_2026-10-02.html",
+    "destination": "reports/YOPO三个任务完整分析报告_2026-10-02.md",
+    "archived_original": "artifacts/markdown_migration_20261008/html_archive/YOPO三个任务完整分析报告_2026-10-02.html",
+    "source_sha256": "769e62fd700231e0f8ef2773ffbfeaec0c8a5d2b09194b4cedb4038058eaa411",
+    "tables": 14,
+    "headings": 13
+  },
+  {
+    "source": "reports/YOPO笔记与本地复现逐项对照_2026-10-08.html",
+    "destination": "reports/YOPO笔记与本地复现逐项对照_2026-10-08.md",
+    "archived_original": "artifacts/markdown_migration_20261008/html_archive/YOPO笔记与本地复现逐项对照_2026-10-08.html",
+    "source_sha256": "83120d89e3a5f41179c3650fa6b72db71450708713cf79c6d1289ae41370e730",
+    "tables": 5,
+    "headings": 8
+  }
+]

@@ -11,7 +11,7 @@
 | 04 | 04_evaluation | 矩阵和权重/基线比较 |
 | 05 | 05_visualization | 视频、图片、回放和命令 |
 | 06 | 06_migration | GitHub和Ubuntu迁移 |
-| 90 | 90_archive | 历史阶段报告 |
+| 90 | 90_archive | 历史阶段报告（含 MPPI 归档） |
 | 99 | 99_artifact_index | 产物路径和哈希索引 |
 
 详细报告按编号文件夹收纳（含序号前缀）；视频、图片与图表实体文件位于 [05_visualization/media](05_visualization/media)，交互式项目全景位于 [00_index/03_project_map.html](00_index/03_project_map.html)。旧根的 reports/ 仅作为历史归档存在；当前阅读从本目录开始。

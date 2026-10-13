@@ -1,0 +1,5496 @@
+{
+  "schema": 1,
+  "classification": "Official Agile Autonomy inference conversion, no training",
+  "source_checkpoint_sha256": "074c1a09b0fad2c64a72a14e79edeac4676720103d657d28f859440ceaf46132",
+  "upstream_commit": "958c0d22e11d28a4d73b627029cf62ef1a1a95ab",
+  "config": {
+    "img_height": 224,
+    "img_width": 224,
+    "use_rgb": false,
+    "use_depth": true,
+    "freeze_backbone": false,
+    "modes": 3,
+    "predict_state_number": [],
+    "out_seq_len": 10,
+    "state_dim": 3,
+    "seq_len": 1,
+    "use_position": false,
+    "use_attitude": true
+  },
+  "groups": {
+    "backbone": [
+      {
+        "class": "InputLayer",
+        "config": {
+          "batch_input_shape": [
+            null,
+            224,
+            224,
+            3
+          ],
+          "dtype": "float32",
+          "sparse": false,
+          "ragged": false,
+          "name": "input_1"
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv2D",
+        "config": {
+          "name": "conv1",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 32,
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            2,
+            2
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "backbone_1_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv1_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_2_0",
+          "backbone_2_1",
+          "backbone_2_2",
+          "backbone_2_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv1_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "DepthwiseConv2D",
+        "config": {
+          "name": "conv_dw_1",
+          "trainable": true,
+          "dtype": "float32",
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "bias_constraint": null,
+          "depth_multiplier": 1,
+          "depthwise_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "depthwise_regularizer": null,
+          "depthwise_constraint": null
+        },
+        "weights": [
+          "backbone_4_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_dw_1_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_5_0",
+          "backbone_5_1",
+          "backbone_5_2",
+          "backbone_5_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_dw_1_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv2D",
+        "config": {
+          "name": "conv_pw_1",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 64,
+          "kernel_size": [
+            1,
+            1
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "backbone_7_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_pw_1_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_8_0",
+          "backbone_8_1",
+          "backbone_8_2",
+          "backbone_8_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_pw_1_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "ZeroPadding2D",
+        "config": {
+          "name": "conv_pad_2",
+          "trainable": true,
+          "dtype": "float32",
+          "padding": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "data_format": "channels_last"
+        },
+        "weights": []
+      },
+      {
+        "class": "DepthwiseConv2D",
+        "config": {
+          "name": "conv_dw_2",
+          "trainable": true,
+          "dtype": "float32",
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            2,
+            2
+          ],
+          "padding": "valid",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "bias_constraint": null,
+          "depth_multiplier": 1,
+          "depthwise_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "depthwise_regularizer": null,
+          "depthwise_constraint": null
+        },
+        "weights": [
+          "backbone_11_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_dw_2_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_12_0",
+          "backbone_12_1",
+          "backbone_12_2",
+          "backbone_12_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_dw_2_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv2D",
+        "config": {
+          "name": "conv_pw_2",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 128,
+          "kernel_size": [
+            1,
+            1
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "backbone_14_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_pw_2_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_15_0",
+          "backbone_15_1",
+          "backbone_15_2",
+          "backbone_15_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_pw_2_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "DepthwiseConv2D",
+        "config": {
+          "name": "conv_dw_3",
+          "trainable": true,
+          "dtype": "float32",
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "bias_constraint": null,
+          "depth_multiplier": 1,
+          "depthwise_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "depthwise_regularizer": null,
+          "depthwise_constraint": null
+        },
+        "weights": [
+          "backbone_17_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_dw_3_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_18_0",
+          "backbone_18_1",
+          "backbone_18_2",
+          "backbone_18_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_dw_3_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv2D",
+        "config": {
+          "name": "conv_pw_3",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 128,
+          "kernel_size": [
+            1,
+            1
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "backbone_20_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_pw_3_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_21_0",
+          "backbone_21_1",
+          "backbone_21_2",
+          "backbone_21_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_pw_3_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "ZeroPadding2D",
+        "config": {
+          "name": "conv_pad_4",
+          "trainable": true,
+          "dtype": "float32",
+          "padding": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "data_format": "channels_last"
+        },
+        "weights": []
+      },
+      {
+        "class": "DepthwiseConv2D",
+        "config": {
+          "name": "conv_dw_4",
+          "trainable": true,
+          "dtype": "float32",
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            2,
+            2
+          ],
+          "padding": "valid",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "bias_constraint": null,
+          "depth_multiplier": 1,
+          "depthwise_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "depthwise_regularizer": null,
+          "depthwise_constraint": null
+        },
+        "weights": [
+          "backbone_24_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_dw_4_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_25_0",
+          "backbone_25_1",
+          "backbone_25_2",
+          "backbone_25_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_dw_4_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv2D",
+        "config": {
+          "name": "conv_pw_4",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 256,
+          "kernel_size": [
+            1,
+            1
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "backbone_27_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_pw_4_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_28_0",
+          "backbone_28_1",
+          "backbone_28_2",
+          "backbone_28_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_pw_4_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "DepthwiseConv2D",
+        "config": {
+          "name": "conv_dw_5",
+          "trainable": true,
+          "dtype": "float32",
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "bias_constraint": null,
+          "depth_multiplier": 1,
+          "depthwise_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "depthwise_regularizer": null,
+          "depthwise_constraint": null
+        },
+        "weights": [
+          "backbone_30_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_dw_5_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_31_0",
+          "backbone_31_1",
+          "backbone_31_2",
+          "backbone_31_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_dw_5_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv2D",
+        "config": {
+          "name": "conv_pw_5",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 256,
+          "kernel_size": [
+            1,
+            1
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "backbone_33_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_pw_5_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_34_0",
+          "backbone_34_1",
+          "backbone_34_2",
+          "backbone_34_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_pw_5_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "ZeroPadding2D",
+        "config": {
+          "name": "conv_pad_6",
+          "trainable": true,
+          "dtype": "float32",
+          "padding": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "data_format": "channels_last"
+        },
+        "weights": []
+      },
+      {
+        "class": "DepthwiseConv2D",
+        "config": {
+          "name": "conv_dw_6",
+          "trainable": true,
+          "dtype": "float32",
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            2,
+            2
+          ],
+          "padding": "valid",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "bias_constraint": null,
+          "depth_multiplier": 1,
+          "depthwise_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "depthwise_regularizer": null,
+          "depthwise_constraint": null
+        },
+        "weights": [
+          "backbone_37_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_dw_6_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_38_0",
+          "backbone_38_1",
+          "backbone_38_2",
+          "backbone_38_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_dw_6_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv2D",
+        "config": {
+          "name": "conv_pw_6",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 512,
+          "kernel_size": [
+            1,
+            1
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "backbone_40_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_pw_6_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_41_0",
+          "backbone_41_1",
+          "backbone_41_2",
+          "backbone_41_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_pw_6_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "DepthwiseConv2D",
+        "config": {
+          "name": "conv_dw_7",
+          "trainable": true,
+          "dtype": "float32",
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "bias_constraint": null,
+          "depth_multiplier": 1,
+          "depthwise_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "depthwise_regularizer": null,
+          "depthwise_constraint": null
+        },
+        "weights": [
+          "backbone_43_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_dw_7_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_44_0",
+          "backbone_44_1",
+          "backbone_44_2",
+          "backbone_44_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_dw_7_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv2D",
+        "config": {
+          "name": "conv_pw_7",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 512,
+          "kernel_size": [
+            1,
+            1
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "backbone_46_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_pw_7_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_47_0",
+          "backbone_47_1",
+          "backbone_47_2",
+          "backbone_47_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_pw_7_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "DepthwiseConv2D",
+        "config": {
+          "name": "conv_dw_8",
+          "trainable": true,
+          "dtype": "float32",
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "bias_constraint": null,
+          "depth_multiplier": 1,
+          "depthwise_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "depthwise_regularizer": null,
+          "depthwise_constraint": null
+        },
+        "weights": [
+          "backbone_49_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_dw_8_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_50_0",
+          "backbone_50_1",
+          "backbone_50_2",
+          "backbone_50_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_dw_8_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv2D",
+        "config": {
+          "name": "conv_pw_8",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 512,
+          "kernel_size": [
+            1,
+            1
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "backbone_52_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_pw_8_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_53_0",
+          "backbone_53_1",
+          "backbone_53_2",
+          "backbone_53_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_pw_8_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "DepthwiseConv2D",
+        "config": {
+          "name": "conv_dw_9",
+          "trainable": true,
+          "dtype": "float32",
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "bias_constraint": null,
+          "depth_multiplier": 1,
+          "depthwise_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "depthwise_regularizer": null,
+          "depthwise_constraint": null
+        },
+        "weights": [
+          "backbone_55_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_dw_9_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_56_0",
+          "backbone_56_1",
+          "backbone_56_2",
+          "backbone_56_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_dw_9_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv2D",
+        "config": {
+          "name": "conv_pw_9",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 512,
+          "kernel_size": [
+            1,
+            1
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "backbone_58_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_pw_9_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_59_0",
+          "backbone_59_1",
+          "backbone_59_2",
+          "backbone_59_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_pw_9_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "DepthwiseConv2D",
+        "config": {
+          "name": "conv_dw_10",
+          "trainable": true,
+          "dtype": "float32",
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "bias_constraint": null,
+          "depth_multiplier": 1,
+          "depthwise_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "depthwise_regularizer": null,
+          "depthwise_constraint": null
+        },
+        "weights": [
+          "backbone_61_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_dw_10_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_62_0",
+          "backbone_62_1",
+          "backbone_62_2",
+          "backbone_62_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_dw_10_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv2D",
+        "config": {
+          "name": "conv_pw_10",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 512,
+          "kernel_size": [
+            1,
+            1
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "backbone_64_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_pw_10_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_65_0",
+          "backbone_65_1",
+          "backbone_65_2",
+          "backbone_65_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_pw_10_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "DepthwiseConv2D",
+        "config": {
+          "name": "conv_dw_11",
+          "trainable": true,
+          "dtype": "float32",
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "bias_constraint": null,
+          "depth_multiplier": 1,
+          "depthwise_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "depthwise_regularizer": null,
+          "depthwise_constraint": null
+        },
+        "weights": [
+          "backbone_67_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_dw_11_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_68_0",
+          "backbone_68_1",
+          "backbone_68_2",
+          "backbone_68_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_dw_11_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv2D",
+        "config": {
+          "name": "conv_pw_11",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 512,
+          "kernel_size": [
+            1,
+            1
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "backbone_70_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_pw_11_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_71_0",
+          "backbone_71_1",
+          "backbone_71_2",
+          "backbone_71_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_pw_11_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "ZeroPadding2D",
+        "config": {
+          "name": "conv_pad_12",
+          "trainable": true,
+          "dtype": "float32",
+          "padding": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "data_format": "channels_last"
+        },
+        "weights": []
+      },
+      {
+        "class": "DepthwiseConv2D",
+        "config": {
+          "name": "conv_dw_12",
+          "trainable": true,
+          "dtype": "float32",
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            2,
+            2
+          ],
+          "padding": "valid",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "bias_constraint": null,
+          "depth_multiplier": 1,
+          "depthwise_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "depthwise_regularizer": null,
+          "depthwise_constraint": null
+        },
+        "weights": [
+          "backbone_74_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_dw_12_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_75_0",
+          "backbone_75_1",
+          "backbone_75_2",
+          "backbone_75_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_dw_12_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv2D",
+        "config": {
+          "name": "conv_pw_12",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 1024,
+          "kernel_size": [
+            1,
+            1
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "backbone_77_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_pw_12_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_78_0",
+          "backbone_78_1",
+          "backbone_78_2",
+          "backbone_78_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_pw_12_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "DepthwiseConv2D",
+        "config": {
+          "name": "conv_dw_13",
+          "trainable": true,
+          "dtype": "float32",
+          "kernel_size": [
+            3,
+            3
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "bias_constraint": null,
+          "depth_multiplier": 1,
+          "depthwise_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "depthwise_regularizer": null,
+          "depthwise_constraint": null
+        },
+        "weights": [
+          "backbone_80_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_dw_13_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_81_0",
+          "backbone_81_1",
+          "backbone_81_2",
+          "backbone_81_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_dw_13_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv2D",
+        "config": {
+          "name": "conv_pw_13",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 1024,
+          "kernel_size": [
+            1,
+            1
+          ],
+          "strides": [
+            1,
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1,
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": false,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "backbone_83_0"
+        ]
+      },
+      {
+        "class": "BatchNormalization",
+        "config": {
+          "name": "conv_pw_13_bn",
+          "trainable": true,
+          "dtype": "float32",
+          "axis": [
+            3
+          ],
+          "momentum": 0.99,
+          "epsilon": 0.001,
+          "center": true,
+          "scale": true,
+          "beta_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "gamma_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_mean_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "moving_variance_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Ones",
+            "config": {},
+            "registered_name": null
+          },
+          "beta_regularizer": null,
+          "gamma_regularizer": null,
+          "beta_constraint": null,
+          "gamma_constraint": null
+        },
+        "weights": [
+          "backbone_84_0",
+          "backbone_84_1",
+          "backbone_84_2",
+          "backbone_84_3"
+        ]
+      },
+      {
+        "class": "ReLU",
+        "config": {
+          "name": "conv_pw_13_relu",
+          "trainable": true,
+          "dtype": "float32",
+          "max_value": 6.0,
+          "negative_slope": 0.0,
+          "threshold": 0.0
+        },
+        "weights": []
+      }
+    ],
+    "resize_op": [
+      {
+        "class": "Conv1D",
+        "config": {
+          "name": "conv1d",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 128,
+          "kernel_size": [
+            1
+          ],
+          "strides": [
+            1
+          ],
+          "padding": "valid",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": true,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "resize_op_0_0",
+          "resize_op_0_1"
+        ]
+      }
+    ],
+    "img_mergenet": [
+      {
+        "class": "Conv1D",
+        "config": {
+          "name": "conv1d_1",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 128,
+          "kernel_size": [
+            2
+          ],
+          "strides": [
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": true,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "img_mergenet_0_0",
+          "img_mergenet_0_1"
+        ]
+      },
+      {
+        "class": "LeakyReLU",
+        "config": {
+          "name": "leaky_re_lu",
+          "trainable": true,
+          "dtype": "float32",
+          "alpha": 0.009999999776482582
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv1D",
+        "config": {
+          "name": "conv1d_2",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 64,
+          "kernel_size": [
+            2
+          ],
+          "strides": [
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": true,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "img_mergenet_2_0",
+          "img_mergenet_2_1"
+        ]
+      },
+      {
+        "class": "LeakyReLU",
+        "config": {
+          "name": "leaky_re_lu_1",
+          "trainable": true,
+          "dtype": "float32",
+          "alpha": 0.009999999776482582
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv1D",
+        "config": {
+          "name": "conv1d_3",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 64,
+          "kernel_size": [
+            2
+          ],
+          "strides": [
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": true,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "img_mergenet_4_0",
+          "img_mergenet_4_1"
+        ]
+      },
+      {
+        "class": "LeakyReLU",
+        "config": {
+          "name": "leaky_re_lu_2",
+          "trainable": true,
+          "dtype": "float32",
+          "alpha": 0.009999999776482582
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv1D",
+        "config": {
+          "name": "conv1d_4",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 32,
+          "kernel_size": [
+            2
+          ],
+          "strides": [
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": true,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "img_mergenet_6_0",
+          "img_mergenet_6_1"
+        ]
+      },
+      {
+        "class": "LeakyReLU",
+        "config": {
+          "name": "leaky_re_lu_3",
+          "trainable": true,
+          "dtype": "float32",
+          "alpha": 0.009999999776482582
+        },
+        "weights": []
+      }
+    ],
+    "resize_op_2": [
+      {
+        "class": "Conv1D",
+        "config": {
+          "name": "conv1d_5",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 3,
+          "kernel_size": [
+            3
+          ],
+          "strides": [
+            1
+          ],
+          "padding": "valid",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": true,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "resize_op_2_0_0",
+          "resize_op_2_0_1"
+        ]
+      }
+    ],
+    "states_conv": [
+      {
+        "class": "Conv1D",
+        "config": {
+          "name": "conv1d_6",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 64,
+          "kernel_size": [
+            2
+          ],
+          "strides": [
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": true,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "states_conv_0_0",
+          "states_conv_0_1"
+        ]
+      },
+      {
+        "class": "LeakyReLU",
+        "config": {
+          "name": "leaky_re_lu_4",
+          "trainable": true,
+          "dtype": "float32",
+          "alpha": 0.5
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv1D",
+        "config": {
+          "name": "conv1d_7",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 32,
+          "kernel_size": [
+            2
+          ],
+          "strides": [
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": true,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "states_conv_2_0",
+          "states_conv_2_1"
+        ]
+      },
+      {
+        "class": "LeakyReLU",
+        "config": {
+          "name": "leaky_re_lu_5",
+          "trainable": true,
+          "dtype": "float32",
+          "alpha": 0.5
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv1D",
+        "config": {
+          "name": "conv1d_8",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 32,
+          "kernel_size": [
+            2
+          ],
+          "strides": [
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": true,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "states_conv_4_0",
+          "states_conv_4_1"
+        ]
+      },
+      {
+        "class": "LeakyReLU",
+        "config": {
+          "name": "leaky_re_lu_6",
+          "trainable": true,
+          "dtype": "float32",
+          "alpha": 0.5
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv1D",
+        "config": {
+          "name": "conv1d_9",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 32,
+          "kernel_size": [
+            2
+          ],
+          "strides": [
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": true,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "states_conv_6_0",
+          "states_conv_6_1"
+        ]
+      }
+    ],
+    "resize_op_3": [
+      {
+        "class": "Conv1D",
+        "config": {
+          "name": "conv1d_10",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 3,
+          "kernel_size": [
+            3
+          ],
+          "strides": [
+            1
+          ],
+          "padding": "valid",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": true,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "resize_op_3_0_0",
+          "resize_op_3_0_1"
+        ]
+      }
+    ],
+    "plan_module": [
+      {
+        "class": "Conv1D",
+        "config": {
+          "name": "conv1d_11",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 64,
+          "kernel_size": [
+            1
+          ],
+          "strides": [
+            1
+          ],
+          "padding": "valid",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": true,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "plan_module_0_0",
+          "plan_module_0_1"
+        ]
+      },
+      {
+        "class": "LeakyReLU",
+        "config": {
+          "name": "leaky_re_lu_7",
+          "trainable": true,
+          "dtype": "float32",
+          "alpha": 0.5
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv1D",
+        "config": {
+          "name": "conv1d_12",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 128,
+          "kernel_size": [
+            1
+          ],
+          "strides": [
+            1
+          ],
+          "padding": "valid",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": true,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "plan_module_2_0",
+          "plan_module_2_1"
+        ]
+      },
+      {
+        "class": "LeakyReLU",
+        "config": {
+          "name": "leaky_re_lu_8",
+          "trainable": true,
+          "dtype": "float32",
+          "alpha": 0.5
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv1D",
+        "config": {
+          "name": "conv1d_13",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 128,
+          "kernel_size": [
+            1
+          ],
+          "strides": [
+            1
+          ],
+          "padding": "valid",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": true,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "plan_module_4_0",
+          "plan_module_4_1"
+        ]
+      },
+      {
+        "class": "LeakyReLU",
+        "config": {
+          "name": "leaky_re_lu_9",
+          "trainable": true,
+          "dtype": "float32",
+          "alpha": 0.5
+        },
+        "weights": []
+      },
+      {
+        "class": "Conv1D",
+        "config": {
+          "name": "conv1d_14",
+          "trainable": true,
+          "dtype": "float32",
+          "filters": 31,
+          "kernel_size": [
+            1
+          ],
+          "strides": [
+            1
+          ],
+          "padding": "same",
+          "data_format": "channels_last",
+          "dilation_rate": [
+            1
+          ],
+          "groups": 1,
+          "activation": "linear",
+          "use_bias": true,
+          "kernel_initializer": {
+            "module": "keras.initializers",
+            "class_name": "GlorotUniform",
+            "config": {
+              "seed": null
+            },
+            "registered_name": null
+          },
+          "bias_initializer": {
+            "module": "keras.initializers",
+            "class_name": "Zeros",
+            "config": {},
+            "registered_name": null
+          },
+          "kernel_regularizer": null,
+          "bias_regularizer": null,
+          "activity_regularizer": null,
+          "kernel_constraint": null,
+          "bias_constraint": null
+        },
+        "weights": [
+          "plan_module_6_0",
+          "plan_module_6_1"
+        ]
+      }
+    ]
+  },
+  "variable_count": 165,
+  "ordered_weight_sha256": [
+    "6a6c4ab9a2e04606cf073cdb2b899f582fe5ed7a52e996bc1755586ff69c158e",
+    "e8624bed7675136d596e09bf84ee7fd5ae988c1105548a3ecf8ae64aa70ba3a6",
+    "049fc761ef5f317f3f392e6d303a40e60046912dcd51ec90c72d9d5fb1cc6d78",
+    "cd59279e38fabde36afc6d900e84e3827fa5e56cf7cc7231560c0665539b2262",
+    "28cd810c85dbb1c2c2cc2b012d4a8c29419e32afb7ae6104a98c2fd91ce25810",
+    "235c9ceeead9bdf45a8c72f6220dc710df9f275ac4183d15efccddf8c39ca5cc",
+    "ebacc2ae712a06d3179d94cb14ce7481843e24ad7deb167901ef5ef2be66611b",
+    "d40516283226a3bb91381091707517cc2d67c3a5f1a70f15877f79757081c46f",
+    "b11fa3bab0208f8b11ff0b005de92de6f167e92670d8e5beb081c6ed6dc51b38",
+    "a948a456cf71a06eac968c4d30648cd754f2a46afe2edee52bebe63120fbc6a6",
+    "6fcb5907143960b9666d181dcfb8c9ce5ccc131bed751d1dca7a934977913464",
+    "bc87fcdf05059ae1e1c50a02493f51c2d70393837e67a0ea2e5972ff5d4376d6",
+    "13300e92994c6358659719d01a2be54465970e711788d4adf2f61b52d7c8cc30",
+    "d416906d2c80b236e322a9be74a71c89949b2fa931c0753704187de20f2a7ce8",
+    "b964d31e99c964be3a2e99a5c6d94d12fa1b7410463929e930976ed80acad0a3",
+    "abb8442d05cd1906fcf24ba13127e759d25cdf523093c6859410014573d39cde",
+    "4fcd2befb4c4e57900a5ac5e14bd91aad310186e910ab29b910bec406b90cc87",
+    "4aa2425e0c6aa236af008cbedb6b39d8a82e1ca854246b03c30547493cba01f4",
+    "57e24d0f60a982632fc294c518b7692661e63a37e548b24b4901875dbc7cc1c8",
+    "090f78de9ea4bf70829b607a1c507b4fcedc24c593a2c33fc8a29a8051f04b83",
+    "a5351f934b2c42b7c87dc2eac5aeb386e8f80c46bc75736d0b1e47466ef3d153",
+    "bf7af96fc5697ce473f3827972f3ad250c1ad42b5c51763438937ae5e196bb3e",
+    "94cb7f50f25ed102024da5526fe19f15a15cab9f78b12f3159a217837bcd010e",
+    "4d388f266406656ae4721eea13f701d611bddccb0d5da0299138f4323d31fec4",
+    "35138db6d94a34f21be4ab6e300cf8ad4bfe75d8e96962fffc3c30caf914d7f4",
+    "8940d9de1ed56177f79f69c995bd93182ade30f94b586ac5110cd6e0b4d79de7",
+    "2fb96e34fdb93e8b559cf01edced9be2ad2ffe1352dece0a5a1b2af4fdcef3b4",
+    "1e30da6e51d9ca9bd19e1c33ae1012702c74372ac038336199e7d7a5bb1e44ab",
+    "3e25bb79e10ed1eb08fe2b06ea8a7559493b60ef3df0ec8276d5b03928ca019e",
+    "0e950a6d1d221bdc3a6e9c3f19063475bb503357f4e916028188ac86771236ce",
+    "cf13ba94cb7db450a16b9033e5f152f5ddcc6692d82f1b919f62373a5752af8b",
+    "f74341dab48267b09fbf968ec95279904b1fe352679ad9e7868ccc981a41f078",
+    "d0dc0d0d6a60ee1f4634bf026037437cdff27abf20e7b12399370d7abff749ae",
+    "42e403ca38a6852bc9b629f52fe412073bb547126da5f02635b0625399ad806f",
+    "20a054166bc729af9d83d48fccfb42eb354d10b4b6e9e96305b43b58b534236f",
+    "c9e1c1d758b21ba5ffbe22b3e76447bed4bb3ef073f8bb53934008e4bfa5c199",
+    "6709fb0350af8b50282f0a29b6d9eb5861d908b724e71de4a08dc78b796fb485",
+    "d53bc2e2fad111b585b528518760dcedeb12df8f18226a7021789fde628da511",
+    "480d5015c1d27d29e0555622383bb0dfc23fd8161de3a37a26f5c8b7ad84e01a",
+    "a5caa4fe250a347c033a90e765f2a390bb4b83e5b4391cc36b79c1bee025ce0c",
+    "d23c8ffd0f5d5f499b57851410559b120e5109c468b1117e711f67a9bd271aec",
+    "6eae4c5ef362f7399ad986df82ab596ed9a48e3c67903f13bf3db8fa1ce29195",
+    "9b077170f00befbd98631179666041f6e39ea2ccbaadcb47e1b254e40281e175",
+    "b4e8a32688b8571e4deee8f4e3553b4f2b45bdbd4204ec88a401400e18274b3b",
+    "5f9b6cdfd81887d01826795dbe150ba03eb2b01ddbc6b30a62ab582341b6ed00",
+    "4ae5d6337131d688c6d2458ec35659ffdb6857e0e95b908624e9831302a1c2a6",
+    "449483c9f476db411d97c171badcdcdcbe40063f21baa338b9269a13ee4ce9e1",
+    "11499a99d59203b603263305943758844eef0baf19669bc58441df26a8f280df",
+    "dd527f3b3ddb2684b20c91216660f7a52b9a62413fe2729daebbcc95198c1ebc",
+    "a1518bd06e814b86c9bf75744be1c0ee28a06474466f0b7b0c606b7de6c726af",
+    "f3f19a25a27132599774965de5f4acd8ea04015c1c8ff69413da9f4aae0fe4cb",
+    "b7a4205fd28bdbacbc77fa40027d5307ecfc2b2a4ccde41a2ea399a68b9bee43",
+    "c41d82cd757cad1db636f3348a3a664a0299ee3888bf114972e5bd10967755ce",
+    "903cf850193a6740fb9110ee8441d60b37b7ed2f02ea46c76b40ad22eaf734de",
+    "cb88187c57a622623bbd6aeb022a324b0c522dbf13b098c4b2c96007df15a7a9",
+    "91b23f99ef6c948a619e995379dfc05f21f42445e71619b86110d00539975312",
+    "a1e2940d227fa3ce9f715288615442e366d09a05ceffb89ec2b0f853930ed5f3",
+    "d40490d60be957ed873c1610fa9a3d59cf42d43f19450e4da4edbe898d194668",
+    "9f11b8594dcbdebb6f1f99a12755bfb2b6035ec91b7eeec37be3bd072f8fb5d5",
+    "74029a13de21c8954d9e3077bc98442d62fe466ef2be694f4d4ce7f5e1c89c48",
+    "325691d48856e746519726ba999dc454b064c5db65bcb75dcc4e76d33b8b0e33",
+    "db865adae440845869353161ce3cd5499e978065b505844f71c75ca1630f88fc",
+    "cbe4703af079b06d0f728696bb3edc194751dc8f9008e5614e18d527ce3d0eae",
+    "438324e9f45737d313025fe075a2a3c8bf76ee0d915df8bf1f9c1e44877567a7",
+    "8339a2c1863fec81d4d21f8687b721aaa1633e0de54b5c565e6bc8090d23b411",
+    "40a8af62fee64e0a993d6db1f3312a456df6fe9e8672f99a3ae19ecbd71aa84b",
+    "4472e48a46ab57292584fde6b21b7b041e74b44566f399ed9599f7b6c63256e3",
+    "4cb5d106e8ab15bdbfe9945b9cd7000d1ad60afe6d1767b210865a84ba3406b2",
+    "ab0acf9415e3c4904ffb6f961955eb865bcf97fe83625a77eb83be841f488231",
+    "4a568e047e1dabb11a64a99f92985e59d697d93c3c7717a768df11e3c24cb0bc",
+    "6882275072b5d0862bf74372b3e403f5842c36d74e8a559878ee227c547434c2",
+    "92cc482052c4459031c82218906d4c886dc5df45b4b817c00577e91f065b0404",
+    "ff0c7997677583d47abfa3f42a64ab0db5535de5b43d250e6367e92c90d83159",
+    "89702f065afd8850ec3845c5bf88b70979ec11165b1b45a84f11035d1f3fc7bf",
+    "16c8da3ae633a042996c5466f69eb2201271dfa3efd54a7271a3062e1ff374b6",
+    "7682fbfb806eb4216866abee39efb278a0158c8ea64cc5b58a012a825e45a4dc",
+    "cb39064db242aa7122ca634ad9885c62fb72e224f6fb1711a9697a214ff88d6f",
+    "7f90afb53f87723e36413c270b97b4fdc8ca243601675a4d6394ace3ca86d4b3",
+    "4808b0dd8220d65daba63cad089ec3a52b0badf1df8c6e0becbb6022ccc972a7",
+    "bfbd9a5e5d42e188f61719092892423d79515c56465250310e5337f8045cc4f6",
+    "f7d68c869696cc80ec9d4880910aecc1b5cef9b4f485512f7997ee71c24272c9",
+    "b29557a6ee9cb350668b089b910259e829255fb27ed927b1f2a69c82f419837d",
+    "ee0b84ef75defde9ee7ad11c1b61a269e71df7517593fa18b0579faaf9bc25bd",
+    "ea82b35d39cb663b544b8168684baafe179d62a464974b423cda50244898138a",
+    "5c3f349bd2495738aacaa706dee613ba0e24061d5b0eeecc97d78c45a5282c10",
+    "7707512c9dc442f87765d77ed3da0fd3219df23ba73bb819ff4c015095eab880",
+    "536759454454b3732a6bbf20cce3dd07b4d5eb70c700d28b928dc352484b06b9",
+    "46a3f5f087c0029394ddc19ba3e90ba2f9ed62472a1b6bc3d05a6e4d9d81466a",
+    "861ef3f8f96dd8522e38baf7245270f0ea6491cce36f977c24a618c17fd4eeaf",
+    "95005334de9bcd8ef79c98c0ab0bd049a006b792d5c47ed51a03dc823595a8a9",
+    "1972b9b75bbb1d6407a55c8954dbccc058db217b365c4cc5413255ef6bd209f9",
+    "87297e2ebabab48f0d882dc74a3306f4a8a917fcc4593e168bd528ed9174991b",
+    "44b4bcbb7ef633b54f76817f2d66b0b13c7687f252d2bfdf4849aebbb12d3e24",
+    "50a99565e0d5c599114cffefdb7eb3a82708da1e858781d189afd59a4d416b7a",
+    "4ea589b5e7be5ee89b1f2374f4961dd5accbcdcf9ba7dee16a09525e9cd2d072",
+    "7eb56523fb4ea77b012e0a7b7bd2c188557af29d544d686878140c2c5a11e97c",
+    "b0076749ce6c1ae6ef14eaf64780eae30ac336d0bbe891842432237e0090e207",
+    "59ceaf7f88b8842206768048a2e82c448a4c72ed7d467661440d52d6abfc50d5",
+    "246be6aa789f7358cb79924e8fa073700f541d8b34fd1e60b286f331d4c7de35",
+    "6983c2c89eb36e4c4d34e9933accdee19611beaec5a58a007eb36428ceff3835",
+    "0c8f735b201eef9ec16942442536cf388dfb1dd683e853f025c384f0357d415a",
+    "b6fcf7a2f4fd5ad7d4c18b0f1c9393d0021cf4d0661bd86cb3e4bf822b5e7e47",
+    "01e4bec78cba3f7476c9526cb8ee12cb5cbec207547fec03e5ac5c0c6c91404d",
+    "267165c289c787c4062ce51796b8fc9b24e7d6633bc0a0953e9fe44358112298",
+    "3edd559387bccc9b48630c49290b8025ccc6ec0db12ec5b6bc00e2ec3c004f29",
+    "6a1ed36965f354fee48da00bc6da3c20b979b4a6f5a0be56e9c9e10af32e3fd4",
+    "9ad9fee8731759869a48230491081b559b3a1b6edb1784d7cfd98e2f4d5ae0df",
+    "26e17866bde653c6111afdf1d4f4c061c0e2bd329b3b9ab4a35010d0141ff2ef",
+    "d17025d7a39b75a7f615e8af91ec7450dce0003bd7ebc7f40dadbc3870d226ee",
+    "a52c52448657ebff5e6edc732e4fcf030c5132b88ef2f68cd29a21614948ce2e",
+    "14c407fbf0a269a9ef90e35ce9d2a6e67187af211d9f571327b3d7264f1e40aa",
+    "a311b87279f1898b18196657758faba4245e879acb82680b71c44396211944a8",
+    "dc93dedde30fbd6f535f915f6b5266a384710d1fbe1a161d58ad312bc953c92a",
+    "d2d271b69f9131ed5fa4c2d2095d4395f17fcd47d40ea32e285755e7cf0e0e9f",
+    "a1b97f98749e497f407e80ee1db1662612eba31e8e70dc2438cf575b0c7614ac",
+    "03fcd688dbb5668e344d7d09b28a78e815b9a2adc5b1238ec8e8cfac8e63dff4",
+    "cf9fef17ba0c08fd4890b28508a683c4d877237219cd4419ad0883a079feea1d",
+    "ef58aab67cd25b4cdf270d99bda383f3b7e66da270c4c3b7719c1d4f61bb9dc3",
+    "30d48f7128605ab715d56b9852b5f3f14b888f60f06e7455f875dec8e5570569",
+    "9719d8b05f4e24df3f58acc97c7982802b07147908d370c0216433083cae13ec",
+    "676b3ea03e6f172b7f0a608706cd043682e37bcbe98d488521dd8509ff7e368a",
+    "3ab6a0ba265e8b5dc815036789ef8034befc595c11fabd653b200aac801ca35e",
+    "4880369da77f9eb99f1f6b2f2176b97f5c9afaaada0bcdcb4792cbb5f0062345",
+    "9d96c12cde0929a7928f04c70d49b2934f71807dcc63595ad338703e750bfdb9",
+    "4df5e4f92631bc445725b3c4d422ff002bd748508d72a55de9879961da0e7090",
+    "e5acd9e167ad3caf20ad8a6d9bb06b3afdbe55df1a9148f34fba19b2369bf565",
+    "95ce570ed9d9b43acf2bdb79659d234c8934f4ece3001736650d51de5d2d3ca4",
+    "15b57664849bd9a138675448912c015089abe36a7ae226f1491ca7dc2d7445ab",
+    "4a497aef5db50493f40ef8d773159644e8adc746eb26e67b18924a5a170a08f2",
+    "095e5ba347a4ee9ee51e506fda27028177c62ac055f6c55ed3f6a8b4294e25fa",
+    "67303e01560c3bbc414f4be628fc7999c28c0744644051a4f84e508416759de3",
+    "02b24dfd49238d1af9d56b89cade96ca52e69b880a388e246a1a47b14c58be4f",
+    "812a98829661489e6aee5df73163acf3a50b212f9c7fef2d16d69217cfade503",
+    "d50e6f00153100a096e552e8e1b1152709d9327d11266b66aa0522b8aab3d58a",
+    "aa9c0318461cfd39020f5e849ad87a77f3a8339eff3d80f21f801a6a3d5c89d1",
+    "edb2d50b74be26d3be721c2cc02126bb6c6a3abd1c2305ff347e14843870c4e9",
+    "874cdcaee3378957b1d9c22bd02850f3e443926f5c453e038c351f99906e36ff",
+    "ad9ee9a9a0eb38bf462a565405e15273c71dae7aa2a0823273cc718c9738dc9a",
+    "2dd94a527a3d27d30635d5ae2dda2f0322eaaebb43f1d47caaa2faaf7b2bbe0e",
+    "27873df65976d241c323ee7d3228bccf188321ffb0437f41940bc66166dcaba3",
+    "711184aab4849f9389e6681f412e7c7e6829eda121c20906b10b99ff46721ede",
+    "c5b5060b9df5d68f9ab8d6e38ffa2ac273e240ae9cb3033f0e370844070ce5fa",
+    "6c1fe55947bc54305c0cb614e2e0414f16f65f8b4b92254faf6a4a2cead570ac",
+    "7574136c3256943965a0e862675613f7b07d80df8b90e5e457778eb1a947bad1",
+    "16c4c68a3a70a86d63d7b8a482482e57c5dba20278ab60f0fa470d8c011d10cf",
+    "210c2c32f3e2f5bc8a19e73ed9e0aa3653ef92a6f19c4d8082ec0d3718455cf4",
+    "cffc508a25e7a1c94f36f9379ce1059099f2b94b42767f593a555bf03c680cce",
+    "bb89428b041351d5bb53ed9752042a293d3ebbc4dd37406f38bcf4e1393db6e2",
+    "ffcddb48d8e203861fb92e7d061ca1ca342d832a24a80c46587d2bef0b8997f0",
+    "9c4fc6d039689b64c4ed6604edfcf39afa697b44c3c01bfccc95b4bc6e6589dc",
+    "203bf703fbfc93875d7e8c16918e9e268ce76e99546896515483bcd200adc7ea",
+    "cd06c195e540fbaa5383456e4f3ee83e65791db28646092feea63116cada6b3a",
+    "69ebe832cdba25642440cd2a837cbb077e7c5cd4a4d666cc53864264de44761a",
+    "862bd0e5b1fe27c5cbb9f4d70de8a885ac150c07885e63837d7bf356681d05a2",
+    "dba871d3d4133ffb9b176d613932f6ade6912c582b923815d1c7e58ee6e42c10",
+    "0ae757299adc384977414d1ecfbefd859699d596c809a2dcbd877c48d36289fb",
+    "7a29fee782689ba3944b7f13191bf0ebec6a5eb12f54902ccb3bc4ebfba3398a",
+    "7d4ab923770f0deb62251c4ea0584e9b87580f3f1ff2d3fba6fa4f31c8857a9a",
+    "e7d9ca28fd6662fe11f74186f03324750fe7f23ecc902248733640130d256c5f",
+    "7246ab64ac9e538697ae5a4693ca0a2d902064a1098e336363284ed92e8264cc",
+    "69b5ddb65e787c53c5250ca68964080c08e0adef920a7a9c6b2da759a87d0b1a",
+    "40297dcb97cd7d6001877eea6aa8241ef9db43f8e07bce8a481183afe334f5a7",
+    "6ad6372afa687668fc97c35374b05618fda3aea6193e664ab899e6fea254b279",
+    "0341c06bd27aaf7ead2c584e2f9e7559ae7099b0075b4231578d0533de65788e",
+    "5ccd47bc66c49043a51862ef1dc0ae5b5f539861adee78dad90c426a55b55a67"
+  ],
+  "weights_file_sha256": "a62997d93fac21d4131c682bd86f625a24c6864cbb3d4eff28a11d66d40aacec",
+  "named_variables": {
+    "conv1/kernel:0": {
+      "array_key": "backbone_1_0",
+      "sha256": "6a6c4ab9a2e04606cf073cdb2b899f582fe5ed7a52e996bc1755586ff69c158e",
+      "shape": [
+        3,
+        3,
+        3,
+        32
+      ]
+    },
+    "conv1_bn/gamma:0": {
+      "array_key": "backbone_2_0",
+      "sha256": "e8624bed7675136d596e09bf84ee7fd5ae988c1105548a3ecf8ae64aa70ba3a6",
+      "shape": [
+        32
+      ]
+    },
+    "conv1_bn/beta:0": {
+      "array_key": "backbone_2_1",
+      "sha256": "049fc761ef5f317f3f392e6d303a40e60046912dcd51ec90c72d9d5fb1cc6d78",
+      "shape": [
+        32
+      ]
+    },
+    "conv1_bn/moving_mean:0": {
+      "array_key": "backbone_2_2",
+      "sha256": "cd59279e38fabde36afc6d900e84e3827fa5e56cf7cc7231560c0665539b2262",
+      "shape": [
+        32
+      ]
+    },
+    "conv1_bn/moving_variance:0": {
+      "array_key": "backbone_2_3",
+      "sha256": "28cd810c85dbb1c2c2cc2b012d4a8c29419e32afb7ae6104a98c2fd91ce25810",
+      "shape": [
+        32
+      ]
+    },
+    "conv_dw_1/depthwise_kernel:0": {
+      "array_key": "backbone_4_0",
+      "sha256": "235c9ceeead9bdf45a8c72f6220dc710df9f275ac4183d15efccddf8c39ca5cc",
+      "shape": [
+        3,
+        3,
+        32,
+        1
+      ]
+    },
+    "conv_dw_1_bn/gamma:0": {
+      "array_key": "backbone_5_0",
+      "sha256": "ebacc2ae712a06d3179d94cb14ce7481843e24ad7deb167901ef5ef2be66611b",
+      "shape": [
+        32
+      ]
+    },
+    "conv_dw_1_bn/beta:0": {
+      "array_key": "backbone_5_1",
+      "sha256": "d40516283226a3bb91381091707517cc2d67c3a5f1a70f15877f79757081c46f",
+      "shape": [
+        32
+      ]
+    },
+    "conv_dw_1_bn/moving_mean:0": {
+      "array_key": "backbone_5_2",
+      "sha256": "b11fa3bab0208f8b11ff0b005de92de6f167e92670d8e5beb081c6ed6dc51b38",
+      "shape": [
+        32
+      ]
+    },
+    "conv_dw_1_bn/moving_variance:0": {
+      "array_key": "backbone_5_3",
+      "sha256": "a948a456cf71a06eac968c4d30648cd754f2a46afe2edee52bebe63120fbc6a6",
+      "shape": [
+        32
+      ]
+    },
+    "conv_pw_1/kernel:0": {
+      "array_key": "backbone_7_0",
+      "sha256": "6fcb5907143960b9666d181dcfb8c9ce5ccc131bed751d1dca7a934977913464",
+      "shape": [
+        1,
+        1,
+        32,
+        64
+      ]
+    },
+    "conv_pw_1_bn/gamma:0": {
+      "array_key": "backbone_8_0",
+      "sha256": "bc87fcdf05059ae1e1c50a02493f51c2d70393837e67a0ea2e5972ff5d4376d6",
+      "shape": [
+        64
+      ]
+    },
+    "conv_pw_1_bn/beta:0": {
+      "array_key": "backbone_8_1",
+      "sha256": "13300e92994c6358659719d01a2be54465970e711788d4adf2f61b52d7c8cc30",
+      "shape": [
+        64
+      ]
+    },
+    "conv_pw_1_bn/moving_mean:0": {
+      "array_key": "backbone_8_2",
+      "sha256": "d416906d2c80b236e322a9be74a71c89949b2fa931c0753704187de20f2a7ce8",
+      "shape": [
+        64
+      ]
+    },
+    "conv_pw_1_bn/moving_variance:0": {
+      "array_key": "backbone_8_3",
+      "sha256": "b964d31e99c964be3a2e99a5c6d94d12fa1b7410463929e930976ed80acad0a3",
+      "shape": [
+        64
+      ]
+    },
+    "conv_dw_2/depthwise_kernel:0": {
+      "array_key": "backbone_11_0",
+      "sha256": "abb8442d05cd1906fcf24ba13127e759d25cdf523093c6859410014573d39cde",
+      "shape": [
+        3,
+        3,
+        64,
+        1
+      ]
+    },
+    "conv_dw_2_bn/gamma:0": {
+      "array_key": "backbone_12_0",
+      "sha256": "4fcd2befb4c4e57900a5ac5e14bd91aad310186e910ab29b910bec406b90cc87",
+      "shape": [
+        64
+      ]
+    },
+    "conv_dw_2_bn/beta:0": {
+      "array_key": "backbone_12_1",
+      "sha256": "4aa2425e0c6aa236af008cbedb6b39d8a82e1ca854246b03c30547493cba01f4",
+      "shape": [
+        64
+      ]
+    },
+    "conv_dw_2_bn/moving_mean:0": {
+      "array_key": "backbone_12_2",
+      "sha256": "57e24d0f60a982632fc294c518b7692661e63a37e548b24b4901875dbc7cc1c8",
+      "shape": [
+        64
+      ]
+    },
+    "conv_dw_2_bn/moving_variance:0": {
+      "array_key": "backbone_12_3",
+      "sha256": "090f78de9ea4bf70829b607a1c507b4fcedc24c593a2c33fc8a29a8051f04b83",
+      "shape": [
+        64
+      ]
+    },
+    "conv_pw_2/kernel:0": {
+      "array_key": "backbone_14_0",
+      "sha256": "a5351f934b2c42b7c87dc2eac5aeb386e8f80c46bc75736d0b1e47466ef3d153",
+      "shape": [
+        1,
+        1,
+        64,
+        128
+      ]
+    },
+    "conv_pw_2_bn/gamma:0": {
+      "array_key": "backbone_15_0",
+      "sha256": "bf7af96fc5697ce473f3827972f3ad250c1ad42b5c51763438937ae5e196bb3e",
+      "shape": [
+        128
+      ]
+    },
+    "conv_pw_2_bn/beta:0": {
+      "array_key": "backbone_15_1",
+      "sha256": "94cb7f50f25ed102024da5526fe19f15a15cab9f78b12f3159a217837bcd010e",
+      "shape": [
+        128
+      ]
+    },
+    "conv_pw_2_bn/moving_mean:0": {
+      "array_key": "backbone_15_2",
+      "sha256": "4d388f266406656ae4721eea13f701d611bddccb0d5da0299138f4323d31fec4",
+      "shape": [
+        128
+      ]
+    },
+    "conv_pw_2_bn/moving_variance:0": {
+      "array_key": "backbone_15_3",
+      "sha256": "35138db6d94a34f21be4ab6e300cf8ad4bfe75d8e96962fffc3c30caf914d7f4",
+      "shape": [
+        128
+      ]
+    },
+    "conv_dw_3/depthwise_kernel:0": {
+      "array_key": "backbone_17_0",
+      "sha256": "8940d9de1ed56177f79f69c995bd93182ade30f94b586ac5110cd6e0b4d79de7",
+      "shape": [
+        3,
+        3,
+        128,
+        1
+      ]
+    },
+    "conv_dw_3_bn/gamma:0": {
+      "array_key": "backbone_18_0",
+      "sha256": "2fb96e34fdb93e8b559cf01edced9be2ad2ffe1352dece0a5a1b2af4fdcef3b4",
+      "shape": [
+        128
+      ]
+    },
+    "conv_dw_3_bn/beta:0": {
+      "array_key": "backbone_18_1",
+      "sha256": "1e30da6e51d9ca9bd19e1c33ae1012702c74372ac038336199e7d7a5bb1e44ab",
+      "shape": [
+        128
+      ]
+    },
+    "conv_dw_3_bn/moving_mean:0": {
+      "array_key": "backbone_18_2",
+      "sha256": "3e25bb79e10ed1eb08fe2b06ea8a7559493b60ef3df0ec8276d5b03928ca019e",
+      "shape": [
+        128
+      ]
+    },
+    "conv_dw_3_bn/moving_variance:0": {
+      "array_key": "backbone_18_3",
+      "sha256": "0e950a6d1d221bdc3a6e9c3f19063475bb503357f4e916028188ac86771236ce",
+      "shape": [
+        128
+      ]
+    },
+    "conv_pw_3/kernel:0": {
+      "array_key": "backbone_20_0",
+      "sha256": "cf13ba94cb7db450a16b9033e5f152f5ddcc6692d82f1b919f62373a5752af8b",
+      "shape": [
+        1,
+        1,
+        128,
+        128
+      ]
+    },
+    "conv_pw_3_bn/gamma:0": {
+      "array_key": "backbone_21_0",
+      "sha256": "f74341dab48267b09fbf968ec95279904b1fe352679ad9e7868ccc981a41f078",
+      "shape": [
+        128
+      ]
+    },
+    "conv_pw_3_bn/beta:0": {
+      "array_key": "backbone_21_1",
+      "sha256": "d0dc0d0d6a60ee1f4634bf026037437cdff27abf20e7b12399370d7abff749ae",
+      "shape": [
+        128
+      ]
+    },
+    "conv_pw_3_bn/moving_mean:0": {
+      "array_key": "backbone_21_2",
+      "sha256": "42e403ca38a6852bc9b629f52fe412073bb547126da5f02635b0625399ad806f",
+      "shape": [
+        128
+      ]
+    },
+    "conv_pw_3_bn/moving_variance:0": {
+      "array_key": "backbone_21_3",
+      "sha256": "20a054166bc729af9d83d48fccfb42eb354d10b4b6e9e96305b43b58b534236f",
+      "shape": [
+        128
+      ]
+    },
+    "conv_dw_4/depthwise_kernel:0": {
+      "array_key": "backbone_24_0",
+      "sha256": "c9e1c1d758b21ba5ffbe22b3e76447bed4bb3ef073f8bb53934008e4bfa5c199",
+      "shape": [
+        3,
+        3,
+        128,
+        1
+      ]
+    },
+    "conv_dw_4_bn/gamma:0": {
+      "array_key": "backbone_25_0",
+      "sha256": "6709fb0350af8b50282f0a29b6d9eb5861d908b724e71de4a08dc78b796fb485",
+      "shape": [
+        128
+      ]
+    },
+    "conv_dw_4_bn/beta:0": {
+      "array_key": "backbone_25_1",
+      "sha256": "d53bc2e2fad111b585b528518760dcedeb12df8f18226a7021789fde628da511",
+      "shape": [
+        128
+      ]
+    },
+    "conv_dw_4_bn/moving_mean:0": {
+      "array_key": "backbone_25_2",
+      "sha256": "480d5015c1d27d29e0555622383bb0dfc23fd8161de3a37a26f5c8b7ad84e01a",
+      "shape": [
+        128
+      ]
+    },
+    "conv_dw_4_bn/moving_variance:0": {
+      "array_key": "backbone_25_3",
+      "sha256": "a5caa4fe250a347c033a90e765f2a390bb4b83e5b4391cc36b79c1bee025ce0c",
+      "shape": [
+        128
+      ]
+    },
+    "conv_pw_4/kernel:0": {
+      "array_key": "backbone_27_0",
+      "sha256": "d23c8ffd0f5d5f499b57851410559b120e5109c468b1117e711f67a9bd271aec",
+      "shape": [
+        1,
+        1,
+        128,
+        256
+      ]
+    },
+    "conv_pw_4_bn/gamma:0": {
+      "array_key": "backbone_28_0",
+      "sha256": "6eae4c5ef362f7399ad986df82ab596ed9a48e3c67903f13bf3db8fa1ce29195",
+      "shape": [
+        256
+      ]
+    },
+    "conv_pw_4_bn/beta:0": {
+      "array_key": "backbone_28_1",
+      "sha256": "9b077170f00befbd98631179666041f6e39ea2ccbaadcb47e1b254e40281e175",
+      "shape": [
+        256
+      ]
+    },
+    "conv_pw_4_bn/moving_mean:0": {
+      "array_key": "backbone_28_2",
+      "sha256": "b4e8a32688b8571e4deee8f4e3553b4f2b45bdbd4204ec88a401400e18274b3b",
+      "shape": [
+        256
+      ]
+    },
+    "conv_pw_4_bn/moving_variance:0": {
+      "array_key": "backbone_28_3",
+      "sha256": "5f9b6cdfd81887d01826795dbe150ba03eb2b01ddbc6b30a62ab582341b6ed00",
+      "shape": [
+        256
+      ]
+    },
+    "conv_dw_5/depthwise_kernel:0": {
+      "array_key": "backbone_30_0",
+      "sha256": "4ae5d6337131d688c6d2458ec35659ffdb6857e0e95b908624e9831302a1c2a6",
+      "shape": [
+        3,
+        3,
+        256,
+        1
+      ]
+    },
+    "conv_dw_5_bn/gamma:0": {
+      "array_key": "backbone_31_0",
+      "sha256": "449483c9f476db411d97c171badcdcdcbe40063f21baa338b9269a13ee4ce9e1",
+      "shape": [
+        256
+      ]
+    },
+    "conv_dw_5_bn/beta:0": {
+      "array_key": "backbone_31_1",
+      "sha256": "11499a99d59203b603263305943758844eef0baf19669bc58441df26a8f280df",
+      "shape": [
+        256
+      ]
+    },
+    "conv_dw_5_bn/moving_mean:0": {
+      "array_key": "backbone_31_2",
+      "sha256": "dd527f3b3ddb2684b20c91216660f7a52b9a62413fe2729daebbcc95198c1ebc",
+      "shape": [
+        256
+      ]
+    },
+    "conv_dw_5_bn/moving_variance:0": {
+      "array_key": "backbone_31_3",
+      "sha256": "a1518bd06e814b86c9bf75744be1c0ee28a06474466f0b7b0c606b7de6c726af",
+      "shape": [
+        256
+      ]
+    },
+    "conv_pw_5/kernel:0": {
+      "array_key": "backbone_33_0",
+      "sha256": "f3f19a25a27132599774965de5f4acd8ea04015c1c8ff69413da9f4aae0fe4cb",
+      "shape": [
+        1,
+        1,
+        256,
+        256
+      ]
+    },
+    "conv_pw_5_bn/gamma:0": {
+      "array_key": "backbone_34_0",
+      "sha256": "b7a4205fd28bdbacbc77fa40027d5307ecfc2b2a4ccde41a2ea399a68b9bee43",
+      "shape": [
+        256
+      ]
+    },
+    "conv_pw_5_bn/beta:0": {
+      "array_key": "backbone_34_1",
+      "sha256": "c41d82cd757cad1db636f3348a3a664a0299ee3888bf114972e5bd10967755ce",
+      "shape": [
+        256
+      ]
+    },
+    "conv_pw_5_bn/moving_mean:0": {
+      "array_key": "backbone_34_2",
+      "sha256": "903cf850193a6740fb9110ee8441d60b37b7ed2f02ea46c76b40ad22eaf734de",
+      "shape": [
+        256
+      ]
+    },
+    "conv_pw_5_bn/moving_variance:0": {
+      "array_key": "backbone_34_3",
+      "sha256": "cb88187c57a622623bbd6aeb022a324b0c522dbf13b098c4b2c96007df15a7a9",
+      "shape": [
+        256
+      ]
+    },
+    "conv_dw_6/depthwise_kernel:0": {
+      "array_key": "backbone_37_0",
+      "sha256": "91b23f99ef6c948a619e995379dfc05f21f42445e71619b86110d00539975312",
+      "shape": [
+        3,
+        3,
+        256,
+        1
+      ]
+    },
+    "conv_dw_6_bn/gamma:0": {
+      "array_key": "backbone_38_0",
+      "sha256": "a1e2940d227fa3ce9f715288615442e366d09a05ceffb89ec2b0f853930ed5f3",
+      "shape": [
+        256
+      ]
+    },
+    "conv_dw_6_bn/beta:0": {
+      "array_key": "backbone_38_1",
+      "sha256": "d40490d60be957ed873c1610fa9a3d59cf42d43f19450e4da4edbe898d194668",
+      "shape": [
+        256
+      ]
+    },
+    "conv_dw_6_bn/moving_mean:0": {
+      "array_key": "backbone_38_2",
+      "sha256": "9f11b8594dcbdebb6f1f99a12755bfb2b6035ec91b7eeec37be3bd072f8fb5d5",
+      "shape": [
+        256
+      ]
+    },
+    "conv_dw_6_bn/moving_variance:0": {
+      "array_key": "backbone_38_3",
+      "sha256": "74029a13de21c8954d9e3077bc98442d62fe466ef2be694f4d4ce7f5e1c89c48",
+      "shape": [
+        256
+      ]
+    },
+    "conv_pw_6/kernel:0": {
+      "array_key": "backbone_40_0",
+      "sha256": "325691d48856e746519726ba999dc454b064c5db65bcb75dcc4e76d33b8b0e33",
+      "shape": [
+        1,
+        1,
+        256,
+        512
+      ]
+    },
+    "conv_pw_6_bn/gamma:0": {
+      "array_key": "backbone_41_0",
+      "sha256": "db865adae440845869353161ce3cd5499e978065b505844f71c75ca1630f88fc",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_6_bn/beta:0": {
+      "array_key": "backbone_41_1",
+      "sha256": "cbe4703af079b06d0f728696bb3edc194751dc8f9008e5614e18d527ce3d0eae",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_6_bn/moving_mean:0": {
+      "array_key": "backbone_41_2",
+      "sha256": "438324e9f45737d313025fe075a2a3c8bf76ee0d915df8bf1f9c1e44877567a7",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_6_bn/moving_variance:0": {
+      "array_key": "backbone_41_3",
+      "sha256": "8339a2c1863fec81d4d21f8687b721aaa1633e0de54b5c565e6bc8090d23b411",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_7/depthwise_kernel:0": {
+      "array_key": "backbone_43_0",
+      "sha256": "40a8af62fee64e0a993d6db1f3312a456df6fe9e8672f99a3ae19ecbd71aa84b",
+      "shape": [
+        3,
+        3,
+        512,
+        1
+      ]
+    },
+    "conv_dw_7_bn/gamma:0": {
+      "array_key": "backbone_44_0",
+      "sha256": "4472e48a46ab57292584fde6b21b7b041e74b44566f399ed9599f7b6c63256e3",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_7_bn/beta:0": {
+      "array_key": "backbone_44_1",
+      "sha256": "4cb5d106e8ab15bdbfe9945b9cd7000d1ad60afe6d1767b210865a84ba3406b2",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_7_bn/moving_mean:0": {
+      "array_key": "backbone_44_2",
+      "sha256": "ab0acf9415e3c4904ffb6f961955eb865bcf97fe83625a77eb83be841f488231",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_7_bn/moving_variance:0": {
+      "array_key": "backbone_44_3",
+      "sha256": "4a568e047e1dabb11a64a99f92985e59d697d93c3c7717a768df11e3c24cb0bc",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_7/kernel:0": {
+      "array_key": "backbone_46_0",
+      "sha256": "6882275072b5d0862bf74372b3e403f5842c36d74e8a559878ee227c547434c2",
+      "shape": [
+        1,
+        1,
+        512,
+        512
+      ]
+    },
+    "conv_pw_7_bn/gamma:0": {
+      "array_key": "backbone_47_0",
+      "sha256": "92cc482052c4459031c82218906d4c886dc5df45b4b817c00577e91f065b0404",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_7_bn/beta:0": {
+      "array_key": "backbone_47_1",
+      "sha256": "ff0c7997677583d47abfa3f42a64ab0db5535de5b43d250e6367e92c90d83159",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_7_bn/moving_mean:0": {
+      "array_key": "backbone_47_2",
+      "sha256": "89702f065afd8850ec3845c5bf88b70979ec11165b1b45a84f11035d1f3fc7bf",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_7_bn/moving_variance:0": {
+      "array_key": "backbone_47_3",
+      "sha256": "16c8da3ae633a042996c5466f69eb2201271dfa3efd54a7271a3062e1ff374b6",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_8/depthwise_kernel:0": {
+      "array_key": "backbone_49_0",
+      "sha256": "7682fbfb806eb4216866abee39efb278a0158c8ea64cc5b58a012a825e45a4dc",
+      "shape": [
+        3,
+        3,
+        512,
+        1
+      ]
+    },
+    "conv_dw_8_bn/gamma:0": {
+      "array_key": "backbone_50_0",
+      "sha256": "cb39064db242aa7122ca634ad9885c62fb72e224f6fb1711a9697a214ff88d6f",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_8_bn/beta:0": {
+      "array_key": "backbone_50_1",
+      "sha256": "7f90afb53f87723e36413c270b97b4fdc8ca243601675a4d6394ace3ca86d4b3",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_8_bn/moving_mean:0": {
+      "array_key": "backbone_50_2",
+      "sha256": "4808b0dd8220d65daba63cad089ec3a52b0badf1df8c6e0becbb6022ccc972a7",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_8_bn/moving_variance:0": {
+      "array_key": "backbone_50_3",
+      "sha256": "bfbd9a5e5d42e188f61719092892423d79515c56465250310e5337f8045cc4f6",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_8/kernel:0": {
+      "array_key": "backbone_52_0",
+      "sha256": "f7d68c869696cc80ec9d4880910aecc1b5cef9b4f485512f7997ee71c24272c9",
+      "shape": [
+        1,
+        1,
+        512,
+        512
+      ]
+    },
+    "conv_pw_8_bn/gamma:0": {
+      "array_key": "backbone_53_0",
+      "sha256": "b29557a6ee9cb350668b089b910259e829255fb27ed927b1f2a69c82f419837d",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_8_bn/beta:0": {
+      "array_key": "backbone_53_1",
+      "sha256": "ee0b84ef75defde9ee7ad11c1b61a269e71df7517593fa18b0579faaf9bc25bd",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_8_bn/moving_mean:0": {
+      "array_key": "backbone_53_2",
+      "sha256": "ea82b35d39cb663b544b8168684baafe179d62a464974b423cda50244898138a",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_8_bn/moving_variance:0": {
+      "array_key": "backbone_53_3",
+      "sha256": "5c3f349bd2495738aacaa706dee613ba0e24061d5b0eeecc97d78c45a5282c10",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_9/depthwise_kernel:0": {
+      "array_key": "backbone_55_0",
+      "sha256": "7707512c9dc442f87765d77ed3da0fd3219df23ba73bb819ff4c015095eab880",
+      "shape": [
+        3,
+        3,
+        512,
+        1
+      ]
+    },
+    "conv_dw_9_bn/gamma:0": {
+      "array_key": "backbone_56_0",
+      "sha256": "536759454454b3732a6bbf20cce3dd07b4d5eb70c700d28b928dc352484b06b9",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_9_bn/beta:0": {
+      "array_key": "backbone_56_1",
+      "sha256": "46a3f5f087c0029394ddc19ba3e90ba2f9ed62472a1b6bc3d05a6e4d9d81466a",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_9_bn/moving_mean:0": {
+      "array_key": "backbone_56_2",
+      "sha256": "861ef3f8f96dd8522e38baf7245270f0ea6491cce36f977c24a618c17fd4eeaf",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_9_bn/moving_variance:0": {
+      "array_key": "backbone_56_3",
+      "sha256": "95005334de9bcd8ef79c98c0ab0bd049a006b792d5c47ed51a03dc823595a8a9",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_9/kernel:0": {
+      "array_key": "backbone_58_0",
+      "sha256": "1972b9b75bbb1d6407a55c8954dbccc058db217b365c4cc5413255ef6bd209f9",
+      "shape": [
+        1,
+        1,
+        512,
+        512
+      ]
+    },
+    "conv_pw_9_bn/gamma:0": {
+      "array_key": "backbone_59_0",
+      "sha256": "87297e2ebabab48f0d882dc74a3306f4a8a917fcc4593e168bd528ed9174991b",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_9_bn/beta:0": {
+      "array_key": "backbone_59_1",
+      "sha256": "44b4bcbb7ef633b54f76817f2d66b0b13c7687f252d2bfdf4849aebbb12d3e24",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_9_bn/moving_mean:0": {
+      "array_key": "backbone_59_2",
+      "sha256": "50a99565e0d5c599114cffefdb7eb3a82708da1e858781d189afd59a4d416b7a",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_9_bn/moving_variance:0": {
+      "array_key": "backbone_59_3",
+      "sha256": "4ea589b5e7be5ee89b1f2374f4961dd5accbcdcf9ba7dee16a09525e9cd2d072",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_10/depthwise_kernel:0": {
+      "array_key": "backbone_61_0",
+      "sha256": "7eb56523fb4ea77b012e0a7b7bd2c188557af29d544d686878140c2c5a11e97c",
+      "shape": [
+        3,
+        3,
+        512,
+        1
+      ]
+    },
+    "conv_dw_10_bn/gamma:0": {
+      "array_key": "backbone_62_0",
+      "sha256": "b0076749ce6c1ae6ef14eaf64780eae30ac336d0bbe891842432237e0090e207",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_10_bn/beta:0": {
+      "array_key": "backbone_62_1",
+      "sha256": "59ceaf7f88b8842206768048a2e82c448a4c72ed7d467661440d52d6abfc50d5",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_10_bn/moving_mean:0": {
+      "array_key": "backbone_62_2",
+      "sha256": "246be6aa789f7358cb79924e8fa073700f541d8b34fd1e60b286f331d4c7de35",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_10_bn/moving_variance:0": {
+      "array_key": "backbone_62_3",
+      "sha256": "6983c2c89eb36e4c4d34e9933accdee19611beaec5a58a007eb36428ceff3835",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_10/kernel:0": {
+      "array_key": "backbone_64_0",
+      "sha256": "0c8f735b201eef9ec16942442536cf388dfb1dd683e853f025c384f0357d415a",
+      "shape": [
+        1,
+        1,
+        512,
+        512
+      ]
+    },
+    "conv_pw_10_bn/gamma:0": {
+      "array_key": "backbone_65_0",
+      "sha256": "b6fcf7a2f4fd5ad7d4c18b0f1c9393d0021cf4d0661bd86cb3e4bf822b5e7e47",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_10_bn/beta:0": {
+      "array_key": "backbone_65_1",
+      "sha256": "01e4bec78cba3f7476c9526cb8ee12cb5cbec207547fec03e5ac5c0c6c91404d",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_10_bn/moving_mean:0": {
+      "array_key": "backbone_65_2",
+      "sha256": "267165c289c787c4062ce51796b8fc9b24e7d6633bc0a0953e9fe44358112298",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_10_bn/moving_variance:0": {
+      "array_key": "backbone_65_3",
+      "sha256": "3edd559387bccc9b48630c49290b8025ccc6ec0db12ec5b6bc00e2ec3c004f29",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_11/depthwise_kernel:0": {
+      "array_key": "backbone_67_0",
+      "sha256": "6a1ed36965f354fee48da00bc6da3c20b979b4a6f5a0be56e9c9e10af32e3fd4",
+      "shape": [
+        3,
+        3,
+        512,
+        1
+      ]
+    },
+    "conv_dw_11_bn/gamma:0": {
+      "array_key": "backbone_68_0",
+      "sha256": "9ad9fee8731759869a48230491081b559b3a1b6edb1784d7cfd98e2f4d5ae0df",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_11_bn/beta:0": {
+      "array_key": "backbone_68_1",
+      "sha256": "26e17866bde653c6111afdf1d4f4c061c0e2bd329b3b9ab4a35010d0141ff2ef",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_11_bn/moving_mean:0": {
+      "array_key": "backbone_68_2",
+      "sha256": "d17025d7a39b75a7f615e8af91ec7450dce0003bd7ebc7f40dadbc3870d226ee",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_11_bn/moving_variance:0": {
+      "array_key": "backbone_68_3",
+      "sha256": "a52c52448657ebff5e6edc732e4fcf030c5132b88ef2f68cd29a21614948ce2e",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_11/kernel:0": {
+      "array_key": "backbone_70_0",
+      "sha256": "14c407fbf0a269a9ef90e35ce9d2a6e67187af211d9f571327b3d7264f1e40aa",
+      "shape": [
+        1,
+        1,
+        512,
+        512
+      ]
+    },
+    "conv_pw_11_bn/gamma:0": {
+      "array_key": "backbone_71_0",
+      "sha256": "a311b87279f1898b18196657758faba4245e879acb82680b71c44396211944a8",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_11_bn/beta:0": {
+      "array_key": "backbone_71_1",
+      "sha256": "dc93dedde30fbd6f535f915f6b5266a384710d1fbe1a161d58ad312bc953c92a",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_11_bn/moving_mean:0": {
+      "array_key": "backbone_71_2",
+      "sha256": "d2d271b69f9131ed5fa4c2d2095d4395f17fcd47d40ea32e285755e7cf0e0e9f",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_11_bn/moving_variance:0": {
+      "array_key": "backbone_71_3",
+      "sha256": "a1b97f98749e497f407e80ee1db1662612eba31e8e70dc2438cf575b0c7614ac",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_12/depthwise_kernel:0": {
+      "array_key": "backbone_74_0",
+      "sha256": "03fcd688dbb5668e344d7d09b28a78e815b9a2adc5b1238ec8e8cfac8e63dff4",
+      "shape": [
+        3,
+        3,
+        512,
+        1
+      ]
+    },
+    "conv_dw_12_bn/gamma:0": {
+      "array_key": "backbone_75_0",
+      "sha256": "cf9fef17ba0c08fd4890b28508a683c4d877237219cd4419ad0883a079feea1d",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_12_bn/beta:0": {
+      "array_key": "backbone_75_1",
+      "sha256": "ef58aab67cd25b4cdf270d99bda383f3b7e66da270c4c3b7719c1d4f61bb9dc3",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_12_bn/moving_mean:0": {
+      "array_key": "backbone_75_2",
+      "sha256": "30d48f7128605ab715d56b9852b5f3f14b888f60f06e7455f875dec8e5570569",
+      "shape": [
+        512
+      ]
+    },
+    "conv_dw_12_bn/moving_variance:0": {
+      "array_key": "backbone_75_3",
+      "sha256": "9719d8b05f4e24df3f58acc97c7982802b07147908d370c0216433083cae13ec",
+      "shape": [
+        512
+      ]
+    },
+    "conv_pw_12/kernel:0": {
+      "array_key": "backbone_77_0",
+      "sha256": "676b3ea03e6f172b7f0a608706cd043682e37bcbe98d488521dd8509ff7e368a",
+      "shape": [
+        1,
+        1,
+        512,
+        1024
+      ]
+    },
+    "conv_pw_12_bn/gamma:0": {
+      "array_key": "backbone_78_0",
+      "sha256": "3ab6a0ba265e8b5dc815036789ef8034befc595c11fabd653b200aac801ca35e",
+      "shape": [
+        1024
+      ]
+    },
+    "conv_pw_12_bn/beta:0": {
+      "array_key": "backbone_78_1",
+      "sha256": "4880369da77f9eb99f1f6b2f2176b97f5c9afaaada0bcdcb4792cbb5f0062345",
+      "shape": [
+        1024
+      ]
+    },
+    "conv_pw_12_bn/moving_mean:0": {
+      "array_key": "backbone_78_2",
+      "sha256": "9d96c12cde0929a7928f04c70d49b2934f71807dcc63595ad338703e750bfdb9",
+      "shape": [
+        1024
+      ]
+    },
+    "conv_pw_12_bn/moving_variance:0": {
+      "array_key": "backbone_78_3",
+      "sha256": "4df5e4f92631bc445725b3c4d422ff002bd748508d72a55de9879961da0e7090",
+      "shape": [
+        1024
+      ]
+    },
+    "conv_dw_13/depthwise_kernel:0": {
+      "array_key": "backbone_80_0",
+      "sha256": "e5acd9e167ad3caf20ad8a6d9bb06b3afdbe55df1a9148f34fba19b2369bf565",
+      "shape": [
+        3,
+        3,
+        1024,
+        1
+      ]
+    },
+    "conv_dw_13_bn/gamma:0": {
+      "array_key": "backbone_81_0",
+      "sha256": "95ce570ed9d9b43acf2bdb79659d234c8934f4ece3001736650d51de5d2d3ca4",
+      "shape": [
+        1024
+      ]
+    },
+    "conv_dw_13_bn/beta:0": {
+      "array_key": "backbone_81_1",
+      "sha256": "15b57664849bd9a138675448912c015089abe36a7ae226f1491ca7dc2d7445ab",
+      "shape": [
+        1024
+      ]
+    },
+    "conv_dw_13_bn/moving_mean:0": {
+      "array_key": "backbone_81_2",
+      "sha256": "4a497aef5db50493f40ef8d773159644e8adc746eb26e67b18924a5a170a08f2",
+      "shape": [
+        1024
+      ]
+    },
+    "conv_dw_13_bn/moving_variance:0": {
+      "array_key": "backbone_81_3",
+      "sha256": "095e5ba347a4ee9ee51e506fda27028177c62ac055f6c55ed3f6a8b4294e25fa",
+      "shape": [
+        1024
+      ]
+    },
+    "conv_pw_13/kernel:0": {
+      "array_key": "backbone_83_0",
+      "sha256": "67303e01560c3bbc414f4be628fc7999c28c0744644051a4f84e508416759de3",
+      "shape": [
+        1,
+        1,
+        1024,
+        1024
+      ]
+    },
+    "conv_pw_13_bn/gamma:0": {
+      "array_key": "backbone_84_0",
+      "sha256": "02b24dfd49238d1af9d56b89cade96ca52e69b880a388e246a1a47b14c58be4f",
+      "shape": [
+        1024
+      ]
+    },
+    "conv_pw_13_bn/beta:0": {
+      "array_key": "backbone_84_1",
+      "sha256": "812a98829661489e6aee5df73163acf3a50b212f9c7fef2d16d69217cfade503",
+      "shape": [
+        1024
+      ]
+    },
+    "conv_pw_13_bn/moving_mean:0": {
+      "array_key": "backbone_84_2",
+      "sha256": "d50e6f00153100a096e552e8e1b1152709d9327d11266b66aa0522b8aab3d58a",
+      "shape": [
+        1024
+      ]
+    },
+    "conv_pw_13_bn/moving_variance:0": {
+      "array_key": "backbone_84_3",
+      "sha256": "aa9c0318461cfd39020f5e849ad87a77f3a8339eff3d80f21f801a6a3d5c89d1",
+      "shape": [
+        1024
+      ]
+    },
+    "pla_net/conv1d/kernel:0": {
+      "array_key": "resize_op_0_0",
+      "sha256": "edb2d50b74be26d3be721c2cc02126bb6c6a3abd1c2305ff347e14843870c4e9",
+      "shape": [
+        1,
+        1024,
+        128
+      ]
+    },
+    "pla_net/conv1d/bias:0": {
+      "array_key": "resize_op_0_1",
+      "sha256": "874cdcaee3378957b1d9c22bd02850f3e443926f5c453e038c351f99906e36ff",
+      "shape": [
+        128
+      ]
+    },
+    "pla_net/conv1d_1/kernel:0": {
+      "array_key": "img_mergenet_0_0",
+      "sha256": "ad9ee9a9a0eb38bf462a565405e15273c71dae7aa2a0823273cc718c9738dc9a",
+      "shape": [
+        2,
+        6272,
+        128
+      ]
+    },
+    "pla_net/conv1d_1/bias:0": {
+      "array_key": "img_mergenet_0_1",
+      "sha256": "2dd94a527a3d27d30635d5ae2dda2f0322eaaebb43f1d47caaa2faaf7b2bbe0e",
+      "shape": [
+        128
+      ]
+    },
+    "pla_net/conv1d_2/kernel:0": {
+      "array_key": "img_mergenet_2_0",
+      "sha256": "27873df65976d241c323ee7d3228bccf188321ffb0437f41940bc66166dcaba3",
+      "shape": [
+        2,
+        128,
+        64
+      ]
+    },
+    "pla_net/conv1d_2/bias:0": {
+      "array_key": "img_mergenet_2_1",
+      "sha256": "711184aab4849f9389e6681f412e7c7e6829eda121c20906b10b99ff46721ede",
+      "shape": [
+        64
+      ]
+    },
+    "pla_net/conv1d_3/kernel:0": {
+      "array_key": "img_mergenet_4_0",
+      "sha256": "c5b5060b9df5d68f9ab8d6e38ffa2ac273e240ae9cb3033f0e370844070ce5fa",
+      "shape": [
+        2,
+        64,
+        64
+      ]
+    },
+    "pla_net/conv1d_3/bias:0": {
+      "array_key": "img_mergenet_4_1",
+      "sha256": "6c1fe55947bc54305c0cb614e2e0414f16f65f8b4b92254faf6a4a2cead570ac",
+      "shape": [
+        64
+      ]
+    },
+    "pla_net/conv1d_4/kernel:0": {
+      "array_key": "img_mergenet_6_0",
+      "sha256": "7574136c3256943965a0e862675613f7b07d80df8b90e5e457778eb1a947bad1",
+      "shape": [
+        2,
+        64,
+        32
+      ]
+    },
+    "pla_net/conv1d_4/bias:0": {
+      "array_key": "img_mergenet_6_1",
+      "sha256": "16c4c68a3a70a86d63d7b8a482482e57c5dba20278ab60f0fa470d8c011d10cf",
+      "shape": [
+        32
+      ]
+    },
+    "pla_net/conv1d_5/kernel:0": {
+      "array_key": "resize_op_2_0_0",
+      "sha256": "210c2c32f3e2f5bc8a19e73ed9e0aa3653ef92a6f19c4d8082ec0d3718455cf4",
+      "shape": [
+        3,
+        1,
+        3
+      ]
+    },
+    "pla_net/conv1d_5/bias:0": {
+      "array_key": "resize_op_2_0_1",
+      "sha256": "cffc508a25e7a1c94f36f9379ce1059099f2b94b42767f593a555bf03c680cce",
+      "shape": [
+        3
+      ]
+    },
+    "pla_net/conv1d_6/kernel:0": {
+      "array_key": "states_conv_0_0",
+      "sha256": "bb89428b041351d5bb53ed9752042a293d3ebbc4dd37406f38bcf4e1393db6e2",
+      "shape": [
+        2,
+        18,
+        64
+      ]
+    },
+    "pla_net/conv1d_6/bias:0": {
+      "array_key": "states_conv_0_1",
+      "sha256": "ffcddb48d8e203861fb92e7d061ca1ca342d832a24a80c46587d2bef0b8997f0",
+      "shape": [
+        64
+      ]
+    },
+    "pla_net/conv1d_7/kernel:0": {
+      "array_key": "states_conv_2_0",
+      "sha256": "9c4fc6d039689b64c4ed6604edfcf39afa697b44c3c01bfccc95b4bc6e6589dc",
+      "shape": [
+        2,
+        64,
+        32
+      ]
+    },
+    "pla_net/conv1d_7/bias:0": {
+      "array_key": "states_conv_2_1",
+      "sha256": "203bf703fbfc93875d7e8c16918e9e268ce76e99546896515483bcd200adc7ea",
+      "shape": [
+        32
+      ]
+    },
+    "pla_net/conv1d_8/kernel:0": {
+      "array_key": "states_conv_4_0",
+      "sha256": "cd06c195e540fbaa5383456e4f3ee83e65791db28646092feea63116cada6b3a",
+      "shape": [
+        2,
+        32,
+        32
+      ]
+    },
+    "pla_net/conv1d_8/bias:0": {
+      "array_key": "states_conv_4_1",
+      "sha256": "69ebe832cdba25642440cd2a837cbb077e7c5cd4a4d666cc53864264de44761a",
+      "shape": [
+        32
+      ]
+    },
+    "pla_net/conv1d_9/kernel:0": {
+      "array_key": "states_conv_6_0",
+      "sha256": "862bd0e5b1fe27c5cbb9f4d70de8a885ac150c07885e63837d7bf356681d05a2",
+      "shape": [
+        2,
+        32,
+        32
+      ]
+    },
+    "pla_net/conv1d_9/bias:0": {
+      "array_key": "states_conv_6_1",
+      "sha256": "dba871d3d4133ffb9b176d613932f6ade6912c582b923815d1c7e58ee6e42c10",
+      "shape": [
+        32
+      ]
+    },
+    "pla_net/conv1d_10/kernel:0": {
+      "array_key": "resize_op_3_0_0",
+      "sha256": "0ae757299adc384977414d1ecfbefd859699d596c809a2dcbd877c48d36289fb",
+      "shape": [
+        3,
+        1,
+        3
+      ]
+    },
+    "pla_net/conv1d_10/bias:0": {
+      "array_key": "resize_op_3_0_1",
+      "sha256": "7a29fee782689ba3944b7f13191bf0ebec6a5eb12f54902ccb3bc4ebfba3398a",
+      "shape": [
+        3
+      ]
+    },
+    "pla_net/conv1d_11/kernel:0": {
+      "array_key": "plan_module_0_0",
+      "sha256": "7d4ab923770f0deb62251c4ea0584e9b87580f3f1ff2d3fba6fa4f31c8857a9a",
+      "shape": [
+        1,
+        60,
+        64
+      ]
+    },
+    "pla_net/conv1d_11/bias:0": {
+      "array_key": "plan_module_0_1",
+      "sha256": "e7d9ca28fd6662fe11f74186f03324750fe7f23ecc902248733640130d256c5f",
+      "shape": [
+        64
+      ]
+    },
+    "pla_net/conv1d_12/kernel:0": {
+      "array_key": "plan_module_2_0",
+      "sha256": "7246ab64ac9e538697ae5a4693ca0a2d902064a1098e336363284ed92e8264cc",
+      "shape": [
+        1,
+        64,
+        128
+      ]
+    },
+    "pla_net/conv1d_12/bias:0": {
+      "array_key": "plan_module_2_1",
+      "sha256": "69b5ddb65e787c53c5250ca68964080c08e0adef920a7a9c6b2da759a87d0b1a",
+      "shape": [
+        128
+      ]
+    },
+    "pla_net/conv1d_13/kernel:0": {
+      "array_key": "plan_module_4_0",
+      "sha256": "40297dcb97cd7d6001877eea6aa8241ef9db43f8e07bce8a481183afe334f5a7",
+      "shape": [
+        1,
+        128,
+        128
+      ]
+    },
+    "pla_net/conv1d_13/bias:0": {
+      "array_key": "plan_module_4_1",
+      "sha256": "6ad6372afa687668fc97c35374b05618fda3aea6193e664ab899e6fea254b279",
+      "shape": [
+        128
+      ]
+    },
+    "pla_net/conv1d_14/kernel:0": {
+      "array_key": "plan_module_6_0",
+      "sha256": "0341c06bd27aaf7ead2c584e2f9e7559ae7099b0075b4231578d0533de65788e",
+      "shape": [
+        1,
+        128,
+        31
+      ]
+    },
+    "pla_net/conv1d_14/bias:0": {
+      "array_key": "plan_module_6_1",
+      "sha256": "5ccd47bc66c49043a51862ef1dc0ae5b5f539861adee78dad90c426a55b55a67",
+      "shape": [
+        31
+      ]
+    }
+  },
+  "keras_model_order_weight_sha256": [
+    "6a6c4ab9a2e04606cf073cdb2b899f582fe5ed7a52e996bc1755586ff69c158e",
+    "e8624bed7675136d596e09bf84ee7fd5ae988c1105548a3ecf8ae64aa70ba3a6",
+    "049fc761ef5f317f3f392e6d303a40e60046912dcd51ec90c72d9d5fb1cc6d78",
+    "235c9ceeead9bdf45a8c72f6220dc710df9f275ac4183d15efccddf8c39ca5cc",
+    "ebacc2ae712a06d3179d94cb14ce7481843e24ad7deb167901ef5ef2be66611b",
+    "d40516283226a3bb91381091707517cc2d67c3a5f1a70f15877f79757081c46f",
+    "6fcb5907143960b9666d181dcfb8c9ce5ccc131bed751d1dca7a934977913464",
+    "bc87fcdf05059ae1e1c50a02493f51c2d70393837e67a0ea2e5972ff5d4376d6",
+    "13300e92994c6358659719d01a2be54465970e711788d4adf2f61b52d7c8cc30",
+    "abb8442d05cd1906fcf24ba13127e759d25cdf523093c6859410014573d39cde",
+    "4fcd2befb4c4e57900a5ac5e14bd91aad310186e910ab29b910bec406b90cc87",
+    "4aa2425e0c6aa236af008cbedb6b39d8a82e1ca854246b03c30547493cba01f4",
+    "a5351f934b2c42b7c87dc2eac5aeb386e8f80c46bc75736d0b1e47466ef3d153",
+    "bf7af96fc5697ce473f3827972f3ad250c1ad42b5c51763438937ae5e196bb3e",
+    "94cb7f50f25ed102024da5526fe19f15a15cab9f78b12f3159a217837bcd010e",
+    "8940d9de1ed56177f79f69c995bd93182ade30f94b586ac5110cd6e0b4d79de7",
+    "2fb96e34fdb93e8b559cf01edced9be2ad2ffe1352dece0a5a1b2af4fdcef3b4",
+    "1e30da6e51d9ca9bd19e1c33ae1012702c74372ac038336199e7d7a5bb1e44ab",
+    "cf13ba94cb7db450a16b9033e5f152f5ddcc6692d82f1b919f62373a5752af8b",
+    "f74341dab48267b09fbf968ec95279904b1fe352679ad9e7868ccc981a41f078",
+    "d0dc0d0d6a60ee1f4634bf026037437cdff27abf20e7b12399370d7abff749ae",
+    "c9e1c1d758b21ba5ffbe22b3e76447bed4bb3ef073f8bb53934008e4bfa5c199",
+    "6709fb0350af8b50282f0a29b6d9eb5861d908b724e71de4a08dc78b796fb485",
+    "d53bc2e2fad111b585b528518760dcedeb12df8f18226a7021789fde628da511",
+    "d23c8ffd0f5d5f499b57851410559b120e5109c468b1117e711f67a9bd271aec",
+    "6eae4c5ef362f7399ad986df82ab596ed9a48e3c67903f13bf3db8fa1ce29195",
+    "9b077170f00befbd98631179666041f6e39ea2ccbaadcb47e1b254e40281e175",
+    "4ae5d6337131d688c6d2458ec35659ffdb6857e0e95b908624e9831302a1c2a6",
+    "449483c9f476db411d97c171badcdcdcbe40063f21baa338b9269a13ee4ce9e1",
+    "11499a99d59203b603263305943758844eef0baf19669bc58441df26a8f280df",
+    "f3f19a25a27132599774965de5f4acd8ea04015c1c8ff69413da9f4aae0fe4cb",
+    "b7a4205fd28bdbacbc77fa40027d5307ecfc2b2a4ccde41a2ea399a68b9bee43",
+    "c41d82cd757cad1db636f3348a3a664a0299ee3888bf114972e5bd10967755ce",
+    "91b23f99ef6c948a619e995379dfc05f21f42445e71619b86110d00539975312",
+    "a1e2940d227fa3ce9f715288615442e366d09a05ceffb89ec2b0f853930ed5f3",
+    "d40490d60be957ed873c1610fa9a3d59cf42d43f19450e4da4edbe898d194668",
+    "325691d48856e746519726ba999dc454b064c5db65bcb75dcc4e76d33b8b0e33",
+    "db865adae440845869353161ce3cd5499e978065b505844f71c75ca1630f88fc",
+    "cbe4703af079b06d0f728696bb3edc194751dc8f9008e5614e18d527ce3d0eae",
+    "40a8af62fee64e0a993d6db1f3312a456df6fe9e8672f99a3ae19ecbd71aa84b",
+    "4472e48a46ab57292584fde6b21b7b041e74b44566f399ed9599f7b6c63256e3",
+    "4cb5d106e8ab15bdbfe9945b9cd7000d1ad60afe6d1767b210865a84ba3406b2",
+    "6882275072b5d0862bf74372b3e403f5842c36d74e8a559878ee227c547434c2",
+    "92cc482052c4459031c82218906d4c886dc5df45b4b817c00577e91f065b0404",
+    "ff0c7997677583d47abfa3f42a64ab0db5535de5b43d250e6367e92c90d83159",
+    "7682fbfb806eb4216866abee39efb278a0158c8ea64cc5b58a012a825e45a4dc",
+    "cb39064db242aa7122ca634ad9885c62fb72e224f6fb1711a9697a214ff88d6f",
+    "7f90afb53f87723e36413c270b97b4fdc8ca243601675a4d6394ace3ca86d4b3",
+    "f7d68c869696cc80ec9d4880910aecc1b5cef9b4f485512f7997ee71c24272c9",
+    "b29557a6ee9cb350668b089b910259e829255fb27ed927b1f2a69c82f419837d",
+    "ee0b84ef75defde9ee7ad11c1b61a269e71df7517593fa18b0579faaf9bc25bd",
+    "7707512c9dc442f87765d77ed3da0fd3219df23ba73bb819ff4c015095eab880",
+    "536759454454b3732a6bbf20cce3dd07b4d5eb70c700d28b928dc352484b06b9",
+    "46a3f5f087c0029394ddc19ba3e90ba2f9ed62472a1b6bc3d05a6e4d9d81466a",
+    "1972b9b75bbb1d6407a55c8954dbccc058db217b365c4cc5413255ef6bd209f9",
+    "87297e2ebabab48f0d882dc74a3306f4a8a917fcc4593e168bd528ed9174991b",
+    "44b4bcbb7ef633b54f76817f2d66b0b13c7687f252d2bfdf4849aebbb12d3e24",
+    "7eb56523fb4ea77b012e0a7b7bd2c188557af29d544d686878140c2c5a11e97c",
+    "b0076749ce6c1ae6ef14eaf64780eae30ac336d0bbe891842432237e0090e207",
+    "59ceaf7f88b8842206768048a2e82c448a4c72ed7d467661440d52d6abfc50d5",
+    "0c8f735b201eef9ec16942442536cf388dfb1dd683e853f025c384f0357d415a",
+    "b6fcf7a2f4fd5ad7d4c18b0f1c9393d0021cf4d0661bd86cb3e4bf822b5e7e47",
+    "01e4bec78cba3f7476c9526cb8ee12cb5cbec207547fec03e5ac5c0c6c91404d",
+    "6a1ed36965f354fee48da00bc6da3c20b979b4a6f5a0be56e9c9e10af32e3fd4",
+    "9ad9fee8731759869a48230491081b559b3a1b6edb1784d7cfd98e2f4d5ae0df",
+    "26e17866bde653c6111afdf1d4f4c061c0e2bd329b3b9ab4a35010d0141ff2ef",
+    "14c407fbf0a269a9ef90e35ce9d2a6e67187af211d9f571327b3d7264f1e40aa",
+    "a311b87279f1898b18196657758faba4245e879acb82680b71c44396211944a8",
+    "dc93dedde30fbd6f535f915f6b5266a384710d1fbe1a161d58ad312bc953c92a",
+    "03fcd688dbb5668e344d7d09b28a78e815b9a2adc5b1238ec8e8cfac8e63dff4",
+    "cf9fef17ba0c08fd4890b28508a683c4d877237219cd4419ad0883a079feea1d",
+    "ef58aab67cd25b4cdf270d99bda383f3b7e66da270c4c3b7719c1d4f61bb9dc3",
+    "676b3ea03e6f172b7f0a608706cd043682e37bcbe98d488521dd8509ff7e368a",
+    "3ab6a0ba265e8b5dc815036789ef8034befc595c11fabd653b200aac801ca35e",
+    "4880369da77f9eb99f1f6b2f2176b97f5c9afaaada0bcdcb4792cbb5f0062345",
+    "e5acd9e167ad3caf20ad8a6d9bb06b3afdbe55df1a9148f34fba19b2369bf565",
+    "95ce570ed9d9b43acf2bdb79659d234c8934f4ece3001736650d51de5d2d3ca4",
+    "15b57664849bd9a138675448912c015089abe36a7ae226f1491ca7dc2d7445ab",
+    "67303e01560c3bbc414f4be628fc7999c28c0744644051a4f84e508416759de3",
+    "02b24dfd49238d1af9d56b89cade96ca52e69b880a388e246a1a47b14c58be4f",
+    "812a98829661489e6aee5df73163acf3a50b212f9c7fef2d16d69217cfade503",
+    "cd59279e38fabde36afc6d900e84e3827fa5e56cf7cc7231560c0665539b2262",
+    "28cd810c85dbb1c2c2cc2b012d4a8c29419e32afb7ae6104a98c2fd91ce25810",
+    "b11fa3bab0208f8b11ff0b005de92de6f167e92670d8e5beb081c6ed6dc51b38",
+    "a948a456cf71a06eac968c4d30648cd754f2a46afe2edee52bebe63120fbc6a6",
+    "d416906d2c80b236e322a9be74a71c89949b2fa931c0753704187de20f2a7ce8",
+    "b964d31e99c964be3a2e99a5c6d94d12fa1b7410463929e930976ed80acad0a3",
+    "57e24d0f60a982632fc294c518b7692661e63a37e548b24b4901875dbc7cc1c8",
+    "090f78de9ea4bf70829b607a1c507b4fcedc24c593a2c33fc8a29a8051f04b83",
+    "4d388f266406656ae4721eea13f701d611bddccb0d5da0299138f4323d31fec4",
+    "35138db6d94a34f21be4ab6e300cf8ad4bfe75d8e96962fffc3c30caf914d7f4",
+    "3e25bb79e10ed1eb08fe2b06ea8a7559493b60ef3df0ec8276d5b03928ca019e",
+    "0e950a6d1d221bdc3a6e9c3f19063475bb503357f4e916028188ac86771236ce",
+    "42e403ca38a6852bc9b629f52fe412073bb547126da5f02635b0625399ad806f",
+    "20a054166bc729af9d83d48fccfb42eb354d10b4b6e9e96305b43b58b534236f",
+    "480d5015c1d27d29e0555622383bb0dfc23fd8161de3a37a26f5c8b7ad84e01a",
+    "a5caa4fe250a347c033a90e765f2a390bb4b83e5b4391cc36b79c1bee025ce0c",
+    "b4e8a32688b8571e4deee8f4e3553b4f2b45bdbd4204ec88a401400e18274b3b",
+    "5f9b6cdfd81887d01826795dbe150ba03eb2b01ddbc6b30a62ab582341b6ed00",
+    "dd527f3b3ddb2684b20c91216660f7a52b9a62413fe2729daebbcc95198c1ebc",
+    "a1518bd06e814b86c9bf75744be1c0ee28a06474466f0b7b0c606b7de6c726af",
+    "903cf850193a6740fb9110ee8441d60b37b7ed2f02ea46c76b40ad22eaf734de",
+    "cb88187c57a622623bbd6aeb022a324b0c522dbf13b098c4b2c96007df15a7a9",
+    "9f11b8594dcbdebb6f1f99a12755bfb2b6035ec91b7eeec37be3bd072f8fb5d5",
+    "74029a13de21c8954d9e3077bc98442d62fe466ef2be694f4d4ce7f5e1c89c48",
+    "438324e9f45737d313025fe075a2a3c8bf76ee0d915df8bf1f9c1e44877567a7",
+    "8339a2c1863fec81d4d21f8687b721aaa1633e0de54b5c565e6bc8090d23b411",
+    "ab0acf9415e3c4904ffb6f961955eb865bcf97fe83625a77eb83be841f488231",
+    "4a568e047e1dabb11a64a99f92985e59d697d93c3c7717a768df11e3c24cb0bc",
+    "89702f065afd8850ec3845c5bf88b70979ec11165b1b45a84f11035d1f3fc7bf",
+    "16c8da3ae633a042996c5466f69eb2201271dfa3efd54a7271a3062e1ff374b6",
+    "4808b0dd8220d65daba63cad089ec3a52b0badf1df8c6e0becbb6022ccc972a7",
+    "bfbd9a5e5d42e188f61719092892423d79515c56465250310e5337f8045cc4f6",
+    "ea82b35d39cb663b544b8168684baafe179d62a464974b423cda50244898138a",
+    "5c3f349bd2495738aacaa706dee613ba0e24061d5b0eeecc97d78c45a5282c10",
+    "861ef3f8f96dd8522e38baf7245270f0ea6491cce36f977c24a618c17fd4eeaf",
+    "95005334de9bcd8ef79c98c0ab0bd049a006b792d5c47ed51a03dc823595a8a9",
+    "50a99565e0d5c599114cffefdb7eb3a82708da1e858781d189afd59a4d416b7a",
+    "4ea589b5e7be5ee89b1f2374f4961dd5accbcdcf9ba7dee16a09525e9cd2d072",
+    "246be6aa789f7358cb79924e8fa073700f541d8b34fd1e60b286f331d4c7de35",
+    "6983c2c89eb36e4c4d34e9933accdee19611beaec5a58a007eb36428ceff3835",
+    "267165c289c787c4062ce51796b8fc9b24e7d6633bc0a0953e9fe44358112298",
+    "3edd559387bccc9b48630c49290b8025ccc6ec0db12ec5b6bc00e2ec3c004f29",
+    "d17025d7a39b75a7f615e8af91ec7450dce0003bd7ebc7f40dadbc3870d226ee",
+    "a52c52448657ebff5e6edc732e4fcf030c5132b88ef2f68cd29a21614948ce2e",
+    "d2d271b69f9131ed5fa4c2d2095d4395f17fcd47d40ea32e285755e7cf0e0e9f",
+    "a1b97f98749e497f407e80ee1db1662612eba31e8e70dc2438cf575b0c7614ac",
+    "30d48f7128605ab715d56b9852b5f3f14b888f60f06e7455f875dec8e5570569",
+    "9719d8b05f4e24df3f58acc97c7982802b07147908d370c0216433083cae13ec",
+    "9d96c12cde0929a7928f04c70d49b2934f71807dcc63595ad338703e750bfdb9",
+    "4df5e4f92631bc445725b3c4d422ff002bd748508d72a55de9879961da0e7090",
+    "4a497aef5db50493f40ef8d773159644e8adc746eb26e67b18924a5a170a08f2",
+    "095e5ba347a4ee9ee51e506fda27028177c62ac055f6c55ed3f6a8b4294e25fa",
+    "d50e6f00153100a096e552e8e1b1152709d9327d11266b66aa0522b8aab3d58a",
+    "aa9c0318461cfd39020f5e849ad87a77f3a8339eff3d80f21f801a6a3d5c89d1",
+    "edb2d50b74be26d3be721c2cc02126bb6c6a3abd1c2305ff347e14843870c4e9",
+    "874cdcaee3378957b1d9c22bd02850f3e443926f5c453e038c351f99906e36ff",
+    "ad9ee9a9a0eb38bf462a565405e15273c71dae7aa2a0823273cc718c9738dc9a",
+    "2dd94a527a3d27d30635d5ae2dda2f0322eaaebb43f1d47caaa2faaf7b2bbe0e",
+    "27873df65976d241c323ee7d3228bccf188321ffb0437f41940bc66166dcaba3",
+    "711184aab4849f9389e6681f412e7c7e6829eda121c20906b10b99ff46721ede",
+    "c5b5060b9df5d68f9ab8d6e38ffa2ac273e240ae9cb3033f0e370844070ce5fa",
+    "6c1fe55947bc54305c0cb614e2e0414f16f65f8b4b92254faf6a4a2cead570ac",
+    "7574136c3256943965a0e862675613f7b07d80df8b90e5e457778eb1a947bad1",
+    "16c4c68a3a70a86d63d7b8a482482e57c5dba20278ab60f0fa470d8c011d10cf",
+    "210c2c32f3e2f5bc8a19e73ed9e0aa3653ef92a6f19c4d8082ec0d3718455cf4",
+    "cffc508a25e7a1c94f36f9379ce1059099f2b94b42767f593a555bf03c680cce",
+    "bb89428b041351d5bb53ed9752042a293d3ebbc4dd37406f38bcf4e1393db6e2",
+    "ffcddb48d8e203861fb92e7d061ca1ca342d832a24a80c46587d2bef0b8997f0",
+    "9c4fc6d039689b64c4ed6604edfcf39afa697b44c3c01bfccc95b4bc6e6589dc",
+    "203bf703fbfc93875d7e8c16918e9e268ce76e99546896515483bcd200adc7ea",
+    "cd06c195e540fbaa5383456e4f3ee83e65791db28646092feea63116cada6b3a",
+    "69ebe832cdba25642440cd2a837cbb077e7c5cd4a4d666cc53864264de44761a",
+    "862bd0e5b1fe27c5cbb9f4d70de8a885ac150c07885e63837d7bf356681d05a2",
+    "dba871d3d4133ffb9b176d613932f6ade6912c582b923815d1c7e58ee6e42c10",
+    "0ae757299adc384977414d1ecfbefd859699d596c809a2dcbd877c48d36289fb",
+    "7a29fee782689ba3944b7f13191bf0ebec6a5eb12f54902ccb3bc4ebfba3398a",
+    "7d4ab923770f0deb62251c4ea0584e9b87580f3f1ff2d3fba6fa4f31c8857a9a",
+    "e7d9ca28fd6662fe11f74186f03324750fe7f23ecc902248733640130d256c5f",
+    "7246ab64ac9e538697ae5a4693ca0a2d902064a1098e336363284ed92e8264cc",
+    "69b5ddb65e787c53c5250ca68964080c08e0adef920a7a9c6b2da759a87d0b1a",
+    "40297dcb97cd7d6001877eea6aa8241ef9db43f8e07bce8a481183afe334f5a7",
+    "6ad6372afa687668fc97c35374b05618fda3aea6193e664ab899e6fea254b279",
+    "0341c06bd27aaf7ead2c584e2f9e7559ae7099b0075b4231578d0533de65788e",
+    "5ccd47bc66c49043a51862ef1dc0ae5b5f539861adee78dad90c426a55b55a67"
+  ],
+  "parity_sample_kinds": [
+    "synthetic_random",
+    "synthetic_random",
+    "synthetic_random",
+    "synthetic_random",
+    "structured_depth",
+    "structured_depth",
+    "structured_depth",
+    "structured_depth",
+    "recorded_development_flight_pose_depth_velocity_zero_gyro_fixture",
+    "recorded_development_flight_pose_depth_velocity_zero_gyro_fixture",
+    "recorded_development_flight_pose_depth_velocity_zero_gyro_fixture",
+    "recorded_development_flight_pose_depth_velocity_zero_gyro_fixture",
+    "recorded_development_flight_pose_depth_velocity_zero_gyro_fixture",
+    "recorded_development_flight_pose_depth_velocity_zero_gyro_fixture",
+    "recorded_development_flight_pose_depth_velocity_zero_gyro_fixture",
+    "recorded_development_flight_pose_depth_velocity_zero_gyro_fixture",
+    "recorded_development_flight_pose_depth_velocity_zero_gyro_fixture",
+    "recorded_development_flight_pose_depth_velocity_zero_gyro_fixture",
+    "recorded_development_flight_pose_depth_velocity_zero_gyro_fixture",
+    "recorded_development_flight_pose_depth_velocity_zero_gyro_fixture",
+    "recorded_development_flight_pose_depth_velocity_zero_gyro_fixture",
+    "recorded_development_flight_pose_depth_velocity_zero_gyro_fixture",
+    "recorded_development_flight_pose_depth_velocity_zero_gyro_fixture",
+    "recorded_development_flight_pose_depth_velocity_zero_gyro_fixture"
+  ],
+  "source_tensorflow": "2.15.1"
+}

@@ -30,7 +30,7 @@ git commit -m "data: add selected reproducibility artifacts"
 git push origin main
 ```
 
-完整 isaac_full_v1、三个8.65GB checkpoint目录和11GB以上飞行输出是否全部上传，取决于Git LFS配额。建议主仓库上传清单、manifest、哈希、代表视频和smoke数据；完整原始数据使用Release附件或对象存储，并在 report/06_migration 写入下载地址和SHA256。
+2026-10-13 更新：v2 发布替换旧 main（旧 main 先打 `archive/pre-yopo-only-20261013` tag）。主仓库发布三个正式 `best_policy.pth`、DAgger `best_policy.pth` 及其 manifest/审计文件与代表媒体（Git LFS）；完整 `isaac_full_v1`、中间 checkpoint 与 11GB 以上飞行输出走 Release/对象存储，并在 report/06_migration 写入 SHA256 获取说明。
 
 ## Ubuntu 22.04
 

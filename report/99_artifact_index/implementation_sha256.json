@@ -1,17 +1,17 @@
 {
   "scripts/probe_isaac_depth.py": "6584e2175f455077b38679ecd426b617b4fe08077caf9a9e8e57f65da433faf2",
   "scripts/probe_yopo.py": "ed6ee7686e9f9c7ca52091b443ef3b2ad45ef53d38117fd44fc2f261294f035e",
-  "scripts/render_flight.py": "d01557913a980fbd8169ce32656c0203d1ae042eda28be0e6b5cc4d9549d26b3",
-  "scripts/run_navigation.py": "ca7c3acd8fc4bda717a0688a5031c158f95ae6bf8b334d6e4d6e4aa4dfc0c3df",
-  "scripts/run_showcase.ps1": "12200a7cb4aa540892df04149dcbabaafa4c5f0a24296d76f83f5a41ef5a2a19",
+  "scripts/render_flight.py": "f6a0818717dd13770a887980cd426c4a4d52974139b58f87f6da76470e26e8b0",
+  "scripts/run_navigation.py": "7a5db38ed2e1b8f4039b951119bdd5c3cfc0ec9be308fa418d8c39210aec25b6",
+  "scripts/run_showcase.ps1": "df6b09e0150004d24738d209857a3709a97356730b3fef433e19e96f1aaf8a23",
   "scripts/scene.py": "b3dfd22124d7c352cef79e19b68d3675b4dd4e354cbe89846f60115423aae73b",
   "scripts/train_windows.py": "cc0ab86443c14b574638a521a14326ba0585ff7ac84edc0896f1b3a61e89dffb",
   "scripts/validate_result.py": "f0a8e16caab875621093c352878273f61a21e45118293e7bf01ae6f3a31e3cc0",
-  "scripts/yopo_adapter.py": "e83eb1105bdf8cb5579f2a27a824f73006186d94132bff3e0998d981904af273",
+  "scripts/yopo_adapter.py": "12e660f363c956d1c11bd4c35d849c612a2caf4b3032e22e75485829c4818485",
   "assets/cf21b/cf21B_500_isaac.usda": "93718918a83c7cdf2499b6f11e0435c97b2fc9c6fc927940a9ed7274f217f63c",
   "assets/cf21b/cf21B_500_physx.usda": "4be58ebfe01e2005b70d0a095a07ac5cae3c8d14622928ad4134984cd31df5c9",
   "assets/cf21b/cf21B_500_visual.usda": "e36abe0a02c6a65dafadb8611345905f6e4d05580835ec1758da80c1819bc2af",
-  "assets/cf21b/payloads/base.usda": "c1074ed4eeb50d9683bdf4b2afb9b70e2e2f74543d49a2d62eda5e630d18b669",
+  "assets/cf21b/payloads/base.usda": "aee9e22a54467db6c4e3b768f64d3dd949d4eb9dd1b97b2bb632a29bfb66c905",
   "assets/cf21b/payloads/geometries.usd": "b5e14ca7af83fd5437e77652a53e6da3dc6e2e3f854895fefe1111990e8bfdfe",
   "assets/cf21b/payloads/instances.usda": "8fd5b2998739b8341651f12a3f5e1ca74e54d4c783568ac6f584236a9785c1d0",
   "assets/cf21b/payloads/materials.usda": "99aee1742f92eb9334466f946bdb845ea5c93d91099ccc867278f4d665f167a8",
@@ -21,5 +21,7 @@
   "external/flight_control/cf21b_model.py": "05ddd6c5b848f4a3ef20c3757ec2a82fd806a33ee6df57f5543d179ecb9125ef",
   "external/flight_control/command.py": "9b332db81c47832e02afac6ef7ca53b4a812cc126261ec98b7bf672c6db4f1e8",
   "external/flight_control/geometric.py": "96c23bff95edb24f19c6e14124bc52c0dbc16004d5fd87c2d2be087b3d4c1d50",
-  "external/flight_control/lie_group_adapter.py": "be4f27e5d6115b9d214a164d93ae0b5e0006804216e4ed5356262bc2bc84c7fe"
+  "external/flight_control/lie_group_adapter.py": "be4f27e5d6115b9d214a164d93ae0b5e0006804216e4ed5356262bc2bc84c7fe",
+  "updated_at": "2026-10-13",
+  "path_note": "Hashes refreshed 2026-10-13 for the YOPO-only release; entries describe the released bytes. Run scripts again with `python -` style ad-hoc hashing or the audit tools to re-verify."
 }

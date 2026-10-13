@@ -10,7 +10,7 @@
 | 01 | 01_paper_protocol | 论文、源码版本、实验协议和差异 |
 | 02 | 02_environment_ros2 | Ubuntu 22.04、Docker、ROS2和接口计划 |
 | 03 | 03_dataset_training | 数据版本、训练配置、检查点和恢复策略 |
-| 04 | 04_runtime_baselines | YOPO运行时、专家、TopoTraj、Agile和MPPI |
+| 04 | 04_runtime_baselines | YOPO运行时、专家、TopoTraj、Agile（MPPI 已归档） |
 | 05 | 05_benchmark_acceptance | 基准矩阵、统计、验收和证据规则 |
 | 06 | 06_github_migration | GitHub仓库、LFS、Ubuntu迁移与发布清单 |
 | 90 | 90_decisions | 需要用户裁决的事项和已采纳决定 |
@@ -21,7 +21,7 @@
 ## 当前约束
 
 - 正式运行代码继续位于项目根目录的 src、scripts、configs、ros2_ws、docker；这是运行兼容层，不能仅为分类而移动。
-- 论文主矩阵仍为 1500/1800，MPPI 的 300 槽位未执行。
+- 活动矩阵为 YOPO-only 五模型 × 300 = 1,500，已全部执行；参考[17] MPPI 于 2026-10-13 移出活动范围并归档（1800 槽超集协议保留为历史锚点）。
 - 固定协议、验收脚本、审计权重和既有飞行证据必须通过变更记录管理。
 - GitHub源代码仓库与完整数据归档分开规划；59 GB级别的原始数据和运行输出不能直接当作普通Git文件上传。
 

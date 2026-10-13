@@ -1,10 +1,10 @@
 # 04 评测交付
 
-更新：2026-10-12 ｜ 论文对应：III-A 训练策略验证（Table I）、III-B 仿真对比（Table II、Fig.7）
+更新：2026-10-13 ｜ 论文对应：III-A 训练策略验证（Table I）、III-B 仿真对比（Table II、Fig.7）
 
-## 正式矩阵（1500 / 1800）
+## 活动矩阵（YOPO-only，1,500 / 1,500）
 
-协议：[benchmarks/protocol_v1](../../benchmarks/protocol_v1)（协议哈希 `d2fd3052…`，记录于 [summary.json](../../artifacts/benchmark_summary/summary.json)）。矩阵为 6 个模型 × 2 密度 × 5 速度 × 30 架次 = 1800；当前完成 1500，缺口 300 全部是参考[17] MPPI（未实现）。
+协议：[benchmarks/protocol_v1](../../benchmarks/protocol_v1)（超集协议哈希 `d2fd3052…` 不变；活动范围由 [active_scope_yopo_only.json](../../benchmarks/protocol_v1/active_scope_yopo_only.json) 定义为五模型 × 300）。活动矩阵已全部执行：1,500/1,500（记录于 [summary.json](../../artifacts/benchmark_summary/summary.json)，`status=outcome_coverage_complete`）。参考[17] MPPI 的 300 槽于 2026-10-13 移出活动范围并归档（见 [MPPI 归档](../90_archive/mppi/README.md)）。
 
 | 模型 | 完成 | 成功 | 碰撞 | 超时 |
 |---|---|---|---|---|
@@ -13,8 +13,8 @@
 | YOPO seed2 | 300/300 | 174 | 36 | 90 |
 | TopoTraj | 300/300 | 71 | 227 | 2 |
 | Agile Autonomy | 300/300 | 30 | 269 | 1 |
-| 参考[17] MPPI | 0/300 | — | — | — |
-| 合计 | 1500/1800 | 622 | 624 | 254 |
+| 参考[17] MPPI（已移出活动范围） | — | — | — | — |
+| 合计 | 1500/1500 | 622 | 624 | 254 |
 
 统计口径：失败保留在成功率分母中，缺失架次记为未知；Wilson 区间只描述已完成架次。详见 [summary.json](../../artifacts/benchmark_summary/summary.json) 的 `statistics_note`。
 

@@ -12,7 +12,7 @@
     "scripts/ros2/serve_planner.py": "cd668fa880735612f6a9b4133b5e4680e5693a74fc7936d47e54fb6fb77355c0",
     "scripts/validate_ros2_flight.py": "317d1ea18a28448dc4726788e470d3d5591d19fbf6d21647b2fbe9cee6166da5",
     "scripts/evaluate_ros2_flight.py": "527ec1ec43e0ddff9a194afe18f35ada28e55142afd74f50f7fd00543848ec48",
-    "scripts/run_benchmark_matrix.py": "e0595a744891be1f66fbcf2318ba0fc369f729effa5ad4ba0488679712f72abd",
+    "scripts/run_benchmark_matrix.py": "ad0fbac0f8bb6e2ef79c2a4121e346e862da33a290096d44f5055cc700704c5d",
     "src/yopo_sim/trajectory_buffer.py": "a83bacefbff74c5751bd835ed62d94b6a3814ee1231c8c637f5f349b50c7bba5",
     "src/yopo_sim/unified_quad.py": "2f46bad83cd96d5e001bb85cc70f1b3561c88abba2dce13bf901ebc38d0e2772",
     "src/yopo_sim/physx_vehicle.py": "aefa6eb1588c33d45d3c08e3c9d895a508420c3cd205a54d0226d71912ff7a53",
@@ -28,6 +28,19 @@
     "ros2_ws/src/yopo_runtime/yopo_runtime/main_planner.py": "7a9e8f6f102e218827fcc1ddc897ecaa90d6068fb015bd4399860b9b4fd9dd33",
     "ros2_ws/src/yopo_runtime/yopo_runtime/agile_planner.py": "433cc3dc097e62a3a8ff3c24067f319436a01d77a5bff86d8e6c0dfaa6e84ee4",
     "ros2_ws/src/yopo_runtime/yopo_runtime/frame_gate.py": "60ba4be47b6f0df5542759af9c72cfd8dfa245db36ce882234195fac91d1f1ce"
+  },
+  "runtime_files_amendment": {
+    "date": "2026-10-13",
+    "scope": "YOPO-only portable archive release",
+    "reason": "scripts/run_benchmark_matrix.py machine-specific Isaac interpreter default replaced with the YOPO_ISAAC_PYTHON environment variable (fallback: python on PATH); inside the container the launched command is unchanged. All other frozen runtime files are byte-identical to admission time.",
+    "amended": [
+      {
+        "path": "scripts/run_benchmark_matrix.py",
+        "old_sha256": "e0595a744891be1f66fbcf2318ba0fc369f729effa5ad4ba0488679712f72abd",
+        "new_sha256": "ad0fbac0f8bb6e2ef79c2a4121e346e862da33a290096d44f5055cc700704c5d"
+      }
+    ],
+    "effect": "The completed 1500-slot matrix evidence and this admission record's phase results are unchanged. Future-run authentication uses the amended hash; any further runtime edit invalidates admission as usual."
   },
   "phase_a": {
     "yopo_seed0": {

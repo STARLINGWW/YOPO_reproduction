@@ -1,0 +1,52 @@
+{
+  "recorded_at": "2026-09-24T17:13:00+08:00",
+  "purpose": "对 YOPO 参考[17]（Lu/Zong/Lai/Tian/Xie, IEEE TIE 69(9):9258-9267, 2021, DOI 10.1109/TIE.2021.3114744）再查一次：官方实现是否存在、是否存在合法的公开全文。这是对 artifacts/paper_sources/mppi_identity.json 与 mppi_repository_lookup.json 的补充核查，用于把“要不要补齐 MPPI 槽位”这个决策建立在最新事实上。",
+  "searches": [
+    {
+      "endpoint": "https://api.github.com/search/repositories?q=%22limited+field+of+view%22+MPPI+in%3Areadme&per_page=10",
+      "result": "total_count=3，全部无关：Ahmad-Rahmani-MCT/2d-pa-mppi（2D 感知感知 MPPI）、ryanbgriffiths/ICRA2024PaperList（论文清单）、ttylerzh/robotics_paper_daily（arXiv 日报）"
+    },
+    {
+      "endpoint": "https://api.github.com/search/repositories?q=%22Flight+With+Limited+Field+of+View%22+in%3Areadme&per_page=10",
+      "result": "total_count=0"
+    },
+    {
+      "endpoint": "https://api.github.com/search/repositories?q=%2210.1109%2FTIE.2021.3114744%22+in%3Areadme&per_page=10",
+      "result": "total_count=0（没有任何仓库的 README 提到该 DOI）"
+    },
+    {
+      "endpoint": "https://api.github.com/search/repositories?q=mppi+org%3ATJU-Aerial-Robotics&per_page=10",
+      "result": "total_count=1：TJU-Aerial-Robotics/RAPA-Planner（RA-MPPI，2025，属另一方法；项目规定不得用它顶替参考[17]）"
+    },
+    {
+      "endpoint": "https://api.github.com/search/repositories?q=hybrid+astar+mppi+in%3Aname&per_page=10",
+      "result": "total_count=3：RCILab/RCI_hybrid_astar_guided_mppi、hybrid-astar-guided-mppi/*.github.io（均为第三方、非 2021 TIE 基线）"
+    },
+    {
+      "endpoint": "https://api.github.com/orgs/TJU-Aerial-Robotics/repos?per_page=100",
+      "result": "HTTP 403 rate limit exceeded（与上一轮相同；但 org 内搜索已通过上面的 q=mppi+org: 查询覆盖）"
+    },
+    {
+      "endpoint": "https://api.openalex.org/works/doi:10.1109/TIE.2021.3114744",
+      "result": "命中该文（cited_by=15, type=article）；is_oa=false；best_oa_location=null；位置：IEEE Xplore（非 OA）、ScholarBank@NUS（非 OA）、DR-NTU（非 OA）"
+    },
+    {
+      "endpoint": "ScholarBank@NUS DSpace REST：/server/api/pid/find?id=hdl:10635/215302 与 /core/items/804af3f6-8c56-4d1b-9dec-51e9b8a62378/bundles",
+      "result": "记录公开存在（handle 10635/215302，uuid 804af3f6-8c56-4d1b-9dec-51e9b8a62378，标题与作者与参考[17]一致）。bundles：ORIGINAL（bitstream 'Flight_with_Limited_Field_of_View_A_Parallel_and_Gradient-free_Strategy_for_Micro_Aerial_Vehicle.pdf'，34,773,949 字节）、TEXT（同名 .pdf.txt，63,600 字节）、THUMBNAIL。"
+    },
+    {
+      "endpoint": "两个 bitstream 的 /content 端点（带浏览器 UA/Accept/Referer）",
+      "result": "HTTP 401（ORIGINAL 与 TEXT 均需登录）；因此全文**不能公开下载**，与 OpenAlex 的 is_oa=false 一致。"
+    },
+    {
+      "endpoint": "https://hdl.handle.net/10356/225210（DR-NTU 记录）",
+      "result": "HTTP 405 Not Allowed（记录存在但无法通过该 handle 取得全文）"
+    }
+  ],
+  "verdict": {
+    "official_implementation": "仍未发现（与既定状态 reference_only_no_official_release_found_reimplementation_required 一致）",
+    "public_legal_full_text": "不存在公开可下载的合法全文；NUS 机构库有公开记录与 bitstream 清单，但内容端点需机构登录（401）",
+    "what_would_change_option_A": "用户提供合法副本（IEEE Xplore 订阅下载，或用有权限的机构账号从 ScholarBank@NUS 取得）——有了正文，reference[17] 基线就可以按论文参数实现而不是靠猜；或者用户明确批准“基于 YOPO 论文对[17]的简述”做低保真重实现（不推荐：YOPO 正文只给了架构描述与 Table II 数字，缺少 MPPI 自身的采样/噪声/权重参数）"
+  },
+  "consequence_for_the_frozen_matrix": "不变：在用户决定之前，300 个 mppi_reference17 槽位保持不执行并显式记录；benchmark_matrix 项按当前判据停在 pending。详见 artifacts/environment/completion_criteria_gap.json。"
+}

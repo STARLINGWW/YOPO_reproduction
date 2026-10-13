@@ -1,0 +1,82 @@
+{
+  "recorded_at": "2026-09-24T16:59:20+08:00",
+  "question": "在 300 个 mppi_reference17 槽位按既定政策保持不执行的前提下，冻结的 1800 集矩阵是否还能让 scripts/final_acceptance_audit.py 的 benchmark_matrix 项达到 verified？",
+  "answer": "不能。按当前代码，该项会永远停在 pending；此前反复引用的终态“6 verified + 1 documented_gap”在真实运行中不可达，除非用户批准补齐 MPPI 槽位或明确批准修改验收口径。",
+  "chain_of_evidence": [
+    {
+      "step": "驱动直接跳过 MPPI 槽位",
+      "file": "scripts/run_benchmark_matrix.py",
+      "lines": "275-282",
+      "detail": "mission['backend']=='mppi_reference17' 时调用 note_skip(...,'not_attempted_backend_unavailable')；任何不在 runtime_validation.json 的 validated_backends 中的后端同样被跳过（'not_attempted_backend_unvalidated'）。"
+    },
+    {
+      "step": "跳过记录同时计入 failures，驱动以非零码退出",
+      "file": "scripts/run_benchmark_matrix.py",
+      "lines": "256-264, 342-347",
+      "detail": "note_skip() 会 failures.append(...)；即使批次正常结束（matrix_result.json status=batch_finished），最后仍 raise SystemExit('N episodes did not produce terminal evidence')。"
+    },
+    {
+      "step": "驱动自带测试断言了该行为",
+      "file": "tests/test_benchmark_matrix_driver.py",
+      "lines": "94-112",
+      "detail": "test_execute_skips_backends_outside_admission：admission 无已验证后端时，所有记录为 'not_attempted_backend_unvalidated'，并以 'did not produce terminal evidence' 退出。"
+    },
+    {
+      "step": "聚合器只统计真实飞行证据",
+      "file": "scripts/aggregate_benchmarks.py",
+      "lines": "7-40",
+      "detail": "records 仅来自 artifacts/ros2_flights/*/metrics.json（scope=primary_frozen_benchmark 且通过身份/校验/评估闸门）；被跳过的槽位没有任何 run 目录，无法进入统计。"
+    },
+    {
+      "step": "覆盖完成判据要求 1800/1800",
+      "file": "src/yopo_eval/aggregate.py",
+      "lines": "44-46",
+      "detail": "status='outcome_coverage_complete' 仅当 completed==expected==len(protocol['episodes'])==1800；因此最多 1500 完成时 status 恒为 'incomplete'。"
+    },
+    {
+      "step": "终审判据同样要求 1800/1800 且 failures==0",
+      "file": "scripts/final_acceptance_audit.py",
+      "lines": "117-130",
+      "detail": "check_matrix 要求 completed==expected==1800 且 failures==0、invalid_evidence==0、duplicate_primary_attempts==0、aggregate 状态为 outcome_coverage_complete；任一条不满足即返回 pending。"
+    },
+    {
+      "step": "“6 verified” 只被合成树验证过接线，未覆盖该冲突",
+      "file": "tests/test_final_acceptance_audit.py",
+      "lines": "48-50, 74-76",
+      "detail": "合成测试直接手写 summary.json（completed_episodes=1800、expected_episodes=1800、invalid_evidence=[]），并没有模拟 300 个未执行槽位，因此它只证明判据的接线正确，不证明真实运行可达。"
+    }
+  ],
+  "consequence": {
+    "unfilled_slots": 300,
+    "unfilled_backend": "mppi_reference17",
+    "max_completed_episodes_with_current_policy": 1500,
+    "acceptance_item_state_at_best_case": "benchmark_matrix = pending（其他 6 项可为 verified/documented_gap）",
+    "driver_exit_at_best_case": "非零（记录 300 条 not_attempted 跳过）"
+  },
+  "options_for_user": [
+    {
+      "id": "A",
+      "label": "补齐 MPPI 槽位（扩大工作量）",
+      "detail": "明确批准基于论文正文重实现 reference-17 MPPI 并接入统一接口（官方原码不存在，因此它不是原版复现；需要额外实现与 GPU/仿真时间），使 1800 个槽位可全部真实执行。"
+    },
+    {
+      "id": "B",
+      "label": "修改验收口径（需明确批准）",
+      "detail": "把主矩阵范围冻结为 runtime admission 已验证的后端（1500 槽），把 300 个 mppi_reference17 槽位作为显式排除项写入聚合与终审（含逐槽位原因），并强制所有报告不得声称已执行 1800 集。"
+    },
+    {
+      "id": "C",
+      "label": "保持现状（最保守）",
+      "detail": "不改验收规则也不补 MPPI；最终终审将显示 benchmark_matrix=pending，目标无法标记完成。"
+    }
+  ],
+  "current_action": "在用户决定之前不修改验收脚本、聚合规则或基准协议，也不伪造任何证据；矩阵仍按冻结协议执行可执行的部分，300 个未执行槽位保持显式可见（driver ledger 的 not_attempted 记录 + aggregate 的 missing_episodes）。",
+  "update_2026_09_24_pm": {
+    "recorded_at": "2026-09-24T17:13:00+08:00",
+    "finding": "对参考[17] 的官方代码与合法全文又做了一轮定向核查（README 级 GitHub 搜索、TJU-Aerial-Robotics org 搜索、OpenAlex、ScholarBank@NUS DSpace REST、DR-NTU）：仍然没有任何官方实现；NUS 机构库有公开记录与 PDF/TEXT bitstream 清单，但内容端点返回 HTTP 401（需机构登录），因此没有公开可下载的合法全文。",
+    "evidence": "artifacts/paper_sources/mppi_reference17_lookup_20260924_pm.json",
+    "impact_on_options": "选项 A 的前提更清楚了：若用户能提供合法副本（IEEE 订阅下载或有权限的机构账号），就可以按论文参数实现 reference[17] 基线；否则只能批准低保真重实现（YOPO 正文只有架构描述与 Table II 数字，缺 MPPI 自身参数），或在选项 B/C 之间选择。",
+    "no_change_to_criteria": "验收判据与矩阵执行策略不变；本更新只是把决策所需的事实补齐。"
+  },
+  "scope_note": "本文件只记录已存在的判据冲突与其证据链，不改变任何训练/评测参数，也不改变 configs/reproduction_protocol.json 的冻结快照语义。"
+}

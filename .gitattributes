@@ -16,3 +16,21 @@
 *.pdf filter=lfs diff=lfs merge=lfs -text
 *.usda filter=lfs diff=lfs merge=lfs -text
 *.data-* filter=lfs diff=lfs merge=lfs -text
+*.ply filter=lfs diff=lfs merge=lfs -text
+*.f32 filter=lfs diff=lfs merge=lfs -text
+*.u8 filter=lfs diff=lfs merge=lfs -text
+
+# Byte-anchored evidence files: recorded sha256 values (protocol missions,
+# runtime admission, dataset manifests) are computed over the raw bytes, so
+# Git must store these files byte-for-byte and never apply end-of-line
+# normalisation. Verified 2026-10-13: without this, a fresh clone changes the
+# bytes of protocol.json/maps and every recorded hash check fails.
+benchmarks/protocol_v1/protocol.json -text
+benchmarks/protocol_v1/maps/*.json -text
+benchmarks/protocol_v1/runtime_validation.json -text
+configs/unified_quad.json -text
+configs/topotraj/isaac_development.yaml -text
+datasets/** -text
+artifacts/** -text
+checkpoints/** -text
+external/audit_sources/** -text

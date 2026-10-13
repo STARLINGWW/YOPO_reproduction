@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "cases": 32,
+  "scope": "original trajectory cost/Jacobian with analytic-plane SDF test double; real ESDF construction still separate",
+  "max_cost_error": 6.8833827526759706e-15,
+  "max_gradient_error": 1.5543122344752192e-15,
+  "upstream_optimizer_sha256": "fa93f9f0c4a34040c7b07a07e0e629608136af7ced8caee85e04e421c36924b1"
+}

@@ -23,7 +23,7 @@ plan/
   01_paper_protocol/          论文、源码、协议和差异
   02_environment_ros2/        环境、消息、时钟和接口
   03_dataset_training/        数据、训练、恢复和checkpoint
-  04_runtime_baselines/       YOPO、专家、基线和MPPI
+  04_runtime_baselines/       YOPO、专家、基线（MPPI 已归档）
   05_benchmark_acceptance/    矩阵、统计、证据和验收
   06_github_migration/        GitHub、LFS和Ubuntu迁移
   90_decisions/               用户裁决与方案选择
@@ -35,7 +35,7 @@ implement/
   02_training_pipeline/       数据、训练和恢复入口
   03_ros2_runtime/            ROS2协议、规划器和时钟
   04_isaac_sim/               Isaac采集、飞行和回放
-  05_baselines/               专家、TopoTraj、Agile和MPPI
+  05_baselines/               专家、TopoTraj、Agile（MPPI 已归档）
   06_validation/              测试、准入和证据契约
   07_visualization/           渲染器、指标图和视频
   99_workspace_rules/         大模型实施规范和任务模板

@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "scope": "mechanical acceptance audit; each item lists the authoritative evidence inspected",
+  "run_prefix": "formal_main_v1",
+  "items": [
+    {
+      "id": "three_seed_training",
+      "requirement": "Three seeds each trained 50 epochs from scratch and passed the strict per-epoch audit",
+      "status": "verified",
+      "detail": "all three seeds audited",
+      "evidence": [
+        "<旧项目根>/checkpoints\\formal_main_v1_seed0\\training_audit.json",
+        "<旧项目根>/checkpoints\\formal_main_v1_seed1\\training_audit.json",
+        "<旧项目根>/checkpoints\\formal_main_v1_seed2\\training_audit.json"
+      ]
+    },
+    {
+      "id": "expert_50_step_comparison",
+      "requirement": "Expert comparison on the independent offline test set with the audited final weights",
+      "status": "verified",
+      "detail": "three seeds plus random initial at full sample count",
+      "evidence": [
+        "<旧项目根>/artifacts\\expert\\network_comparison_trained_seed0.json",
+        "<旧项目根>/artifacts\\expert\\network_comparison_trained_seed1.json",
+        "<旧项目根>/artifacts\\expert\\network_comparison_trained_seed2.json",
+        "<旧项目根>/artifacts\\expert\\network_comparison_random_initial.json"
+      ]
+    },
+    {
+      "id": "baseline_native_validation",
+      "requirement": "Baseline CUDA/native closed-loop validation before the matrix",
+      "status": "verified",
+      "detail": "admission passed and agile CUDA parity passed",
+      "evidence": [
+        "<旧项目根>/benchmarks\\protocol_v1\\runtime_validation.json"
+      ]
+    },
+    {
+      "id": "mppi_reference17",
+      "requirement": "Reference-17 MPPI baseline either reproduced from the paper or explicitly recorded as unfilled",
+      "status": "documented_gap",
+      "detail": "protocol status: reference_only_no_official_release_found_reimplementation_required",
+      "evidence": [
+        "<旧项目根>/artifacts\\paper_sources\\mppi_identity.json"
+      ]
+    },
+    {
+      "id": "dagger_finetune",
+      "requirement": "Separate DAgger aggregation data version and fine-tuned checkpoint",
+      "status": "verified",
+      "detail": "aggregation dataset and fine-tuned run both complete",
+      "evidence": [
+        "<旧项目根>/datasets\\isaac_dagger_v1\\aggregation_manifest.json",
+        "<旧项目根>/checkpoints\\dagger_main_v1_seed0\\result.json"
+      ]
+    },
+    {
+      "id": "benchmark_matrix",
+      "requirement": "Frozen 1800-episode matrix executed with coverage-aware failure statistics",
+      "status": "pending",
+      "detail": "completed=1500 expected=1800 driver_failures=300 invalid_evidence=0 duplicates=0 aggregate_status=incomplete plan_pending=310",
+      "evidence": [
+        "<旧项目根>/artifacts\\benchmark_summary\\summary.json",
+        "<旧项目根>/artifacts\\benchmark_summary\\plan.json"
+      ]
+    },
+    {
+      "id": "final_showcase_and_audit",
+      "requirement": "Final 50-epoch showcase plus a passing command/evidence audit",
+      "status": "verified",
+      "detail": "showcase runs trace to audited checkpoints and the command/evidence audit passes",
+      "evidence": [
+        "<旧项目根>/artifacts\\environment\\command_evidence_audit.json",
+        "<旧项目根>/artifacts\\ros2_showcase\\showcase_formal_main_v1_seed0_20260926_014921_final\\render_manifest.json",
+        "<旧项目根>/artifacts\\ros2_showcase\\showcase_formal_main_v1_seed0_20260926_014921_view_20261008_174757_231\\render_manifest.json"
+      ]
+    }
+  ],
+  "counts": {
+    "verified": 5,
+    "documented_gap": 1,
+    "pending": 1
+  },
+  "all_verified": false,
+  "path_normalisation": "Pre-release snapshot; build-machine absolute paths normalised to placeholders on 2026-10-13."
+}

@@ -1,0 +1,84 @@
+{
+  "report_generated_at": "2026-10-02T20:33:14+08:00",
+  "scope": "Read-only review of existing YOPO artifacts; no training, flight, acceptance mutation or option A/B application",
+  "threads": {
+    "astraYOPO": "01a0cf36-0e8d-7ab1-9a5a-2698b7c3a559",
+    "ds-YOPO": "01a0d125-ad70-7ad1-8b13-3f35949be5e8",
+    "YOPO2": "01a0db55-4af3-79c2-a355-1d180ab94c10"
+  },
+  "acceptance_counts": {
+    "verified": 5,
+    "documented_gap": 1,
+    "pending": 1
+  },
+  "all_verified": false,
+  "matrix": {
+    "completed": 1500,
+    "expected": 1800,
+    "raw_primary_records": 1500,
+    "unique_episode_ids": 1500,
+    "raw_outcomes": {
+      "collision": 624,
+      "success": 622,
+      "timeout": 254
+    },
+    "model_outcomes": {
+      "agile_autonomy": {
+        "collision": 269,
+        "success": 30,
+        "timeout": 1
+      },
+      "mppi_reference17": {},
+      "topotraj": {
+        "success": 71,
+        "collision": 227,
+        "timeout": 2
+      },
+      "yopo_seed0": {
+        "success": 184,
+        "timeout": 74,
+        "collision": 42
+      },
+      "yopo_seed1": {
+        "success": 163,
+        "timeout": 87,
+        "collision": 50
+      },
+      "yopo_seed2": {
+        "success": 174,
+        "timeout": 90,
+        "collision": 36
+      }
+    },
+    "invalid_evidence": 0,
+    "duplicate_primary_attempts": 0,
+    "measurement_gaps": 0
+  },
+  "training_best_policy_sha256_matches": [
+    true,
+    true,
+    true
+  ],
+  "showcase_video_sha256_matches": true,
+  "batch": {
+    "records": 36,
+    "outcomes": {
+      "success": 30,
+      "timeout": 4,
+      "collision": 2
+    },
+    "raw_metric_mismatches": []
+  },
+  "dataset_validation_counts": {
+    "train": 100000,
+    "valid": 10000,
+    "test": 10000
+  },
+  "dagger_added_samples": 7620,
+  "limitations": [
+    "Existing audits read, not all training tensors re-audited",
+    "No full video decoding performed in this review",
+    "Docker daemon unavailable at review; container health not revalidated",
+    "No fresh full tests or flight runs"
+  ]
+}

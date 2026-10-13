@@ -6,7 +6,7 @@
 
 1. [01_module_map.md](01_module_map.md)：模块总图（论文 → 实现 → 证据 → 报告）。
 2. [02_执行手册.md](02_执行手册.md)：现有训练、恢复、审计和展示命令。
-3. [03_project_map.html](03_project_map.html)：交互式项目全景（12 模块 + 基准分布，截图见 `media/`）。
+3. [03_project_map.html](03_project_map.html)：交互式项目全景（12 模块 + 活动矩阵 1,500 槽分布，截图见 `media/`）。
 
 六份分类报告：
 

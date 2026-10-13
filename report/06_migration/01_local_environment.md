@@ -28,7 +28,7 @@
 打开 Docker Desktop，等待引擎可用后，所有训练/ROS2 命令从项目根目录通过 compose 进入容器（不要直接使用 WSL 发行版）：
 
 ```powershell
-Set-Location 'D:\_AAA_CODE_ALL\Tech_reproduction\YOPO_reproduction'
+cd <项目根目录>   # 历史记录：当时为本机 D:\ 路径，现已泛化
 docker version --format '{{.Server.Version}}'   # 期望返回 29.6.1
 docker context show                             # desktop-linux
 docker compose --profile training run --rm train python3 scripts/ros2/verify_environment.py --gpu
@@ -39,7 +39,7 @@ docker compose --profile training run --rm train python3 scripts/ros2/verify_env
 现象：Docker Desktop 弹窗 “An unexpected error occurred”，引擎始终 stopped；日志（`%LOCALAPPDATA%\Docker\log\host\com.docker.backend.exe.log`）报：
 
 ```text
-starting services: initializing Inference manager: listening on unix://C:/Users/STARLING/AppData/Local/Docker/run/dockerInference:
+starting services: initializing Inference manager: listening on unix://<本机用户>/AppData/Local/Docker/run/dockerInference:
 remove ...: The file cannot be accessed by the system.
 ```
 
@@ -49,10 +49,10 @@ remove ...: The file cannot be accessed by the system.
 
 1. 退出 Docker Desktop（所有 `Docker Desktop` / `com.docker.backend` 进程）。
 2. `wsl --shutdown`。
-3. 从 WSL 侧删除残留套接字（Windows 侧删不掉）：
+3. 从 WSL 侧删除残留套接字（Windows 侧删不掉；把 `<用户名>` 替换为本机用户名）：
 
 ```powershell
-wsl -d FASTLIVO-Ubuntu-22.04 -e bash -c "rm -f '/mnt/c/Users/STARLING/AppData/Local/Docker/run/dockerInference' '/mnt/c/Users/STARLING/AppData/Local/Docker/run/dockerEthernetVfkit' '/mnt/c/Users/STARLING/AppData/Local/Docker/run/userAnalyticsOtlpHttp.sock'"
+wsl -d FASTLIVO-Ubuntu-22.04 -e bash -c "rm -f '/mnt/c/Users/<用户名>/AppData/Local/Docker/run/dockerInference' '/mnt/c/Users/<用户名>/AppData/Local/Docker/run/dockerEthernetVfkit' '/mnt/c/Users/<用户名>/AppData/Local/Docker/run/userAnalyticsOtlpHttp.sock'"
 ```
 
 4. `docker-secrets-engine` 目录如整体损坏，直接改名保留即可（本次改名为 `docker-secrets-engine.bad-20261012`，不删除数据）。

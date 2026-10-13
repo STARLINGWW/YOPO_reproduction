@@ -36,7 +36,7 @@
 python scripts/audit_command_evidence.py --reports "report,plan,benchmarks,implement/00_workspace_map,implement/01_core_algorithm,implement/02_training_pipeline,implement/03_ros2_runtime,implement/04_isaac_sim,implement/05_baselines,implement/06_validation,implement/07_visualization,implement/99_workspace_rules" --recursive --extra-files "README.md,MIGRATION_UBUNTU22.md,CONTRIBUTING.md,AGENTS.md" --fail-on-missing
 ```
 
-结果：**68 份文档，0 缺失链接、0 缺失路径、0 不可解析 JSON**（输出 [document_audit_newroot.json](../../artifacts/refactor_20261012/document_audit_newroot.json)）。命令显式列出 implement 模块目录，避免进入 `implement/workspace` 的本地链接视图（视图不是仓库内容）。
+结果（2026-10-13 复跑）：**73 份文档，0 缺失链接、0 缺失路径、0 不可解析 JSON**。命令显式列出 implement 模块目录，避免进入 `implement/workspace` 的本地链接视图（视图不是仓库内容）。
 
 ## 5. 冻结快照
 
@@ -46,4 +46,4 @@ python scripts/audit_command_evidence.py --reports "report,plan,benchmarks,imple
 
 - 新根已独立 `git init` 并完成初始提交（见提交记录）；旧仓库 `origin` 保持不变，新文件夹已加入旧仓库 `.gitignore`。
 - 本次 **未删除任何数据、权重或证据**；旧根 `YOPO_reproduction/` 保留为冻结归档。
-- 仍待执行：独立 Ubuntu 22.04 主机迁移、LFS/Release 大文件上传；实验侧缺口（MPPI 300 槽、DAgger 收益验证、矩阵 1500/1800）与结构重构无关，保持如实标注。
+- 仍待执行：独立 Ubuntu 22.04 主机迁移、LFS/Release 大文件上传；实验侧（YOPO-only 活动矩阵已于 2026-10-13 收官，MPPI 移出活动范围并归档；DAgger 收益验证仍为研究限制）与结构重构无关，保持如实标注。

@@ -83,10 +83,13 @@ def test_dry_run_plan_and_resume(tmp_path,monkeypatch,capsys):
 
 
 def test_execute_requires_admission(tmp_path,monkeypatch):
+    protocol_dir = tmp_path/'protocol';protocol_dir.mkdir()
+    shutil.copy2(PROTOCOL,protocol_dir/'protocol.json')
+    shutil.copytree(PROTOCOL.parent/'maps',protocol_dir/'maps')
     monkeypatch.setattr(sys,'argv',['run_benchmark_matrix.py','--methods','yopo_seed0','--limit','1','--execute',
                                     '--plan',str(tmp_path/'plan.json'),'--progress',str(tmp_path/'progress.json'),
                                     '--result',str(tmp_path/'result.json'),
-                                    '--protocol',str(PROTOCOL)])
+                                    '--protocol',str(protocol_dir/'protocol.json')])
     with pytest.raises(SystemExit,match='Runtime admission record is missing'):
         driver.main()
 
@@ -105,13 +108,16 @@ def test_execute_skips_backends_outside_admission(tmp_path,monkeypatch):
                                     '--result',str(tmp_path/'result.json')])
     monkeypatch.setattr(driver,'require_training_gpu_released',lambda:None)
     monkeypatch.setattr(driver,'docker_engine_available',lambda:True)
+    flights = ROOT/'artifacts/ros2_flights'
+    before = {p.name for p in flights.glob('primary_yopo_seed0_*')} if flights.is_dir() else set()
     with pytest.raises(SystemExit,match='did not produce terminal evidence'):
         driver.main()
     progress = json.loads((tmp_path/'progress.json').read_text(encoding='utf-8'))
     assert len(progress['episodes'])==2
     assert all(record['status']=='not_attempted_backend_unvalidated' for record in progress['episodes'].values())
     assert all(record['driver_status']=='skipped' for record in progress['episodes'].values())
-    assert not list((ROOT/'artifacts/ros2_flights').glob('primary_yopo_seed0_*'))
+    after = {p.name for p in flights.glob('primary_yopo_seed0_*')} if flights.is_dir() else set()
+    assert after==before
 
 
 def test_execute_stops_when_the_engine_is_unavailable(tmp_path,monkeypatch):
@@ -128,13 +134,16 @@ def test_execute_stops_when_the_engine_is_unavailable(tmp_path,monkeypatch):
                                     '--result',str(tmp_path/'result.json')])
     monkeypatch.setattr(driver,'require_training_gpu_released',lambda:None)
     monkeypatch.setattr(driver,'docker_engine_available',lambda:False)
+    flights = ROOT/'artifacts/ros2_flights'
+    before = {p.name for p in flights.glob('primary_yopo_seed0_*')} if flights.is_dir() else set()
     driver.main()
     result = json.loads((tmp_path/'result.json').read_text(encoding='utf-8'))
     assert result['status']=='batch_stopped_engine_unavailable'
     assert result['attempted']==0 and result['pending_after_stop']==3
     progress = json.loads((tmp_path/'progress.json').read_text(encoding='utf-8'))
     assert progress['episodes']=={}
-    assert not list((ROOT/'artifacts/ros2_flights').glob('primary_yopo_seed0_*'))
+    after = {p.name for p in flights.glob('primary_yopo_seed0_*')} if flights.is_dir() else set()
+    assert after==before
 
 
 def test_run_name_retries_skip_used_and_existing(tmp_path):

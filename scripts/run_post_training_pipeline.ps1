@@ -21,7 +21,8 @@ $projectPath = Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $projectPath
 $logDir = Join-Path $projectPath 'artifacts\environment'
 New-Item -ItemType Directory -Force -Path $logDir | Out-Null
-$python = 'D:\_AAA_FILE_ALL\Anaconda_file\Anaconda_env\isaac61\python.exe'
+$python = if ($env:YOPO_ISAAC_PYTHON) { $env:YOPO_ISAAC_PYTHON } else { 'python' }
+if (-not (Get-Command $python -ErrorAction SilentlyContinue)) { throw "Python interpreter not found: '$python'. Set YOPO_ISAAC_PYTHON to the Isaac Sim python.exe (or put python on PATH)." }
 $requested = $Stages.Split(',') | ForEach-Object { $_.Trim() } | Where-Object { $_ }
 
 function Write-Stage([string]$name, [string]$message) {

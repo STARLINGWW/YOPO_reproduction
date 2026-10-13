@@ -1,0 +1,1479 @@
+{
+  "status": "passed",
+  "reports_scanned": 75,
+  "missing_link_count": 0,
+  "missing_path_count": 0,
+  "unparsable_json_count": 0,
+  "scope": "documentation and evidence path consistency only; not a result or success-rate claim",
+  "details": [
+    {
+      "report": "report/00_index/01_module_map.md",
+      "links": [
+        "<旧项目根>/artifacts/expert/network_comparison_trained_seed0.json",
+        "<旧项目根>/artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/metrics.json",
+        "<旧项目根>/datasets/isaac_dagger_v1/aggregation_manifest.json",
+        "<旧项目根>/datasets/isaac_full_v1/validation.json",
+        "artifacts/environment/final_acceptance_audit.json",
+        "artifacts/environment/status_overview.json",
+        "artifacts/paper_figures/figure_7_success_vs_speed.png",
+        "artifacts/paper_figures/table_i_expert_vs_network.md",
+        "artifacts/paper_figures/table_ii_latency_safety_smoothness.md",
+        "artifacts/paper_sources/YOPO_author_version.pdf",
+        "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_overview.png",
+        "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_trajectory.mp4",
+        "benchmarks/protocol_v1/protocol.json",
+        "benchmarks/protocol_v1/runtime_validation.json",
+        "checkpoints/dagger_main_v1_seed0/result.json",
+        "checkpoints/formal_main_v1_seed0",
+        "checkpoints/formal_main_v1_seed0/training_audit.json",
+        "compose.yaml",
+        "configs/expert_variants.json",
+        "configs/paper_aligned.json",
+        "configs/reproduction_protocol.json",
+        "external/audit_sources/YOPO-Simple",
+        "external/audit_sources/main",
+        "external/audit_sources/main/flightpolicy/yopo/primitive_utils.py",
+        "external/audit_sources/main/flightpolicy/yopo/yopo_policy.py",
+        "implement/01_core_algorithm/README.md",
+        "implement/02_training_pipeline/README.md",
+        "implement/03_ros2_runtime/README.md",
+        "implement/04_isaac_sim/README.md",
+        "implement/05_baselines/README.md",
+        "implement/06_validation/README.md",
+        "implement/07_visualization/README.md",
+        "implement/README.md",
+        "plan/00_charter/01_refactor_master_plan.md",
+        "plan/01_paper_protocol/README.md",
+        "plan/02_environment_ros2/README.md",
+        "report/01_status/02_复现状态总览.md",
+        "report/01_status/README.md",
+        "report/02_method/01_paper_to_code.md",
+        "report/02_method/02_YOPO笔记与本地复现逐项对照_2026-10-08.md",
+        "report/02_method/03_原论文与源码差异审计.md",
+        "report/03_training/02_DAgger聚合与微调方案.md",
+        "report/03_training/03_专家50步比较.md",
+        "report/04_evaluation/01_official_vs_selftrained.md",
+        "report/04_evaluation/02_权重批量对照实验.md",
+        "report/04_evaluation/06_ROS2基线迁移记录.md",
+        "report/05_visualization/01_演示程序与权重飞行验证命令.md",
+        "report/05_visualization/README.md",
+        "report/90_archive/01_完成验收与成果路径.md",
+        "report/90_archive/mppi/05_MPPI参考17身份与可得性.md",
+        "report/99_artifact_index/README.md",
+        "ros2_ws/src/yopo_expert_core",
+        "ros2_ws/src/yopo_math_reference",
+        "ros2_ws/src/yopo_runtime",
+        "ros2_ws/src/yopo_runtime/yopo_runtime/main_planner.py",
+        "ros2_ws/src/yopo_runtime/yopo_runtime/protocol_node.py",
+        "scripts/collect_isaac_shard.py",
+        "scripts/prepare_dataset.py",
+        "scripts/run_navigation.py",
+        "scripts/run_ros2_navigation.py",
+        "scripts/train_scratch.py",
+        "src/yopo_repro/forest.py",
+        "src/yopo_repro/main_cost.py",
+        "src/yopo_repro/maps.py",
+        "src/yopo_repro/policy.py",
+        "src/yopo_repro/quintic.py",
+        "src/yopo_sim/job_guard.py",
+        "src/yopo_sim/physx_vehicle.py",
+        "src/yopo_sim/trajectory_buffer.py",
+        "src/yopo_sim/unified_quad.py"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/00_index/02_执行手册.md",
+      "links": [
+        "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_trajectory.mp4",
+        "report/01_status/01_当前进度简报.md",
+        "report/01_status/02_复现状态总览.md",
+        "report/03_training/02_DAgger聚合与微调方案.md",
+        "report/05_visualization/01_演示程序与权重飞行验证命令.md",
+        "report/90_archive/01_完成验收与成果路径.md",
+        "report/90_archive/mppi/README.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [
+        "scripts/audit_command_evidence.py",
+        "scripts/make_status_overview.py",
+        "scripts/queue_status.py",
+        "scripts/run_weights_ab_batch.py"
+      ],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/00_index/README.md",
+      "links": [
+        "report/00_index/01_module_map.md",
+        "report/00_index/02_执行手册.md",
+        "report/00_index/03_project_map.html"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/01_status/01_当前进度简报.md",
+      "links": [
+        "<旧项目根>/datasets/isaac_full_v1/validation.json",
+        "artifacts/agile_autonomy/torch_export_v1/torch_cuda_parity.json",
+        "artifacts/benchmark_summary/summary.json",
+        "artifacts/environment/completion_criteria_gap.json",
+        "artifacts/environment/progress_brief.json",
+        "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_trajectory.mp4",
+        "benchmarks/archive/README.md",
+        "benchmarks/protocol_v1/runtime_validation.json",
+        "plan/90_decisions/archive_mppi/README.md",
+        "report/00_index/README.md",
+        "report/01_status/02_复现状态总览.md",
+        "report/03_training/02_DAgger聚合与微调方案.md",
+        "report/03_training/03_专家50步比较.md",
+        "report/04_evaluation/02_权重批量对照实验.md",
+        "report/90_archive/mppi/README.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/01_status/02_复现状态总览.md",
+      "links": [
+        "report/01_status/README.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/01_status/README.md",
+      "links": [
+        "artifacts/benchmark_summary/summary.json",
+        "artifacts/environment/final_acceptance_audit.json",
+        "benchmarks/archive/README.md",
+        "plan/90_decisions/archive_mppi/README.md",
+        "report/00_index/01_module_map.md",
+        "report/01_status/01_当前进度简报.md",
+        "report/01_status/02_复现状态总览.md",
+        "report/90_archive/mppi/README.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/02_method/01_paper_to_code.md",
+      "links": [
+        "<旧项目根>/artifacts/expert/network_comparison_trained_seed0.json",
+        "artifacts/benchmark_summary/summary.json",
+        "artifacts/note_alignment_20261008/training_graph_trace.json",
+        "artifacts/paper_figures/figure_7_success_vs_speed.png",
+        "artifacts/paper_figures/table_i_expert_vs_network.md",
+        "artifacts/paper_sources/YOPO_author_version.txt",
+        "external/audit_sources/main",
+        "external/audit_sources/main/flightpolicy/yopo/primitive_utils.py",
+        "external/audit_sources/main/flightpolicy/yopo/yopo_policy.py",
+        "report/00_index/01_module_map.md",
+        "report/00_index/02_执行手册.md",
+        "report/01_status/02_复现状态总览.md",
+        "report/02_method/02_YOPO笔记与本地复现逐项对照_2026-10-08.md",
+        "report/02_method/03_原论文与源码差异审计.md",
+        "report/03_training/03_专家50步比较.md",
+        "report/04_evaluation/02_权重批量对照实验.md",
+        "report/04_evaluation/04_基准运行配置冻结.md",
+        "report/04_evaluation/06_ROS2基线迁移记录.md",
+        "ros2_ws/src/yopo_runtime/yopo_runtime/main_planner.py",
+        "src/yopo_repro",
+        "src/yopo_repro/main_cost.py",
+        "src/yopo_repro/maps.py",
+        "src/yopo_repro/policy.py"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/02_method/02_YOPO笔记与本地复现逐项对照_2026-10-08.md",
+      "links": [
+        "<旧项目根>/datasets/isaac_full_v1/validation.json",
+        "artifacts/benchmark_summary/summary.json",
+        "artifacts/note_alignment_20261008/trace_training_graph.py",
+        "artifacts/note_alignment_20261008/training_graph_trace.json",
+        "checkpoints/dagger_main_v1_seed0/result.json",
+        "checkpoints/formal_main_v1_seed0/training_audit.json",
+        "configs/expert_variants.json",
+        "configs/paper_aligned.json",
+        "configs/unified_quad.json",
+        "external/audit_sources/main/flightpolicy/yopo/primitive_utils.py",
+        "external/audit_sources/main/flightpolicy/yopo/yopo_policy.py",
+        "plan/01_paper_protocol/references/YOPO_原始笔记对话_conversation.txt",
+        "report/00_index/README.md",
+        "report/01_status/01_当前进度简报.md",
+        "ros2_ws/src/yopo_runtime/yopo_runtime/main_planner.py",
+        "scripts/prepare_dataset.py",
+        "scripts/run_ros2_navigation.py",
+        "scripts/train_scratch.py",
+        "src/yopo_repro/dataset.py",
+        "src/yopo_repro/main_cost.py",
+        "src/yopo_repro/policy.py"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/02_method/03_原论文与源码差异审计.md",
+      "links": [
+        "report/00_index/README.md",
+        "report/01_status/02_复现状态总览.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/02_method/README.md",
+      "links": [
+        "report/02_method/01_paper_to_code.md",
+        "report/02_method/02_YOPO笔记与本地复现逐项对照_2026-10-08.md",
+        "report/02_method/03_原论文与源码差异审计.md",
+        "report/90_archive/04_YOPO本地复现调研与方案.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/03_training/01_ROS2从头训练执行进度.md",
+      "links": [
+        "artifacts/dagger_flights/dagger_agg_v1/flights.json",
+        "report/01_status/01_当前进度简报.md",
+        "report/01_status/02_复现状态总览.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/03_training/02_DAgger聚合与微调方案.md",
+      "links": [
+        "<旧项目根>/datasets/isaac_dagger_v1/aggregation_manifest.json",
+        "artifacts/dagger_flights/dagger_agg_v1/flights.json",
+        "artifacts/dagger_flights/dagger_agg_v1_plan.json",
+        "checkpoints/dagger_main_v1_seed0/result.json",
+        "checkpoints/dagger_main_v1_seed0/run_manifest.json",
+        "report/01_status/02_复现状态总览.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/03_training/03_专家50步比较.md",
+      "links": [
+        "<旧项目根>/artifacts/expert/formal_test_v1",
+        "<旧项目根>/artifacts/expert/official_checkpoint_mapping.json",
+        "artifacts/paper_figures/table_i_expert_vs_network.md",
+        "configs/expert_variants.json",
+        "report/01_status/02_复现状态总览.md",
+        "report/02_method/02_YOPO笔记与本地复现逐项对照_2026-10-08.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/03_training/README.md",
+      "links": [
+        "<旧项目根>/datasets/isaac_dagger_v1",
+        "<旧项目根>/datasets/isaac_dagger_v1/aggregation_manifest.json",
+        "<旧项目根>/datasets/isaac_full_v1",
+        "<旧项目根>/datasets/isaac_full_v1/validation.json",
+        "checkpoints/dagger_main_v1_seed0/result.json",
+        "checkpoints/formal_main_v1_seed0/training_audit.json",
+        "checkpoints/formal_main_v1_seed1/training_audit.json",
+        "checkpoints/formal_main_v1_seed2/training_audit.json",
+        "implement/02_training_pipeline/README.md",
+        "report/00_index/01_module_map.md",
+        "report/02_method/01_paper_to_code.md",
+        "report/02_method/02_YOPO笔记与本地复现逐项对照_2026-10-08.md",
+        "report/02_method/README.md",
+        "report/03_training/01_ROS2从头训练执行进度.md",
+        "report/03_training/02_DAgger聚合与微调方案.md",
+        "report/03_training/03_专家50步比较.md",
+        "report/04_evaluation/README.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/04_evaluation/01_official_vs_selftrained.md",
+      "links": [
+        "<旧项目根>/artifacts/expert/official_checkpoint_mapping.json",
+        "<旧项目根>/artifacts/expert/official_epoch50_policy_layout.pth",
+        "<旧项目根>/artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/metrics.json",
+        "<旧项目根>/checkpoints/official_epoch50_reference/best_policy.pth",
+        "artifacts/benchmark_summary/summary.json",
+        "artifacts/paper_figures/table_i_expert_vs_network.md",
+        "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_trajectory.mp4",
+        "artifacts/showcase/forest_seed7_v3/render_manifest.json",
+        "artifacts/showcase/forest_seed7_v3/yopo_global_flight.mp4",
+        "artifacts/weights_ab_demo/batch_analysis.json",
+        "artifacts/weights_ab_demo/batch_logs",
+        "artifacts/weights_ab_demo/batch_summary.json",
+        "checkpoints/formal_main_v1_seed0/best_policy.pth",
+        "checkpoints/formal_main_v1_seed0/training_audit.json",
+        "external/audit_sources/YOPO-Simple/YOPO/saved/YOPO_1/epoch50.pth",
+        "report/03_training/03_专家50步比较.md",
+        "report/04_evaluation/02_权重批量对照实验.md",
+        "report/90_archive/01_完成验收与成果路径.md",
+        "scripts/compare_expert_network.py",
+        "scripts/run_weights_ab_batch.py"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/04_evaluation/02_权重批量对照实验.md",
+      "links": [
+        "artifacts/weights_ab_demo/batch_analysis.json",
+        "artifacts/weights_ab_demo/batch_summary.json"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/04_evaluation/03_权重对比演示实验.md",
+      "links": [
+        "report/04_evaluation/02_权重批量对照实验.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/04_evaluation/04_基准运行配置冻结.md",
+      "links": [
+        "artifacts/agile_autonomy/torch_export_v1/torch_cuda_parity.json",
+        "artifacts/benchmark_summary/summary.json",
+        "benchmarks/protocol_v1/protocol.json",
+        "benchmarks/protocol_v1/runtime_validation.json",
+        "configs/benchmark_runtime/v1.json",
+        "plan/90_decisions/archive_mppi/README.md",
+        "report/90_archive/mppi/README.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/04_evaluation/06_ROS2基线迁移记录.md",
+      "links": [
+        "artifacts/agile_autonomy/torch_export_v1/torch_cuda_parity.json",
+        "artifacts/benchmark_summary/summary.json",
+        "artifacts/environment/agile_complete_reference_parity.json",
+        "artifacts/paper_figures/table_ii_latency_split.md",
+        "benchmarks/protocol_v1/runtime_validation.json",
+        "report/04_evaluation/04_基准运行配置冻结.md",
+        "report/90_archive/mppi/05_MPPI参考17身份与可得性.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/04_evaluation/README.md",
+      "links": [
+        "<旧项目根>/artifacts/expert/network_comparison_random_initial.json",
+        "<旧项目根>/artifacts/expert/network_comparison_trained_seed0.json",
+        "artifacts/benchmark_summary/summary.json",
+        "artifacts/paper_figures/figure_7_success_vs_speed.png",
+        "artifacts/paper_figures/manifest.json",
+        "artifacts/paper_figures/table_i_expert_vs_network.md",
+        "artifacts/paper_figures/table_ii_latency_safety_smoothness.md",
+        "artifacts/paper_figures/table_ii_latency_split.md",
+        "artifacts/weights_ab_demo",
+        "benchmarks/protocol_v1",
+        "benchmarks/protocol_v1/active_scope_yopo_only.json",
+        "benchmarks/protocol_v1/runtime_validation.json",
+        "implement/05_baselines/README.md",
+        "implement/06_validation/README.md",
+        "report/00_index/01_module_map.md",
+        "report/01_status/02_复现状态总览.md",
+        "report/01_status/README.md",
+        "report/04_evaluation/01_official_vs_selftrained.md",
+        "report/04_evaluation/02_权重批量对照实验.md",
+        "report/04_evaluation/03_权重对比演示实验.md",
+        "report/04_evaluation/04_基准运行配置冻结.md",
+        "report/04_evaluation/06_ROS2基线迁移记录.md",
+        "report/05_visualization/README.md",
+        "report/90_archive/mppi/README.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/05_visualization/01_演示程序与权重飞行验证命令.md",
+      "links": [
+        "artifacts/demo_renders/primary_yopo_seed0_sparse_v33_s06_t00_demo/global_trajectory.mp4",
+        "artifacts/demo_renders/primary_yopo_seed0_sparse_v33_s10_t00_demo/global_trajectory.mp4",
+        "artifacts/demo_renders/primary_yopo_seed0_sparse_v33_s10_t03_demo/global_trajectory.mp4",
+        "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_trajectory.mp4",
+        "artifacts/showcase/forest_seed7_v3/yopo_global_flight.mp4",
+        "artifacts/showcase/wab_official_s7_simple_v4/yopo_global_flight.mp4",
+        "artifacts/showcase/wab_official_s7_v4/yopo_global_flight.mp4",
+        "artifacts/showcase/wab_seed0_s7_simple_v4/yopo_global_flight.mp4",
+        "artifacts/showcase/wab_seed0_s7_v4/yopo_global_flight.mp4",
+        "report/00_index/README.md",
+        "scripts/demo_flight.ps1",
+        "scripts/evaluate_ros2_flight.py",
+        "scripts/make_paper_figures.py",
+        "scripts/probe_highspeed_physics.py",
+        "scripts/probe_isaac_depth.py",
+        "scripts/probe_quad_cpu.py",
+        "scripts/probe_yopo.py",
+        "scripts/render_flight.py",
+        "scripts/render_ros2_flight.py",
+        "scripts/ros2/probe_trained_planner.py",
+        "scripts/ros2/probe_trained_ros2_node.py",
+        "scripts/run_final_showcase.ps1",
+        "scripts/run_navigation.py",
+        "scripts/run_ros2_navigation.py",
+        "scripts/run_showcase.ps1",
+        "scripts/run_weights_ab_batch.py",
+        "scripts/run_weights_ab_demo.py",
+        "scripts/validate_result.py",
+        "scripts/validate_ros2_flight.py"
+      ],
+      "missing_links": [],
+      "referenced_paths": [
+        "artifacts/expert/official_epoch50_policy_layout.pth",
+        "artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/metrics.json",
+        "artifacts/weights_ab_demo/batch_summary.json",
+        "scripts/evaluate_ros2_flight.py",
+        "scripts/probe_highspeed_physics.py",
+        "scripts/queue_status.py",
+        "scripts/render_flight.py",
+        "scripts/render_ros2_flight.py",
+        "scripts/ros2/probe_trained_ros2_node.py",
+        "scripts/run_navigation.py",
+        "scripts/run_ros2_navigation.py",
+        "scripts/run_weights_ab_batch.py",
+        "scripts/validate_ros2_flight.py"
+      ],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/05_visualization/media/paper_figures/table_i_expert_vs_network.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/05_visualization/media/paper_figures/table_ii_latency_safety_smoothness.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/05_visualization/media/paper_figures/table_ii_latency_split.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/05_visualization/README.md",
+      "links": [
+        "<旧项目根>/artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/metrics.json",
+        "artifacts/paper_figures/figure_7_success_vs_speed.png",
+        "artifacts/paper_figures/manifest.json",
+        "artifacts/paper_figures/table_i_expert_vs_network.md",
+        "artifacts/paper_figures/table_ii_latency_split.md",
+        "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_overview.png",
+        "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_trajectory.mp4",
+        "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/render_manifest.json",
+        "artifacts/showcase",
+        "implement/07_visualization/README.md",
+        "report/00_index/01_module_map.md",
+        "report/04_evaluation/README.md",
+        "report/05_visualization/01_演示程序与权重飞行验证命令.md",
+        "report/05_visualization/media/global_overview.png",
+        "report/05_visualization/media/global_trajectory.mp4",
+        "report/05_visualization/media/official_pretrained_flight.mp4",
+        "report/05_visualization/media/paper_figures",
+        "report/05_visualization/media/render_manifest.json",
+        "report/05_visualization/media/showcase_metrics.json"
+      ],
+      "missing_links": [],
+      "referenced_paths": [
+        "scripts/make_paper_figures.py",
+        "scripts/render_ros2_flight.py"
+      ],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/06_migration/01_local_environment.md",
+      "links": [
+        "<旧项目根>/checkpoints/migration_smoke_v1/result.json",
+        "MIGRATION_UBUNTU22.md",
+        "artifacts/environment/base_image_lock.json",
+        "artifacts/refactor_20261012/docker_images.jsonl",
+        "artifacts/refactor_20261012/docker_info.json",
+        "artifacts/refactor_20261012/docker_version.json",
+        "artifacts/refactor_20261012/migration_smoke_resume40.log",
+        "artifacts/refactor_20261012/migration_smoke_resume_final.log",
+        "artifacts/refactor_20261012/migration_smoke_stop20.log",
+        "artifacts/refactor_20261012/train_env_gpu_probe.log",
+        "plan/06_github_migration/01_release_checklist.md",
+        "plan/06_github_migration/README.md",
+        "report/06_migration/README.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [
+        "scripts/ros2/verify_environment.py"
+      ],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/06_migration/02_new_root_verification.md",
+      "links": [
+        "artifacts/refactor_20261012/freeze_snapshot.json",
+        "artifacts/refactor_20261012/newroot_env_gpu_probe.log",
+        "artifacts/refactor_20261012/newroot_smoke_resume40.log",
+        "artifacts/refactor_20261012/newroot_smoke_resume_final.log",
+        "artifacts/refactor_20261012/newroot_smoke_stop20.log",
+        "checkpoints/migration_smoke_newroot/result.json"
+      ],
+      "missing_links": [],
+      "referenced_paths": [
+        "scripts/audit_command_evidence.py"
+      ],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/06_migration/README.md",
+      "links": [
+        ".gitattributes",
+        ".gitignore",
+        "CONTRIBUTING.md",
+        "MIGRATION_UBUNTU22.md",
+        "plan/06_github_migration/01_release_checklist.md",
+        "plan/06_github_migration/README.md",
+        "plan/90_decisions/DEC-20261013-01_MPPI移出活动范围与YOPO-only归档.md",
+        "report/06_migration/01_local_environment.md",
+        "report/06_migration/02_new_root_verification.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/90_archive/01_完成验收与成果路径.md",
+      "links": [
+        "report/00_index/README.md",
+        "report/01_status/02_复现状态总览.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [
+        "scripts/render_flight.py",
+        "scripts/run_navigation.py",
+        "scripts/validate_result.py"
+      ],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/90_archive/02_目标完成审计.md",
+      "links": [
+        "report/00_index/README.md",
+        "report/01_status/02_复现状态总览.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/90_archive/03_自训练ROS2闭环阶段报告.md",
+      "links": [
+        "<旧项目根>/artifacts/ros2_flights/ros2_scratch_checkpoint_20260924_061715/flight.csv",
+        "<旧项目根>/artifacts/ros2_flights/ros2_scratch_checkpoint_20260924_061715/flight.npz",
+        "<旧项目根>/artifacts/ros2_flights/ros2_scratch_checkpoint_20260924_061715/metrics.json",
+        "<旧项目根>/artifacts/ros2_flights/ros2_scratch_checkpoint_20260924_061715/planner_status.json",
+        "<旧项目根>/artifacts/ros2_flights/ros2_scratch_checkpoint_20260924_061715/validation.json",
+        "<旧项目根>/datasets/isaac_full_v1/validation.json",
+        "artifacts/control_validation/physx_unified_20260924_061715/result.json",
+        "artifacts/ros2_showcase/ros2_scratch_checkpoint_20260924_061715_v2/flight_midpoint.png",
+        "artifacts/ros2_showcase/ros2_scratch_checkpoint_20260924_061715_v2/global_overview.png",
+        "artifacts/ros2_showcase/ros2_scratch_checkpoint_20260924_061715_v2/global_trajectory.mp4",
+        "artifacts/ros2_showcase/ros2_scratch_checkpoint_20260924_061715_v2/render_manifest.json",
+        "benchmarks/protocol_v1/protocol.json",
+        "checkpoints/formal_main_v1_seed0/run_manifest.json",
+        "report/00_index/README.md",
+        "report/01_status/02_复现状态总览.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/90_archive/04_YOPO本地复现调研与方案.md",
+      "links": [
+        "artifacts/probes/probe_log.txt",
+        "artifacts/probes/probe_result.json",
+        "plan/02_environment_ros2/references/isaac61_env.md",
+        "report/00_index/README.md",
+        "report/01_status/02_复现状态总览.md",
+        "report/90_archive/01_完成验收与成果路径.md",
+        "report/99_artifact_index/machine_audit.json",
+        "scripts/probe_yopo.py"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/90_archive/05_YOPO三个任务完整分析报告_2026-10-02.md",
+      "links": [
+        "<旧项目根>/YOPO_reproduction_new",
+        "<旧项目根>/artifacts/expert",
+        "<旧项目根>/artifacts/expert/network_comparison_official_epoch50.json",
+        "<旧项目根>/artifacts/expert/official_checkpoint_mapping.json",
+        "<旧项目根>/artifacts/navigation",
+        "<旧项目根>/artifacts/navigation/wab2_main_local_s5001_v2/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_main_local_s5001_v4/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_main_local_s5001_v6/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_main_local_s5002_v2/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_main_local_s5002_v4/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_main_local_s5002_v6/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_main_local_s5004_v2/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_main_local_s5004_v4/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_main_local_s5004_v6/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_main_official_s5001_v2/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_main_official_s5001_v4/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_main_official_s5001_v6/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_main_official_s5002_v2/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_main_official_s5002_v4/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_main_official_s5002_v6/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_main_official_s5004_v2/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_main_official_s5004_v4/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_main_official_s5004_v6/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_simple_local_s5001_v2/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_simple_local_s5001_v4/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_simple_local_s5001_v6/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_simple_local_s5002_v2/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_simple_local_s5002_v4/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_simple_local_s5002_v6/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_simple_local_s5004_v2/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_simple_local_s5004_v4/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_simple_local_s5004_v6/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_simple_official_s5001_v2/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_simple_official_s5001_v4/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_simple_official_s5001_v6/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_simple_official_s5002_v2/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_simple_official_s5002_v4/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_simple_official_s5002_v6/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_simple_official_s5004_v2/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_simple_official_s5004_v4/metrics.json",
+        "<旧项目根>/artifacts/navigation/wab2_simple_official_s5004_v6/metrics.json",
+        "<旧项目根>/artifacts/ros2_flights",
+        "<旧项目根>/artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/flight.npz",
+        "<旧项目根>/artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/metrics.json",
+        "<旧项目根>/datasets/isaac_dagger_v1",
+        "<旧项目根>/datasets/isaac_dagger_v1/aggregation_manifest.json",
+        "<旧项目根>/datasets/isaac_full_v1",
+        "<旧项目根>/datasets/isaac_full_v1/dataset.json",
+        "<旧项目根>/datasets/isaac_full_v1/validation.json",
+        "artifacts/agile_autonomy",
+        "artifacts/benchmark_summary",
+        "artifacts/benchmark_summary/summary.json",
+        "artifacts/environment",
+        "artifacts/environment/final_acceptance_audit.json",
+        "artifacts/environment/resume_equivalence.json",
+        "artifacts/paper_figures",
+        "artifacts/paper_figures/figure_7_success_vs_speed.png",
+        "artifacts/paper_figures/table_ii_latency_safety_smoothness.md",
+        "artifacts/paper_figures/table_ii_latency_split.md",
+        "artifacts/paper_sources",
+        "artifacts/paper_sources/MPPI_reference17_Lu2021_TIE.pdf",
+        "artifacts/paper_sources/mppi_reference17_identity_verified.json",
+        "artifacts/report_review_20261002",
+        "artifacts/report_review_20261002/review_evidence.json",
+        "artifacts/ros2_showcase",
+        "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/flight_midpoint.png",
+        "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_overview.pdf",
+        "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_overview.png",
+        "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_trajectory.mp4",
+        "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/render_manifest.json",
+        "artifacts/showcase",
+        "artifacts/showcase/wab_official_s7_simple_v4/yopo_global_flight.mp4",
+        "artifacts/showcase/wab_seed0_s7_simple_v4/yopo_global_flight.mp4",
+        "artifacts/weights_ab_demo",
+        "artifacts/weights_ab_demo/batch_analysis.json",
+        "artifacts/weights_ab_demo/batch_summary.json",
+        "benchmarks/protocol_v1",
+        "benchmarks/protocol_v1/runtime_validation.json",
+        "checkpoints/dagger_main_v1_seed0",
+        "checkpoints/dagger_main_v1_seed0/result.json",
+        "checkpoints/formal_main_v1_seed0",
+        "checkpoints/formal_main_v1_seed0/best_policy.pth",
+        "checkpoints/formal_main_v1_seed1",
+        "checkpoints/formal_main_v1_seed1/best_policy.pth",
+        "checkpoints/formal_main_v1_seed2",
+        "checkpoints/formal_main_v1_seed2/best_policy.pth",
+        "compose.yaml",
+        "configs",
+        "configs/benchmark_runtime/v1.json",
+        "configs/reproduction_protocol.json",
+        "external/audit_sources",
+        "external/audit_sources/YOPO-Simple",
+        "external/audit_sources/main",
+        "plan/90_decisions/references",
+        "report",
+        "report/00_index/README.md",
+        "report/01_status/01_当前进度简报.md",
+        "ros2_ws/src",
+        "scripts",
+        "src"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/90_archive/mppi/05_MPPI参考17身份与可得性.md",
+      "links": [
+        "artifacts/environment/completion_criteria_gap.json",
+        "artifacts/paper_sources/MPPI_reference17_Lu2021_TIE.pdf",
+        "artifacts/paper_sources/mppi_reference17_identity_verified.json",
+        "artifacts/paper_sources/mppi_reference17_lookup_20260924_pm.json",
+        "artifacts/paper_sources/mppi_reference17_text.txt",
+        "benchmarks/protocol_v1/active_scope_yopo_only.json",
+        "plan/90_decisions/archive_mppi/optionA_mppi_reference17_plan.md",
+        "plan/90_decisions/archive_mppi/optionB_matrix_scope_implementation_report.md",
+        "report/01_status/02_复现状态总览.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/90_archive/mppi/README.md",
+      "links": [
+        "report/01_status/README.md",
+        "report/90_archive/mppi/05_MPPI参考17身份与可得性.md",
+        "report/README.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/90_archive/README.md",
+      "links": [
+        "artifacts/document_refresh_20261008",
+        "artifacts/markdown_migration_20261008",
+        "report/00_index/01_module_map.md",
+        "report/01_status/README.md",
+        "report/02_method/03_原论文与源码差异审计.md",
+        "report/03_training/01_ROS2从头训练执行进度.md",
+        "report/90_archive/01_完成验收与成果路径.md",
+        "report/90_archive/02_目标完成审计.md",
+        "report/90_archive/03_自训练ROS2闭环阶段报告.md",
+        "report/90_archive/04_YOPO本地复现调研与方案.md",
+        "report/90_archive/mppi/05_MPPI参考17身份与可得性.md",
+        "report/README.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/99_artifact_index/README.md",
+      "links": [
+        "<旧项目根>/artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/metrics.json",
+        "<旧项目根>/checkpoints/migration_smoke_v1/result.json",
+        "<旧项目根>/datasets/isaac_dagger_v1/aggregation_manifest.json",
+        "<旧项目根>/datasets/isaac_full_v1/validation.json",
+        "artifacts/benchmark_summary/summary.json",
+        "artifacts/environment/command_evidence_audit.json",
+        "artifacts/environment/final_acceptance_audit.json",
+        "artifacts/environment/progress_brief.json",
+        "artifacts/note_alignment_20261008/training_graph_trace.json",
+        "artifacts/paper_figures/manifest.json",
+        "artifacts/refactor_20261012/document_audit.json",
+        "artifacts/refactor_20261012/freeze_snapshot.json",
+        "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final",
+        "artifacts/weights_ab_demo",
+        "benchmarks/protocol_v1/active_scope_yopo_only.json",
+        "checkpoints",
+        "checkpoints/dagger_main_v1_seed0/result.json",
+        "plan/06_github_migration/01_release_checklist.md",
+        "plan/06_github_migration/README.md",
+        "report/04_evaluation/02_权重批量对照实验.md",
+        "report/06_migration/01_local_environment.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "report/README.md",
+      "links": [
+        "report/00_index/01_module_map.md",
+        "report/00_index/03_project_map.html",
+        "report/05_visualization/media"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "plan/00_charter/01_refactor_master_plan.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "plan/00_charter/02_new_root_refactor_plan.md",
+      "links": [
+        "plan/00_charter/01_refactor_master_plan.md",
+        "plan/90_decisions/DEC-20261012-01_新根重构与工作区视图.md",
+        "report/06_migration/02_new_root_verification.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "plan/00_charter/README.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "plan/01_paper_protocol/README.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "plan/02_environment_ros2/README.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "plan/02_environment_ros2/references/isaac61_env.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "plan/03_dataset_training/README.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "plan/04_runtime_baselines/README.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "plan/05_benchmark_acceptance/README.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "plan/06_github_migration/01_release_checklist.md",
+      "links": [
+        "report/06_migration/02_new_root_verification.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "plan/06_github_migration/README.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "plan/90_decisions/archive_mppi/optionA_mppi_reference17_plan.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "plan/90_decisions/archive_mppi/optionB_matrix_scope_implementation_report.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [
+        "artifacts/environment/protocol_snapshot_delta.json",
+        "benchmarks/protocol_v1/protocol.json",
+        "scripts/aggregate_benchmarks.py",
+        "scripts/final_acceptance_audit.py",
+        "scripts/make_status_overview.py"
+      ],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "plan/90_decisions/archive_mppi/optionB_matrix_scope_proposal.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "plan/90_decisions/archive_mppi/README.md",
+      "links": [
+        "plan/90_decisions/DEC-20261013-01_MPPI移出活动范围与YOPO-only归档.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "plan/90_decisions/DEC-20261012-01_新根重构与工作区视图.md",
+      "links": [
+        "plan/00_charter/02_new_root_refactor_plan.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "plan/90_decisions/DEC-20261013-01_MPPI移出活动范围与YOPO-only归档.md",
+      "links": [
+        "benchmarks/protocol_v1/active_scope_yopo_only.json",
+        "plan/90_decisions/archive_mppi/README.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "plan/90_decisions/README.md",
+      "links": [
+        "plan/90_decisions/DEC-20261012-01_新根重构与工作区视图.md",
+        "plan/90_decisions/DEC-20261013-01_MPPI移出活动范围与YOPO-only归档.md",
+        "plan/90_decisions/archive_mppi/README.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "plan/99_change_log/CHANGELOG.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "plan/README.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "benchmarks/archive/protocol_v1_1800/README.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "benchmarks/archive/README.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [
+        "scripts/aggregate_benchmarks.py"
+      ],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "benchmarks/protocol_v1/README.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "benchmarks/README.md",
+      "links": [
+        "artifacts/benchmark_summary/summary.json",
+        "artifacts/paper_figures",
+        "benchmarks/archive/README.md",
+        "benchmarks/archive/protocol_v1_1800",
+        "benchmarks/protocol_v1/active_scope_yopo_only.json",
+        "benchmarks/protocol_v1/runtime_validation.json",
+        "plan/90_decisions/archive_mppi/README.md",
+        "report/01_status/02_复现状态总览.md",
+        "report/04_evaluation/04_基准运行配置冻结.md",
+        "report/90_archive/mppi/README.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [
+        "scripts/aggregate_benchmarks.py"
+      ],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "implement/00_workspace_map/README.md",
+      "links": [
+        "implement/02_training_pipeline/README.md",
+        "implement/03_ros2_runtime/README.md",
+        "implement/04_isaac_sim/README.md",
+        "implement/06_validation/README.md",
+        "implement/README.md",
+        "report/00_index/01_module_map.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [
+        "scripts/audit_command_evidence.py",
+        "scripts/audit_training_run.py",
+        "scripts/check_training_integrity.py",
+        "scripts/final_acceptance_audit.py",
+        "scripts/make_status_overview.py",
+        "scripts/run_navigation.py",
+        "scripts/run_ros2_navigation.py",
+        "scripts/stage_training_data.py",
+        "scripts/train_scratch.py",
+        "scripts/validate_dataset.py"
+      ],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "implement/01_core_algorithm/README.md",
+      "links": [
+        "artifacts/environment/cost_cpp_parity.json",
+        "artifacts/environment/quintic_cpp_parity.json",
+        "artifacts/environment/sdf_cpp_parity.json",
+        "artifacts/environment/voxel_cpp_parity.json",
+        "configs/paper_aligned.json",
+        "external/audit_sources/main",
+        "implement/02_training_pipeline/README.md",
+        "implement/03_ros2_runtime/README.md",
+        "implement/04_isaac_sim/README.md",
+        "plan/01_paper_protocol/README.md",
+        "report/02_method/README.md",
+        "src/yopo_repro/dataset.py",
+        "src/yopo_repro/forest.py",
+        "src/yopo_repro/io.py",
+        "src/yopo_repro/main_cost.py",
+        "src/yopo_repro/maps.py",
+        "src/yopo_repro/policy.py",
+        "src/yopo_repro/quintic.py"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "implement/02_training_pipeline/README.md",
+      "links": [
+        "implement/01_core_algorithm/README.md",
+        "plan/03_dataset_training/README.md",
+        "plan/05_benchmark_acceptance/README.md",
+        "report/03_training/README.md",
+        "scripts/audit_resume_readiness.py",
+        "scripts/audit_training_run.py",
+        "scripts/build_dagger_dataset.py",
+        "scripts/check_model_selection.py",
+        "scripts/check_resume_equivalence.py",
+        "scripts/check_training_integrity.py",
+        "scripts/collect_isaac_shard.py",
+        "scripts/prepare_dataset.py",
+        "scripts/run_dagger_collection.py",
+        "scripts/stage_aggregation_dataset.py",
+        "scripts/stage_training_data.py",
+        "scripts/train_dagger_finetune.py",
+        "scripts/train_scratch.py",
+        "scripts/training_audit_utils.py",
+        "scripts/validate_dataset.py",
+        "src/yopo_dagger/build_dataset.py"
+      ],
+      "missing_links": [],
+      "referenced_paths": [
+        "artifacts/environment/seed_training_integrity_v2.json",
+        "scripts/audit_training_run.py",
+        "scripts/build_dagger_dataset.py",
+        "scripts/check_training_integrity.py",
+        "scripts/run_dagger_collection.py",
+        "scripts/stage_training_data.py",
+        "scripts/train_dagger_finetune.py",
+        "scripts/train_scratch.py"
+      ],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "implement/03_ros2_runtime/README.md",
+      "links": [
+        "<旧项目根>/artifacts/ros2_flights",
+        "<旧项目根>/artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/metrics.json",
+        "benchmarks/protocol_v1/runtime_validation.json",
+        "configs/unified_quad.json",
+        "implement/02_training_pipeline/README.md",
+        "implement/04_isaac_sim/README.md",
+        "report/00_index/01_module_map.md",
+        "report/02_method/01_paper_to_code.md",
+        "report/04_evaluation/06_ROS2基线迁移记录.md",
+        "ros2_ws/src/yopo_interfaces/msg/PolynomialTrajectory.msg",
+        "ros2_ws/src/yopo_runtime/test/test_frame_gate.py",
+        "ros2_ws/src/yopo_runtime/yopo_runtime/agile_planner.py",
+        "ros2_ws/src/yopo_runtime/yopo_runtime/frame_gate.py",
+        "ros2_ws/src/yopo_runtime/yopo_runtime/main_planner.py",
+        "ros2_ws/src/yopo_runtime/yopo_runtime/protocol_node.py",
+        "scripts/evaluate_ros2_flight.py",
+        "scripts/record_runtime_validation.py",
+        "scripts/ros2/serve_planner.py",
+        "scripts/run_ros2_navigation.py",
+        "scripts/validate_ros2_flight.py",
+        "src/yopo_sim/trajectory_buffer.py"
+      ],
+      "missing_links": [],
+      "referenced_paths": [
+        "scripts/evaluate_ros2_flight.py",
+        "scripts/record_runtime_validation.py",
+        "scripts/run_ros2_navigation.py",
+        "scripts/validate_ros2_flight.py"
+      ],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "implement/04_isaac_sim/README.md",
+      "links": [
+        "<旧项目根>/artifacts/ros2_flights",
+        "<旧项目根>/datasets/isaac_dagger_v1/aggregation_manifest.json",
+        "<旧项目根>/datasets/isaac_full_v1/validation.json",
+        "artifacts/isaac_depth_probe",
+        "artifacts/probes",
+        "configs/unified_quad.json",
+        "implement/02_training_pipeline/README.md",
+        "implement/03_ros2_runtime/README.md",
+        "report/00_index/01_module_map.md",
+        "report/05_visualization/01_演示程序与权重飞行验证命令.md",
+        "report/05_visualization/README.md",
+        "scripts/collect_isaac_shard.py",
+        "scripts/depth_quality.py",
+        "scripts/probe_isaac_depth.py",
+        "scripts/run_navigation.py",
+        "scripts/run_ros2_navigation.py",
+        "scripts/scene.py",
+        "src/yopo_repro/dataset.py",
+        "src/yopo_repro/forest.py",
+        "src/yopo_sim/evaluation_geometry.py",
+        "src/yopo_sim/job_guard.py",
+        "src/yopo_sim/physx_vehicle.py",
+        "src/yopo_sim/resource_sampler.py",
+        "src/yopo_sim/trajectory_buffer.py",
+        "src/yopo_sim/unified_quad.py"
+      ],
+      "missing_links": [],
+      "referenced_paths": [
+        "scripts/collect_isaac_shard.py",
+        "scripts/depth_quality.py",
+        "scripts/run_navigation.py"
+      ],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "implement/05_baselines/README.md",
+      "links": [
+        "<旧项目根>/artifacts/expert/network_comparison_random_initial.json",
+        "<旧项目根>/artifacts/expert/network_comparison_trained_seed0.json",
+        "artifacts/agile_autonomy/torch_export_v1/torch_cuda_parity.json",
+        "artifacts/benchmark_summary/summary.json",
+        "artifacts/environment/agile_complete_reference_parity.json",
+        "artifacts/paper_figures/table_i_expert_vs_network.md",
+        "artifacts/paper_sources/MPPI_reference17_Lu2021_TIE.pdf",
+        "artifacts/paper_sources/mppi_identity.json",
+        "benchmarks/protocol_v1/runtime_validation.json",
+        "configs/expert_variants.json",
+        "implement/06_validation/README.md",
+        "report/00_index/01_module_map.md",
+        "report/04_evaluation/02_权重批量对照实验.md",
+        "report/04_evaluation/06_ROS2基线迁移记录.md",
+        "report/04_evaluation/README.md",
+        "report/90_archive/mppi/05_MPPI参考17身份与可得性.md",
+        "ros2_ws/src/yopo_agile_core/src/trajectory_core.cpp",
+        "ros2_ws/src/yopo_expert_core/src/expert.cpp",
+        "ros2_ws/src/yopo_math_reference",
+        "ros2_ws/src/yopo_quad_reference",
+        "ros2_ws/src/yopo_runtime/yopo_runtime/agile_planner.py",
+        "ros2_ws/src/yopo_topotraj",
+        "ros2_ws/src/yopo_topotraj/port_provenance.json",
+        "scripts/compare_expert_network.py",
+        "scripts/configure_topotraj.py",
+        "scripts/export_agile_network.py",
+        "scripts/extract_agile_trajectory_core.py",
+        "scripts/port_agile_network.py",
+        "scripts/port_topotraj_components.py",
+        "scripts/port_topotraj_fsm.py",
+        "scripts/ros2/probe_topotraj_node.py",
+        "scripts/ros2/probe_topotraj_runtime.py",
+        "scripts/run_expert_cache.py",
+        "src/agile_runtime/torch_network.py",
+        "src/yopo_expert/core.py"
+      ],
+      "missing_links": [],
+      "referenced_paths": [
+        "scripts/compare_expert_network.py",
+        "scripts/probe_agile_torch.py",
+        "scripts/ros2/probe_topotraj_node.py",
+        "scripts/run_expert_cache.py"
+      ],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "implement/06_validation/README.md",
+      "links": [
+        "artifacts/benchmark_summary/summary.json",
+        "artifacts/environment/command_evidence_audit.json",
+        "artifacts/environment/final_acceptance_audit.json",
+        "artifacts/environment/seed_training_integrity_v2.json",
+        "artifacts/refactor_20261012/document_audit_all.json",
+        "benchmarks/protocol_v1/protocol.json",
+        "report/00_index/01_module_map.md",
+        "report/01_status/README.md",
+        "report/04_evaluation/README.md",
+        "scripts/aggregate_benchmarks.py",
+        "scripts/audit_command_evidence.py",
+        "scripts/audit_resume_readiness.py",
+        "scripts/audit_training_run.py",
+        "scripts/check_model_selection.py",
+        "scripts/check_resume_equivalence.py",
+        "scripts/check_training_integrity.py",
+        "scripts/create_benchmark_protocol.py",
+        "scripts/evaluate_ros2_flight.py",
+        "scripts/final_acceptance_audit.py",
+        "scripts/make_status_overview.py",
+        "scripts/run_benchmark_matrix.py",
+        "scripts/training_audit_utils.py",
+        "scripts/validate_dataset.py",
+        "scripts/validate_ros2_flight.py",
+        "tests"
+      ],
+      "missing_links": [],
+      "referenced_paths": [
+        "artifacts/environment/seed_training_integrity_v2.json",
+        "artifacts/refactor_20261012/document_audit_all.json",
+        "scripts/audit_command_evidence.py",
+        "scripts/check_training_integrity.py",
+        "scripts/final_acceptance_audit.py"
+      ],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "implement/07_visualization/README.md",
+      "links": [
+        "<旧项目根>/artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/metrics.json",
+        "artifacts/demo_renders",
+        "artifacts/paper_figures",
+        "artifacts/paper_figures/figure_7_success_vs_speed.png",
+        "artifacts/paper_figures/manifest.json",
+        "artifacts/paper_figures/table_ii_latency_split.md",
+        "artifacts/ros2_showcase",
+        "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_overview.png",
+        "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_trajectory.mp4",
+        "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/render_manifest.json",
+        "artifacts/showcase",
+        "report/00_index/01_module_map.md",
+        "report/05_visualization/01_演示程序与权重飞行验证命令.md",
+        "report/05_visualization/README.md",
+        "scripts/demo_flight.ps1",
+        "scripts/make_paper_figures.py",
+        "scripts/render_flight.py",
+        "scripts/render_ros2_flight.py",
+        "scripts/run_final_showcase.ps1",
+        "scripts/run_showcase.ps1"
+      ],
+      "missing_links": [],
+      "referenced_paths": [
+        "scripts/make_paper_figures.py"
+      ],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "implement/99_workspace_rules/README.md",
+      "links": [
+        "benchmarks/protocol_v1",
+        "implement/02_training_pipeline/README.md",
+        "implement/06_validation/README.md",
+        "plan/99_change_log/CHANGELOG.md",
+        "plan/README.md",
+        "report/00_index/01_module_map.md",
+        "report/README.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "README.md",
+      "links": [
+        "MIGRATION_UBUNTU22.md",
+        "benchmarks/archive/README.md",
+        "implement/README.md",
+        "implement/workspace/README.md",
+        "plan/00_charter/02_new_root_refactor_plan.md",
+        "plan/06_github_migration/01_release_checklist.md",
+        "plan/06_github_migration/README.md",
+        "plan/README.md",
+        "report/00_index/01_module_map.md",
+        "report/00_index/02_执行手册.md",
+        "report/00_index/03_project_map.html",
+        "report/01_status/01_当前进度简报.md",
+        "report/01_status/02_复现状态总览.md",
+        "report/04_evaluation/01_official_vs_selftrained.md",
+        "report/05_visualization/media/global_overview.png",
+        "report/05_visualization/media/global_trajectory.mp4",
+        "report/05_visualization/media/official_pretrained_flight.mp4",
+        "report/05_visualization/media/paper_figures",
+        "report/05_visualization/media/render_manifest.json",
+        "report/06_migration/README.md",
+        "report/90_archive/mppi/README.md",
+        "report/99_artifact_index/README.md",
+        "report/README.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [
+        "scripts/audit_command_evidence.py",
+        "scripts/ros2/verify_environment.py",
+        "scripts/train_scratch.py"
+      ],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "MIGRATION_UBUNTU22.md",
+      "links": [
+        "report/06_migration/01_local_environment.md"
+      ],
+      "missing_links": [],
+      "referenced_paths": [
+        "scripts/audit_training_run.py",
+        "scripts/ros2/verify_environment.py",
+        "scripts/stage_training_data.py",
+        "scripts/train_scratch.py",
+        "scripts/validate_dataset.py"
+      ],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "CONTRIBUTING.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [
+        "scripts/audit_command_evidence.py",
+        "scripts/make_status_overview.py"
+      ],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "AGENTS.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    }
+  ],
+  "path_normalisation": "Machine-specific absolute paths normalised to placeholders on 2026-10-13 for the YOPO-only release; original bytes remain in git history and the v1 archive. Links were expanded through local junctions (artifacts/checkpoints/datasets) at audit time."
+}

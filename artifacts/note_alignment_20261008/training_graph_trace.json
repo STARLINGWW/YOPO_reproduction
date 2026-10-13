@@ -1,0 +1,179 @@
+{
+  "recorded_at": "2026-10-08T16:58:01+08:00",
+  "scope": "two offline test samples, audited seed0, CPU graph inspection only; eval mode, no optimizer step, no simulator",
+  "environment": {
+    "torch": "2.11.0+cu128",
+    "numpy": "2.3.1",
+    "device": "cpu",
+    "historical_training_torch": "2.7.1+cu128",
+    "limitation": "Host libraries differ from the formal training container; this probe confirms graph structure, not historical numerical replay or model quality."
+  },
+  "note_source": "<旧机器>/paper_reading/YOPO\\sources\\conversation.txt",
+  "note_sha256": "b5d70813f6ee5fca2ce7b53c4b23b471ec4f2dd61141763d31b636f8d56d0dbd",
+  "checkpoint_sha256": "af2ea0faf568443b1a30ef3e00bf882a6f002f4e89bf0b9f50e17e22e32df274",
+  "checkpoint_matches_training_audit": true,
+  "checkpoint_file_unchanged": true,
+  "training_code_sha256": "d7538ac76ab6138740c1b98c11329c469fbd5ae4babb45d807545e7a8757351c",
+  "training_code_matches_manifest": true,
+  "sample_indices": [
+    0,
+    1
+  ],
+  "shapes": {
+    "depth": [
+      2,
+      1,
+      96,
+      160
+    ],
+    "observation": [
+      2,
+      9
+    ],
+    "primitive_frame_state": [
+      2,
+      9,
+      3,
+      5
+    ],
+    "visual_features": [
+      2,
+      64,
+      3,
+      5
+    ],
+    "head_input": [
+      2,
+      73,
+      3,
+      5
+    ],
+    "head_raw_output": [
+      2,
+      10,
+      3,
+      5
+    ],
+    "prediction": [
+      2,
+      10,
+      3,
+      5
+    ],
+    "decoded_endstates": [
+      2,
+      15,
+      9
+    ],
+    "true_cost": [
+      2,
+      15
+    ],
+    "predicted_cost": [
+      2,
+      15
+    ]
+  },
+  "losses": {
+    "trajectory": 0.02157639092973525,
+    "score": 1.0316540342679438e-06,
+    "total": 0.02158670747007793,
+    "weights": [
+      1.0,
+      10.0
+    ]
+  },
+  "gradient_checks": {
+    "score_loss_has_no_direct_path_to_decoded_endstates": true,
+    "trajectory_loss_has_no_direct_path_to_score_tensor": true,
+    "mean_cost_gradient_expected": 0.03333333333333333,
+    "mean_cost_gradient_min": 0.03333333333333333,
+    "mean_cost_gradient_max": 0.03333333333333333,
+    "score_smooth_l1_mean_gradient_max_abs_error": 5.503131750208418e-12,
+    "shared_backbone_trajectory_gradient_norm": 0.00550448102876544,
+    "shared_backbone_score_gradient_norm": 1.2602243259607349e-05,
+    "weighted_gradient_sum_max_abs_error": 2.3283064365386963e-09,
+    "weighted_gradient_sum_allclose": true
+  },
+  "predicted_costs": [
+    [
+      0.013380295597016811,
+      0.018102344125509262,
+      0.016543401405215263,
+      0.016952449455857277,
+      0.024771472439169884,
+      0.011771325021982193,
+      0.014390721917152405,
+      0.014460578560829163,
+      0.014287207275629044,
+      0.022607944905757904,
+      0.012636528350412846,
+      0.01589447446167469,
+      0.014282677322626114,
+      0.013935288414359093,
+      0.02138199284672737
+    ],
+    [
+      0.02137870341539383,
+      0.021393870934844017,
+      0.025064393877983093,
+      0.03218889608979225,
+      0.03473612293601036,
+      0.021436363458633423,
+      0.019710246473550797,
+      0.023395996540784836,
+      0.030571348965168,
+      0.03494982048869133,
+      0.02209765650331974,
+      0.021055858582258224,
+      0.024805407971143723,
+      0.030638061463832855,
+      0.03462446480989456
+    ]
+  ],
+  "map_evaluated_costs": [
+    [
+      0.013405379638054458,
+      0.019334089786527425,
+      0.017924150938950584,
+      0.016929685504633394,
+      0.02340149762452988,
+      0.011968759343744119,
+      0.020322661750035623,
+      0.01413157226239008,
+      0.014300995787738528,
+      0.02173934182293651,
+      0.012835746680206584,
+      0.013742736760411607,
+      0.013885148296832715,
+      0.014572841010414374,
+      0.02188821272670246
+    ],
+    [
+      0.020991934767774893,
+      0.02132276877562451,
+      0.024907716589911075,
+      0.030673334307566802,
+      0.036213648722095544,
+      0.020334599457756272,
+      0.020711072004999692,
+      0.024363561079131374,
+      0.02970382637296716,
+      0.03588628218741982,
+      0.020429998723237155,
+      0.020727024817939144,
+      0.024513627941543194,
+      0.030016396234144715,
+      0.03611311597583787
+    ]
+  ],
+  "selected_by_predicted_cost": [
+    5,
+    6
+  ],
+  "oracle_best_by_map_cost": [
+    5,
+    5
+  ],
+  "selection_note": "Indices refer to flattened network output slots, zero-based; physical lattice index is 14-slot."
+}

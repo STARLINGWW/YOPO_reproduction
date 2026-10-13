@@ -1,0 +1,5 @@
+{
+  "status": "passed",
+  "queries": 204,
+  "scope": "original C++ VoxelGrid indexing and stored-cell values; not whole sdf_tools construction"
+}

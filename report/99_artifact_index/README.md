@@ -11,12 +11,13 @@
 | 正式数据 | [datasets/isaac_full_v1](../../datasets/isaac_full_v1/validation.json) | `dataset_sha256=ee0330a7…`（validation.json） |
 | 聚合数据 | [datasets/isaac_dagger_v1](../../datasets/isaac_dagger_v1/aggregation_manifest.json) | `dataset_sha256=4d45354a…`（aggregation_manifest.json） |
 | 迁移 smoke 运行 | [checkpoints/migration_smoke_v1](../../checkpoints/migration_smoke_v1/result.json) | 本机 Ubuntu 22.04 容器验证（不进入正式矩阵），见[环境基线](../06_migration/01_local_environment.md) |
+| YOPO-only 活动范围声明 | [active_scope_yopo_only.json](../../benchmarks/protocol_v1/active_scope_yopo_only.json) | 五模型 × 300 = 1,500；MPPI 排除并归档（2026-10-13） |
 
 ## 评测与验收
 
 | 产物 | 路径 | 哈希/校验来源 |
 |---|---|---|
-| 正式矩阵汇总 | [summary.json](../../artifacts/benchmark_summary/summary.json) | `protocol_sha256=d2fd3052…` |
+| 活动矩阵汇总 | [summary.json](../../artifacts/benchmark_summary/summary.json) | 活动范围口径（1500/1500）；`protocol_sha256=d2fd3052…` |
 | 终审 | [final_acceptance_audit.json](../../artifacts/environment/final_acceptance_audit.json) | 每项列出证据文件路径 |
 | 命令/证据审计 | [command_evidence_audit.json](../../artifacts/environment/command_evidence_audit.json) | 链接与 JSON 解析审计（`status=passed`） |
 | 进度简报 | [progress_brief.json](../../artifacts/environment/progress_brief.json) | 由既有 JSON 生成 |

@@ -1,0 +1,1229 @@
+9258
+IEEE TRANSACTIONS ON INDUSTRIAL ELECTRONICS, VOL. 69, NO. 9, SEPTEMBER 2022
+Flight With Limited Field of View: A Parallel and
+Gradient-Free Strategy for Micro Aerial Vehicle
+Hanchen Lu
+, Qun Zong
+, Shupeng Lai
+, Bailing Tian
+, and Lihua Xie
+, Fellow, IEEE
+Abstract—In this article, a parallel and gradient-free strat-
+egy is presented for autonomous navigation of a quadrotor
+with a limited ﬁeld of view (FOV). The FOV constraint is non-
+linear and noncontinuous in general and involves higher
+order dynamics of the vehicle. Planning problems with such
+constraints are difﬁcult to solve, especially with the real-
+time requirement. The proposed method ﬁrst constructs
+an environment map by integrating the measurement of a
+limited-FOV sensor in a parallel process. Based on the map,
+it then selects a feasible local goal from a global path and
+generates a constraint-free nominal control sequence. Fi-
+nally, a stochastic optimal control problem is solved to sat-
+isfy the limited FOV constraint, the dynamic constraint, and
+the collision-free conditions at the same time. The objective
+functions are nonlinear and noncontinuous and involves
+dynamic of MAV. A parallel-gradient-free algorithm is used
+to address these problems. Both the sensing and planning
+problems are solved parallelly on a lightweight graphics
+processing unit. The effectiveness of the proposed strat-
+egy is demonstrated through both simulation and real-ﬂight
+experiments.
+Index Terms—Collision avoidance, motion planning, nav-
+igation, parallel processing, unmanned aerial vehicles.
+Manuscript received January 26, 2021; revised July 24, 2021; ac-
+cepted September 13, 2021. Date of publication September 29, 2021;
+date of current version April 1, 2022. This work was supported in part by
+the National Key Research and Development Program of China under
+Grant 2018AAA0102401 and in part by the National Natural Science
+Foundation of China under Grant 62073234, Grant 62022060, Grant
+62003236, Grant 61773278, Grant 61873340, and Grant 61903349.
+(Corresponding authors: Shupeng Lai; Bailing Tian.)
+Hanchen
+Lu
+is
+with
+the
+School
+of
+Electrical
+and
+Informa-
+tion
+Engineering,
+Tianjin
+University,
+Tianjin
+300072,
+China,
+and
+also
+with
+the
+School
+of
+Electrical
+and
+Electronic
+Engineering,
+Nanyang Technological University, Singapore 639798, Singapore (e-
+mail: luhanchen_1993@tju.edu.cn).
+Qun Zong and Bailing Tian are with the School of Electrical and In-
+formation Engineering, Tianjin University, Tianjin 300072, China (e-mail:
+zongqun@tju.edu.cn; bailing_tian@tju.edu.cn).
+Shupeng Lai is with the Department of Electrical and Computer En-
+gineering, National University of Singapore, Singapore 119077, Singa-
+pore (e-mail: eleshla@nus.edu.sg).
+Lihua Xie is with the School of Electrical and Electronic Engineer-
+ing, Nanyang Technological University, Singapore 639798, Singapore
+(e-mail: elhxie@ntu.edu.sg).
+Color versions of one or more ﬁgures in this article are available at
+https://doi.org/10.1109/TIE.2021.3114744.
+Digital Object Identiﬁer 10.1109/TIE.2021.3114744
+I. INTRODUCTION
+W
+ITH its superior mobility, micro aerial vehicles, espe-
+cially quadrotors, are ideal for a wide range of applica-
+tions. Thanks to the advancement of sensors and computational
+hardware, intelligent algorithms can now be implemented to
+navigate the vehicle through challenging obstacle-strewn en-
+vironment. However, due to the nonconvex and noncontinuous
+nature of the problem, ﬂight in unknown and cluttered envi-
+ronments with a limited ﬁeld of view (FOV) still remains a
+challenge.
+For a rigidly connected visual perception system, the per-
+ception capability is strongly affected by both the environment
+and the platform’s motion. To ensure safety at a given time
+instance, the position of the vehicle must be conﬁned by the
+volume of FOV from a previous moment. Together with the
+effect of obstacleocclusion, thenonconvexandtemporal-limited
+FOV constraint poses challenges for most existing methods.
+In [1]–[3], the feasible trajectory is limited to an explored
+known space. This conservative constraint prevents the vehicle
+from achieving agile movement and assumes a largely static
+environment. The method in [4] and [5] plans an additional
+safe-stopping trajectory for all potential motion. It ensures the
+vehicle to stop inside the known free space at any moment.
+Zhou et al. [6] adopted an iterative risk-aware reﬁnement to
+postprocess the trajectory and plans the yaw movement in a
+separate stage. The awareness is introduced through optimizing
+an indirect visibility metric with a series of geometrical criteria,
+making the algorithm less intuitive in general. On the other hand,
+Liu et al. [7] proposed a search-based framework to directly
+penalize and satisfy the FOV constraint. Though the approach
+is straightforward, real-time performance is difﬁcult to obtain
+due to the high degree of freedom of the search problem. To
+address the issue, our approach adopts the stochastic optimal
+control framework [8] to formulate a model predictive control
+(MPC) problem that can be solved with an efﬁcient gradient-free
+sampling-based method [9], [10].
+In order to better use the limited FOV sensor, its reading
+is often fused into a single-environment map. Many meth-
+ods [11], [12] also require additional information about the
+environment, such as the distance ﬁeld, which is the distance
+from a given point to its closest obstacle. Popular methods
+like [13] construct the world model by performing ray-casting
+and a wave-front-propagation-based distance ﬁeld calculation.
+Their computational complexity increases with the resolution of
+the depth information and with the number of sensed obstacle
+0278-0046 © 2021 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: Huazhong University of Science and Technology. Downloaded on September 26,2026 at 02:26:55 UTC from IEEE Xplore.  Restrictions apply. 
+
+LU et al.: FLIGHT WITH LIMITED FIELD OF VIEW: A PARALLEL AND GRADIENT-FREE STRATEGY FOR MICRO AERIAL VEHICLE
+9259
+grids. Therefore, the map processing time might vary along with
+the sensor conﬁguration and surrounding environment, making
+its integration in real-time applications more challenging.
+Inspired by the previous methods, a motion planning strategy
+is proposed in this article, and the contributions can be summa-
+rized as follows.
+1) The proposed approach directly penalizes and satisﬁes
+the temporal, nonconvex, and noncontinuous FOV con-
+straints in one optimization formulation, in Section VI-
+A. With a proper initialization, the translation and yaw
+movement can be achieved simultaneously by solving the
+optimization with a single parallel-gradient-free iteration
+in Section VI-B.
+2) To facilitate real-time performance, a parallel rolling
+grid map is introduced in Section IV to perceive and
+store the environment information. Compared to existing
+works [13], its computational complexity is irrelevant
+to the resolution of the depth image and the number
+of perceived obstacles, making the computational time
+near constant at each cycle and more suitable for realtime
+applications.
+3) The proposed strategy together with the rolling map is
+successfully implemented on a small-sized quadrotor.
+Real-time performance is achieved with the limited on-
+board computational budget. Its performance is demon-
+strated with real-ﬂight experiments in unknown indoor
+complex environments.
+In this article, the related literature is reviewed in Section II.
+Some notations and deﬁnitions are presented in Section III. The
+parallel mapping method for the planning strategy is shown in
+Section IV. The global planner and local planner are detailed
+in Sections V and VI, respectively. The implementation details
+about the proposed methods and quadrotor system settings are
+shown in Section VII. In Section VIII, comparisons with the
+state-of-the-art method are given. Indoor autonomous ﬂight in
+anunknownenvironmentisalsopresented.SectionIXconcludes
+this article.
+II. RELATED WORK
+Motion planning for quadrotors has been extensively stud-
+ied. One of the earliest work [14] proposes the method of
+minimum-snap trajectory generation, where the trajectory is
+represented as piecewise polynomials and generated by solving
+a quadratic programming problem. Richter et al. [15], [16]
+showed that minimum snap trajectories can be obtained in closed
+form, whereas safety of the trajectories is ensured by iteratively
+inserting intermediate waypoints in an ad hoc approach. The
+problem of trajectory generation with obstacle avoidance is nat-
+urally nonconvex and is difﬁcult to solve. Chen et al. [17]–[20]
+adopted the idea of safe-ﬂying corridor. These methods extract
+an obstacle-free region consists of multiple convex shapes and
+constraint the trajectory to stay inside. The resulting problem is
+convex and of a quadratic form, which can be solved efﬁciently
+in real time. On the other hand, works like [12], [21]–[25]
+utilized a reduced model to ﬁnd a good-enough trajectory as an
+initial guess, which is then reﬁned by a nonlinear optimization
+process.
+Compared to general motion planning, less attention was
+given to the problem of safe navigation with limited perception.
+In this case, an additional step is required to construct a repre-
+sentation of the surrounding environment. Unlike in the cases
+for scene reconstruction, the representation used for motion
+planning must be updated in real time to capture the change
+of the perceived environment. Popular methods like [13], [26],
+ﬁrst construct a grid-based occupancy map by performing ray-
+casting between the sensor to the perceived point cloud. Then,
+a wave-propagation-based algorithm is adopted to calculate the
+estimated distance ﬁeld. However, the time complexity of these
+algorithms varies with the resolution of the depth information
+and the number of the perceived obstacles. It might even require
+a downsampling of the original depth information to achieve
+real-time performance. In [27], an efﬁcient point cloud-based
+map is proposed, but it only remembers a limited number of
+frames of the perceived information, limiting its application to
+the more general problem.
+With a proper environmental representation, safe planning
+with limited FOV is made possible. However, the optimality
+and availability of the solution could be affected by this overly
+conservative constraint. In [4] and [5], a high-speed trajectory
+generation method was proposed that enables fast and safe
+ﬂying while new environmental information was obtained. The
+safety is guaranteed by always having a feasible, safe back-up
+trajectory in the known free space. For navigation autonomously
+in unknown environments, Zhou et al. [6] presented a robust and
+perception-aware replanning framework, where an iterative tra-
+jectory reﬁnement process ensures that unknown obstacles can
+be observed earlier. The awareness is introduced through an in-
+direct visibility metric and the heading is planned independently
+of the translational motion. To address the issue, a gradient-free
+optimization (GFO) framework could be considered. Successful
+implementation of GFO on robotics system can be seen in [8]
+and [10], where a learned vehicle model with noisy gradient is
+successfully controlled. Similarly, in [28], the GFO is used to
+optimize the parameters from a learned latent space for real-
+time vision-based arm maneuvers. In this article, the proposed
+method extends the work in [8] to formulate the limited-FOV
+planning as a stochastic optimal control problem, where an
+efﬁcient gradient-free-sampling-based solution applies.
+III. PROBLEM DEFINITION
+A. Method Overview
+In this article, an MPC-based planning framework is adopted
+to solve the nonconvex and noncontinuous problem in real time.
+First, a dense environment map is constructed with the accumu-
+lated sensor readings. Then, a global geometrical path planner
+is adopted to provide guidance information and initialization to
+the MPC. Finally, the MPC module serves as the local planner to
+generates a safe and feasible trajectory. Mapping and planning
+modules are fully parallel and implemented on a GPU. The
+notation used throughout the article is shown in Fig. 1(a).
+Authorized licensed use limited to: Huazhong University of Science and Technology. Downloaded on September 26,2026 at 02:26:55 UTC from IEEE Xplore.  Restrictions apply. 
+
+9260
+IEEE TRANSACTIONS ON INDUSTRIAL ELECTRONICS, VOL. 69, NO. 9, SEPTEMBER 2022
+Fig. 1.
+Local map consists of the occupied space, free space, and the
+unknown space. This map is treated as a local map, which is centered
+on the location of the quadrotor. (a) Notation for navigation. (b) Local
+goal selection.
+B. Planning Model
+In practice, planning with the high-ﬁdelity model is typically
+prohibitively computationally intensive. A linear trajectory-
+planning model is used to generate the reference trajectory.
+Taking into account the mismatch between the linear trajectory-
+planning model (1) and high-ﬁdelity model (2), the aim of this
+work is to generate a reference motion suitable to be tracked by
+the real system.
+1) Trajectory-Planning Model: Consideringtheﬂatoutputs
+of the quadrotor dynamic [p, ψ]T , the trajectory-planning model
+can be written as
+˙xt = Axt + But
+A =
+
+ATran
+0
+0
+0
+
+, B =
+
+0
+I4
+
+, ATran =
+
+0
+I6
+0
+0
+
+(1)
+where the system state x = [pT , ˙pT , ¨pT , ψ]T ∈X consists of
+3-D position, velocity, accelerator, and yaw. The control input
+u = [ux, uy, uz, uψ]T ∈U includes the translational jerk and
+the yaw rate.
+2) High-Fidelity Model: The high-ﬁdelity model of the
+quadrotor in [14] is deﬁned as follows:
+¨ph = Tu
+m RW
+Bh[0, 0, 1]T −[0, 0, g]T
+˙RW
+Bh = RW
+Bh ω, J ˙ωh = τu −ωh × Jωh
+(2)
+where m and J are the mass and inertia matrix of quadro-
+tor, respectively, and · : R3 →SO(3) maps a 3-D vector to
+a skew-symmetric matrix. The high-ﬁdelity model state xh =
+[pT
+h , ˙pT
+h , (RW
+Bh
+∨)T , ωT
+h ]T consists of position, velocity, attitude,
+and angular rate. The control input of the high-ﬁdelity model
+uh = [Tu, τ T
+u ]T consists of the thrust and moment.
+C. Stochastic Optimal Control Problem
+In the local planner, a stochastic optimal control prob-
+lem [8] is formulated with the trajectory-planning model.
+The random vector vt is treated as the control input of the
+system. vt is a white-noise process with density function
+N(ut, Σ). The sequence of control inputs V and the corre-
+sponding sequence of mean control inputs U are presented
+as V = [v0, v1, . . ., vT −1]T and U = [u0, u1, . . ., uT −1]T ∈
+Rm×T . The probability density functions for V can be deﬁned
+as q(V |U, Σ). Then, the distribution, which corresponds to the
+density function q(V |U, Σ), is noted as QU,Σ. Inspired by [8],
+optimizing the control objective by selecting a control trajectory
+can be achieved by choosing an optimal distribution for the
+control sequence. The KL-divergence provides a method for
+comparing distances between probability distributions and acts
+as a type of control cost by penalizing deviations for the con-
+trolled distribution from the optimal distribution. In this work,
+it is used to deﬁne optimization objectives. Assume F and H
+are two absolutely continuous probability distributions. Then,
+the KL-divergence between two distributions can be deﬁned as
+DKL(F∥H) = EF[log( f(V )
+h(V ))].
+The general motion planning problem can be deﬁned as a
+discrete-time stochastic optimal control problem as
+U ∗= arg minUEQU,Σ
+
+φ(xT ) +
+T −1
+
+t=0
+L(xt+1, ut)
+
+(3)
+where φ(xT ) is the terminal cost. Furthermore, the running cost
+L(xt+1, ut) can be divided into a state-dependent running cost
+c(xt+1), and a control cost Sc(ut, ˜ut) that is a quadratic function
+of the control input
+L(xt+1, ut) = c(xt+1) + λ
+2(uT
+t Σ−1ut + βT
+t ut + γt)
+
+
+	
+Sc(ut,˜ut)
+(4)
+where βt and γt are related to the nominal control sequence ˜U.
+The state cost S(V, x0) of a control input sequence V is deﬁned
+as follows:
+C(x0, x1, . . ., xT ) = φ(xT ) +
+T
+
+t=1
+c(xt)
+S(V, x0) = C(x0, Ax0 + Bv0, A(Ax0 + Bv0) + Bv1, . . .).
+IV. ENVIRONMENT REPRESENTATION
+The ﬁrst step in the proposed strategy is to construct a 3-D
+environment map with a limited FOV sensor. The inputs of the
+strategy are the dense depth measurement and the pose of the
+sensor provided by an external localization process. The purpose
+of the map is to help evaluate various costs and constraints in
+the planning phase. The proposed mapping module updates the
+occupancy probability (the chance of this grid being occupied
+Authorized licensed use limited to: Huazhong University of Science and Technology. Downloaded on September 26,2026 at 02:26:55 UTC from IEEE Xplore.  Restrictions apply. 
+
+LU et al.: FLIGHT WITH LIMITED FIELD OF VIEW: A PARALLEL AND GRADIENT-FREE STRATEGY FOR MICRO AERIAL VEHICLE
+9261
+Fig.
+2.
+Updating
+process
+of
+a
+grid
+map.
+(a)
+Ray-casting.
+(b) Back-projection.
+by an obstacle) for each of its grids. The proposed method is
+extended upon the previous work [29].
+The measurement of the depth sensor is typically in the format
+of a depth image or a point cloud. By casting a ray from the
+sensor’s position to each of the measured points, the grids can
+be classiﬁed as free, obstacle-occupied, and not-observable [see
+Fig. 2(a)]. The traditional updating process [13], [26] starts from
+the grid where the sensor resides (Grid 1) and repeatedly visits
+the next grid that the ray would pass through (Grids 1–8). It is
+noted that when the depth sensor has a high resolution, a grid
+might be updated by multiple rays (i.e., Grid 2) and cause a
+decrease in the computational efﬁciency. When the ray-casting
+is conducted parallelly, this leads to a memory conﬂict with
+additional overhead.
+Following [30], the issue can be addressed by reversely
+projecting a grid to the sensor’s imaging plane. Given a grid
+[see the grid under processing in Fig. 2(b)], the algorithm ﬁrst
+ﬁnds its distance to the sensor, called the projected depth. The
+distance between the measurement point of the closest ray and
+the sensor is called the measured depth. For a sensor with a ﬁxed
+measurement model, the query of the closest ray can often be
+done in O(1) time. If the distance between the center of the grid
+to its closest ray is larger than a threshold, then no update shall
+be performed. Otherwise, the projected depth is compared to
+the measured depth, and update the information of the grid as
+follows.
+1) If the difference is within a threshold, the grid is treated
+as occupied and its occupancy probability is increased.
+Fig. 3.
+Rolling map mechanism.
+2) If the projected depth is smaller than the measured depth,
+the grid belongs to the known free space, and its occu-
+pancy probability is reduced.
+3) Otherwise, if the projected depth is larger than the mea-
+sured depth, then the grid is occluded by an obstacle and
+no updating is performed.
+Since both the backward projection and the updating process
+does not introduce a memory writing conﬂict, the algorithm can
+safely assign a unique thread to process each of the grid cells,
+which enables large-scale parallel implementation on the GPU.
+Due to the mobility of the aerial vehicle, the mapping process
+would consume a large amount of memory space. To address
+this issue, a rolling-buffer-like strategy [11] is adopted to reuse
+a ﬁnite amount of memory. The algorithm is more suitable for
+the lightweight-GPU-based computer, where a limited amount
+of memory has to be shared by both the GPU and CPU. Each
+grid in the map is assigned with a unique global index [i, j, k],
+where i, j, k ∈Z. To store the information of each grid, the 3-D
+index is mapped into a 1-D index through a rolling formula
+Id = pm(i, Xsize) + pm(j, Ysize)Xsize
++ pm(k, Zsize)XsizeYsize
+pm(a, b) = modulo(modulo(a, b) + b, b)
+and [Xsize, Ysize, Zsize] deﬁnes the volume where a local con-
+sistency is maintained. As shown in Fig. 3, the information of
+grid [i, j, k] stores in the memory location Id consists of the
+following:
+1) occupancy probability;
+2) last visible time;
+3) global index [i, j, k].
+Assume another grid [i,′ j,′ k′] also maps into the memory
+location Id, which currently stores the global index [i, j, k].
+When retrieving the information for grid [i,′ j,′ k′], the global
+indexes [i,′ j,′ k′] and [i, j, k] are compared. If they are the same,
+the stored information is then retrieved. Otherwise, a default
+value indicating an unobserved grid is returned. In this way, the
+map information that is far away from the current location of
+the drone is automatically forgotten and replaced by the map
+information that is close to the vehicle.
+The distance from a given grid to its nearest obstacle is
+obtained from the Euclidean distance transform of the grid map.
+To implement this process on the GPU, the algorithm in [31]
+is adopted to perform a 1-D scan for each roll of the grid map
+along its x-, y-, and z-axis. All rolls along the same axis can be
+processed parallelly without memory conﬂict.
+Authorized licensed use limited to: Huazhong University of Science and Technology. Downloaded on September 26,2026 at 02:26:55 UTC from IEEE Xplore.  Restrictions apply. 
+
+9262
+IEEE TRANSACTIONS ON INDUSTRIAL ELECTRONICS, VOL. 69, NO. 9, SEPTEMBER 2022
+V. GLOBAL PLANNING STRATEGY
+In our approach, the global planning strategy is proposed to
+construct a nominal control sequence and guiding path for the
+stochastic optimal control. The proposed method adopts the
+RRT ∗[32] to ﬁnd a global path Pg based on the currently
+perceived environment in a much lower frequency compared
+to the MPC.
+The feasibility of Pg is affected by the real-time mapping
+process.Therefore,anindependentreal-timeprocessisproposed
+for selecting a local goal Gl from the global path Pg, as shown
+in Fig. 1(b). The Gl is selected from the waypoints, which can
+be observed in the maximum onboard sensor range ds or are
+closer than threshold dt. This ensures that the local planner is
+capable of ﬁnding the optimal solution in this range without
+being troubled by local minima. Meanwhile, the feasibility of
+the path −−−→
+GlGg is also checked during the real-time process.
+If the path is infeasible, the emergency policy is triggered for
+replanning a new global guiding path.
+With the local target Gl determined, the guidance infor-
+mation is generated for local planner. Comparing to our pre-
+vious method [33] guiding with a computationally expensive
+kinodynamic planner, the following try-and-throw approach is
+adopted in this article. First, the guiding path can intuitively
+guide the direction of the planning trajectory. The algorithm
+from [12] is used to ﬁnd multiple topologically distinct paths
+PTP = {Ptp
+1 , . . ., Ptp
+Ntp}betweenGl andthecurrentpositionof
+the vehicle. The topological path Ptp
+i , i ∈[1, Ntp] has multiple
+waypoints {pt, pi
+1, . . ., Gl}. Second, the dynamic cost for each
+path of the PTP is considered by simulating an ideal path
+following process. This following process is simulated up to a
+ﬁxedtimehorizonT.Ateachcycle,achasingpointpd isselected
+from the followed path Ptp
+i . Then, it is updated forward along
+Ptp
+i
+when the distance between pd and the simulated vehicle
+position p is shorter than a threshold. Furthermore, the desired
+yaw angle ψd is determined by the direction of −−→
+ppd. The linear
+feedback controller is used to calculate the simulated control
+input. Through ideal simulation with a ﬁxed horizon, a series
+of nominal control sequences UTP = {Utp
+1 , . . ., Utp
+Ntp}, Utp
+i =
+{ui
+n0, . . ., ui
+nT } can be generated. Since the paths in PTP are
+topologically distinctive, the resulting control sequences are also
+well separated in the input space. For local planner, guiding
+with a suitable control sequence can ensure the topological
+equivalent between planning trajectory and topological path.
+Third, considering the dynamic cost and path length, a simple
+strategy is proposed for selecting the best control sequence. For
+each path Ptp
+i and its corresponding nominal control sequence
+Utp
+i , a cost is assigned based on the following function:
+JPtp
+i ,Utp
+i = λs
+T
+
+t=0
+∥ui
+n(t)∥2
+
+
+	
+motion
++ λp · lrest(Ptp
+i )
+
+
+	
+path length
++ λm · dist(Ptp
+i , Ptp
+last)
+
+
+	
+memory
+(5)
+where the function lrest(·) is deﬁned to calculate the length of
+the rest path after a ﬁxed horizon tracking simulation and the
+function dist(·) is deﬁned to evaluate the difference between
+two paths. The Ptp
+i
+and best path in the last iteration Ptp
+last are
+uniformly discretized into multiple waypoints. Then, the dis-
+tances between the sequentially matched waypoints are summed
+as a result of dist(·). The motion term in the cost function
+evaluates the dynamic cost, which is spent in turning into the
+path directly from the initial state. The length of the rest path
+after the simulated tracking process is used to approximate the
+rest dynamic cost in path length. However, the low accuracy
+of approximation leads the planner to hesitate on the selection
+of paths with the same approximate cost. Then, a memory term
+is designed for avoiding this by penalizing the paths that have
+signiﬁcant change with the best path in the last iteration. The
+positive constants λs, λp, and λm indicate the corresponding
+weights of motion cost, path length, and successive selection,
+respectively. Finally, the path with the lowest cost is selected
+as the local planner’s guiding path ptp
+ibest, and the corresponding
+input is used as the nominal control sequence ˜U.
+VI. LOCAL PLANNING WITH SAMPLING-BASED MPC
+A. Optimal Objective
+In local planning, the local reference motion is optimized
+based on the trajectory planning model. The local reference mo-
+tion is required in the limited FOV and ensure the collision-free
+and dynamic feasibility. To the implementation of sampling-
+based MPC, these constraints are formulated as soft constraints
+in the optimal objectives. Moreover, the optimal objective also
+integrates the path tracking cost for tracking the guiding trajec-
+tory. The terminal cost is extended to improve the perception of
+unknown space.
+1) Path Tracking Cost: The purpose of the path tracking
+cost function is to keep the local trajectory close to the guiding
+path. The desired position is the tracked goal point gt by the
+nominal controller. And the desired velocity is simply forced to
+zero. Then, the track cost can be deﬁned as
+ct(x) = Kc
+tp∥p −gt∥+ Kc
+tv∥˙p∥, Kc
+t ≥0
+(6)
+where Kc
+t is the weighting parameter.
+2) Dynamic Cost: Since quadrotor dynamics is differen-
+tially ﬂat [14], any smooth trajectory (with reasonably bounded
+derivatives) in the ﬂat output space can be followed by the
+underactuated quadrotor. However, the limits of actuators still
+make the real system have the unexpected tracking error. The
+constraints on derivative state cannot intuitively ensure the fea-
+sibility of planning trajectory. In this work, the tracking process
+of a high-ﬁdelity model is simulated for each candidate trajec-
+tory to evaluate the feasibility for the real system. The control
+law for a high-ﬁdelity model is based on the SE(3) geometric
+tracking controller in [34]. The reference state can be obtained
+from the ﬂat outputs of the planning system. The state error
+ex = [epT , e ˙pT ]T is deﬁned from position and velocity tracking
+errors in a high-ﬁdelity system. It is assumed that the quadrotor
+cannot diverge inﬁnitely far from the planning trajectory, so the
+Authorized licensed use limited to: Huazhong University of Science and Technology. Downloaded on September 26,2026 at 02:26:55 UTC from IEEE Xplore.  Restrictions apply. 
+
+LU et al.: FLIGHT WITH LIMITED FIELD OF VIEW: A PARALLEL AND GRADIENT-FREE STRATEGY FOR MICRO AERIAL VEHICLE
+9263
+state error ex is compact. Then, the dynamic cost can be deﬁned
+as
+cd(x) = Kc
+e∥ex∥+ Kc
+u∥uh∥, Kc
+e, Kc
+u ≥0
+(7)
+where the positive constant Kc
+e and Kc
+u are the weighting
+parameters.
+3) Collision-Free Cost: To achieve collision avoidance, the
+collision cost function in the previous work [33] is used to
+penalize the distance of the closest obstacles, and reﬂect the
+crash condition
+cc(x) =
+⎧
+⎨
+⎩
+0,
+d(x) > dthr
+max
+fp(d(x)), dthr
+max ≥d(x) > dthr
+min
+Kc
+crash,
+dthr
+min ≥d(x)
+fp(d) = Kc
+crash
+ dthr
+max −d
+dthr
+max −dthr
+min
+kc
+, kc > 0
+(8)
+where d(x) is the distance of state x from the closest obstacle.
+4) Limited FOV Cost: To guarantee safety while navigating
+inside an unknown environment, a series of soft-constraint cost
+functions in the previous work [33] are used to achieve this. The
+limitedFOVcost is formulatedbythreenonlinear soft-constraint
+cost functions. The Yaw constraint cψ is to minimize the dif-
+ference between previous sensor orientation ψtp and direction
+of movement. The Horizon FOV constraint cFOVh is to force
+the movement to be inside the horizon FOV of the sensor. The
+Vertical FOV constraint cFOVv is to keep the sensor near level
+during the ﬂight. These soft-constraint costs can be denoted as
+follows:
+cψ(xt, xtp) = Kc
+ψ|ψtp −arctan
+
+pxt −pxtp
+pyt −pxtp
+
+|
+cFOVh(xt, xtp) =
+Kc
+FOVh, pt /∈CFOV(xtp)
+0, pt ∈CFOV(xtp)
+cFOVv(xt) =
+Kc
+FOVv|[cos(ψt), sin(ψt), 0] · (¨pt + [0, 0, g]T )|
+(9)
+where limited FOV space CFOV is strictly related to the visual
+sensor conﬁguration (horizontal FOV θFOV and perception range
+ds). The parameters Kc
+FOVv and Kc
+ψ tradeoff the importance of
+the yaw constraint and level ﬂight. Kc
+FOVh is a large variable to
+penalize the predicted trajectory, which is outside of the sensor
+range. A query strategy is adopted to iteratively transform the
+predictive state into the coordinate frames of previous view
+xtp, tp ∈[t0, t1, . . ., tt−1] until a view with low cost is found.
+Then, the limited FOV soft-constraint cost can be deﬁned as
+follows:
+cFOV(xt) = min
+tp (cψ(xt, xtp) + cFOVh(xt, xtp) + cFOVv(xt)).
+(10)
+5) Terminal Cost: Following the idea in [6], the motion of
+predictive trajectory should give a quadrotor enough time for
+keeping the unknown space to enter point visible. Compared
+to [6], which used a two-step motion planning framework,
+the proposed method adopts a terminal cost to optimize the
+translational and yaw motion together. For keeping the unknown
+Fig. 4.
+Perceiving optimal objectives.
+space clearly observable, the quadrotor should enter the un-
+known space with a vertical posture to the known space frontier.
+The intersection of the known space frontier and the predictive
+trajectory is denoted as Pf. The frontier’s unit perpendicular nn
+f
+is needed to identify the posture of a quadrotor. It can be cal-
+culated by the average of sampling points Ps
+i ∼N(Pf, Σp), <
+?brk? > i ∈[1, . . ., Nf]
+bs
+i =
+1, Ps
+i ∈Known
+0, Ps
+i ∈Unknown, nn
+f =
+Nf
+i=1 bs
+i(Ps
+i −Pf)
+∥Nf
+i=1 bs
+i(Ps
+i −Pf)∥
+.
+(11)
+The angle θf
+t between perpendicular nn
+f and −−−→
+Pfpt is used to
+evaluate the relationship between the predicted trajectory and
+the frontier, and angle θFOV
+t
+between the orientation vector nFOV
+t
+of predictive position pt and −−−→
+ptPf is used to quantify the
+capability of observing Pf. To approximate how reliable Pf is
+visible for the predictive trajectory, the perception terminal cost
+φpc is adopted by deﬁning the visibility level from a predictive
+trajectory as
+bc
+t =
+
+1, d(−−−→
+ptPf) > dpc
+0, d(−−−→
+ptPf) ≤dpc
+φpc = Kφ
+pc
+ T
+
+t=0
+bc
+t · cos
+
+θf
+t
+
+· cos
+
+θFOV
+t
+
++ 1
+−kp
+, kp > 0
+(12)
+where the dpc is the threshold distance for checking whether the
+Pf is visible for predictive position pt.
+The above costs integrate perception and motion optimization
+into one optimal problem deﬁned in (3). The running cost
+function c(xt) and terminal cost function θ(xT ) are composed
+as follows:
+c = ct + cd + cFOV + cc, θ = θpc.
+(13)
+The optimal translational and yaw motion can be found by
+solving an optimization problem by minimizing the cost func-
+tion. However, as shown in Fig. 4, with the abovementioned
+constraints and cost functions, the optimization problem is tem-
+poral, nonlinear, and noncontinuous. It is difﬁcult to solve using
+traditional gradient-based methods.
+B. Sampling-Based MPC
+To address these issues, the proposed strategy adopts a
+sampling-based and gradient-free approach [9], [10] that is
+Authorized licensed use limited to: Huazhong University of Science and Technology. Downloaded on September 26,2026 at 02:26:55 UTC from IEEE Xplore.  Restrictions apply. 
+
+9264
+IEEE TRANSACTIONS ON INDUSTRIAL ELECTRONICS, VOL. 69, NO. 9, SEPTEMBER 2022
+fully parallel and well suitable for GPUs. This makes it pos-
+sible to solve a temporal, nonlinear, and noncontinuous prob-
+lem in real time with limited onboard resources. The adopted
+method optimizes a control sequence by sampling from an
+optimal control distribution. The controlled distribution QU,Σ
+is forced to close to the optimal distribution Q∗. The proposed
+guiding strategy makes QU,Σ aligned with Q∗. The resulting
+control sequence sampled from QU,Σ can result in a low-cost
+trajectory. The optimal solution is obtained by Monte Carlo
+approximation of the control distribution expectation. In our
+case, the proper nominal control sequence ˜U is selected to
+generate the base distribution P, where p(V ) = q(V | ˜U, Σ).
+Based on the theory in [8], the control objective (3) is achieved
+by choosing an optimal distribution Q∗for the control in-
+put sequence, where q∗(V ) = 1
+η exp(−1
+λS(V ))p(V ), and η =
+
+Rm×T exp(−1
+λS(V ))p(V )dV . Then, the solution of (3) can be
+obtained by minimizing the KL-divergence between the con-
+trolled distribution QU,Σ and optimal distribution Q∗as follows:
+U ∗= arg minU∈U[DKL(Q∗∥QU,Σ)].
+(14)
+Finally, the optimal solution can be solved as follows:
+u∗
+t =
+
+q∗(V )
+q(V | ˆU, Σ)
+
+
+	
+w(V )
+q(V | ˆU, Σ)vtdV
+∀t ∈{0, 1, . . ., T −1}
+w(V ) = 1
+η exp
+
+−1
+λ
+
+S(V ) + λ
+T −1
+
+t=0
+(ˆut −˜ut)T Σ−1vt
+
+(15)
+where w(V ) is the weight for importance sampling.
+The proposed planning strategy is discussed in Algorithm
+1.First, GuidingStrategy is the implementation of proposed
+method in Section V. It generates nominal control sequence ˜U
+and path Ptp
+ibest with a local goal Gl input (Line 1). The purpose
+of the nominal control sequence is to construct the optimal dis-
+tribution. The locally optimal solution drawn from this optimal
+distribution achieves a lower cost than other control distribution.
+This helps the local planner to seek the optimal control sequence
+from plentiful locally optimal solutions. However, it still has
+some special cases, especially in complex environments. There
+are obstacle spaces between the initial predictive state sequence
+ˆX and the nominal predictive state sequence ˜X. The collision
+costwillchangeabruptlyaroundtheobstaclesspaces.Therefore,
+itisdifﬁcultforthelocalplannertoacrossthehigh-costsampling
+area to achieve the optimal solution. To solve the problem, a
+simple strategy for selecting the initial control sequence ˆU is
+adopted in lines 2–5. Based on the MPC framework, the default
+ˆU is set to an optimal control sequence at the last iteration. To
+avoid the high-cost sampling area, the function IsTopoEquiv-
+alent checks the topological equivalent between ˆX and Ptp
+ibest.
+Inspired by [12], the uniform visibility deformation is adopted
+for efﬁciently equivalence checking. The guiding path Ptp
+ibest is
+uniformly discretized to multiple waypoints according to the
+step of ˆX. The collision for the lines between ˆX and discretized
+waypoints are sequentially checked. The Ptp
+ibest and ˆX connected
+by collision-free lines are treated as topological equivalent. If
+they are distinct, the initial control sequence ˆU is reset to ˜U. The
+optimization process of sampling-based MPC can be divided
+into three parts. First, according to the expression of optimal
+solution in (15), the weight for importance sampling can be
+approximated by the forward sampling of stochastic dynamic.
+The sampling trajectories are generated by some ﬁnite sets of
+randomly control sequences Vi, and each of them is evaluated
+parallelly with the cost function Sa
+i (lines 6–15). Then, the
+importance sampling weight can be obtained in lines 16–19.
+Finally, the optimal control sequence can be obtained by the
+weighted sum of stochastic dynamic and is updated by the
+iterative update law.
+VII. IMPLEMENTATION DETAILS
+The proposed parallel and gradient-free strategy is imple-
+mented in C/C++. The autonomous ﬂight with limited FOV
+experiments are done on a small-sized quadrotor platform, as
+shown in Fig. 5. All modules are running on an NVIDIA Jetson
+Xavier NX, which has a 6-core ARM 64-bit CPU and 384 CUDA
+cores GPU. An Intel RealSense depth camera D455 is selected to
+provide a depth information and camera image for the mapping
+and localization modules. The depth camera has 87◦× 58◦
+FOV and around 10m sensor range, which come with a typical
+motion planning problem that needs considering the limited
+FOV. The output dense map and current states are fed into the
+global planner for generating the guiding information. Then, the
+local planner is used to generate smooth, safe, and dynamically
+feasible trajectories. The geometric controller [34] is used to
+Authorized licensed use limited to: Huazhong University of Science and Technology. Downloaded on September 26,2026 at 02:26:55 UTC from IEEE Xplore.  Restrictions apply. 
+
+LU et al.: FLIGHT WITH LIMITED FIELD OF VIEW: A PARALLEL AND GRADIENT-FREE STRATEGY FOR MICRO AERIAL VEHICLE
+9265
+Fig. 5.
+Proposed quadrotor platform. All modules are running on the
+NVIDIA Jetson Xavier NX. The quadrotor is stabilized by a Pixhawk
+autopilot.
+Fig. 6.
+Performance of proposed mapping method.
+track the reference trajectory, and the attitude estimation and
+control are left to the open-source autopilot Pixhawk [35] on the
+quadrotor. Meanwhile, for real-time performance, the frame-
+work of Tube-MPC [36] is utilized to guarantee robustness and
+real-time operation. The nominal controller solves the motion
+planning problem for an idealized nominal state with dynamic
+and perception constraints. The associate controller keeps the
+actual system state close to the nominal state. In the proposed
+work, the nominal system is controlled by a sampling-based
+MPC controller in low frequency (10Hz). But the states of the
+nominal system is updated as reference (100Hz) to the physical.
+VIII. RESULTS
+A. Online Mapping
+The online mapping algorithm is implemented on an NVIDIA
+Xavier NX. Fig. 6(a) and 6(c) shows the computation time for a
+ﬁxed size occupancy grid map 20 × 20 × 5 m in different grid
+sizes. The proposed method with 0.2-m accuracy is performed
+at around 1.9m/s. The result of real-world mapping experi-
+ment is presented in Fig. 6(c). Furthermore, the comparison of
+computation efﬁciency for occupancy grid mapping between
+the proposed method and benchmark [13] with the same grid
+size (0.1m) is shown in Fig. 6(b). The proposed method and
+benchmark method are running on a Xavier NX and an i7-8750H
+Fig. 7.
+Comparison simulations in Gazebo. (a) Performance of plan-
+ning strategy with different numbers of samples. (b) Comparison be-
+tween [4] and proposed approach with vmax = 2m/s.
+CPU, respectively. The testing result shows that the proposed
+method is almost ten times faster than the benchmark method.
+The computing time with the different number of measurement
+points is considered for the effect of the resolution of the depth
+image and the number of perceived obstacles. The computing
+time of the benchmark method signiﬁcantly increases as the
+number of points. The proposed method has almost constant
+computing time. The EDT over 20 × 20 × 5 m volume with
+0.2-m accuracy can be performed at around 10m/s; for more
+details, refer to [29].
+B. Autonomous Flight With Limited FOV
+To verify the proposed method, the simulation and experiment
+under the limited FOV navigation scenario are proposed. All
+obstacles in the simulation and experiment are assumed to be
+static. In the numerical simulation, the proposed strategy is
+implemented on a laptop with GTX 1060 GPU and i7-8750H
+CPU. The sampling-based MPC with different numbers of
+samples is tested in an arbitrary frame of the simulation. The
+performance with different numbers of samples is shown in
+Fig. 7(a). The running costs of sampling trajectories are used
+for importance sampling weight. The lower cost can be achieved
+with a higher number of samples. Through the tradeoff between
+the performance and computation time, the number of samples
+is set to N = 2560. The comparison between the proposed
+planning strategy and the state-of-the-art method [4] is presented
+in the aspect of ﬂight time Ttotal, trajectory smoothness, and
+achieved velocity. The smoothness is measured by calculating
+average jerk. The autonomous ﬂight with the limited FOV is
+simulated by selecting start and goal points 20 m away in a
+15 × 30 m indoor scenario with obstacles. Considering that the
+derivative state limits of the planner have a great inﬂuence on
+the smoothness, the maximum derivative state is set equal in
+comparison experiments. The maximum velocity is set as 1.5,
+2.0, and 2.8, respectively. The maximum acceleration is set as
+3 m/s2 and the jerk limit is set as 4m/s3. For proposed method,
+the local planner samples 2560 trajectories in each iteration, and
+the time for topological roadmap construction is limited to 3m/s.
+The covariance Σ for control sequence sampling is selected as
+Σ = diag(4.25, 4.25, 2.2, 1.4).
+As the results are shown in Table I and Fig. 7(b), with similar
+derivativestatelimits,theproposedmethodoutperformsinterms
+of ﬂight time and average speed. The proposed method generates
+Authorized licensed use limited to: Huazhong University of Science and Technology. Downloaded on September 26,2026 at 02:26:55 UTC from IEEE Xplore.  Restrictions apply. 
+
+9266
+IEEE TRANSACTIONS ON INDUSTRIAL ELECTRONICS, VOL. 69, NO. 9, SEPTEMBER 2022
+TABLE I
+PERFORMANCE COMPARISON
+Fig. 8.
+Autonomous ﬂight experiment. The demonstrations are avail-
+able at1.
+smoother reference motion than the state-of-the-art method [4].
+In the high-speed ﬂight simulation (vmax = 2.8m/s), the average
+jerk state of the proposed method achieves 1.30m/s3, which
+is better than the result of the benchmark method (2.85m/s3).
+Since thousands of sampling trajectories are required in each
+iteration, it is usually difﬁcult to achieve running in real time.
+The sampling process is fully parallel and can be performed on
+a GPU. For the real-world ﬂight, the proposed method makes
+it possible to use a mobile embedded computation platform
+NVIDIA Xavier NX, which only has 15W power (one-ﬁfth
+of the Intel NUC used in the benchmark method). The same
+conﬁguration of proposed method is used on both Xavier NX
+and laptop. The whole update process for sampling-based MPC
+takes average 20.69ms with the Xavier NX and 8.10ms with the
+laptop.
+To validate the proposed strategy, the autonomous ﬂights with
+limited FOV are done in previously unknown indoor environ-
+ments with randomly deployed obstacles. During the ﬂights, the
+parallel and gradient-free strategy is performed online without
+any prior environment information. The parallel mapping pro-
+cess generates a 10 × 10 × 3 m local dense perception of the
+environment with drone’s moving. The resolution of the local
+map is set as 0.1m. The predict time horizon of sampling-based
+MPC tf −t0 is set as 3.5s. After receiving the global goal, the
+reference trajectory is generated through the proposed strategy
+to the associate controller. The representative demonstrations of
+the indoor ﬂights are shown in Fig. 8. The quadrotor performs
+an autonomous navigation ﬂight while avoiding obstacles, the
+maximum speed is 1.61m/s with an average speed of 1.03m/s.
+1[Online].
+Available:
+https://www.dropbox.com/sh/bke1hjtfs50ta7r/
+AAA8RsC6wZ0ith7HFD2JtHiUa?dl=0
+The quadrotor is capable of reaching the ﬁnal goal safely with
+proposed strategy.
+IX. DISCUSSION AND CONCLUSION
+In this article, a parallel and gradient-free approach was
+proposed for quadrotor ﬂying with the limited FOV. A parallel
+mapping process was explored to integrate the onboard limited
+FOV sensor’s measurement to an environment map. Based on
+the map, a guiding strategy was adopted for guiding the local
+planner. In order to satisfy the perception constraint, the de-
+tailed vehicle dynamic and the collision avoidance conditions, a
+stochastic optimal control problem with nonlinear and noncon-
+tinuous costs was solvedusingaparallel gradient-freealgorithm.
+Both the environment perception and the optimization process
+were implemented on a microsized quadrotor with a lightweight
+low-cost GPU. Comparisons and autonomous ﬂight experiments
+were conducted to validate the proposed method.
+REFERENCES
+[1] B. T. Lopez and J. P. How, “Aggressive collision avoidance with limited
+ﬁeld-of-view sensing,” in Proc. IEEE/RSJ Int. Conf. Intell. Robots Syst.,
+2017, pp. 1358–1365.
+[2] B. T. Lopez and J. P. How, “Aggressive 3-D collision avoidance for high-
+speed navigation,” in Proc. IEEE Int. Conf. Robot. Autom., 2017, pp. 5759–
+5765.
+[3] S. Liu, M. Watterson, S. Tang, and V. Kumar, “High speed navigation for
+quadrotors with limited onboard sensing,” in Proc. IEEE Int. Conf. Robot.
+Autom., 2016, pp. 1484–1491.
+[4] J. Tordesillas, B. T. Lopez, and J. P. How, “FASTER: Fast and safe
+trajectoryplannerforﬂightsinunknownenvironments,”inProc.IEEE/RSJ
+Int. Conf. Intell. Robots Syst. 2019, pp. 1934–1940.
+[5] J. Tordesillas, B. T. Lopez, M. Everett, and J. P. How, “FASTER: Fast
+and safe trajectory planner for ﬂights in unknown environments,” 2020,
+arXiv:2001.04420.
+[6] B. Zhou, J. Pan, F. Gao, and S. Shen, “RAPTOR: Robust and perception-
+aware trajectory replanning for quadrotor fast ﬂight,” IEEE Trans. Robot.,
+to be published, doi: 10.1109/TRO.2021.3071527.
+[7] S. Liu, K. Mohta, N. Atanasov, and V. Kumar, “Towards search-based
+motion planning for micro aerial vehicles,” 2018, arXiv:1810.03071.
+[8] G. Williams, P. Drews, B. Goldfain, J. M. Rehg, and E. A. Theodorou,
+“Information-theoretic model predictive control: Theory and applications
+toautonomousdriving,”IEEETrans.Robot.,vol.34,no.6,pp. 1603–1622,
+Dec. 2018.
+[9] H. J. Kappen, “An introduction to stochastic control theory, path integrals
+and reinforcement learning,” in Proc. AIP Conf. Proc., 2007, pp. 149–181.
+[10] V. Usenko, L. Von Stumberg, A. Pangercic, and D. Cremers, “Real-time
+trajectory replanning for mavs using uniform b-splines and a 3d circu-
+larbuffer,” in IEEE/RSJ Int. Conf. Intell. Robotsand Syst. (IROS), 2017,
+pp. 215–222, doi: 10.1109/IROS.2017.8202160.
+[11] V. Usenko, L. von Stumberg, A. Pangercic, and D. Cremers, “Real-time
+trajectory replanning for MAVs using uniform B-splines and a 3D circular
+buffer,” in Proc. IEEE/RSJ Int. Conf. Intell. Robots Syst., 2017, pp. 215–
+222.
+[12] B. Zhou, F. Gao, J. Pan, and S. Shen, “Robust real-time UAV replanning
+using guided gradient-based optimization and topological paths,” in Proc.
+IEEE Int. Conf. Robot. Autom., 2020, pp. 1208–1214.
+[13] H. Oleynikova, Z. Taylor, M. Fehr, R. Siegwart, and J. Nieto, “Voxblox:
+Incremental 3D Euclidean signed distance ﬁelds for on-board MAV plan-
+ning,” in Proc. IEEE/RSJ Int. Conf. Intell. Robots Syst., 2017, pp. 1366–
+1373.
+[14] D. Mellinger and V. Kumar, “Minimum snap trajectory generation and
+control for quadrotors,” in Proc. IEEE Int. Conf. Robot. Autom., 2011,
+pp. 2520–2525.
+[15] C. Richter, A. Bry, and N. Roy, “Polynomial trajectory planning for
+aggressive quadrotor ﬂight in dense indoor environments,” in Robotics
+Research. Cham, Switzerland: Springer, 2016, pp. 649–666.
+[16] M. Burri, H. Oleynikova, M. W. Achtelik, and R. Siegwart, “Real-time
+visual-inertial mapping, re-localization and planning onboard MAVs in
+unknown environments,” in Proc. IEEE/RSJ Int. Conf. Intell. Robots Syst.,
+2015, pp. 1872–1878.
+Authorized licensed use limited to: Huazhong University of Science and Technology. Downloaded on September 26,2026 at 02:26:55 UTC from IEEE Xplore.  Restrictions apply. 
+
+LU et al.: FLIGHT WITH LIMITED FIELD OF VIEW: A PARALLEL AND GRADIENT-FREE STRATEGY FOR MICRO AERIAL VEHICLE
+9267
+[17] J. Chen, K. Su, and S. Shen, “Real-time safe trajectory generation for
+quadrotor ﬂight in cluttered environments,” in Proc. IEEE Int. Conf. Robot.
+Biomimetics, 2015, pp. 1678–1685.
+[18] F. Gao and S. Shen, “Online quadrotor trajectory generation and au-
+tonomous navigation on point clouds,” in Proc. IEEE Int. Symp. Safety,
+Secur., Rescue Robot., 2016, pp. 139–146.
+[19] S. Liu et al., “Planning dynamically feasible trajectories for quadrotors
+using safe ﬂight corridors in 3-D complex environments,” IEEE Robot.
+Autom. Lett., vol. 2, no. 3, pp. 1688–1695, Jul. 2017.
+[20] S. Lai, K. Wang, and B. M. Chen, “Dynamically feasible trajectory gen-
+eration method for quadrotor unmanned vehicles with state constraints,”
+in Proc. IEEE 36th Chin. Control Conf., 2017, pp. 6252–6257.
+[21] S. Liu, N. Atanasov, K. Mohta, and V. Kumar, “Search-based motion
+planning for quadrotors using linear quadratic minimum time control,” in
+Proc. IEEE/RSJ Int. Conf. Intell. Robots Syst., 2017, pp. 2872–2879.
+[22] S. Liu, K. Mohta, N. Atanasov, and V. Kumar, “Search-based motion
+planning for aggressive ﬂight in SE(3),” IEEE Robot. Autom. Lett., vol. 3,
+no. 3, pp. 2439–2446, Jul. 2018.
+[23] W. Ding, W. Gao, K. Wang, and S. Shen, “Trajectory replanning for
+quadrotors using kinodynamic search and elastic optimization,” in Proc.
+IEEE Int. Conf. Robot. Automat., 2018, pp. 7595–7602.
+[24] W. Ding, W. Gao, K. Wang, and S. Shen, “An efﬁcient B-spline-based
+kinodynamic replanning framework for quadrotors,” IEEE Trans. Robot.,
+vol. 35, no. 6, pp. 1287–1306, Dec. 2019.
+[25] B. Zhou, F. Gao, L. Wang, C. Liu, and S. Shen, “Robust and efﬁcient
+quadrotor trajectory generation for fast autonomous ﬂight,” IEEE Robot.
+Autom. Lett., vol. 4, no. 4, pp. 3529–3536, Oct. 2019.
+[26] L.Han,F.Gao,B.Zhou,andS.Shen,“FIESTA:Fastincrementaleuclidean
+distance ﬁelds for online motion planning of aerial robots,” in Proc.
+IEEE/RSJ Int. Conf. Intell. Robots Syst., 2019, pp. 4423–4430.
+[27] P. R. Florence, J. Carter, J. Ware, and R. Tedrake, “NanoMap: Fast,
+uncertainty-aware proximity queries with lazy search over local 3D data,”
+in Proc. IEEE Int. Conf. Robot. Autom., 2018, pp. 7631–7638.
+[28] C. Finn and S. Levine, “Deep visual foresight for planning robot motion,”
+in Proc. IEEE Int. Conf. Robot. Autom., 2017, pp. 2786–2793.
+[29] Y. Zhou et al., “Towards autonomy of micro aerial vehicles in unknown
+and global positioning system denied environments,” IEEE Trans. Ind.
+Electron., vol. 68, no. 8, pp. 7642–7651, Aug. 2021.
+[30] R. A. Newcombe et al., “KinectFusion: Real-time dense surface mapping
+and tracking,” in Proc. 10th IEEE Int. Symp. Mixed Augmented Reality,
+2011, pp. 127–136.
+[31] C. R. Maurer, R. Qi, and V. Raghavan, “A linear time algorithm for
+computing exact Euclidean distance transforms of binary images in arbi-
+trary dimensions,” IEEE Trans. Pattern Anal. Mach. Intell., vol. 25, no. 2,
+pp. 265–270, Feb. 2003.
+[32] S. Karaman and E. Frazzoli, “Sampling-based algorithms for optimal
+motion planning,” Int. J. Robot. Res., vol. 30, no. 7, pp. 846–894, 2011.
+[33] H. Lu, S. Lai, B. Tian, Q. Zong, and L. Xie, “Real-time perception-limited
+motion planning using sampling-based MPC,” IEEE Trans. Ind. Electron.,
+2021.
+[34] T. Lee, M. Leok, and N. H. McClamroch, “Geometric tracking control of a
+quadrotor UAV on SE(3),” in Proc. IEEE 49th IEEE Conf. Decis. Control,
+2010, pp. 5420–5425.
+[35] L. Meier, D. Honegger, and M. Pollefeys, “PX4: A node-based multi-
+threaded open source robotics framework for deeply embedded platforms,”
+in Proc. IEEE Int. Conf. Robot. Autom., 2015, pp. 6235–6240.
+[36] S. Yu, C. Maier, H. Chen, and F. Allgöwer, “Tube MPC scheme based
+on robust control invariant set with application to Lipschitz nonlinear
+systems,” Syst. Control Lett., vol. 62, no. 2, pp. 194–200, 2013.
+Hanchen Lu received the B.S. degree from
+Central South University, Changsha, China, in
+2015. He is currently working toward the Ph.D.
+degree with the School of Electrical and Infor-
+mation Engineering, Tianjin University, Tianjin,
+China, both in automatic control.
+From September 2019 to 2020, he was a
+Visiting Student with the School of Electrical
+and Electronic Engineering, Nanyang Techno-
+logical University, Singapore. His research in-
+terests include motion planning and control of
+micro-aerial vehicles.
+Qun Zong received the bachelor’s, master’s,
+and Ph.D degrees in automatic control from
+Tianjin University, Tianjin, China, in 1983, 1988,
+and 2002, respectively.
+He is currently a Professor with the School of
+Electrical and Information Engineering, Tianjin
+University. His research interests include com-
+plex system modeling and ﬂight control.
+Shupeng Lai received the B.Eng. degree from
+the School of Electrical and Electronic Engi-
+neering, Nanyang Technological University, Sin-
+gapore, in 2012, and the Ph.D. degree from the
+Graduate School for Integrative Sciences and
+Engineering, National University of Singapore,
+Singapore, in 2016.
+His research interests include motion plan-
+ning, nonlinear model predictive control, multi-
+agent systems, and aerial systems.
+Bailing Tian received the B.S., M.S., and Ph.D
+degrees in automatic control from Tianjin Uni-
+versity, Tianjin, China, in 2006, 2008, and 2011,
+respectively.
+From June 2014 to June 2015, he was an
+Academic Visitor with the School of Electri-
+cal and Electronic Engineering, University of
+Manchester, Manchester, U.K. He is currently
+a Professor with the School of Electrical and
+Information Engineering, Tianjin University. His
+research interests include ﬁnite-time control and
+integrated guidance and control for vehicle.
+Lihua Xie (Fellow, IEEE) received the B.E. and
+M.E. degrees from the Nanjing University of Sci-
+ence and Technology, Nanjing, China, in 1983
+and 1986, respectively, and the Ph.D. degree
+from the University of Newcastle, Callaghan,
+NSW, Australia, in 1992, all in electrical engi-
+neering.
+From 1986 to 1989, he held teaching appoint-
+ments with the Department of Automatic Con-
+trol, Nanjing University of Science and Technol-
+ogy. Since 1992, he has been with the School of
+Electrical and Electronic Engineering, Nanyang Technological Univer-
+sity, Singapore, where he is currently a Professor and the Director of
+the Delta-NTU Corporate Laboratory for Cyber-Physical Systems. From
+July 2011 to 2014, he was the Head of the Division of Control and
+Instrumentation. His research interests include robust control and es-
+timation, networked control systems, multiagent networks, localization,
+and unmanned systems.
+Dr. Xie’s is an Editor-in-Chief of the Unmanned Systems and an
+Associate Editor for the IEEE TRANSACTIONS ON NETWORK CONTROL
+SYSTEMS. He was the Editor of the IET Book Series in Control and an
+Associate Editor for a number of journals, including the IEEE TRANS-
+ACTIONS ON AUTOMATIC CONTROL, Automatica, IEEE TRANSACTIONS ON
+CONTROL SYSTEMS TECHNOLOGY, and IEEE TRANSACTIONS ON CIRCUITS
+AND SYSTEMS II. He is an Elected Member of Board of Governors of the
+IEEE Control System Society (January 2016–December 2018). He is a
+Fellow of the IFAC.
+Authorized licensed use limited to: Huazhong University of Science and Technology. Downloaded on September 26,2026 at 02:26:55 UTC from IEEE Xplore.  Restrictions apply. 

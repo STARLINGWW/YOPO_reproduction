@@ -1,8 +1,10 @@
 {
-  "version": 1,
+  "version": 2,
   "recorded_at": "2026-09-24T11:20:00+08:00",
-  "status": "declared_pending_native_admission",
-  "scope": "Frozen runtime declaration for the 1800-episode primary matrix. The authoritative runtime gate is benchmarks/protocol_v1/runtime_validation.json, which can only be produced by real native runs (scripts/record_runtime_validation.py). Nothing here substitutes for that evidence.",
+  "updated_at": "2026-10-13",
+  "status": "yopo_only_scope_declared_native_admission_passed",
+  "status_note": "History: declared 2026-09-24 pending native admission for the 1800-episode superset matrix; native admission subsequently passed (benchmarks/protocol_v1/runtime_validation.json). Scope updated 2026-10-13: YOPO-only active matrix of five models x 300 = 1500 episodes; MPPI reference [17] excluded per user decision.",
+  "scope": "Runtime declaration for the YOPO-only active matrix (five models x 300 = 1500 episodes; the 1800-slot superset protocol is retained as historical_protocol_v1, not used by the active YOPO-only release). The authoritative runtime gate is benchmarks/protocol_v1/runtime_validation.json, which can only be produced by real native runs (scripts/record_runtime_validation.py). Nothing here substitutes for that evidence.",
   "authoritative_sources": {
     "task_matrix": "benchmarks/protocol_v1/protocol.json",
     "vehicle": "configs/unified_quad.json",
@@ -68,9 +70,9 @@
       "required_reported_fields": ["end_to_end_wall_ms", "capture_and_publish_wall_ms", "planner_queue_wall_ms", "planner_and_publish_wall_ms", "map_fusion_wall_ms", "map_esdf_wall_ms", "transport_and_other_scheduling_residual_ms", "real_time_factor", "applied_simulation_delay_ms"]
     },
     "matrix_episodes": {
-      "total": 1800,
+      "total": 1500,
       "per_method": 300,
-      "models": ["yopo_seed0", "yopo_seed1", "yopo_seed2", "topotraj", "agile_autonomy", "mppi_reference17"]
+      "models": ["yopo_seed0", "yopo_seed1", "yopo_seed2", "topotraj", "agile_autonomy"]
     }
   },
   "methods": {
@@ -104,17 +106,17 @@
       "admission_requirement": "artifacts/agile_autonomy/torch_export_v1/torch_cuda_parity.json must be passed for the requested device",
       "status": "pending_measurement",
       "notes": ["the official Agile weights are an external baseline only and are never used as YOPO evidence"]},
-    "mppi_reference17": {"kind": "unfilled_baseline", "backend": "mppi_reference17", "device": "cuda",
-      "weights": null,
-      "slots": 300,
-      "status": "documented_gap_no_official_implementation",
-      "evidence": ["artifacts/paper_sources/mppi_identity.json", "artifacts/paper_sources/mppi_reference17_lookup.json", "reports/MPPI参考17身份与可得性.md"],
-      "prohibition": "No other MPPI project may be substituted; the 300 slots stay explicitly unexecuted until a paper-based re-implementation is commissioned or the authors' code is obtained."},
     "expert_50_steps": {"kind": "offline_offline_only", "backend": null, "device": "cpu",
-      "in_1800_matrix": false,
-      "evidence": ["artifacts/expert/formal_test_v1/", "artifacts/expert/network_comparison_trained.json", "reports/专家50步比较.md"],
-      "note": "Table I comparison on the independent offline test set; it is not a closed-loop episode model and therefore has no slots in the 1800 matrix."}
+      "in_active_matrix": false,
+      "evidence": ["artifacts/expert/network_comparison_random_initial.json", "artifacts/expert/network_comparison_trained_seed0.json", "artifacts/expert/network_comparison_trained_seed1.json", "artifacts/expert/network_comparison_trained_seed2.json"],
+      "note": "Table I comparison on the independent offline test set; it is not a closed-loop episode model and therefore has no slots in the 1500 active matrix."}
   },
+  "excluded_methods": [
+    {"model": "mppi_reference17", "kind": "unfilled_baseline", "slots": 300,
+     "status": "excluded_from_active_yopo_only_scope",
+     "reason": "User decision 2026-10-13: MPPI reference [17] is dropped from the active reproduction; identity/full-text records are archived under report/90_archive/mppi and plan/90_decisions/archive_mppi.",
+     "prohibition": "Must not silently re-enter the active matrix; any future inclusion requires a new scope decision and a paper-based re-implementation."}
+  ],
   "runtime_files": {
     "note": "scripts/record_runtime_validation.py hashes exactly this list into benchmarks/protocol_v1/runtime_validation.json at admission time; any later edit invalidates admission.",
     "list": ["scripts/run_ros2_navigation.py", "scripts/ros2/serve_planner.py", "scripts/validate_ros2_flight.py",
@@ -126,15 +128,17 @@
              "ros2_ws/src/yopo_runtime/yopo_runtime/protocol_node.py", "ros2_ws/src/yopo_runtime/yopo_runtime/main_planner.py",
              "ros2_ws/src/yopo_runtime/yopo_runtime/agile_planner.py", "ros2_ws/src/yopo_runtime/yopo_runtime/frame_gate.py"]
   },
-  "pending_items": [
-    "No native admission record exists yet: benchmarks/protocol_v1/runtime_validation.json is produced only after the three-seed training releases the GPU.",
-    "Agile CUDA parity has not been measured; the CPU conversion parity exists.",
-    "TopoTraj's 4.5 m mapping range and fixed 6.0 m/s^2 acceleration ceiling are documented differences whose fairness impact is not yet quantified.",
-    "MPPI reference 17 has no implementation; its 300 slots remain unfilled and are reported as such."
+  "open_items": [
+    "TopoTraj's 4.5 m mapping range and fixed 6.0 m/s^2 acceleration ceiling remain documented fairness notes; results are reported with these declared differences."
+  ],
+  "closed_items": [
+    "Native admission record exists and passed for all three backends: benchmarks/protocol_v1/runtime_validation.json.",
+    "Agile CUDA parity measured: artifacts/agile_autonomy/torch_export_v1/torch_cuda_parity.json.",
+    "MPPI reference [17]: resolved by the 2026-10-13 scope decision (excluded from the active YOPO-only scope; archived)."
   ],
   "prohibitions": [
     "No official YOPO weights or the Simple profile may fill primary-matrix slots.",
-    "No other MPPI project may stand in for reference 17.",
+    "MPPI reference [17] is excluded from the active YOPO-only scope and must not silently re-enter; see excluded_methods.",
     "No tuning on the frozen benchmark maps; all thresholds are fixed before execution."
   ]
 }

@@ -94,7 +94,6 @@ def main():
     runtime_decl = read_json(ROOT/'configs/benchmark_runtime/v1.json',{}) or {}
     dagger = read_json(ROOT/'checkpoints/dagger_main_v1_seed0/result.json',{}) or {}
     aggregation = read_json(ROOT/'datasets/isaac_dagger_v1/aggregation_manifest.json',{}) or {}
-    mppi_fulltext = read_json(ROOT/'artifacts/paper_sources/mppi_reference17_identity_verified.json',{}) or {}
     payload = {'recorded_at':datetime.now(ZoneInfo('Asia/Shanghai')).isoformat(timespec='seconds'),'run_prefix':args.run_prefix,
                'training':training,'matrix':matrix,'expert_comparison':experts,
                'expert_comparison_partial_self_checks':partial_experts,
@@ -102,13 +101,12 @@ def main():
                                     'validated_backends':(admission or {}).get('validated_backends'),
                                     'consumed_episode_ids':(admission or {}).get('consumed_episode_ids')},
                'runtime_declaration':{'path':'configs/benchmark_runtime/v1.json','status':runtime_decl.get('status'),
-                                      'pending_items':len(runtime_decl.get('pending_items') or []),
-                                      'note':'Frozen pre-admission declaration metadata; current admission is reported separately.'},
+                                      'open_items':len(runtime_decl.get('open_items') or []),
+                                      'note':'Historical declaration snapshot; the YOPO-only scope update (2026-10-13) removed the MPPI method and marked the superset matrix historical.'},
                'dagger':{'status':dagger.get('status'),'rehearsal':dagger.get('rehearsal'),'epochs':dagger.get('epochs'),
                          'steps':dagger.get('steps'),'added_samples':sum(s.get('samples',0) for s in aggregation.get('aggregation_shards',[])),
                          'evidence':'checkpoints/dagger_main_v1_seed0/result.json'},
-               'mppi_fulltext':{'identity_record_present':bool(mppi_fulltext),'recorded_at':mppi_fulltext.get('recorded_at'),
-                               'archived_copy':(mppi_fulltext.get('archived_copy') or {}).get('path')},
+               'mppi_archive':{'excluded':True,'note':'MPPI reference [17] was excluded from the active YOPO-only scope on 2026-10-13; identity/full-text records archived under report/90_archive/mppi.'},
                'acceptance':{'counts':acceptance.get('counts'),'all_verified':acceptance.get('all_verified'),
                              'items':[{'id':item['id'],'status':item['status'],'detail':item['detail']}
                                       for item in acceptance.get('items',[])]},
@@ -126,9 +124,10 @@ def main():
               '- 准入记录：%s'%('缺失（必须由真实飞行产生）' if not payload['runtime_admission']['present'] else
                                 ('status=%s, backends=%s, 已消费 episode=%d'%(payload['runtime_admission']['status'],
                                  payload['runtime_admission']['validated_backends'] or [],len(payload['runtime_admission']['consumed_episode_ids'] or [])))),
-              '- 冻结前的声明快照：`configs/benchmark_runtime/v1.json` status=%s，原始 pending 标记 %d（历史元数据，不代表当前准入失败；文件哈希保持冻结）'%(payload['runtime_declaration']['status'],
-                                 payload['runtime_declaration']['pending_items']),
-              '','## 3. 1800 主矩阵','',
+              '- 冻结前的声明快照：`configs/benchmark_runtime/v1.json` status=%s，未闭公平性备注 %d（历史元数据，不代表当前准入失败；MPPI 条目已标注排除）'%(payload['runtime_declaration']['status'],
+                                 payload['runtime_declaration']['open_items']),
+              '','## 3. 1500 主矩阵（YOPO-only 活动范围）','',
+              '活动范围由 `benchmarks/protocol_v1/active_scope_yopo_only.json` 定义：五模型 × 300 = 1500；1800 超集协议作为历史证据锚点保留（`historical_protocol_v1 / not_used_by_active_yopo_only_release`）。','',
               '| 项 | 值 |','|---|---|',
               '| 当前未执行槽位（汇总） | %s |'%matrix['current_missing'],
               '| 历史计划快照的 pending | %s（不用于当前剩余工作判断） |'%matrix['plan_pending'],
@@ -163,12 +162,11 @@ def main():
     lines += ['','计数：`%s`'%(json.dumps(payload['acceptance']['counts'],ensure_ascii=False) if payload['acceptance']['counts'] else 'n/a'),
               '','## 6. 聚合微调与真实未闭项','',
               '- DAgger：status=%s，rehearsal=%s，%s 轮、%s 步，新增 %s 样本；来源 `%s`。'%(payload['dagger']['status'],payload['dagger']['rehearsal'],payload['dagger']['epochs'],payload['dagger']['steps'],payload['dagger']['added_samples'],payload['dagger']['evidence']),
-              '- 参考[17] 全文：%s；身份记录时间 %s，归档 `%s`。'%(('已归档并核对身份' if payload['mppi_fulltext']['identity_record_present'] else '未找到身份记录'),payload['mppi_fulltext']['recorded_at'],payload['mppi_fulltext']['archived_copy']),
+              '- MPPI（参考[17]）：2026-10-13 按用户决定移出活动范围；身份/全文记录归档于 `report/90_archive/mppi/`，不再作为当前待完成项。',
               '- 当前未通过项：%s。训练、准入和微调的具体状态以本页对应证据为准。'%
                   (', '.join('%s=%s'%(i['id'],i['status']) for i in payload['acceptance']['items'] if i['status']!='verified') or '无'),
-              '- DAgger 闭环收益、高速可靠性与外部基线公平性仍不能由完成标记代替验证。',
-              '- A/B/C 收尾方案尚待选择；本次仅同步报告，未应用方案或改变验收判据。',
-              '', '> 整体验收仍未完成。既有模型、数据、视频和 1500 次实验均可使用；pending 和 documented_gap 保持可见。',
+              '- DAgger 闭环收益、高速可靠性与外部基线公平性仍不能由完成标记代替验证（研究限制，非验收项）。',
+              '', '> YOPO-only 活动范围内整体验收完成：%s；MPPI 已移出活动范围并归档。'%(json.dumps(payload['acceptance']['counts'],ensure_ascii=False) if payload['acceptance']['counts'] else 'n/a'),
               '', '报告导航与历史范围见 [报告索引](README.md)。']
     (ROOT/args.markdown).write_text('\n'.join(lines)+'\n',encoding='utf-8')
     print(json.dumps({'markdown':args.markdown,'json':args.json,'acceptance_counts':payload['acceptance']['counts'],

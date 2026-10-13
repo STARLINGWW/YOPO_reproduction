@@ -10,4 +10,4 @@
 
 ## 外部基线
 
-TopoTraj、Agile已通过正式运行时准入并进入1500次矩阵。参考[17] MPPI全文已归档，算法接入和300次实验仍是唯一主要算法缺口。
+TopoTraj、Agile 已通过正式运行时准入并完成各自 300 槽。参考[17] MPPI 于 2026-10-13 经用户决定移出活动范围（全文/身份记录归档于 report/90_archive/mppi/，旧方案归档于 plan/90_decisions/archive_mppi/）；算法接入与 300 槽不再属于当前验收，活动范围声明见 benchmarks/protocol_v1/active_scope_yopo_only.json。

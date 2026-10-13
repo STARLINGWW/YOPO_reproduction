@@ -1,0 +1,50 @@
+[
+  {
+    "sha256": "af2ea0faf568443b1a30ef3e00bf882a6f002f4e89bf0b9f50e17e22e32df274",
+    "status": "passed",
+    "mode": "ros2",
+    "model": "seed0"
+  },
+  {
+    "sha256": "908e79f6b5cbd49eaedb5c31b63f36d82a7377cf5aea2aebf6aa3e117fbd94c8",
+    "status": "passed",
+    "mode": "ros2",
+    "model": "seed1"
+  },
+  {
+    "sha256": "eaf157f7857e54cd03a68d8112cdee43c733dd5d2c1a5cd9d6616a2e46da6c1d",
+    "status": "passed",
+    "mode": "ros2",
+    "model": "seed2"
+  },
+  {
+    "sha256": "af2ea0faf568443b1a30ef3e00bf882a6f002f4e89bf0b9f50e17e22e32df274",
+    "status": "passed",
+    "mode": "native",
+    "model": "seed0"
+  },
+  {
+    "sha256": "908e79f6b5cbd49eaedb5c31b63f36d82a7377cf5aea2aebf6aa3e117fbd94c8",
+    "status": "passed",
+    "mode": "native",
+    "model": "seed1"
+  },
+  {
+    "sha256": "eaf157f7857e54cd03a68d8112cdee43c733dd5d2c1a5cd9d6616a2e46da6c1d",
+    "status": "passed",
+    "mode": "native",
+    "model": "seed2"
+  },
+  {
+    "sha256": "82abb402cefa5f3cbb298a85d42e709b62cb0628bca674831ffe295bbc739544",
+    "status": "passed",
+    "mode": "native",
+    "model": "dagger"
+  },
+  {
+    "sha256": "09ec31094ed83e09702efc1facf18076564ebbe1afc164960c41036e16ba229f",
+    "status": "passed",
+    "mode": "native",
+    "model": "official"
+  }
+]

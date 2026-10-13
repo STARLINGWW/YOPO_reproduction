@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "counts": {
+    "train": 2000,
+    "valid": 128,
+    "test": 128
+  },
+  "shards": [
+    {
+      "id": 0,
+      "map_seed": 100,
+      "split": "train",
+      "samples": 1000,
+      "ray_checked_frames": 20,
+      "max_ray_error_m": 1.894867934382205e-05
+    },
+    {
+      "id": 1,
+      "map_seed": 101,
+      "split": "train",
+      "samples": 1000,
+      "ray_checked_frames": 20,
+      "max_ray_error_m": 1.8095960035324765e-05
+    },
+    {
+      "id": 2,
+      "map_seed": 1000,
+      "split": "valid",
+      "samples": 128,
+      "ray_checked_frames": 12,
+      "max_ray_error_m": 1.7803938066052183e-05
+    },
+    {
+      "id": 3,
+      "map_seed": 2000,
+      "split": "test",
+      "samples": 128,
+      "ray_checked_frames": 12,
+      "max_ray_error_m": 1.2467513307967693e-05
+    }
+  ],
+  "dataset_sha256": "64d3ca502fe684e8d90e172f9cc9e382f8208db5f7eb85a1ae418a5d87a68d00",
+  "scope": "all stored depth frames, hashes, poses, map provenance and disjoint map seeds; not navigation performance"
+}

@@ -1,0 +1,21 @@
+{
+  "source_flight": "artifacts/ros2_flights/ros2_scratch_checkpoint_20260924_061715/flight.npz",
+  "source_sha256": "2ccb90c8f8f010da3da2f4d4d35b92a5f47c803b1346efc5211430666f86643e",
+  "checkpoint_sha256": "d0e4dab6d89b09b79c455c2ce95f38150110f46d13b01249b0a96ad8b101d6dd",
+  "scope": "intermediate_scratch_checkpoint_interface_not_final_benchmark",
+  "navigation_status": "success",
+  "rendering": "CPU Matplotlib visualization of measured Isaac PhysX logs, not a separate simulated flight",
+  "global_map_extent_m": 80.0,
+  "resolution": [
+    1280,
+    720
+  ],
+  "fps": 20,
+  "playback_speed": 1.0,
+  "frames": 383,
+  "final_hold_seconds": 2.0,
+  "video": "artifacts/ros2_showcase/ros2_scratch_checkpoint_20260924_061715_v2/global_trajectory.mp4",
+  "video_sha256": "39e809fb6858cb21d9e8b81a2db1979741971e74b3ce7021a71e908e4cd4b4b4",
+  "first_last_frames_decoded": true,
+  "trajectory_modified": false
+}

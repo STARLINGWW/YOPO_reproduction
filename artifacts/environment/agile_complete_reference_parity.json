@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "cases": 5,
+  "points_per_case": 10,
+  "max_errors": {
+    "position_m": 5.751468954429129e-07,
+    "velocity_mps": 2.233168558518628e-06,
+    "acceleration_mps2": 3.17812805263884e-05,
+    "orientation_rad": 1.2693130635647303e-06
+  },
+  "tolerances": {
+    "position_m": 0.0001,
+    "velocity_mps": 0.001,
+    "acceleration_mps2": 0.01,
+    "orientation_rad": 0.001
+  },
+  "scope": "TF2.15 official checkpoint vs convertedPyTorch, entire originalC++ fitting/arc-length and ROS2 output on identical recorded inputs; CPU only"
+}

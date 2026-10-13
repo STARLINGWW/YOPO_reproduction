@@ -1,0 +1,329 @@
+{
+  "status": "plan_only",
+  "run": "dagger_agg_v1",
+  "checkpoint": "checkpoints/formal_main_v1_seed0/best_policy.pth",
+  "map_seeds": [
+    7000,
+    7001,
+    7002,
+    7003,
+    7004,
+    7005,
+    7006,
+    7007,
+    7008,
+    7009,
+    7010,
+    7011,
+    7012,
+    7013,
+    7014,
+    7015
+  ],
+  "flights_per_map": 3,
+  "speeds": [
+    1.5,
+    2.5,
+    3.5
+  ],
+  "durations": [
+    20.0,
+    30.0
+  ],
+  "camera_hz": 15.0,
+  "flights": [
+    {
+      "map_seed": 7000,
+      "index": 0,
+      "speed_mps": 1.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 2.1384477101883137,
+      "run": "dagger_agg_v1__m7000__f00"
+    },
+    {
+      "map_seed": 7000,
+      "index": 1,
+      "speed_mps": 2.5,
+      "duration_s": 30.0,
+      "endpoint_clearance_m": 2.1384477101883137,
+      "run": "dagger_agg_v1__m7000__f01"
+    },
+    {
+      "map_seed": 7000,
+      "index": 2,
+      "speed_mps": 3.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 2.1384477101883137,
+      "run": "dagger_agg_v1__m7000__f02"
+    },
+    {
+      "map_seed": 7002,
+      "index": 0,
+      "speed_mps": 1.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 2.5,
+      "run": "dagger_agg_v1__m7002__f00"
+    },
+    {
+      "map_seed": 7002,
+      "index": 1,
+      "speed_mps": 2.5,
+      "duration_s": 30.0,
+      "endpoint_clearance_m": 2.5,
+      "run": "dagger_agg_v1__m7002__f01"
+    },
+    {
+      "map_seed": 7002,
+      "index": 2,
+      "speed_mps": 3.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 2.5,
+      "run": "dagger_agg_v1__m7002__f02"
+    },
+    {
+      "map_seed": 7003,
+      "index": 0,
+      "speed_mps": 1.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 2.5,
+      "run": "dagger_agg_v1__m7003__f00"
+    },
+    {
+      "map_seed": 7003,
+      "index": 1,
+      "speed_mps": 2.5,
+      "duration_s": 30.0,
+      "endpoint_clearance_m": 2.5,
+      "run": "dagger_agg_v1__m7003__f01"
+    },
+    {
+      "map_seed": 7003,
+      "index": 2,
+      "speed_mps": 3.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 2.5,
+      "run": "dagger_agg_v1__m7003__f02"
+    },
+    {
+      "map_seed": 7005,
+      "index": 0,
+      "speed_mps": 1.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 1.172999980162945,
+      "run": "dagger_agg_v1__m7005__f00"
+    },
+    {
+      "map_seed": 7005,
+      "index": 1,
+      "speed_mps": 2.5,
+      "duration_s": 30.0,
+      "endpoint_clearance_m": 1.172999980162945,
+      "run": "dagger_agg_v1__m7005__f01"
+    },
+    {
+      "map_seed": 7005,
+      "index": 2,
+      "speed_mps": 3.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 1.172999980162945,
+      "run": "dagger_agg_v1__m7005__f02"
+    },
+    {
+      "map_seed": 7006,
+      "index": 0,
+      "speed_mps": 1.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 1.7809476902691486,
+      "run": "dagger_agg_v1__m7006__f00"
+    },
+    {
+      "map_seed": 7006,
+      "index": 1,
+      "speed_mps": 2.5,
+      "duration_s": 30.0,
+      "endpoint_clearance_m": 1.7809476902691486,
+      "run": "dagger_agg_v1__m7006__f01"
+    },
+    {
+      "map_seed": 7006,
+      "index": 2,
+      "speed_mps": 3.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 1.7809476902691486,
+      "run": "dagger_agg_v1__m7006__f02"
+    },
+    {
+      "map_seed": 7007,
+      "index": 0,
+      "speed_mps": 1.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 2.5,
+      "run": "dagger_agg_v1__m7007__f00"
+    },
+    {
+      "map_seed": 7007,
+      "index": 1,
+      "speed_mps": 2.5,
+      "duration_s": 30.0,
+      "endpoint_clearance_m": 2.5,
+      "run": "dagger_agg_v1__m7007__f01"
+    },
+    {
+      "map_seed": 7007,
+      "index": 2,
+      "speed_mps": 3.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 2.5,
+      "run": "dagger_agg_v1__m7007__f02"
+    },
+    {
+      "map_seed": 7009,
+      "index": 0,
+      "speed_mps": 1.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 2.5,
+      "run": "dagger_agg_v1__m7009__f00"
+    },
+    {
+      "map_seed": 7009,
+      "index": 1,
+      "speed_mps": 2.5,
+      "duration_s": 30.0,
+      "endpoint_clearance_m": 2.5,
+      "run": "dagger_agg_v1__m7009__f01"
+    },
+    {
+      "map_seed": 7009,
+      "index": 2,
+      "speed_mps": 3.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 2.5,
+      "run": "dagger_agg_v1__m7009__f02"
+    },
+    {
+      "map_seed": 7011,
+      "index": 0,
+      "speed_mps": 1.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 1.8356628592118525,
+      "run": "dagger_agg_v1__m7011__f00"
+    },
+    {
+      "map_seed": 7011,
+      "index": 1,
+      "speed_mps": 2.5,
+      "duration_s": 30.0,
+      "endpoint_clearance_m": 1.8356628592118525,
+      "run": "dagger_agg_v1__m7011__f01"
+    },
+    {
+      "map_seed": 7011,
+      "index": 2,
+      "speed_mps": 3.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 1.8356628592118525,
+      "run": "dagger_agg_v1__m7011__f02"
+    },
+    {
+      "map_seed": 7012,
+      "index": 0,
+      "speed_mps": 1.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 1.335752200377926,
+      "run": "dagger_agg_v1__m7012__f00"
+    },
+    {
+      "map_seed": 7012,
+      "index": 1,
+      "speed_mps": 2.5,
+      "duration_s": 30.0,
+      "endpoint_clearance_m": 1.335752200377926,
+      "run": "dagger_agg_v1__m7012__f01"
+    },
+    {
+      "map_seed": 7012,
+      "index": 2,
+      "speed_mps": 3.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 1.335752200377926,
+      "run": "dagger_agg_v1__m7012__f02"
+    },
+    {
+      "map_seed": 7014,
+      "index": 0,
+      "speed_mps": 1.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 1.8352710715994192,
+      "run": "dagger_agg_v1__m7014__f00"
+    },
+    {
+      "map_seed": 7014,
+      "index": 1,
+      "speed_mps": 2.5,
+      "duration_s": 30.0,
+      "endpoint_clearance_m": 1.8352710715994192,
+      "run": "dagger_agg_v1__m7014__f01"
+    },
+    {
+      "map_seed": 7014,
+      "index": 2,
+      "speed_mps": 3.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 1.8352710715994192,
+      "run": "dagger_agg_v1__m7014__f02"
+    },
+    {
+      "map_seed": 7015,
+      "index": 0,
+      "speed_mps": 1.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 1.6413912034860383,
+      "run": "dagger_agg_v1__m7015__f00"
+    },
+    {
+      "map_seed": 7015,
+      "index": 1,
+      "speed_mps": 2.5,
+      "duration_s": 30.0,
+      "endpoint_clearance_m": 1.6413912034860383,
+      "run": "dagger_agg_v1__m7015__f01"
+    },
+    {
+      "map_seed": 7015,
+      "index": 2,
+      "speed_mps": 3.5,
+      "duration_s": 20.0,
+      "endpoint_clearance_m": 1.6413912034860383,
+      "run": "dagger_agg_v1__m7015__f02"
+    }
+  ],
+  "skipped": [
+    {
+      "map_seed": 7001,
+      "reason": "default endpoints not clear",
+      "endpoint_clearance_m": -0.004822885263337406
+    },
+    {
+      "map_seed": 7004,
+      "reason": "default endpoints not clear",
+      "endpoint_clearance_m": 0.17164005324491383
+    },
+    {
+      "map_seed": 7008,
+      "reason": "default endpoints not clear",
+      "endpoint_clearance_m": 0.32752244264737473
+    },
+    {
+      "map_seed": 7010,
+      "reason": "default endpoints not clear",
+      "endpoint_clearance_m": 0.43311331067428377
+    },
+    {
+      "map_seed": 7013,
+      "reason": "default endpoints not clear",
+      "endpoint_clearance_m": 0.22930980656472633
+    }
+  ],
+  "note": "Planning only: no Isaac process was launched and no GPU work was scheduled.",
+  "checkpoint_sha256": "1b53bfed287bef2d152f556f75db26ad74b53b4ee4bf01cb0621a6609062be05"
+}

@@ -1,8 +1,8 @@
 # YOPO 复现项目（重构新根 v2）
 
-更新：2026-10-12 ｜ 本目录是重构后的主项目：**plan / implement / report 三层组织 + 运行层**。旧项目 `../`（YOPO_reproduction）保留为冻结归档，重构说明见 [plan/00_charter/02_new_root_refactor_plan.md](plan/00_charter/02_new_root_refactor_plan.md)。
+更新：2026-10-13 ｜ 本目录是重构后的主项目：**plan / implement / report 三层组织 + 运行层**。旧项目 `../`（YOPO_reproduction）保留为冻结归档，重构说明见 [plan/00_charter/02_new_root_refactor_plan.md](plan/00_charter/02_new_root_refactor_plan.md)。
 
-当前状态：三种子训练、ROS2 准入、DAgger 微调、最终展示完成；正式矩阵 1500/1800（缺口 300 全部为 MPPI 未执行）；终审 5 verified ＋ 1 documented_gap ＋ 1 pending。
+当前状态：三种子训练、ROS2 准入、DAgger 微调、最终展示与 YOPO-only 活动矩阵（1,500/1,500，五模型 × 300）全部完成；终审 **6 verified、all_verified=true**。参考[17] MPPI 按用户决定（2026-10-13）移出活动范围并归档，见 [benchmarks/archive](benchmarks/archive/README.md) 与 [report/90_archive/mppi](report/90_archive/mppi/README.md)，不再计入当前验收。
 
 ## 三层入口
 
@@ -18,7 +18,7 @@
 2. [执行手册](report/00_index/02_执行手册.md)：现有训练、恢复、审计和展示命令。
 3. [当前进度简报](report/01_status/01_当前进度简报.md)、[复现状态总览](report/01_status/02_复现状态总览.md)：完成项与真实缺口。
 4. [官方权重 vs 自训练权重对照](report/04_evaluation/01_official_vs_selftrained.md)：离线 1 万样本 + 闭环 36 架次。
-5. [交互式项目全景（HTML）](report/00_index/03_project_map.html)：12 模块可点选，附基准 1500/1800 分布图。
+5. [交互式项目全景（HTML）](report/00_index/03_project_map.html)：12 模块可点选，附活动矩阵 1,500 槽分布图（YOPO-only；MPPI 已移出并归档）。
 
 ## 可直接查看的成果
 
@@ -30,7 +30,7 @@
 ## 运行入口（从本目录执行）
 
 ```powershell
-Set-Location 'D:\_AAA_CODE_ALL\Tech_reproduction\YOPO_reproduction\YOPO_reproduction_new'
+cd <项目根目录>   # 克隆到本机后的项目根目录，例如 ~/YOPO_reproduction
 
 # 环境探针（Docker Desktop Linux 容器，Ubuntu 22.04 + ROS2 Humble + GPU）
 docker compose --profile training run --rm train python3 scripts/ros2/verify_environment.py --gpu

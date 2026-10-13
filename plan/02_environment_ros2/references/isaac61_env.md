@@ -6,7 +6,7 @@
 | 项目 | 值 |
 | --- | --- |
 | conda 环境名 | `isaac61` |
-| 路径 | `D:\_AAA_FILE_ALL\Anaconda_file\Anaconda_env\isaac61` |
+| 路径（本机示例，已泛化） | `<ISAAC_ENV_ROOT>`（脚本通过环境变量 `YOPO_ISAAC_PYTHON` 接收绝对路径） |
 | Python | 3.12.14（Isaac Sim 6.1 强制 `==3.12.*`） |
 | Isaac Sim | 6.1.0.0（`isaacsim[all,extscache]`，Kit SDK 110.x 系列） |
 | PyTorch | **2.11.0+cu128**（官方指定版本），torchvision 0.26.0+cu128，torchaudio 2.11.0 |

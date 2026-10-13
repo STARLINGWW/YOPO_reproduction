@@ -17,6 +17,6 @@
 - Isaac程序化森林替代原Flightmare场景。
 - 本地训练使用原版main bucket距离场和主线网络。
 - 本地在线选择使用正代价 argmin。
-- 参考[17]全文已归档，但MPPI实现仍未完成。
+- 参考[17] 全文与身份记录已归档（report/90_archive/mppi/）；MPPI 于 2026-10-13 移出活动范围，不再作为当前缺口。
 
 详细差异见 report/02_method/03_原论文与源码差异审计.md。

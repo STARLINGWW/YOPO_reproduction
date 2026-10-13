@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "weights": "local formal seed0 best_policy (audited, sha256 af2ea0fa...)",
+  "recorded_sha256": "af2ea0faf568443b1a30ef3e00bf882a6f002f4e89bf0b9f50e17e22e32df274",
+  "labels": [
+    "YOPO / Isaac Sim \u2014 native Windows reproduction",
+    "local formal seed0 best_policy (audited, sha256 af2ea0fa...) \u2022 20 obstacles \u2022 path 71.13 m \u2022 goal error 0.117 m \u2022 success"
+  ]
+}

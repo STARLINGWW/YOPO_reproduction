@@ -1,0 +1,74 @@
+{
+  "recorded_at": "2026-09-24T10:58:00+08:00",
+  "question": "configs/reproduction_protocol.json no longer matches the copy frozen inside artifacts/provenance/formal_main_v1/source.zip. Is the difference confined to status/evidence metadata, and does it invalidate the frozen training provenance?",
+  "snapshot": {
+    "zip": "artifacts/provenance/formal_main_v1/source.zip",
+    "entry": "configs/reproduction_protocol.json",
+    "sha256": "5a661bd8c149300310b2e5e0f28d9bcd3fafe12f07acf518a899d74fa474ebd8",
+    "matches_manifest": true,
+    "manifest": "artifacts/provenance/formal_main_v1/manifest.json"
+  },
+  "current": {
+    "path": "configs/reproduction_protocol.json",
+    "sha256": "8316d576cd26979290cf3ffa0679fb51b7e8346485917aafc5bf2a60bb267320"
+  },
+  "changed_json_pointers": [
+    "/benchmark/task_manifest (new pointer to benchmarks/protocol_v1/protocol.json)",
+    "/gates/dataset_quality",
+    "/gates/scratch_three_seeds",
+    "/gates/benchmark_matrix",
+    "/gates/scratch_showcase",
+    "/gates/ros2_protocol",
+    "/gates/unified_vehicle (new)",
+    "/gates/evaluation_instrumentation (new)",
+    "/baseline_sources/FastPlanner/status",
+    "/baseline_sources/AgileAutonomy/status",
+    "/baseline_sources/MPPI/identity",
+    "/baseline_sources/MPPI/status",
+    "/baseline_sources/MPPI/evidence",
+    "/baseline_sources/MPPI/secondary_evidence (new)",
+    "/dataset_evidence (new)",
+    "/vehicle_evidence (new)",
+    "/intermediate_flight_evidence (new)"
+  ],
+  "unchanged_training_relevant_sections": [
+    "/training (scratch trainer hyperparameters, seeds, epochs)",
+    "/data (dataset name, split counts, map-disjointness requirement)",
+    "/benchmark (densities, speeds, trials_per_condition, paper_subset_trials, primary_episode_count, baselines list)"
+  ],
+  "attestation": "Every hunk of the full diff is a status string, an updated evidence pointer, or a newly added evidence pointer. No hyperparameter, dataset identity, trial-count, or model-identity value changed. The updated MPPI block records the reference-17 identity closure (no official implementation found; faithful re-implementation or an explicitly unfilled baseline required) and is documentation only.",
+  "attestation_method": "Manual review of `git diff --no-index --unified=2 <extracted snapshot copy> configs/reproduction_protocol.json`; also confirmed that no code path reads configs/reproduction_protocol.json (the file is a human-readable protocol/status record; benchmarks read benchmarks/protocol_v1/protocol.json).",
+  "reproduce_command": "Expand-Archive artifacts/provenance/formal_main_v1/source.zip -DestinationPath <tmp>; git diff --no-index <tmp>/configs/reproduction_protocol.json configs/reproduction_protocol.json",
+  "consequence": "The provenance manifest keeps its snapshot-time hash record; this file documents the accepted delta so a later audit cannot mistake it for silent drift. No training checkpoint, dataset shard, or resume fingerprint is affected.",
+  "final_metadata_update": {
+    "recorded_at": "2026-09-26T04:12:00+08:00",
+    "reason": "The three-seed training, Table I, runtime admission, the executable matrix scope, the final showcase and the DAgger fine-tune have all completed with evidence, so the protocol's status/gate strings are reconciled with the final state (heartbeat step 6b).",
+    "previous_sha256": "8316d576cd26979290cf3ffa0679fb51b7e8346485917aafc5bf2a60bb267320",
+    "new_sha256": "80c652c0ba566654872ab7ba2cdf6da881b9c04d5c47f5438b937533adadecd4",
+    "changed_json_pointers": [
+      "/status -> in_progress_awaiting_user_decision_on_reference17_scope",
+      "/gates/scratch_three_seeds -> three_seeds_50epochs_each_strict_per_epoch_audit_passed",
+      "/gates/baseline_ports -> ..._native_physics_validated_by_runtime_admission",
+      "/gates/benchmark_matrix -> 1494of1494_executable_slots_terminal_plus_6_admission_consumed_300mppi_reference17_slots_explicitly_not_attempted_pending_user_decision",
+      "/gates/scratch_showcase -> final50epoch_audited_checkpoint_actual_ros2_physx_flight_and_global_video_verified",
+      "/gates/ros2_protocol -> actual_native_container_closed_loop_verified_across_full_executable_matrix_scope",
+      "/gates/evaluation_instrumentation -> protocol_telemetry_and_sampler_probes_passed_and_physics_run_validation_completed"
+    ],
+    "explicitly_unchanged": [
+      "/training (hyperparameters, seeds, epochs, batch size, learning rate, initialization)",
+      "/data (dataset name, split counts, map-disjointness)",
+      "/benchmark (densities, speeds, trials_per_condition, paper_subset_trials, primary_episode_count, baselines list)",
+      "/baseline_sources/MPPI/status (deliberately untouched; see the guard note below)"
+    ],
+    "guard_note": "scripts/final_acceptance_audit.py:90-95 reads /baseline_sources/MPPI/status and returns documented_gap only while that string contains 'reference_only'. The value therefore stays 'reference_only_no_official_release_found_reimplementation_required'.",
+    "attestation": "Only status strings changed. The benchmark_matrix string states the true coverage (1494 executable slots terminal + 6 admission-consumed + 300 reference-17 slots explicitly not attempted) and does NOT claim 1800/1800. No evidence was fabricated, no slot was relabelled, and no training or evaluation parameter moved.",
+    "evidence": [
+      "artifacts/environment/final_acceptance_audit.json (5 verified + 1 documented_gap + 1 pending)",
+      "artifacts/benchmark_summary/summary.json (completed 1500 / expected 1800, invalid 0, duplicates 0)",
+      "checkpoints/formal_main_v1_seed{0,1,2}/training_audit.json",
+      "checkpoints/dagger_main_v1_seed0/result.json (rehearsal=false)",
+      "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/render_manifest.json"
+    ],
+    "consequence": "A later audit comparing the protocol against the frozen snapshot must treat these strings as an accepted, documented metadata delta; the file still does not feed any training/evaluation parameter."
+  }
+}

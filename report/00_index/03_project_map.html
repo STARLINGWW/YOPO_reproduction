@@ -1821,7 +1821,7 @@ html&gt;body{padding:0}&lt;/style&gt;
 @media (prefers-reduced-motion: reduce){#yopo-project-map .seg{transition:none}}
 &lt;/style&gt;
 &lt;h2&gt;YOPO 复现项目全景&lt;/h2&gt;
-&lt;p class=&quot;text-small text-muted path-note&quot; style=&quot;margin:0&quot;&gt;项目根 D:\_AAA_CODE_ALL\Tech_reproduction\YOPO_reproduction ・ 状态快照 2026-10-08&lt;/p&gt;
+&lt;p class=&quot;text-small text-muted path-note&quot; style=&quot;margin:0&quot;&gt;项目根 &lt;克隆目录&gt; ・ 状态快照 2026-10-13&lt;/p&gt;
 &lt;div class=&quot;viz-row&quot; style=&quot;margin-top:8px&quot;&gt;
   &lt;span class=&quot;text-small&quot;&gt;&lt;span class=&quot;dot dot-done&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt; 已完成 9 个模块&lt;/span&gt;
   &lt;span class=&quot;text-small&quot;&gt;&lt;span class=&quot;dot dot-open&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt; 待闭合 3 个模块（基准 300 槽 ・ DAgger 收益验证 ・ 终审）&lt;/span&gt;
@@ -1839,8 +1839,8 @@ html&gt;body{padding:0}&lt;/style&gt;
 &lt;/div&gt;
 &lt;hr&gt;
 &lt;h3 style=&quot;margin:0&quot;&gt;冻结基准执行情况 — 1,500 / 1,800&lt;/h3&gt;
-&lt;div class=&quot;progress&quot; role=&quot;progressbar&quot; aria-label=&quot;冻结基准完成进度&quot; aria-valuenow=&quot;1500&quot; aria-valuemin=&quot;0&quot; aria-valuemax=&quot;1800&quot;&gt;&lt;div class=&quot;progress-bar&quot; style=&quot;width:83.3%&quot;&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p class=&quot;text-small text-muted&quot; style=&quot;margin:0&quot;&gt;已完成 1,500：成功 622 ・ 超时 254 ・ 碰撞 624 ｜ 剩余 300 槽 = 参考[17] MPPI 未执行&lt;/p&gt;
+&lt;div class=&quot;progress&quot; role=&quot;progressbar&quot; aria-label=&quot;冻结基准完成进度&quot; aria-valuenow=&quot;1500&quot; aria-valuemin=&quot;0&quot; aria-valuemax=&quot;1500&quot;&gt;&lt;div class=&quot;progress-bar&quot; style=&quot;width:100%&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p class=&quot;text-small text-muted&quot; style=&quot;margin:0&quot;&gt;活动矩阵已完成 1,500/1,500：成功 622 ・ 超时 254 ・ 碰撞 624 ｜ 参考[17] MPPI 已移出活动范围并归档&lt;/p&gt;
 &lt;div class=&quot;viz-row&quot; id=&quot;chart-legend&quot; role=&quot;group&quot; aria-label=&quot;结果类别显示开关&quot; style=&quot;margin-top:4px&quot;&gt;&lt;/div&gt;
 &lt;div id=&quot;chart-host&quot; style=&quot;position:relative;margin-top:2px&quot;&gt;
   &lt;div id=&quot;chart-tip&quot; class=&quot;tooltip&quot; role=&quot;tooltip&quot; hidden&gt;&lt;/div&gt;
@@ -1894,7 +1894,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     { name: &quot;专家与基线对照&quot;, status: &quot;open&quot;,
       desc: &quot;三层对照：专家重建（scaled_gd50 / mma50_evaluations）在独立测试集比较候选质量；TopoTraj 与 Agile Autonomy 接入冻结协议；官方与本地权重在 Simple / main 栈 × 3 场景 × 2/4/6 m/s 的 36 架次同场景对照。&quot;,
       files: [&quot;artifacts/expert/network_comparison_trained_seed0.json&quot;, &quot;configs/expert_variants.json&quot;, &quot;benchmarks/protocol_v1/protocol.json&quot;, &quot;reports/专家50步比较.md&quot;, &quot;reports/权重批量对照实验.md&quot;],
-      result: &quot;离线 1 万样本：本地权重平均代价 ≈0.0231、最优候选 ≈0.0179，优于官方 0.0296 / 0.0220 与随机初始化 0.0823 / 0.0396；专家对照中平均代价弱于 mma50（0.0215），最优候选优于两个专家重建。权重对照 36 架次：30 成功 / 4 超时 / 2 碰撞。遗留：参考[17] MPPI 300 个槽位未执行。&quot; },
+      result: &quot;离线 1 万样本：本地权重平均代价 ≈0.0231、最优候选 ≈0.0179，优于官方 0.0296 / 0.0220 与随机初始化 0.0823 / 0.0396；专家对照中平均代价弱于 mma50（0.0215），最优候选优于两个专家重建。权重对照 36 架次：30 成功 / 4 超时 / 2 碰撞。参考[17] MPPI 于 2026-10-13 移出活动范围并归档。&quot; },
     { name: &quot;DAgger 聚合微调&quot;, status: &quot;open&quot;,
       desc: &quot;用基础 seed0 权重在新地图闭环飞行，收集策略实际访问的观测与位姿，聚合成分片数据集后从 seed0 最佳权重微调 10 轮。&quot;,
       files: [&quot;datasets/isaac_dagger_v1/aggregation_manifest.json&quot;, &quot;checkpoints/dagger_main_v1_seed0/result.json&quot;, &quot;reports/DAgger聚合与微调方案.md&quot;],
@@ -1902,7 +1902,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     { name: &quot;验收与成果&quot;, status: &quot;open&quot;,
       desc: &quot;机械验收审计逐项核对证据链；成果包括全局飞行视频、轨迹总览图、成功率-速度图与延迟/安全/平滑度统计表；文档链接与命令证据审计通过。&quot;,
       files: [&quot;artifacts/environment/final_acceptance_audit.json&quot;, &quot;artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_trajectory.mp4&quot;, &quot;artifacts/paper_figures/figure_7_success_vs_speed.png&quot;, &quot;reports/完成验收与成果路径.md&quot;, &quot;reports/演示程序与权重飞行验证命令.md&quot;],
-      result: &quot;终审 5 verified / 1 documented_gap（参考[17] MPPI）/ 1 pending（基准矩阵 1,500 / 1,800）；整体目标尚未全部验收。&quot; }
+      result: &quot;终审 6 verified、all_verified=true（YOPO-only 活动范围；活动矩阵 1,500/1,500）。&quot; }
   ];
 
   var STATUS_TEXT = { done: &quot;已完成&quot;, open: &quot;待闭合&quot; };
@@ -1928,7 +1928,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       { name: &quot;TopoTraj&quot;, v: [71, 2, 227] },
       { name: &quot;Agile Autonomy&quot;, v: [30, 1, 269] } ] },
     { label: &quot;参考[17]&quot;, rows: [
-      { name: &quot;MPPI&quot;, v: null } ] }
+      { name: &quot;MPPI（已移出）&quot;, v: null } ] }
   ];
 
   var selected = 0;
@@ -2064,7 +2064,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   });
 
   function chartA11y() {
-    return &quot;各模型冻结任务结果构成：每模型 300 个任务。YOPO seed0 成功 184、超时 74、碰撞 42；seed1 成功 163、超时 87、碰撞 50；seed2 成功 174、超时 90、碰撞 36；TopoTraj 成功 71、超时 2、碰撞 227；Agile Autonomy 成功 30、超时 1、碰撞 269；参考[17] MPPI 300 槽未执行。合计 1500 / 1800。&quot;;
+    return &quot;各模型冻结任务结果构成：每活动模型 300 个任务。YOPO seed0 成功 184、超时 74、碰撞 42；seed1 成功 163、超时 87、碰撞 50；seed2 成功 174、超时 90、碰撞 36；TopoTraj 成功 71、超时 2、碰撞 227；Agile Autonomy 成功 30、超时 1、碰撞 269；参考[17] MPPI 于 2026-10-13 移出活动范围并归档。合计 1500 / 1500（YOPO-only 活动范围）。&quot;;
   }
 
   function drawChart() {

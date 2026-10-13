@@ -1,5 +1,5 @@
 {
-  "source_flight": "D:\\_AAA_CODE_ALL\\Tech_reproduction\\YOPO_reproduction\\artifacts\\ros2_flights\\showcase_formal_main_v1_seed0_20260926_014921\\flight.npz",
+  "source_flight": "artifacts/ros2_flights/showcase_formal_main_v1_seed0_20260926_014921/flight.npz",
   "source_sha256": "1c00ee28a36360368450d30f8b623684ae263fd482c7f3c62ff880006c549dfa",
   "checkpoint_sha256": "af2ea0faf568443b1a30ef3e00bf882a6f002f4e89bf0b9f50e17e22e32df274",
   "identity_sha256": "af2ea0faf568443b1a30ef3e00bf882a6f002f4e89bf0b9f50e17e22e32df274",
@@ -16,12 +16,13 @@
   "playback_speed": 1.0,
   "frames": 362,
   "final_hold_seconds": 2.0,
-  "video": "D:\\_AAA_CODE_ALL\\Tech_reproduction\\YOPO_reproduction\\artifacts\\ros2_showcase\\showcase_formal_main_v1_seed0_20260926_014921_final\\global_trajectory.mp4",
+  "video": "artifacts/ros2_showcase/showcase_formal_main_v1_seed0_20260926_014921_final/global_trajectory.mp4",
   "video_sha256": "cc00e970fb4cc0783988eaa9c532c4c9584ddcd54818f57fd0246473eda66c5f",
   "first_last_frames_decoded": true,
   "trajectory_modified": false,
   "audited_best_policy_sha256": "af2ea0faf568443b1a30ef3e00bf882a6f002f4e89bf0b9f50e17e22e32df274",
   "training_audit_sha256": "26fa26672f3632b78f1c597cb980102da6c8a34dc2e362f587a3424b2b0fa2e1",
   "metrics_sha256": "87ff84872d76a8af21c7b1225be3a48e9a81475b0b2ecbf1917ce6da8224a8ae",
-  "flight_status": "success"
+  "flight_status": "success",
+  "path_note": "Build-machine absolute paths normalised to project-relative POSIX paths on 2026-10-13 for the YOPO-only release; the original values remain in the v1 archive and git history."
 }

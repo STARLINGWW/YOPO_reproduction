@@ -6,9 +6,9 @@
     "checkpoint": "formal_main_v1_seed0/best_policy.pth",
     "backend": "yopo",
     "device": "cuda",
-    "topo_config": "D:\\_AAA_CODE_ALL\\Tech_reproduction\\YOPO_reproduction\\configs\\topotraj\\isaac_development.yaml",
+    "topo_config": "configs/topotraj/isaac_development.yaml",
     "episode_id": null,
-    "protocol": "D:\\_AAA_CODE_ALL\\Tech_reproduction\\YOPO_reproduction\\benchmarks\\protocol_v1\\protocol.json",
+    "protocol": "benchmarks/protocol_v1/protocol.json",
     "map_seed": 3000,
     "speed": 2.0,
     "duration": 60.0,
@@ -1875,5 +1875,6 @@
   "tracking_rmse_m": 0.11609413766907314,
   "max_speed_mps": 2.0260476560010963,
   "end_to_end_wall_p50_ms": 92.65795000828803,
-  "end_to_end_wall_p95_ms": 102.93744987575337
+  "end_to_end_wall_p95_ms": 102.93744987575337,
+  "path_note": "Build-machine absolute paths normalised to project-relative POSIX paths on 2026-10-13 for the YOPO-only release; the original values remain in the v1 archive and git history."
 }

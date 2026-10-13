@@ -31,7 +31,7 @@
 ## 常用命令（项目根目录执行）
 
 ```powershell
-Set-Location 'D:\_AAA_CODE_ALL\Tech_reproduction\YOPO_reproduction'
+Set-Location '<项目根目录>'
 
 # 闭环飞行（需 Isaac 与 ROS2 环境）
 python scripts/run_ros2_navigation.py --run showcase_formal_main_v1_seed0_20260926_014921
