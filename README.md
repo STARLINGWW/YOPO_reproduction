@@ -92,6 +92,16 @@ docker compose --profile training run --rm train python3 scripts/train_scratch.p
 - 权重：三个正式种子 `best_policy.pth` 哈希与各自 `training_audit.json` 一致；DAgger 聚合微调完成（闭环收益仍作为研究限制保留）。
 - 干净 clone 验证（2026-10-13）：无本机路径残留、全量文档审计 0 缺失、pytest 87 通过、Docker GPU/ROS 2 探针与 smoke 停止/恢复通过；详见[发布与干净 clone 验证记录](report/06_migration/03_github_release_verification.md)。
 
+## ToDo（后续计划）
+
+当前已在 **Windows（Docker Desktop + Isaac Sim 6.1）** 完成全链路复现（数据生成、三种子训练、ROS 2 闭环、1500 槽矩阵与发布归档）；后续迁移到 **Ubuntu 22.04** 做原生训练与部署：
+
+- [x] Windows 上基于 Isaac Sim 的本地复现（训练 / ROS 2 闭环 / 评测 / 发布）— 已完成
+- [ ] Ubuntu 22.04 环境复验：clone + LFS + GPU 探针 + smoke 停止/恢复（步骤见 [MIGRATION_UBUNTU22.md](MIGRATION_UBUNTU22.md)）
+- [ ] Ubuntu 22.04 原生训练：重跑训练管线并逐步对齐三种子 50 轮设置
+- [ ] Ubuntu 22.04 原生部署：ROS 2 Humble 运行时在 Ubuntu 本机完成闭环（仿真 / 实机）
+- [ ] 迁移完成后回填验收记录与[迁移报告](report/06_migration/README.md)，并同步更新本 README
+
 ## 与官方主项目的关系
 
 - **上游**：[TJU-Aerial-Robotics/YOPO](https://github.com/TJU-Aerial-Robotics/YOPO)（`main` 与 `YOPO-Simple` 分支）是固定的源码参考（`external/audit_sources`，逐文件哈希记录）；论文、演示视频与硬件资料见[官方项目主页](https://tju-air-lab.github.io/projects/YOPO/)。

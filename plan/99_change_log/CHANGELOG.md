@@ -24,6 +24,7 @@
 - 新增「复现总流程图」：scripts/make_pipeline_flowchart.py 生成 report/00_index/04_pipeline_flowchart.png（在线推理链 / 本地模块映射 / 训练与验收证据链三带合一），README 与模块总图同步引用。
 - 阅读笔记随复现分发：report/02_method/reading_note/（精读笔记 README、自绘 assets、工具与 50 页 Beamer 汇报及 TeX 源码；引用路径已改为仓库内相对链接），README 新增「阅读笔记」小节并与方法对照互联。
 - 复现总流程图视觉改版：六个推理卡等宽等距、闭环回路改为带白色标牌的正交走线（顶部跨越、垂直箭头指回深度图）、本地实现四条映射改为共用一条车道的正交折线（消除交叉与文字遮挡）、统一圆角卡片 + 柔和阴影 + 标题/正文分层字体，重新生成 report/00_index/04_pipeline_flowchart.png（README 与模块总图引用路径不变）。
+- README 新增「ToDo（后续计划）」：标记 Windows（Docker Desktop + Isaac Sim 6.1）全链路复现已完成，规划 Ubuntu 22.04 环境复验、原生训练与原生部署（闭环仿真/实机）及迁移报告回填。
 
 ## 2026-10-12 新根重构（v2）
 
