@@ -81,6 +81,7 @@
 
 ## 7. 证据与复跑入口
 
+- README 首屏对照（同场景轨迹大图 + 官方/自训练同步动画）：[report/05_visualization/media/official_vs_selftrained](../05_visualization/media/official_vs_selftrained/)；生成脚本 [scripts/make_official_vs_selftrained_figure.py](../../scripts/make_official_vs_selftrained_figure.py)。
 - 逐架次原始指标：`artifacts/navigation/wab2_<arm>_s<scene>_v<speed>/metrics.json`（36 个目录）；日志见 `artifacts/weights_ab_demo/batch_logs`（外部归档：运行日志）。
 - 批量驱动：[scripts/run_weights_ab_batch.py](../../scripts/run_weights_ab_batch.py)（支持 `--skip-existing` 续跑）；离线对照：[scripts/compare_expert_network.py](../../scripts/compare_expert_network.py)。
 - 权重身份：官方映射记录 [official_checkpoint_mapping.json](../../artifacts/expert/official_checkpoint_mapping.json)；自训练审计 [checkpoints/formal_main_v1_seed0/training_audit.json](../../checkpoints/formal_main_v1_seed0/training_audit.json)。

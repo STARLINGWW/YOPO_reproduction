@@ -339,8 +339,10 @@
         "external/audit_sources/YOPO-Simple/YOPO/saved/YOPO_1/epoch50.pth",
         "report/03_training/03_专家50步比较.md",
         "report/04_evaluation/02_权重批量对照实验.md",
+        "report/05_visualization/media/official_vs_selftrained",
         "report/90_archive/01_完成验收与成果路径.md",
         "scripts/compare_expert_network.py",
+        "scripts/make_official_vs_selftrained_figure.py",
         "scripts/run_weights_ab_batch.py"
       ],
       "missing_links": [],
@@ -527,6 +529,7 @@
         "report/05_visualization/media/global_overview.png",
         "report/05_visualization/media/global_trajectory.mp4",
         "report/05_visualization/media/official_pretrained_flight.mp4",
+        "report/05_visualization/media/official_vs_selftrained",
         "report/05_visualization/media/paper_figures",
         "report/05_visualization/media/render_manifest.json",
         "report/05_visualization/media/showcase_metrics.json"
@@ -1378,6 +1381,8 @@
         "report/05_visualization/media/global_overview.png",
         "report/05_visualization/media/global_trajectory.mp4",
         "report/05_visualization/media/official_pretrained_flight.mp4",
+        "report/05_visualization/media/official_vs_selftrained/01_same_scene_trajectories.png",
+        "report/05_visualization/media/official_vs_selftrained/02_same_scene_compare.gif",
         "report/05_visualization/media/paper_figures",
         "report/05_visualization/media/render_manifest.json",
         "report/06_migration/README.md",

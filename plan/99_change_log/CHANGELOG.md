@@ -16,6 +16,7 @@
 - 发布清理：移除 `vendor/probe_deps/bin/{markdown-it,pygmentize}.exe`（pip 生成的启动器 stub，内嵌构建机路径且无脚本引用；旧根与 git 历史保留）；4 份 `document_audit*.json` 的机器路径归一化为占位符并重跑全量审计（73 份、0 缺失）。
 - 未修改：固定超集协议字节、既有飞行与训练证据；未重跑矩阵或新增飞行。
 - GitHub 发布执行：旧 main 归档 tag `archive/pre-yopo-only-20261013`（→ `7321edf`）；`main` 以 force-with-lease 替换为发布提交链 `2037820 → e718a77 → 243a1f8`；LFS 147 对象、约 656 MB 推送。干净 clone 全量验证通过：grep 0、75 份文档审计 0 缺失、compileall、pytest 87、终审 6/6、权重哈希一致、Docker GPU 探针与 smoke 停止/恢复通过；详见 report/06_migration/03_github_release_verification.md。
+- README 首屏对照资产：新增 report/05_visualization/media/official_vs_selftrained/（三场景同场景轨迹大图 + 官方/自训练同步动画，GIF 约 1.5 MB），由 scripts/make_official_vs_selftrained_figure.py 从 weights A/B 36 架次原始日志生成；README 顶部加入“图文速览”与离线/闭环对照表。
 
 ## 2026-10-12 新根重构（v2）
 
