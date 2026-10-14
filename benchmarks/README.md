@@ -25,6 +25,8 @@
 
 正式YOPO只接受对应种子50轮训练后、验证集选出且审计通过的权重。官方权重、Simple演示、开发展示和聚合微调实验均单独统计，不填入主矩阵。
 
+**参考臂（external_reference）**：`reference_arm_official_v1/` 是官方发布权重的**同链同判据**矩阵（300 槽、每格 n=30，与主矩阵任务逐项对应）。它用「字节身份」替代「训练来源/选优」断言（哈希锚定 + rename-only 映射记录），有独立协议、独立准入（`reference_arm_official_v1/runtime_validation.json`）与独立汇总（`artifacts/benchmark_summary/reference_arm_official_v1_summary.json`）；主聚合器按 scope 忽略这些飞行，参考臂聚合器拒绝写主 summary。设计见 [DEC-20261014-02](../plan/90_decisions/DEC-20261014-02_官方权重参考臂设计.md)，运行说明见 [reference_arm_official_v1/README.md](reference_arm_official_v1/README.md)。
+
 `configs/benchmark_runtime/v1.json`保留准入前的声明状态和pending字段，属于冻结元数据；不能用它覆盖实际passed准入。TopoTraj有效建图范围、加速度上限和基线分布适配的公平性限制仍需保留。见[基准运行口径](../report/04_evaluation/04_基准运行配置冻结.md)。
 
 ## 汇总规则与真实缺口

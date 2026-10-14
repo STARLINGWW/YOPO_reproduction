@@ -8,6 +8,9 @@ from yopo_eval.task_spec import resolve_episode,verify_formal_yopo_checkpoint
 parser=argparse.ArgumentParser();parser.add_argument('--protocol',type=Path,default=ROOT/'benchmarks/protocol_v1/protocol.json')
 parser.add_argument('--scope',type=Path,default=ROOT/'benchmarks/protocol_v1/active_scope_yopo_only.json')
 parser.add_argument('--superset',action='store_true',help='Aggregate the full frozen superset protocol instead of the active YOPO-only scope')
+parser.add_argument('--allow-regression',action='store_true',
+    help='Allow overwriting an existing summary.json with fewer completed episodes (refused by default: '
+         'an emptied or relocated run store must not silently degrade the frozen summary)')
 args=parser.parse_args()
 protocol_path=args.protocol.resolve();protocol=json.loads(protocol_path.read_text());digest=hashlib.sha256(protocol_path.read_bytes()).hexdigest()
 scope=None;active_protocol=protocol
@@ -71,5 +74,13 @@ if scope:
         'excluded_models':scope['excluded_models']}
 if duplicates or invalid:report['status']='invalid_evidence'
 destination=ROOT/'artifacts/benchmark_summary';destination.mkdir(exist_ok=True)
+previous=None
+if (destination/'summary.json').is_file():
+    try:previous=json.loads((destination/'summary.json').read_text())
+    except Exception:previous=None
+if previous and isinstance(previous.get('completed_episodes'),int) and report['completed_episodes']<previous['completed_episodes'] and not args.allow_regression:
+    raise SystemExit('Refusing to overwrite summary.json with fewer completed episodes (%d < %d). '
+                     'If the run store was intentionally relocated or cleaned, re-run with --allow-regression.'
+                     %(report['completed_episodes'],previous['completed_episodes']))
 (destination/'summary.json').write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps({k:v for k,v in report.items() if k!='groups'}))

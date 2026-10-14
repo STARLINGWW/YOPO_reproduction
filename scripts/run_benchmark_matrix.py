@@ -288,7 +288,7 @@ def main():
         folder = ROOT/'artifacts/ros2_flights'/run_name
         guard = args.driver_timeout_s or max(900.,float(episode['timeout_s'])*6.)
         log = ROOT/'artifacts/benchmark_summary'/(run_name+'.log')
-        device = 'cuda' if mission['backend'] in ('yopo','agile') else 'cpu'
+        device = 'cuda' if mission['backend'] in ('yopo','yopo_reference','agile') else 'cpu'
         command = [ISAAC_PYTHON,str(ROOT/'scripts/run_ros2_navigation.py'),'--run',run_name,
                    '--episode-id',episode_id,'--protocol',str(protocol_path),'--device',device]
         env = os.environ.copy();env['OMNI_KIT_ACCEPT_EULA'] = 'YES'

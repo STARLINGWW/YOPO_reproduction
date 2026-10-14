@@ -1,6 +1,6 @@
 """Resolve a frozen benchmark slot without rendering or loading a network."""
 from pathlib import Path
-import hashlib,json,re
+import hashlib,json,os,re
 import numpy as np
 
 
@@ -23,6 +23,7 @@ def resolve_episode(protocol_path,episode_id):
     if not np.isclose(np.linalg.norm(goal-start),task['straight_distance_m']):raise ValueError('Task distance inconsistent')
     model=episode['model'];match=re.fullmatch('yopo_seed([012])',model)
     if match:backend='yopo';seed=int(match.group(1))
+    elif model=='yopo_official_reference':backend='yopo_reference';seed=None
     elif model=='agile_autonomy':backend='agile';seed=None
     elif model=='topotraj':backend='topotraj';seed=None
     elif model=='mppi_reference17':backend='mppi_reference17';seed=None
@@ -42,6 +43,42 @@ def verify_formal_yopo_checkpoint(root,checkpoint,seed):
     if hashlib.sha256(checkpoint.read_bytes()).hexdigest()!=audit['selection']['best_policy_file_sha256']:
         raise ValueError('Primary benchmark must use the audited validation-selected model')
     return audit
+
+
+def verify_reference_weights(root,checkpoint,reference):
+    """External-reference provenance: hash-pinned released weights, no training/selection claims.
+
+    The reference arm intentionally does NOT assert a from-scratch initialization or a
+    validation-selection record (those facts do not exist for released weights). What it
+    does assert, and what keeps the arm's evidence actionable, is byte identity: the
+    checkpoint hash must equal the value recorded in the reference protocol, and the
+    side-by-side provenance record must agree that the file is a rename-only mapping of
+    the declared upstream checkpoint.
+    """
+    # The staged folder may be exposed as a Windows junction (and must be materialised as
+    # a real directory before container runs, because bind mounts do not traverse
+    # junctions). The binding guarantee is the pinned hash, so containment is checked
+    # lexically on the declared path and the hash does the rest.
+    root=Path(root).resolve()
+    raw=Path(checkpoint)
+    logical=Path(os.path.normpath(str(raw if raw.is_absolute() else root/raw)))
+    if not logical.is_relative_to(root/'checkpoints'):raise ValueError('Reference checkpoint outside project')
+    if not logical.is_file():raise ValueError('Reference checkpoint missing')
+    digest=hashlib.sha256(logical.read_bytes()).hexdigest()
+    if digest!=reference['staged_sha256']:raise ValueError('Reference checkpoint hash mismatch')
+    provenance_path=Path(os.path.normpath(str(root/reference['provenance_file'])))
+    if not provenance_path.is_relative_to(root) or not provenance_path.is_file():
+        raise ValueError('Reference provenance record missing')
+    provenance=json.loads(provenance_path.read_text(encoding='utf-8'))
+    if provenance.get('staged_sha256')!=digest:raise ValueError('Reference provenance staged hash mismatch')
+    if provenance.get('source_sha256')!=reference['source_sha256']:raise ValueError('Reference upstream hash mismatch')
+    if provenance.get('rename_only') is not True:raise ValueError('Reference checkpoint is not a rename-only mapping')
+    mapping=Path(os.path.normpath(str(root/reference['mapping_record'])))
+    if not mapping.is_relative_to(root) or not mapping.is_file():raise ValueError('Reference mapping record missing')
+    return {'provenance_class':'external_reference','checkpoint_sha256':digest,
+            'source_sha256':provenance['source_sha256'],'provenance_file':reference['provenance_file'],
+            'mapping_record':reference['mapping_record'],
+            'claims':'hash-pinned released weights; NO from-scratch initialization claim and NO validation-selection claim'}
 
 
 def verify_runtime_admission(root,protocol_path,mission):

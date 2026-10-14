@@ -31,12 +31,19 @@ def assign_xyz(target,values):
 
 
 class MainPlanner:
-    def __init__(self,checkpoint,speed=6.,device='cuda'):
+    def __init__(self,checkpoint,speed=6.,device='cuda',provenance_class='scratch',expected_sha256=None):
         torch.backends.cuda.matmul.allow_tf32=False;torch.backends.cudnn.allow_tf32=False
         checkpoint=Path(checkpoint).resolve()
         if not checkpoint.is_relative_to(ROOT/'checkpoints'):raise ValueError('This runtime accepts locally trained checkpoints only')
         manifest=json.loads((checkpoint.parent/'run_manifest.json').read_text(encoding='utf-8'))
-        if not manifest.get('initialization','').startswith('random entire network'):raise ValueError('Checkpoint lacks scratch initialization provenance')
+        if provenance_class=='external_reference':
+            # Reference arm: byte identity with the pinned released weights replaces the
+            # from-scratch claim; the config check below still applies unchanged.
+            if expected_sha256 is None:raise ValueError('external_reference class requires the pinned checkpoint hash')
+            if hashlib.sha256(checkpoint.read_bytes()).hexdigest()!=expected_sha256:
+                raise ValueError('Reference checkpoint hash differs from the pinned value')
+        else:
+            if not manifest.get('initialization','').startswith('random entire network'):raise ValueError('Checkpoint lacks scratch initialization provenance')
         self.policy,self.profile,cfg=build_policy(device)
         if manifest['profile']!=self.profile or manifest['trajectory']!=cfg:raise ValueError('Checkpoint profile/config differs from runtime')
         self.policy.load_state_dict(torch.load(checkpoint,map_location=device,weights_only=True),strict=True)

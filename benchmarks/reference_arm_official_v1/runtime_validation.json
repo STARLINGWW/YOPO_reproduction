@@ -1,0 +1,153 @@
+{
+  "version": 1,
+  "status": "passed",
+  "protocol_sha256": "c020c1b483953454375500fe8fc01f7a603d4f8a718ac3924eeb3e3abfa0f3ed",
+  "validated_backends": [
+    "yopo_reference"
+  ],
+  "validated_backend_keys": [
+    "yopo_reference"
+  ],
+  "runtime_files": {
+    "scripts/run_ros2_navigation.py": "f6d55d1fe3617de5f165fb0b76359fae98e6e4dcfd47cc40e5dc3813d0714c15",
+    "scripts/ros2/serve_planner.py": "30c0984badcb13d111300e65f5a48602dbc59b9749c32131ea6b7b7f59db9340",
+    "scripts/validate_ros2_flight.py": "cfed05f62e6fe8b455c7c9ffeb2ac3981e32c0b9853bc4dd8d39e86a845063ea",
+    "scripts/evaluate_ros2_flight.py": "527ec1ec43e0ddff9a194afe18f35ada28e55142afd74f50f7fd00543848ec48",
+    "scripts/run_benchmark_matrix.py": "448f8407bc6fac3e116236cc7ed2cc78579137b3a39c16746da49e9937aaef3b",
+    "src/yopo_sim/trajectory_buffer.py": "a83bacefbff74c5751bd835ed62d94b6a3814ee1231c8c637f5f349b50c7bba5",
+    "src/yopo_sim/unified_quad.py": "2f46bad83cd96d5e001bb85cc70f1b3561c88abba2dce13bf901ebc38d0e2772",
+    "src/yopo_sim/physx_vehicle.py": "aefa6eb1588c33d45d3c08e3c9d895a508420c3cd205a54d0226d71912ff7a53",
+    "src/yopo_sim/evaluation_geometry.py": "d14aa88fb1fb8759a18d39f97511c5821e161653b34735ab3b80fa9fc545dfa3",
+    "src/yopo_sim/resource_sampler.py": "1ae946b0c7d298a02770c9240fe10075f42d637d1e53cba43f5df32e2e0bffd7",
+    "src/yopo_sim/job_guard.py": "f270e97870727b4f7af80bbe77c43d151f0d488ed2a9be8f141fff6745248899",
+    "src/yopo_eval/task_spec.py": "63be9b45f0e6b7ed4fd581fa78cbdb1f0b7309f9902b240e5c72e4019ebe7f48",
+    "src/yopo_eval/metrics.py": "7b70c2513e14e31ea66ee5c06f0b85d0aa4dd6f24a73b40f5b2fe2ddd1bada27",
+    "src/yopo_repro/forest.py": "aebec3e2e1a7d7fde1b96397c5572e0aae234984ba1f2a7604648c3471dca402",
+    "configs/unified_quad.json": "c639b9a6bba1836e4fd1c5d5d36733413bd2c0ffd94df3f814960696d5298b37",
+    "configs/topotraj/isaac_development.yaml": "3cbe6b8f0395b3d6c8c6b6da0a0454233f1252bdace4121da303029dfd5ae9c5",
+    "ros2_ws/src/yopo_runtime/yopo_runtime/protocol_node.py": "a3a26196802339ec31bfe5e4282bea3ff2648390ec8956b87c2588102f9b3d05",
+    "ros2_ws/src/yopo_runtime/yopo_runtime/main_planner.py": "6087faa3911833501f00430e8ad16e07fc93b4589a5209614ad75a0288aeae12",
+    "ros2_ws/src/yopo_runtime/yopo_runtime/agile_planner.py": "433cc3dc097e62a3a8ff3c24067f319436a01d77a5bff86d8e6c0dfaa6e84ee4",
+    "ros2_ws/src/yopo_runtime/yopo_runtime/frame_gate.py": "60ba4be47b6f0df5542759af9c72cfd8dfa245db36ce882234195fac91d1f1ce"
+  },
+  "phase_a": {
+    "yopo_reference": {
+      "run": "rv_ref_dev_20261014_131605",
+      "returncode": 0,
+      "log": "artifacts/environment/rv_ref_dev_20261014_131605.log",
+      "validate_returncode": 0,
+      "evaluate_returncode": 0,
+      "scope": "development_runtime_admission_reference",
+      "evidence": {
+        "run": "rv_ref_dev_20261014_131605",
+        "backend": "yopo_reference",
+        "status": "collision",
+        "interface_passed": true,
+        "frames": 290,
+        "applied_trajectories": 281,
+        "planner_errors": 0,
+        "wrong_episode": 0,
+        "max_speed_mps": 2.452954777407162,
+        "min_net_clearance_m": -0.0009618480016694853,
+        "real_time_factor": 0.4538461345077386,
+        "goal_error_m": 5.993775236172979,
+        "metrics_path": "artifacts/ros2_flights/rv_ref_dev_20261014_131605/metrics.json",
+        "metrics_sha256": "8d4ff1bb23a5a1d37f5c5f66b741ef243b680615c4f15d67bb1a800ec5ceb937",
+        "validation_path": "artifacts/ros2_flights/rv_ref_dev_20261014_131605/validation.json",
+        "validation_sha256": "3b95ad985d2ada5d856c585861216c96738dd5888ae260088336e05233e9ed2d",
+        "validation_status": "passed",
+        "evaluation_path": "artifacts/ros2_flights/rv_ref_dev_20261014_131605/evaluation.json",
+        "evaluation_sha256": "471c63bba4a910c31a7e9a3f3a0473070ed56c94d06d281417d8918c42bafbb5",
+        "metrics_available": true,
+        "instrumentation_gaps": [],
+        "problems": []
+      }
+    }
+  },
+  "phase_b": {
+    "refofficial_sparse_v2_trial00": {
+      "run": "rv_ref_frozen_refofficial_sparse_v2_trial00_20261014_131605",
+      "episode_id": "refofficial_sparse_v2_trial00",
+      "speed_mps": 2,
+      "returncode": 0,
+      "log": "artifacts/environment/rv_ref_frozen_refofficial_sparse_v2_trial00_20261014_131605.log",
+      "validate_returncode": 0,
+      "evaluate_returncode": 0,
+      "evidence": {
+        "run": "rv_ref_frozen_refofficial_sparse_v2_trial00_20261014_131605",
+        "backend": "yopo_reference",
+        "status": "timeout",
+        "interface_passed": true,
+        "frames": 713,
+        "applied_trajectories": 707,
+        "planner_errors": 0,
+        "wrong_episode": 0,
+        "max_speed_mps": 2.3659351715721155,
+        "min_net_clearance_m": 0.07433337256402045,
+        "real_time_factor": 0.4530143880770379,
+        "goal_error_m": 2.8818331181235304,
+        "metrics_path": "artifacts/ros2_flights/rv_ref_frozen_refofficial_sparse_v2_trial00_20261014_131605/metrics.json",
+        "metrics_sha256": "f34bae1c01991514fd821d57a3aa99460a344b89611a399a19fc9c53828d15b3",
+        "validation_path": "artifacts/ros2_flights/rv_ref_frozen_refofficial_sparse_v2_trial00_20261014_131605/validation.json",
+        "validation_sha256": "528b9c2bbe70b6ae941bbdb066e4227caf87676e2e9dd46d806010e411cfd36a",
+        "validation_status": "passed",
+        "evaluation_path": "artifacts/ros2_flights/rv_ref_frozen_refofficial_sparse_v2_trial00_20261014_131605/evaluation.json",
+        "evaluation_sha256": "9c90655f4ecc1e6c60cc9714668a76d26b2600e432260b84845c7873dd0d9753",
+        "metrics_available": true,
+        "instrumentation_gaps": [],
+        "problems": []
+      }
+    },
+    "refofficial_sparse_v2_trial01": {
+      "run": "rv_ref_frozen_refofficial_sparse_v2_trial01_20261014_131605",
+      "episode_id": "refofficial_sparse_v2_trial01",
+      "speed_mps": 2,
+      "returncode": 0,
+      "log": "artifacts/environment/rv_ref_frozen_refofficial_sparse_v2_trial01_20261014_131605.log",
+      "validate_returncode": 0,
+      "evaluate_returncode": 0,
+      "evidence": {
+        "run": "rv_ref_frozen_refofficial_sparse_v2_trial01_20261014_131605",
+        "backend": "yopo_reference",
+        "status": "timeout",
+        "interface_passed": true,
+        "frames": 713,
+        "applied_trajectories": 708,
+        "planner_errors": 0,
+        "wrong_episode": 0,
+        "max_speed_mps": 2.2699736492199163,
+        "min_net_clearance_m": 0.9862167073669466,
+        "real_time_factor": 0.45657045216165043,
+        "goal_error_m": 4.446861509756991,
+        "metrics_path": "artifacts/ros2_flights/rv_ref_frozen_refofficial_sparse_v2_trial01_20261014_131605/metrics.json",
+        "metrics_sha256": "a5eac30c3e09b902688c2c49d766a20b12b97f0fb5ffe6844c6907d753d61f3b",
+        "validation_path": "artifacts/ros2_flights/rv_ref_frozen_refofficial_sparse_v2_trial01_20261014_131605/validation.json",
+        "validation_sha256": "9201d2f7267b8792095a0eb82a62b080aae51231437a90499f9c27c24f197471",
+        "validation_status": "passed",
+        "evaluation_path": "artifacts/ros2_flights/rv_ref_frozen_refofficial_sparse_v2_trial01_20261014_131605/evaluation.json",
+        "evaluation_sha256": "0da6045bcc3415b6ed5d24a2d4b968f816a9c5498bd233becd15d8916bb952db",
+        "metrics_available": true,
+        "instrumentation_gaps": [],
+        "problems": []
+      }
+    }
+  },
+  "consumed_episode_ids": [
+    "refofficial_sparse_v2_trial00",
+    "refofficial_sparse_v2_trial01"
+  ],
+  "recorded_at": "2026-10-14T13:21:42+0800",
+  "scope": "native Isaac/ROS2 runtime admission for the external-reference arm; not a success-rate result",
+  "rule": "validated_backends lists the mission backend name used by the reference protocol (yopo_reference); released weights are admitted under the external_reference class (hash-pinned, rename-only, no from-scratch and no validation-selection claim)",
+  "reference_weights": {
+    "class": "external_reference",
+    "staged_checkpoint": "official_epoch50_reference/best_policy.pth",
+    "staged_sha256": "7d5dc46f22a39993d3944a02f82a519dd1aafbda33e268509b22569be2aaa94e",
+    "source_sha256": "09ec31094ed83e09702efc1facf18076564ebbe1afc164960c41036e16ba229f",
+    "provenance_file": "checkpoints/official_epoch50_reference/PROVENANCE.json",
+    "mapping_record": "artifacts/expert/official_checkpoint_mapping.json",
+    "claims": "hash-pinned released weights; NO from-scratch initialization claim and NO validation-selection claim"
+  },
+  "provisional": false,
+  "failures": []
+}

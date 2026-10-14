@@ -8,13 +8,16 @@ parser=argparse.ArgumentParser();parser.add_argument('--backend',choices=['yopo'
 parser.add_argument('--checkpoint',default='resume_split_v2/best_policy.pth');parser.add_argument('--device',default='cpu')
 parser.add_argument('--agile-engine',choices=['tensorflow','torch'],default='torch')
 parser.add_argument('--speed',type=float,default=2.);parser.add_argument('--run',required=True)
+parser.add_argument('--provenance-class',choices=['scratch','external_reference'],default='scratch')
+parser.add_argument('--expected-sha256',default=None)
 parser.add_argument('--wall-timeout',type=float,default=600.);args=parser.parse_args()
 output=(ROOT/'artifacts/ros2_flights'/args.run).resolve()
 if not output.is_relative_to(ROOT/'artifacts/ros2_flights') or not output.is_dir():raise ValueError('Native run must create output folder first')
 rclpy.init()
 if args.backend=='yopo':
     from yopo_runtime.main_planner import MainPlanner
-    backend=MainPlanner(ROOT/'checkpoints'/args.checkpoint,args.speed,args.device)
+    backend=MainPlanner(ROOT/'checkpoints'/args.checkpoint,args.speed,args.device,
+                        provenance_class=args.provenance_class,expected_sha256=args.expected_sha256)
 else:
     from yopo_runtime.agile_planner import AgilePlanner
     backend=AgilePlanner(args.speed,engine=args.agile_engine,device=args.device)

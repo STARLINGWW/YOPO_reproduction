@@ -91,7 +91,7 @@
 
 （原「官方权重 n=5」对比图已按 2026-10-14 需求替换为上面的论文规模对位图；官方 A/B 的逐格原始数据保留在本节表格与 [batch_summary.json](../../artifacts/weights_ab_demo/batch_summary.json)。）
 
-**逐格结果（S 成功 / C 碰撞 / T 超时；每格 3 架次）**
+**逐格结果（S 成功 / C 碰撞 / T 超时；每格 5 架次）**
 
 | 场景 | 权重 | 2 m/s | 4 m/s | 6 m/s | 8 m/s | 10 m/s |
 |---|---|---|---|---|---|---|
@@ -117,11 +117,19 @@ python scripts/run_weights_ab_batch.py --scenes 5000,5001,5002,5003,5004 --speed
 python scripts/run_weights_ab_batch.py --scenes 6000,6001,6002,6003,6004 --speeds 2,4,6,8,10 --arms main_official,main_local --duration 120 --density 0.05 --skip-existing
 ```
 
+### 4.1 参考臂：官方权重的**同链同判据**矩阵（external_reference，2026-10-14 建立）
+
+原生 A/B（上表）解决的只是「两条链各自的对照」。要让官方权重拿到**与主矩阵同级**的证据（同 ROS2/Isaac 链、同地图/任务/判据、每格 n=30），新增了隔离的**参考臂矩阵**（设计见 [DEC-20261014-02](../../plan/90_decisions/DEC-20261014-02_官方权重参考臂设计.md)、运行说明见 [benchmarks/reference_arm_official_v1/README.md](../../benchmarks/reference_arm_official_v1/README.md)）：
+
+- **来源类别 `external_reference`**：断言对象从「从零训练 + 选优」改为**字节身份**——权重 sha256 必须等于参考协议记录的 `staged_sha256`，且与 `PROVENANCE.json`、映射记录一致（rename-only）；协议里显式写明「无随机初始化声明、无验证集选优声明」。
+- **完全隔离**：独立协议（`benchmarks/reference_arm_official_v1/protocol.json`，300 槽，与主矩阵逐任务一一对应）、独立准入（本目录 `runtime_validation.json`）、独立汇总（`artifacts/benchmark_summary/reference_arm_official_v1_summary.json`）。主聚合器按 scope 忽略这些飞行；参考臂聚合器拒绝写主 summary——主矩阵 **1,500/1,500** 的声明与终审不受任何影响。
+- **状态（2026-10-14）**：准入已通过（`validated_backends=['yopo_reference']`），冒烟 5 架次全部按终态收录、0 失败，300 槽全量已启动——实时进度见 `artifacts/benchmark_summary/reference_arm_progress.json`，完成后用 `python scripts/aggregate_reference_arm.py` 生成独立汇总。
+
 ## 5. 数据来源与口径
 
 - **判据**：终点误差 < 0.5 m 且速度 < 0.3 m/s 连续 0.5 s、无碰撞（接触或包络符号距离 ≤ 0）；「入圈」与「稳定达标」两个时刻在对照图中分别标注，见 [protocol.json](../../benchmarks/protocol_v1/protocol.json) 的 `criteria`。
 - **分母**：所有失败（碰撞/超时/出界）计入成功率分母，缺失不算成功；统计口径为 Wilson 95%。
-- **链的区别**：第 2、3 节来自 ROS2 冻结矩阵（容器规划器 + PhysX 机体，与 1,500 槽同一判据）；第 4 节来自原生 main 链（同一 Isaac 场景生成器，机体/控制器与矩阵链不同，含 2026-10-14 补跑的 42 架次），两条链的成功率不可直接合并比较（[演示程序与权重飞行验证命令](../05_visualization/01_演示程序与权重飞行验证命令.md) §1）。
-- **官方权重**：官方 epoch50 属于 Simple 发布栈，冻结 ROS2 规划器会拒绝其来源（缺少 scratch 训练溯源）；因此官方权重只在原生 A/B 链上跑对照（补测后覆盖稀疏与稠密、2–10 m/s），并同时给出「官方权重放入 main 布局」与「自训练 seed0」两臂。
+- **链的区别**：第 2、3 节与参考臂（4.1）来自 ROS2 冻结链（容器规划器 + PhysX 机体，同一判据）；第 4 节原生 A/B 来自原生 main 链（机体/控制器与矩阵链不同，含 2026-10-14 补跑的 42 架次）——原生链与 ROS2 链的成功率不可直接合并比较（[演示程序与权重飞行验证命令](../05_visualization/01_演示程序与权重飞行验证命令.md) §1）。参考臂虽然同链同判据，但**来源类别不同**（external_reference），其分组只支撑参考臂自己的结论，不与主矩阵断言混合。
+- **官方权重**：官方 epoch50 属于 Simple 发布栈，主链的 scratch 溯源断言对其不适用；它现在有两条登记在案的对照通道——原生 A/B（4 节表格）与参考臂同链矩阵（4.1）。参考[17] MPPI 保持归档，不在其中。
 - **未复现项**：论文 III-C 实机实验未复现，全部飞行结论来自 Isaac 仿真闭环；DAgger 微调收益未独立验证。
 - **本页图表**由 [scripts/make_benchmark_speed_figures.py](../../scripts/make_benchmark_speed_figures.py) 从冻结汇总与 A/B 记录生成（可重跑，不产生新飞行）。

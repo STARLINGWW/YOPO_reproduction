@@ -22,7 +22,7 @@ from yopo_sim.trajectory_buffer import TrajectoryBuffer,decode_ros_trajectory
 from yopo_sim.evaluation_geometry import ForestEvaluator
 from yopo_sim.resource_sampler import ResourceSampler
 from yopo_sim.job_guard import require_training_gpu_released
-from yopo_eval.task_spec import resolve_episode,verify_formal_yopo_checkpoint,verify_runtime_admission
+from yopo_eval.task_spec import resolve_episode,verify_formal_yopo_checkpoint,verify_reference_weights,verify_runtime_admission
 
 
 def stamp(msg,value):
@@ -35,7 +35,7 @@ def assign_xyz(msg,value):msg.x,msg.y,msg.z=map(float,value)
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--run',required=True)
     parser.add_argument('--checkpoint')
-    parser.add_argument('--backend',choices=['yopo','agile','topotraj'],default='yopo');parser.add_argument('--device',choices=['cpu','cuda'],default='cpu')
+    parser.add_argument('--backend',choices=['yopo','yopo_reference','agile','topotraj'],default='yopo');parser.add_argument('--device',choices=['cpu','cuda'],default='cpu')
     parser.add_argument('--topo-config',type=Path,default=ROOT/'configs/topotraj/isaac_development.yaml')
     parser.add_argument('--episode-id');parser.add_argument('--protocol',type=Path,default=ROOT/'benchmarks/protocol_v1/protocol.json')
     parser.add_argument('--map-seed',type=int,default=3000);parser.add_argument('--speed',type=float,default=2.)
@@ -46,10 +46,11 @@ def main():
     mission=None;admission=None;initial_yaw=0.
     if args.episode_id:
         mission=resolve_episode(args.protocol,args.episode_id)
-        if mission['backend'] not in ['yopo','agile','topotraj']:raise ValueError('Requested baseline native adapter is not ready; no replacement is permitted')
+        if mission['backend'] not in ['yopo','yopo_reference','agile','topotraj']:raise ValueError('Requested baseline native adapter is not ready; no replacement is permitted')
         args.backend=mission['backend'];args.speed=mission['episode']['speed_mps'];args.duration=mission['episode']['timeout_s']
-        args.map_seed=mission['task']['map_seed'];args.scope='primary_frozen_benchmark'
-        if args.backend in ['yopo','agile'] and args.device!='cuda':raise ValueError('Primary neural benchmark requires GPU; CPU comparisons must be separate')
+        args.map_seed=mission['task']['map_seed']
+        args.scope='primary_frozen_benchmark' if args.backend!='yopo_reference' else 'reference_arm_official_v1'
+        if args.backend in ['yopo','yopo_reference','agile'] and args.device!='cuda':raise ValueError('Primary neural benchmark requires GPU; CPU comparisons must be separate')
         admission=verify_runtime_admission(ROOT,args.protocol,mission)
         scene=mission['scene'];start=np.array(mission['task']['start']);goal=np.array(mission['task']['goal']);initial_yaw=mission['task']['initial_yaw']
         if args.backend=='yopo':args.checkpoint=args.checkpoint or f'formal_main_v1_seed{mission["training_seed"]}/best_policy.pth'
@@ -59,6 +60,17 @@ def main():
         if not checkpoint.is_relative_to(ROOT/'checkpoints') or not checkpoint.is_file():raise ValueError('Expected project scratch checkpoint')
         if mission:verify_formal_yopo_checkpoint(ROOT,checkpoint,mission['training_seed'])
         weight_description='local scratch training';checkpoint_sha=hashlib.sha256(checkpoint.read_bytes()).hexdigest()
+    elif args.backend=='yopo_reference':
+        # External-reference class: hash-pinned released weights. No from-scratch or
+        # validation-selection claim is made; byte identity is the pinned fact.
+        reference=json.loads(Path(args.protocol).read_text(encoding='utf-8'))['reference_weights']
+        args.checkpoint=args.checkpoint or reference['staged_checkpoint']
+        checkpoint=ROOT/'checkpoints'/args.checkpoint
+        verified=verify_reference_weights(ROOT,checkpoint,reference)
+        weight_description='official released epoch50 weights, rename-only into the main layout (external_reference class)'
+        checkpoint_sha=verified['checkpoint_sha256']
+        args.provenance_class='external_reference';args.reference_sha256=checkpoint_sha
+        args.reference_provenance_file=reference['provenance_file']
     elif args.backend=='agile':
         gate=json.loads((ROOT/f'artifacts/agile_autonomy/torch_export_v1/torch_{args.device}_parity.json').read_text())
         if gate['status']!='passed' or gate['original_tf24_comparison']['status']!='passed':raise ValueError('Agile requested device has not passed numerical parity')
@@ -100,9 +112,12 @@ def main():
             command+=['ros2','run','yopo_topotraj','topotraj_runtime','--ros-args','--params-file',config_path,
                 '-p',f'manager.max_vel:={float(args.speed)}','-p',f'optimization.max_vel:={float(args.speed)}']
         else:
-            command+=['python3','scripts/ros2/serve_planner.py','--run',args.run,'--backend',args.backend,
+            planner_backend='yopo' if args.backend in ('yopo','yopo_reference') else args.backend
+            command+=['python3','scripts/ros2/serve_planner.py','--run',args.run,'--backend',planner_backend,
                       '--speed',str(args.speed),'--device',args.device,'--wall-timeout','600']
-            if args.backend=='yopo':command+=['--checkpoint',args.checkpoint]
+            if args.backend in ('yopo','yopo_reference'):command+=['--checkpoint',args.checkpoint]
+            if args.backend=='yopo_reference':
+                command+=['--provenance-class','external_reference','--expected-sha256',args.reference_sha256]
         launch=subprocess.run(command,cwd=ROOT,text=True,capture_output=True,check=True)
         container_started=True;report['container_id']=launch.stdout.strip().splitlines()[-1]
         (output/'container_launch.log').write_text(launch.stdout+launch.stderr)

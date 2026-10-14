@@ -17,6 +17,11 @@ if backend=='yopo':
     checkpoint=ROOT/'checkpoints'/metrics['config']['checkpoint'];manifest=json.loads((checkpoint.parent/'run_manifest.json').read_text())
     assert manifest['initialization'].startswith('random entire network')
     digest=hashlib.sha256(checkpoint.read_bytes()).hexdigest();checkpoint_name=checkpoint.name;training_seed=manifest['seed']
+elif backend=='yopo_reference':
+    assert metrics['config'].get('provenance_class')=='external_reference'
+    digest=metrics['config']['reference_sha256'];checkpoint_name='official_epoch50_reference_best_policy.pth'
+    provenance=json.loads((ROOT/metrics['config']['reference_provenance_file']).read_text())
+    assert provenance['staged_sha256']==digest and provenance['rename_only'] is True
 elif backend=='agile':
     exported=json.loads((ROOT/'artifacts/agile_autonomy/torch_export_v1/manifest.json').read_text())
     digest=exported['source_checkpoint_sha256'];checkpoint_name='official_agile_ckpt50_converted'

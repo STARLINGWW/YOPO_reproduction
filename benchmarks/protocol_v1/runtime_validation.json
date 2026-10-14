@@ -8,24 +8,24 @@
     "yopo"
   ],
   "runtime_files": {
-    "scripts/run_ros2_navigation.py": "0948de41c7feca8d6d2596ee0856682d35abc5b965732cc12188c37d7a848440",
-    "scripts/ros2/serve_planner.py": "cd668fa880735612f6a9b4133b5e4680e5693a74fc7936d47e54fb6fb77355c0",
-    "scripts/validate_ros2_flight.py": "317d1ea18a28448dc4726788e470d3d5591d19fbf6d21647b2fbe9cee6166da5",
+    "scripts/run_ros2_navigation.py": "f6d55d1fe3617de5f165fb0b76359fae98e6e4dcfd47cc40e5dc3813d0714c15",
+    "scripts/ros2/serve_planner.py": "30c0984badcb13d111300e65f5a48602dbc59b9749c32131ea6b7b7f59db9340",
+    "scripts/validate_ros2_flight.py": "cfed05f62e6fe8b455c7c9ffeb2ac3981e32c0b9853bc4dd8d39e86a845063ea",
     "scripts/evaluate_ros2_flight.py": "527ec1ec43e0ddff9a194afe18f35ada28e55142afd74f50f7fd00543848ec48",
-    "scripts/run_benchmark_matrix.py": "ad0fbac0f8bb6e2ef79c2a4121e346e862da33a290096d44f5055cc700704c5d",
+    "scripts/run_benchmark_matrix.py": "448f8407bc6fac3e116236cc7ed2cc78579137b3a39c16746da49e9937aaef3b",
     "src/yopo_sim/trajectory_buffer.py": "a83bacefbff74c5751bd835ed62d94b6a3814ee1231c8c637f5f349b50c7bba5",
     "src/yopo_sim/unified_quad.py": "2f46bad83cd96d5e001bb85cc70f1b3561c88abba2dce13bf901ebc38d0e2772",
     "src/yopo_sim/physx_vehicle.py": "aefa6eb1588c33d45d3c08e3c9d895a508420c3cd205a54d0226d71912ff7a53",
     "src/yopo_sim/evaluation_geometry.py": "d14aa88fb1fb8759a18d39f97511c5821e161653b34735ab3b80fa9fc545dfa3",
     "src/yopo_sim/resource_sampler.py": "1ae946b0c7d298a02770c9240fe10075f42d637d1e53cba43f5df32e2e0bffd7",
     "src/yopo_sim/job_guard.py": "f270e97870727b4f7af80bbe77c43d151f0d488ed2a9be8f141fff6745248899",
-    "src/yopo_eval/task_spec.py": "ddea171732d0accef3d8a9aa7e7d511ad58d4ea3b1bc3767ce175be1089ca71a",
+    "src/yopo_eval/task_spec.py": "63be9b45f0e6b7ed4fd581fa78cbdb1f0b7309f9902b240e5c72e4019ebe7f48",
     "src/yopo_eval/metrics.py": "7b70c2513e14e31ea66ee5c06f0b85d0aa4dd6f24a73b40f5b2fe2ddd1bada27",
     "src/yopo_repro/forest.py": "aebec3e2e1a7d7fde1b96397c5572e0aae234984ba1f2a7604648c3471dca402",
     "configs/unified_quad.json": "c639b9a6bba1836e4fd1c5d5d36733413bd2c0ffd94df3f814960696d5298b37",
     "configs/topotraj/isaac_development.yaml": "3cbe6b8f0395b3d6c8c6b6da0a0454233f1252bdace4121da303029dfd5ae9c5",
     "ros2_ws/src/yopo_runtime/yopo_runtime/protocol_node.py": "a3a26196802339ec31bfe5e4282bea3ff2648390ec8956b87c2588102f9b3d05",
-    "ros2_ws/src/yopo_runtime/yopo_runtime/main_planner.py": "7a9e8f6f102e218827fcc1ddc897ecaa90d6068fb015bd4399860b9b4fd9dd33",
+    "ros2_ws/src/yopo_runtime/yopo_runtime/main_planner.py": "6087faa3911833501f00430e8ad16e07fc93b4589a5209614ad75a0288aeae12",
     "ros2_ws/src/yopo_runtime/yopo_runtime/agile_planner.py": "433cc3dc097e62a3a8ff3c24067f319436a01d77a5bff86d8e6c0dfaa6e84ee4",
     "ros2_ws/src/yopo_runtime/yopo_runtime/frame_gate.py": "60ba4be47b6f0df5542759af9c72cfd8dfa245db36ce882234195fac91d1f1ce"
   },
@@ -366,5 +366,43 @@
     "topotraj"
   ],
   "provisional": false,
-  "failures": []
+  "failures": [],
+  "runtime_files_amendment_reference_arm": {
+    "date": "2026-10-14",
+    "scope": "official-weight external_reference reference arm",
+    "reason": "additive provenance-class branches for the reference arm: new model/backend yopo_official_reference->yopo_reference, verify_reference_weights, provenance-class plumbing in serve_planner/main_planner/validate_ros2_flight, device mapping in the matrix driver. All branches are default-off; primary-path behaviour is unchanged.",
+    "amended": [
+      {
+        "path": "scripts/run_ros2_navigation.py",
+        "old_sha256": "0948de41c7feca8d6d2596ee0856682d35abc5b965732cc12188c37d7a848440",
+        "new_sha256": "f6d55d1fe3617de5f165fb0b76359fae98e6e4dcfd47cc40e5dc3813d0714c15"
+      },
+      {
+        "path": "scripts/ros2/serve_planner.py",
+        "old_sha256": "cd668fa880735612f6a9b4133b5e4680e5693a74fc7936d47e54fb6fb77355c0",
+        "new_sha256": "30c0984badcb13d111300e65f5a48602dbc59b9749c32131ea6b7b7f59db9340"
+      },
+      {
+        "path": "scripts/validate_ros2_flight.py",
+        "old_sha256": "317d1ea18a28448dc4726788e470d3d5591d19fbf6d21647b2fbe9cee6166da5",
+        "new_sha256": "cfed05f62e6fe8b455c7c9ffeb2ac3981e32c0b9853bc4dd8d39e86a845063ea"
+      },
+      {
+        "path": "scripts/run_benchmark_matrix.py",
+        "old_sha256": "ad0fbac0f8bb6e2ef79c2a4121e346e862da33a290096d44f5055cc700704c5d",
+        "new_sha256": "448f8407bc6fac3e116236cc7ed2cc78579137b3a39c16746da49e9937aaef3b"
+      },
+      {
+        "path": "src/yopo_eval/task_spec.py",
+        "old_sha256": "ddea171732d0accef3d8a9aa7e7d511ad58d4ea3b1bc3767ce175be1089ca71a",
+        "new_sha256": "63be9b45f0e6b7ed4fd581fa78cbdb1f0b7309f9902b240e5c72e4019ebe7f48"
+      },
+      {
+        "path": "ros2_ws/src/yopo_runtime/yopo_runtime/main_planner.py",
+        "old_sha256": "7a9e8f6f102e218827fcc1ddc897ecaa90d6068fb015bd4399860b9b4fd9dd33",
+        "new_sha256": "6087faa3911833501f00430e8ad16e07fc93b4589a5209614ad75a0288aeae12"
+      }
+    ],
+    "effect": "Primary-path behaviour is unchanged: all new branches are keyed on the reference provenance class and never activate for primary episodes. Future-run authentication uses the amended hashes."
+  }
 }

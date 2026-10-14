@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "reports_scanned": 79,
+  "reports_scanned": 81,
   "missing_link_count": 0,
   "missing_path_count": 0,
   "unparsable_json_count": 0,
@@ -121,11 +121,13 @@
         "benchmarks/archive/README.md",
         "benchmarks/protocol_v1/protocol.json",
         "benchmarks/protocol_v1/runtime_validation.json",
+        "benchmarks/reference_arm_official_v1/README.md",
         "checkpoints/dagger_main_v1_seed0/result.json",
         "checkpoints/formal_main_v1_seed0",
         "compose.yaml",
         "configs/paper_aligned.json",
         "external/audit_sources/main",
+        "plan/90_decisions/DEC-20261014-02_官方权重参考臂设计.md",
         "report/00_index/01_module_map.md",
         "report/00_index/02_执行手册.md",
         "report/00_index/media/collision_vs_speed.png",
@@ -422,9 +424,11 @@
         "artifacts/showcase/forest_seed7_v3/yopo_global_flight.mp4",
         "artifacts/weights_ab_demo/batch_analysis.json",
         "artifacts/weights_ab_demo/batch_summary.json",
+        "benchmarks/reference_arm_official_v1/README.md",
         "checkpoints/formal_main_v1_seed0/best_policy.pth",
         "checkpoints/formal_main_v1_seed0/training_audit.json",
         "external/audit_sources/YOPO-Simple/YOPO/saved/YOPO_1/epoch50.pth",
+        "plan/90_decisions/DEC-20261014-02_官方权重参考臂设计.md",
         "report/00_index/03_project_map.md",
         "report/03_training/03_专家50步比较.md",
         "report/04_evaluation/02_权重批量对照实验.md",
@@ -1082,6 +1086,14 @@
       "unparsable_json": []
     },
     {
+      "report": "plan/90_decisions/DEC-20261014-02_官方权重参考臂设计.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
       "report": "plan/90_decisions/README.md",
       "links": [
         "plan/90_decisions/DEC-20261012-01_新根重构与工作区视图.md",
@@ -1144,6 +1156,8 @@
         "benchmarks/archive/protocol_v1_1800",
         "benchmarks/protocol_v1/active_scope_yopo_only.json",
         "benchmarks/protocol_v1/runtime_validation.json",
+        "benchmarks/reference_arm_official_v1/README.md",
+        "plan/90_decisions/DEC-20261014-02_官方权重参考臂设计.md",
         "plan/90_decisions/archive_mppi/README.md",
         "report/01_status/02_复现状态总览.md",
         "report/04_evaluation/04_基准运行配置冻结.md",
@@ -1152,6 +1166,23 @@
       "missing_links": [],
       "referenced_paths": [
         "scripts/aggregate_benchmarks.py"
+      ],
+      "missing_referenced_paths": [],
+      "unparsable_json": []
+    },
+    {
+      "report": "benchmarks/reference_arm_official_v1/README.md",
+      "links": [],
+      "missing_links": [],
+      "referenced_paths": [
+        "artifacts/benchmark_summary/reference_arm_plan.json",
+        "artifacts/benchmark_summary/reference_arm_progress.json",
+        "artifacts/benchmark_summary/reference_arm_result.json",
+        "benchmarks/reference_arm_official_v1/protocol.json",
+        "scripts/aggregate_reference_arm.py",
+        "scripts/create_reference_arm_protocol.py",
+        "scripts/record_reference_admission.py",
+        "scripts/run_benchmark_matrix.py"
       ],
       "missing_referenced_paths": [],
       "unparsable_json": []

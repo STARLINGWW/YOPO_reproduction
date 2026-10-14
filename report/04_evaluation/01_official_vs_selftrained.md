@@ -90,6 +90,10 @@
 
 官方权重不参与 1500/1800 冻结矩阵；矩阵内 YOPO 全部为自训练三种子（另有 TopoTraj、Agile 基线，MPPI 300 槽未执行）。本文的 36 架次与离线对照均为独立 scope（`weights A/B batch outside the frozen benchmark matrix`），未触碰冻结证据。正式矩阵结果见 [summary.json](../../artifacts/benchmark_summary/summary.json)。
 
+## 4.1 参考臂：官方权重的同链同判据矩阵（2026-10-14 起）
+
+2026-10-14 为官方权重建立了**参考臂矩阵**（[benchmarks/reference_arm_official_v1](../../benchmarks/reference_arm_official_v1/README.md)，300 槽 = 主矩阵任务逐项对应，每格 n=30）：同一条 ROS2/Isaac 链、同一判据，但来源类别为 `external_reference`（哈希锚定的发布权重，rename-only 映射；显式不声明随机初始化与验证集选优）。它与主矩阵完全隔离（独立协议、独立准入、独立汇总），结果**不会**进入 `summary.json` 或终审。设计见 [DEC-20261014-02](../../plan/90_decisions/DEC-20261014-02_官方权重参考臂设计.md)。本节原生 A/B 的结论仍是「链外对照」，两者不可互相替代。
+
 ## 5. 展示对比（两阶段，不是受控实验）
 
 | 阶段 | 权重 | 视频与清单 |
