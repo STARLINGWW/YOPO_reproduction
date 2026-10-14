@@ -113,6 +113,7 @@
       "links": [
         "<旧项目根>/artifacts/expert/network_comparison_trained_seed0.json",
         "<旧项目根>/datasets/isaac_dagger_v1/aggregation_manifest.json",
+        "artifacts/benchmark_summary/reference_arm_official_v1_summary.json",
         "artifacts/benchmark_summary/summary.json",
         "artifacts/environment/final_acceptance_audit.json",
         "artifacts/environment/status_overview.json",

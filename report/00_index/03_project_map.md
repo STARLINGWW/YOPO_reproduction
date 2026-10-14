@@ -123,7 +123,7 @@ python scripts/run_weights_ab_batch.py --scenes 6000,6001,6002,6003,6004 --speed
 
 - **来源类别 `external_reference`**：断言对象从「从零训练 + 选优」改为**字节身份**——权重 sha256 必须等于参考协议记录的 `staged_sha256`，且与 `PROVENANCE.json`、映射记录一致（rename-only）；协议里显式写明「无随机初始化声明、无验证集选优声明」。
 - **完全隔离**：独立协议（`benchmarks/reference_arm_official_v1/protocol.json`，300 槽，与主矩阵逐任务一一对应）、独立准入（本目录 `runtime_validation.json`）、独立汇总（`artifacts/benchmark_summary/reference_arm_official_v1_summary.json`）。主聚合器按 scope 忽略这些飞行；参考臂聚合器拒绝写主 summary——主矩阵 **1,500/1,500** 的声明与终审不受任何影响。
-- **状态（2026-10-14）**：准入已通过（`validated_backends=['yopo_reference']`），冒烟 5 架次全部按终态收录、0 失败，300 槽全量已启动——实时进度见 `artifacts/benchmark_summary/reference_arm_progress.json`，完成后用 `python scripts/aggregate_reference_arm.py` 生成独立汇总。
+- **结果（2026-10-14 完成，300/300）**：准入通过（`validated_backends=['yopo_reference']`）、独立汇总 `outcome_coverage_complete`、0 无效证据。官方 epoch50（main 布局 + main 栈运行时语义）在两个场景都明显弱于自训练：**稀疏 150 架次 30 成功 / 61 碰撞 / 58 超时（20.0%）**，自训练三种子合并 62.7%；**稠密 150 架次 33 成功 / 68 碰撞 / 46 超时（22.0%）**，自训练合并 53.1%。速度形态为「低速大量绕飞超时、10 m/s 两场景各 30/30 全碰撞」，成功时终点误差仍很准（≈0.03 m）。与原生 A/B（官方在稀疏 2–6 m/s 大多成功）形成明显反差，结论按「官方权重 + main 栈运行时语义」限定表述；逐速度数据与分组见 [reference_arm_official_v1_summary.json](../../artifacts/benchmark_summary/reference_arm_official_v1_summary.json) 与对比图。
 
 ## 5. 数据来源与口径
 

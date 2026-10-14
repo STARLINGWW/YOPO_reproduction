@@ -1,0 +1,2259 @@
+{
+  "status": "outcome_coverage_complete",
+  "expected_episodes": 300,
+  "completed_episodes": 300,
+  "missing_episodes": 0,
+  "groups": [
+    {
+      "model": "yopo_official_reference",
+      "condition": "dense",
+      "speed_mps": 2,
+      "subset": "all30",
+      "expected": 30,
+      "completed": 30,
+      "missing": 0,
+      "complete": true,
+      "outcomes": {
+        "timeout": 19,
+        "success": 8,
+        "collision": 3
+      },
+      "success_rate_among_completed": 0.26666666666666666,
+      "failure_rates_among_completed": {
+        "collision": 0.1,
+        "crashed": 0.0,
+        "out_of_map": 0.0,
+        "timeout": 0.6333333333333333
+      },
+      "wilson95_among_completed": [
+        0.14182663319596317,
+        0.4444796169518888
+      ],
+      "possible_final_success_rate_bounds": [
+        0.26666666666666666,
+        0.26666666666666666
+      ],
+      "all_attempts": {
+        "path_length_m": {
+          "n": 30,
+          "mean": 76.49260523212847
+        },
+        "mean_net_clearance_m": {
+          "n": 30,
+          "mean": 2.046248260503145
+        },
+        "min_net_clearance_m": {
+          "n": 30,
+          "mean": 0.3134129456863485
+        },
+        "tracking_rmse_m": {
+          "n": 30,
+          "mean": 0.039823494466814616
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 30,
+          "mean": 8.524209047501964
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 30,
+          "mean": 168.57300849251337
+        },
+        "max_speed_mps": {
+          "n": 30,
+          "mean": 2.3037678839681472
+        },
+        "real_time_factor": {
+          "n": 30,
+          "mean": 0.446316312511061
+        },
+        "motor_saturation_fraction": {
+          "n": 30,
+          "mean": 0.0001786243088243717
+        }
+      },
+      "successful_only": {
+        "path_length_m": {
+          "n": 8,
+          "mean": 55.614741154771
+        },
+        "mean_net_clearance_m": {
+          "n": 8,
+          "mean": 1.9351691406052285
+        },
+        "min_net_clearance_m": {
+          "n": 8,
+          "mean": 0.3976114705123081
+        },
+        "tracking_rmse_m": {
+          "n": 8,
+          "mean": 0.1077990071938014
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 8,
+          "mean": 3.362617429605473
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 8,
+          "mean": 486.63620603600793
+        },
+        "max_speed_mps": {
+          "n": 8,
+          "mean": 2.26486254062533
+        },
+        "real_time_factor": {
+          "n": 8,
+          "mean": 0.458983983928646
+        },
+        "motor_saturation_fraction": {
+          "n": 8,
+          "mean": 0.0004958432805094872
+        }
+      },
+      "pooled_end_to_end_wall_ms": {
+        "p50": 91.03049998520873,
+        "p95": 104.81974000576884,
+        "p99": 119.88583999453118
+      },
+      "latency_sample_count": 18449
+    },
+    {
+      "model": "yopo_official_reference",
+      "condition": "dense",
+      "speed_mps": 2,
+      "subset": "paper_first10",
+      "expected": 10,
+      "completed": 10,
+      "missing": 0,
+      "complete": true,
+      "outcomes": {
+        "timeout": 8,
+        "success": 1,
+        "collision": 1
+      },
+      "success_rate_among_completed": 0.1,
+      "failure_rates_among_completed": {
+        "collision": 0.1,
+        "crashed": 0.0,
+        "out_of_map": 0.0,
+        "timeout": 0.8
+      },
+      "wilson95_among_completed": [
+        0.017876213095072896,
+        0.4041500267952385
+      ],
+      "possible_final_success_rate_bounds": [
+        0.1,
+        0.1
+      ],
+      "all_attempts": {
+        "path_length_m": {
+          "n": 10,
+          "mean": 85.51710958705507
+        },
+        "mean_net_clearance_m": {
+          "n": 10,
+          "mean": 2.0524089835145336
+        },
+        "min_net_clearance_m": {
+          "n": 10,
+          "mean": 0.29649955414775847
+        },
+        "tracking_rmse_m": {
+          "n": 10,
+          "mean": 0.026831278497592703
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 10.588152423336135
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 129.30197433383623
+        },
+        "max_speed_mps": {
+          "n": 10,
+          "mean": 2.3429728862339654
+        },
+        "real_time_factor": {
+          "n": 10,
+          "mean": 0.42972295902121516
+        },
+        "motor_saturation_fraction": {
+          "n": 10,
+          "mean": 0.00015267175572519084
+        }
+      },
+      "successful_only": {
+        "path_length_m": {
+          "n": 1,
+          "mean": 68.26126644040437
+        },
+        "mean_net_clearance_m": {
+          "n": 1,
+          "mean": 1.9886812954202222
+        },
+        "min_net_clearance_m": {
+          "n": 1,
+          "mean": 0.24368276358404267
+        },
+        "tracking_rmse_m": {
+          "n": 1,
+          "mean": 0.1114833870548333
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 1,
+          "mean": 5.652307711387937
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 1,
+          "mean": 710.292801623207
+        },
+        "max_speed_mps": {
+          "n": 1,
+          "mean": 2.37234251110645
+        },
+        "real_time_factor": {
+          "n": 1,
+          "mean": 0.462807822961636
+        },
+        "motor_saturation_fraction": {
+          "n": 1,
+          "mean": 0.0015267175572519084
+        }
+      },
+      "pooled_end_to_end_wall_ms": {
+        "p50": 93.60959997866303,
+        "p95": 109.03786001435944,
+        "p99": 128.00292401399926
+      },
+      "latency_sample_count": 6939
+    },
+    {
+      "model": "yopo_official_reference",
+      "condition": "dense",
+      "speed_mps": 4,
+      "subset": "all30",
+      "expected": 30,
+      "completed": 30,
+      "missing": 0,
+      "complete": true,
+      "outcomes": {
+        "success": 10,
+        "timeout": 16,
+        "collision": 4
+      },
+      "success_rate_among_completed": 0.3333333333333333,
+      "failure_rates_among_completed": {
+        "collision": 0.13333333333333333,
+        "crashed": 0.0,
+        "out_of_map": 0.0,
+        "timeout": 0.5333333333333333
+      },
+      "wilson95_among_completed": [
+        0.19230498083676134,
+        0.5121994835545616
+      ],
+      "possible_final_success_rate_bounds": [
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "all_attempts": {
+        "path_length_m": {
+          "n": 30,
+          "mean": 81.18093529974887
+        },
+        "mean_net_clearance_m": {
+          "n": 30,
+          "mean": 1.8180904919071101
+        },
+        "min_net_clearance_m": {
+          "n": 30,
+          "mean": 0.30375499877458007
+        },
+        "tracking_rmse_m": {
+          "n": 30,
+          "mean": 0.12635614562528824
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 30,
+          "mean": 220.83759396617737
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 30,
+          "mean": 1851.2786236722925
+        },
+        "max_speed_mps": {
+          "n": 30,
+          "mean": 5.39001277993446
+        },
+        "real_time_factor": {
+          "n": 30,
+          "mean": 0.45790156099791157
+        },
+        "motor_saturation_fraction": {
+          "n": 30,
+          "mean": 0.0020882207815436046
+        }
+      },
+      "successful_only": {
+        "path_length_m": {
+          "n": 10,
+          "mean": 57.44302977278842
+        },
+        "mean_net_clearance_m": {
+          "n": 10,
+          "mean": 1.8097455632917039
+        },
+        "min_net_clearance_m": {
+          "n": 10,
+          "mean": 0.4552201628689071
+        },
+        "tracking_rmse_m": {
+          "n": 10,
+          "mean": 0.22194153354542423
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 103.4388953404023
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 2930.8221458073276
+        },
+        "max_speed_mps": {
+          "n": 10,
+          "mean": 5.697243388771419
+        },
+        "real_time_factor": {
+          "n": 10,
+          "mean": 0.47860336982888513
+        },
+        "motor_saturation_fraction": {
+          "n": 10,
+          "mean": 0.005831473407609821
+        }
+      },
+      "pooled_end_to_end_wall_ms": {
+        "p50": 90.69030001410283,
+        "p95": 103.25544000661466,
+        "p99": 117.58411900111241
+      },
+      "latency_sample_count": 10334
+    },
+    {
+      "model": "yopo_official_reference",
+      "condition": "dense",
+      "speed_mps": 4,
+      "subset": "paper_first10",
+      "expected": 10,
+      "completed": 10,
+      "missing": 0,
+      "complete": true,
+      "outcomes": {
+        "success": 2,
+        "timeout": 7,
+        "collision": 1
+      },
+      "success_rate_among_completed": 0.2,
+      "failure_rates_among_completed": {
+        "collision": 0.1,
+        "crashed": 0.0,
+        "out_of_map": 0.0,
+        "timeout": 0.7
+      },
+      "wilson95_among_completed": [
+        0.05668215145437519,
+        0.5098375284633583
+      ],
+      "possible_final_success_rate_bounds": [
+        0.2,
+        0.2
+      ],
+      "all_attempts": {
+        "path_length_m": {
+          "n": 10,
+          "mean": 90.81437542590466
+        },
+        "mean_net_clearance_m": {
+          "n": 10,
+          "mean": 1.8345821843027745
+        },
+        "min_net_clearance_m": {
+          "n": 10,
+          "mean": 0.3166482958898563
+        },
+        "tracking_rmse_m": {
+          "n": 10,
+          "mean": 0.11795000430371716
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 260.8337309985112
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 1686.0651447630075
+        },
+        "max_speed_mps": {
+          "n": 10,
+          "mean": 5.285476177590769
+        },
+        "real_time_factor": {
+          "n": 10,
+          "mean": 0.4425866598261221
+        },
+        "motor_saturation_fraction": {
+          "n": 10,
+          "mean": 0.001955134765373461
+        }
+      },
+      "successful_only": {
+        "path_length_m": {
+          "n": 2,
+          "mean": 54.77366979575044
+        },
+        "mean_net_clearance_m": {
+          "n": 2,
+          "mean": 1.9269261760700909
+        },
+        "min_net_clearance_m": {
+          "n": 2,
+          "mean": 0.5061254132224687
+        },
+        "tracking_rmse_m": {
+          "n": 2,
+          "mean": 0.302728034766985
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 2,
+          "mean": 69.33932409006619
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 2,
+          "mean": 3170.6566888958164
+        },
+        "max_speed_mps": {
+          "n": 2,
+          "mean": 5.029460348691088
+        },
+        "real_time_factor": {
+          "n": 2,
+          "mean": 0.4520948516982105
+        },
+        "motor_saturation_fraction": {
+          "n": 2,
+          "mean": 0.009609062697243846
+        }
+      },
+      "pooled_end_to_end_wall_ms": {
+        "p50": 92.08919998491183,
+        "p95": 105.37296000984496,
+        "p99": 122.4923319951632
+      },
+      "latency_sample_count": 3913
+    },
+    {
+      "model": "yopo_official_reference",
+      "condition": "dense",
+      "speed_mps": 6,
+      "subset": "all30",
+      "expected": 30,
+      "completed": 30,
+      "missing": 0,
+      "complete": true,
+      "outcomes": {
+        "success": 11,
+        "timeout": 9,
+        "out_of_map": 1,
+        "collision": 9
+      },
+      "success_rate_among_completed": 0.36666666666666664,
+      "failure_rates_among_completed": {
+        "collision": 0.3,
+        "crashed": 0.0,
+        "out_of_map": 0.03333333333333333,
+        "timeout": 0.3
+      },
+      "wilson95_among_completed": [
+        0.21873920806100708,
+        0.5448643634520511
+      ],
+      "possible_final_success_rate_bounds": [
+        0.36666666666666664,
+        0.36666666666666664
+      ],
+      "all_attempts": {
+        "path_length_m": {
+          "n": 30,
+          "mean": 69.40332670966906
+        },
+        "mean_net_clearance_m": {
+          "n": 30,
+          "mean": 1.5845122818957547
+        },
+        "min_net_clearance_m": {
+          "n": 30,
+          "mean": 0.26444100383792796
+        },
+        "tracking_rmse_m": {
+          "n": 30,
+          "mean": 0.32743868081275007
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 30,
+          "mean": 1852.2000768465218
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 30,
+          "mean": 19432.12825851717
+        },
+        "max_speed_mps": {
+          "n": 30,
+          "mean": 6.729457695011306
+        },
+        "real_time_factor": {
+          "n": 30,
+          "mean": 0.4606351602495069
+        },
+        "motor_saturation_fraction": {
+          "n": 30,
+          "mean": 0.08210151564281103
+        }
+      },
+      "successful_only": {
+        "path_length_m": {
+          "n": 11,
+          "mean": 55.65469039499691
+        },
+        "mean_net_clearance_m": {
+          "n": 11,
+          "mean": 1.7581998756430082
+        },
+        "min_net_clearance_m": {
+          "n": 11,
+          "mean": 0.39740842641121554
+        },
+        "tracking_rmse_m": {
+          "n": 11,
+          "mean": 0.41140485032431884
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 11,
+          "mean": 851.609239701728
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 11,
+          "mean": 20291.149252360385
+        },
+        "max_speed_mps": {
+          "n": 11,
+          "mean": 6.864203101653442
+        },
+        "real_time_factor": {
+          "n": 11,
+          "mean": 0.4986887908673794
+        },
+        "motor_saturation_fraction": {
+          "n": 11,
+          "mean": 0.056607408280895256
+        }
+      },
+      "pooled_end_to_end_wall_ms": {
+        "p50": 91.50579999550246,
+        "p95": 105.91618001344607,
+        "p99": 169.11676399293384
+      },
+      "latency_sample_count": 6825
+    },
+    {
+      "model": "yopo_official_reference",
+      "condition": "dense",
+      "speed_mps": 6,
+      "subset": "paper_first10",
+      "expected": 10,
+      "completed": 10,
+      "missing": 0,
+      "complete": true,
+      "outcomes": {
+        "success": 4,
+        "timeout": 5,
+        "out_of_map": 1
+      },
+      "success_rate_among_completed": 0.4,
+      "failure_rates_among_completed": {
+        "collision": 0.0,
+        "crashed": 0.0,
+        "out_of_map": 0.1,
+        "timeout": 0.5
+      },
+      "wilson95_among_completed": [
+        0.16818032970623614,
+        0.6873262302663417
+      ],
+      "possible_final_success_rate_bounds": [
+        0.4,
+        0.4
+      ],
+      "all_attempts": {
+        "path_length_m": {
+          "n": 10,
+          "mean": 91.03846275502966
+        },
+        "mean_net_clearance_m": {
+          "n": 10,
+          "mean": 1.671899284138235
+        },
+        "min_net_clearance_m": {
+          "n": 10,
+          "mean": 0.4085980622916813
+        },
+        "tracking_rmse_m": {
+          "n": 10,
+          "mean": 0.29567079130523904
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 2403.5584259994507
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 26751.398513910157
+        },
+        "max_speed_mps": {
+          "n": 10,
+          "mean": 6.776864307363081
+        },
+        "real_time_factor": {
+          "n": 10,
+          "mean": 0.4506132099232252
+        },
+        "motor_saturation_fraction": {
+          "n": 10,
+          "mean": 0.04725502115655025
+        }
+      },
+      "successful_only": {
+        "path_length_m": {
+          "n": 4,
+          "mean": 57.06003661430128
+        },
+        "mean_net_clearance_m": {
+          "n": 4,
+          "mean": 1.872053923021768
+        },
+        "min_net_clearance_m": {
+          "n": 4,
+          "mean": 0.5037998669002187
+        },
+        "tracking_rmse_m": {
+          "n": 4,
+          "mean": 0.4475647625852899
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 4,
+          "mean": 885.436589078751
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 4,
+          "mean": 25495.222190192973
+        },
+        "max_speed_mps": {
+          "n": 4,
+          "mean": 6.672999274353862
+        },
+        "real_time_factor": {
+          "n": 4,
+          "mean": 0.48319702806030695
+        },
+        "motor_saturation_fraction": {
+          "n": 4,
+          "mean": 0.0694170155059914
+        }
+      },
+      "pooled_end_to_end_wall_ms": {
+        "p50": 93.45139999641106,
+        "p95": 110.35059997811913,
+        "p99": 150.71151999290973
+      },
+      "latency_sample_count": 3041
+    },
+    {
+      "model": "yopo_official_reference",
+      "condition": "dense",
+      "speed_mps": 8,
+      "subset": "all30",
+      "expected": 30,
+      "completed": 30,
+      "missing": 0,
+      "complete": true,
+      "outcomes": {
+        "collision": 22,
+        "success": 4,
+        "timeout": 2,
+        "out_of_map": 2
+      },
+      "success_rate_among_completed": 0.13333333333333333,
+      "failure_rates_among_completed": {
+        "collision": 0.7333333333333333,
+        "crashed": 0.0,
+        "out_of_map": 0.06666666666666667,
+        "timeout": 0.06666666666666667
+      },
+      "wilson95_among_completed": [
+        0.053096554840547455,
+        0.296813266820363
+      ],
+      "possible_final_success_rate_bounds": [
+        0.13333333333333333,
+        0.13333333333333333
+      ],
+      "all_attempts": {
+        "path_length_m": {
+          "n": 30,
+          "mean": 40.283942942184225
+        },
+        "mean_net_clearance_m": {
+          "n": 30,
+          "mean": 1.402397835163165
+        },
+        "min_net_clearance_m": {
+          "n": 30,
+          "mean": 0.09582369424767491
+        },
+        "tracking_rmse_m": {
+          "n": 30,
+          "mean": 1.046859601141185
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 30,
+          "mean": 8638.552932134502
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 30,
+          "mean": 101214130.75276646
+        },
+        "max_speed_mps": {
+          "n": 30,
+          "mean": 8.673352741820004
+        },
+        "real_time_factor": {
+          "n": 30,
+          "mean": 0.4424482778897943
+        },
+        "motor_saturation_fraction": {
+          "n": 30,
+          "mean": 0.39901015405149454
+        }
+      },
+      "successful_only": {
+        "path_length_m": {
+          "n": 4,
+          "mean": 58.88565251261653
+        },
+        "mean_net_clearance_m": {
+          "n": 4,
+          "mean": 1.7517407944422083
+        },
+        "min_net_clearance_m": {
+          "n": 4,
+          "mean": 0.5836984561590643
+        },
+        "tracking_rmse_m": {
+          "n": 4,
+          "mean": 0.7323287083135858
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 4,
+          "mean": 5286.441697563332
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 4,
+          "mean": 73123.42423898181
+        },
+        "max_speed_mps": {
+          "n": 4,
+          "mean": 9.061814038416939
+        },
+        "real_time_factor": {
+          "n": 4,
+          "mean": 0.5294090396390266
+        },
+        "motor_saturation_fraction": {
+          "n": 4,
+          "mean": 0.15823637270994134
+        }
+      },
+      "pooled_end_to_end_wall_ms": {
+        "p50": 93.43205000914168,
+        "p95": 109.77782499685418,
+        "p99": 262.54119999794057
+      },
+      "latency_sample_count": 3526
+    },
+    {
+      "model": "yopo_official_reference",
+      "condition": "dense",
+      "speed_mps": 8,
+      "subset": "paper_first10",
+      "expected": 10,
+      "completed": 10,
+      "missing": 0,
+      "complete": true,
+      "outcomes": {
+        "collision": 8,
+        "success": 1,
+        "timeout": 1
+      },
+      "success_rate_among_completed": 0.1,
+      "failure_rates_among_completed": {
+        "collision": 0.8,
+        "crashed": 0.0,
+        "out_of_map": 0.0,
+        "timeout": 0.1
+      },
+      "wilson95_among_completed": [
+        0.017876213095072896,
+        0.4041500267952385
+      ],
+      "possible_final_success_rate_bounds": [
+        0.1,
+        0.1
+      ],
+      "all_attempts": {
+        "path_length_m": {
+          "n": 10,
+          "mean": 50.08685125116291
+        },
+        "mean_net_clearance_m": {
+          "n": 10,
+          "mean": 1.5135786977544707
+        },
+        "min_net_clearance_m": {
+          "n": 10,
+          "mean": 0.0065625949767617545
+        },
+        "tracking_rmse_m": {
+          "n": 10,
+          "mean": 1.0890495447370636
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 10076.246447641488
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 303456255.30242693
+        },
+        "max_speed_mps": {
+          "n": 10,
+          "mean": 9.048345965467348
+        },
+        "real_time_factor": {
+          "n": 10,
+          "mean": 0.4241185795894197
+        },
+        "motor_saturation_fraction": {
+          "n": 10,
+          "mean": 0.42443311695884106
+        }
+      },
+      "successful_only": {
+        "path_length_m": {
+          "n": 1,
+          "mean": 60.241190474169635
+        },
+        "mean_net_clearance_m": {
+          "n": 1,
+          "mean": 1.8249899064611734
+        },
+        "min_net_clearance_m": {
+          "n": 1,
+          "mean": 0.06322657273435545
+        },
+        "tracking_rmse_m": {
+          "n": 1,
+          "mean": 0.8452698976589258
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 1,
+          "mean": 3634.8513720625656
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 1,
+          "mean": 58426.960998771356
+        },
+        "max_speed_mps": {
+          "n": 1,
+          "mean": 9.87210444012954
+        },
+        "real_time_factor": {
+          "n": 1,
+          "mean": 0.5248056243242067
+        },
+        "motor_saturation_fraction": {
+          "n": 1,
+          "mean": 0.09948717948717949
+        }
+      },
+      "pooled_end_to_end_wall_ms": {
+        "p50": 97.67200000351295,
+        "p95": 112.75972998992073,
+        "p99": 254.7411659982754
+      },
+      "latency_sample_count": 1475
+    },
+    {
+      "model": "yopo_official_reference",
+      "condition": "dense",
+      "speed_mps": 10,
+      "subset": "all30",
+      "expected": 30,
+      "completed": 30,
+      "missing": 0,
+      "complete": true,
+      "outcomes": {
+        "collision": 30
+      },
+      "success_rate_among_completed": 0.0,
+      "failure_rates_among_completed": {
+        "collision": 1.0,
+        "crashed": 0.0,
+        "out_of_map": 0.0,
+        "timeout": 0.0
+      },
+      "wilson95_among_completed": [
+        0.0,
+        0.11351339317396876
+      ],
+      "possible_final_success_rate_bounds": [
+        0.0,
+        0.0
+      ],
+      "all_attempts": {
+        "path_length_m": {
+          "n": 30,
+          "mean": 10.73776437018763
+        },
+        "mean_net_clearance_m": {
+          "n": 30,
+          "mean": 1.3722780219907447
+        },
+        "min_net_clearance_m": {
+          "n": 30,
+          "mean": -0.005554120537969772
+        },
+        "tracking_rmse_m": {
+          "n": 30,
+          "mean": 1.8885339988442078
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 30,
+          "mean": 13627.236362255167
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 30,
+          "mean": 167873924.6339777
+        },
+        "max_speed_mps": {
+          "n": 30,
+          "mean": 8.762436759009317
+        },
+        "real_time_factor": {
+          "n": 30,
+          "mean": 0.42920368902475686
+        },
+        "motor_saturation_fraction": {
+          "n": 30,
+          "mean": 0.5912243166854158
+        }
+      },
+      "successful_only": {
+        "path_length_m": {
+          "n": 0,
+          "mean": null
+        },
+        "mean_net_clearance_m": {
+          "n": 0,
+          "mean": null
+        },
+        "min_net_clearance_m": {
+          "n": 0,
+          "mean": null
+        },
+        "tracking_rmse_m": {
+          "n": 0,
+          "mean": null
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 0,
+          "mean": null
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 0,
+          "mean": null
+        },
+        "max_speed_mps": {
+          "n": 0,
+          "mean": null
+        },
+        "real_time_factor": {
+          "n": 0,
+          "mean": null
+        },
+        "motor_saturation_fraction": {
+          "n": 0,
+          "mean": null
+        }
+      },
+      "pooled_end_to_end_wall_ms": {
+        "p50": 92.7485499996692,
+        "p95": 242.27933000220213,
+        "p99": 555.3249689974474
+      },
+      "latency_sample_count": 928
+    },
+    {
+      "model": "yopo_official_reference",
+      "condition": "dense",
+      "speed_mps": 10,
+      "subset": "paper_first10",
+      "expected": 10,
+      "completed": 10,
+      "missing": 0,
+      "complete": true,
+      "outcomes": {
+        "collision": 10
+      },
+      "success_rate_among_completed": 0.0,
+      "failure_rates_among_completed": {
+        "collision": 1.0,
+        "crashed": 0.0,
+        "out_of_map": 0.0,
+        "timeout": 0.0
+      },
+      "wilson95_among_completed": [
+        0.0,
+        0.2775327998628892
+      ],
+      "possible_final_success_rate_bounds": [
+        0.0,
+        0.0
+      ],
+      "all_attempts": {
+        "path_length_m": {
+          "n": 10,
+          "mean": 6.476084130294545
+        },
+        "mean_net_clearance_m": {
+          "n": 10,
+          "mean": 1.35996577507113
+        },
+        "min_net_clearance_m": {
+          "n": 10,
+          "mean": -0.004786354635885703
+        },
+        "tracking_rmse_m": {
+          "n": 10,
+          "mean": 1.9446596412675508
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 10077.174831551692
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 91116.30343240318
+        },
+        "max_speed_mps": {
+          "n": 10,
+          "mean": 8.878815060245083
+        },
+        "real_time_factor": {
+          "n": 10,
+          "mean": 0.4200239170030601
+        },
+        "motor_saturation_fraction": {
+          "n": 10,
+          "mean": 0.6161422168361372
+        }
+      },
+      "successful_only": {
+        "path_length_m": {
+          "n": 0,
+          "mean": null
+        },
+        "mean_net_clearance_m": {
+          "n": 0,
+          "mean": null
+        },
+        "min_net_clearance_m": {
+          "n": 0,
+          "mean": null
+        },
+        "tracking_rmse_m": {
+          "n": 0,
+          "mean": null
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 0,
+          "mean": null
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 0,
+          "mean": null
+        },
+        "max_speed_mps": {
+          "n": 0,
+          "mean": null
+        },
+        "real_time_factor": {
+          "n": 0,
+          "mean": null
+        },
+        "motor_saturation_fraction": {
+          "n": 0,
+          "mean": null
+        }
+      },
+      "pooled_end_to_end_wall_ms": {
+        "p50": 95.20780001184903,
+        "p95": 269.5938999822829,
+        "p99": 574.2500000051223
+      },
+      "latency_sample_count": 201
+    },
+    {
+      "model": "yopo_official_reference",
+      "condition": "sparse",
+      "speed_mps": 2,
+      "subset": "all30",
+      "expected": 30,
+      "completed": 30,
+      "missing": 0,
+      "complete": true,
+      "outcomes": {
+        "timeout": 22,
+        "collision": 3,
+        "success": 5
+      },
+      "success_rate_among_completed": 0.16666666666666666,
+      "failure_rates_among_completed": {
+        "collision": 0.1,
+        "crashed": 0.0,
+        "out_of_map": 0.0,
+        "timeout": 0.7333333333333333
+      },
+      "wilson95_among_completed": [
+        0.0733654237184855,
+        0.3356435050641603
+      ],
+      "possible_final_success_rate_bounds": [
+        0.16666666666666666,
+        0.16666666666666666
+      ],
+      "all_attempts": {
+        "path_length_m": {
+          "n": 30,
+          "mean": 84.77149476162988
+        },
+        "mean_net_clearance_m": {
+          "n": 30,
+          "mean": 2.278625666596013
+        },
+        "min_net_clearance_m": {
+          "n": 30,
+          "mean": 0.47812915856312005
+        },
+        "tracking_rmse_m": {
+          "n": 30,
+          "mean": 0.026486456290879746
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 30,
+          "mean": 9.64088634547724
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 30,
+          "mean": 129.24277396566438
+        },
+        "max_speed_mps": {
+          "n": 30,
+          "mean": 2.367103535068001
+        },
+        "real_time_factor": {
+          "n": 30,
+          "mean": 0.41636140318524617
+        },
+        "motor_saturation_fraction": {
+          "n": 30,
+          "mean": 9.770799236535857e-05
+        }
+      },
+      "successful_only": {
+        "path_length_m": {
+          "n": 5,
+          "mean": 68.9128450111743
+        },
+        "mean_net_clearance_m": {
+          "n": 5,
+          "mean": 2.1504543809021968
+        },
+        "min_net_clearance_m": {
+          "n": 5,
+          "mean": 0.5287360477673987
+        },
+        "tracking_rmse_m": {
+          "n": 5,
+          "mean": 0.09211401715120945
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 5,
+          "mean": 6.52537732562123
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 5,
+          "mean": 583.1938321071418
+        },
+        "max_speed_mps": {
+          "n": 5,
+          "mean": 2.4209105389490673
+        },
+        "real_time_factor": {
+          "n": 5,
+          "mean": 0.4337046286834802
+        },
+        "motor_saturation_fraction": {
+          "n": 5,
+          "mean": 0.00045995875191894573
+        }
+      },
+      "pooled_end_to_end_wall_ms": {
+        "p50": 96.50069999042898,
+        "p95": 110.52615000517108,
+        "p99": 129.72899600921662
+      },
+      "latency_sample_count": 20235
+    },
+    {
+      "model": "yopo_official_reference",
+      "condition": "sparse",
+      "speed_mps": 2,
+      "subset": "paper_first10",
+      "expected": 10,
+      "completed": 10,
+      "missing": 0,
+      "complete": true,
+      "outcomes": {
+        "timeout": 7,
+        "collision": 1,
+        "success": 2
+      },
+      "success_rate_among_completed": 0.2,
+      "failure_rates_among_completed": {
+        "collision": 0.1,
+        "crashed": 0.0,
+        "out_of_map": 0.0,
+        "timeout": 0.7
+      },
+      "wilson95_among_completed": [
+        0.05668215145437519,
+        0.5098375284633583
+      ],
+      "possible_final_success_rate_bounds": [
+        0.2,
+        0.2
+      ],
+      "all_attempts": {
+        "path_length_m": {
+          "n": 10,
+          "mean": 85.40400246858673
+        },
+        "mean_net_clearance_m": {
+          "n": 10,
+          "mean": 2.2697682192124886
+        },
+        "min_net_clearance_m": {
+          "n": 10,
+          "mean": 0.4930995400079473
+        },
+        "tracking_rmse_m": {
+          "n": 10,
+          "mean": 0.027298770678153526
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 10.250731392928351
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 118.37467658640954
+        },
+        "max_speed_mps": {
+          "n": 10,
+          "mean": 2.338172730963731
+        },
+        "real_time_factor": {
+          "n": 10,
+          "mean": 0.4251314059237988
+        },
+        "motor_saturation_fraction": {
+          "n": 10,
+          "mean": 0.0
+        }
+      },
+      "successful_only": {
+        "path_length_m": {
+          "n": 2,
+          "mean": 72.27768867456135
+        },
+        "mean_net_clearance_m": {
+          "n": 2,
+          "mean": 2.053629485811141
+        },
+        "min_net_clearance_m": {
+          "n": 2,
+          "mean": 0.43464557939086695
+        },
+        "tracking_rmse_m": {
+          "n": 2,
+          "mean": 0.08298919474094799
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 2,
+          "mean": 8.08402338786392
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 2,
+          "mean": 438.57411236695316
+        },
+        "max_speed_mps": {
+          "n": 2,
+          "mean": 2.4887866083405825
+        },
+        "real_time_factor": {
+          "n": 2,
+          "mean": 0.4539966276698624
+        },
+        "motor_saturation_fraction": {
+          "n": 2,
+          "mean": 0.0
+        }
+      },
+      "pooled_end_to_end_wall_ms": {
+        "p50": 94.74450000561774,
+        "p95": 109.89147999789563,
+        "p99": 135.00601200968993
+      },
+      "latency_sample_count": 6729
+    },
+    {
+      "model": "yopo_official_reference",
+      "condition": "sparse",
+      "speed_mps": 4,
+      "subset": "all30",
+      "expected": 30,
+      "completed": 30,
+      "missing": 0,
+      "complete": true,
+      "outcomes": {
+        "timeout": 22,
+        "collision": 2,
+        "success": 6
+      },
+      "success_rate_among_completed": 0.2,
+      "failure_rates_among_completed": {
+        "collision": 0.06666666666666667,
+        "crashed": 0.0,
+        "out_of_map": 0.0,
+        "timeout": 0.7333333333333333
+      },
+      "wilson95_among_completed": [
+        0.0950510717728987,
+        0.3730569641314825
+      ],
+      "possible_final_success_rate_bounds": [
+        0.2,
+        0.2
+      ],
+      "all_attempts": {
+        "path_length_m": {
+          "n": 30,
+          "mean": 94.212526125719
+        },
+        "mean_net_clearance_m": {
+          "n": 30,
+          "mean": 1.9815076910991751
+        },
+        "min_net_clearance_m": {
+          "n": 30,
+          "mean": 0.4767587047593585
+        },
+        "tracking_rmse_m": {
+          "n": 30,
+          "mean": 0.10823815658699466
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 30,
+          "mean": 290.99054681689717
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 30,
+          "mean": 1737.0310761202622
+        },
+        "max_speed_mps": {
+          "n": 30,
+          "mean": 5.986778291796226
+        },
+        "real_time_factor": {
+          "n": 30,
+          "mean": 0.4209172888697268
+        },
+        "motor_saturation_fraction": {
+          "n": 30,
+          "mean": 0.0013630054950775636
+        }
+      },
+      "successful_only": {
+        "path_length_m": {
+          "n": 6,
+          "mean": 61.75124129504405
+        },
+        "mean_net_clearance_m": {
+          "n": 6,
+          "mean": 1.8952440226303455
+        },
+        "min_net_clearance_m": {
+          "n": 6,
+          "mean": 0.6237889005145388
+        },
+        "tracking_rmse_m": {
+          "n": 6,
+          "mean": 0.23839311031898433
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 6,
+          "mean": 218.56038123539204
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 6,
+          "mean": 3115.206389666217
+        },
+        "max_speed_mps": {
+          "n": 6,
+          "mean": 7.94419822315977
+        },
+        "real_time_factor": {
+          "n": 6,
+          "mean": 0.44460170936787974
+        },
+        "motor_saturation_fraction": {
+          "n": 6,
+          "mean": 0.006537342259348721
+        }
+      },
+      "pooled_end_to_end_wall_ms": {
+        "p50": 96.73489999840967,
+        "p95": 111.41419001360191,
+        "p99": 136.63434300950036
+      },
+      "latency_sample_count": 11700
+    },
+    {
+      "model": "yopo_official_reference",
+      "condition": "sparse",
+      "speed_mps": 4,
+      "subset": "paper_first10",
+      "expected": 10,
+      "completed": 10,
+      "missing": 0,
+      "complete": true,
+      "outcomes": {
+        "timeout": 9,
+        "collision": 1
+      },
+      "success_rate_among_completed": 0.0,
+      "failure_rates_among_completed": {
+        "collision": 0.1,
+        "crashed": 0.0,
+        "out_of_map": 0.0,
+        "timeout": 0.9
+      },
+      "wilson95_among_completed": [
+        0.0,
+        0.2775327998628892
+      ],
+      "possible_final_success_rate_bounds": [
+        0.0,
+        0.0
+      ],
+      "all_attempts": {
+        "path_length_m": {
+          "n": 10,
+          "mean": 103.30896202197229
+        },
+        "mean_net_clearance_m": {
+          "n": 10,
+          "mean": 2.0276471356870243
+        },
+        "min_net_clearance_m": {
+          "n": 10,
+          "mean": 0.4958827673799274
+        },
+        "tracking_rmse_m": {
+          "n": 10,
+          "mean": 0.07546338200554009
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 281.94072000936075
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 1304.7845499989626
+        },
+        "max_speed_mps": {
+          "n": 10,
+          "mean": 5.1962630967513
+        },
+        "real_time_factor": {
+          "n": 10,
+          "mean": 0.423455200941335
+        },
+        "motor_saturation_fraction": {
+          "n": 10,
+          "mean": 3.332222592469177e-05
+        }
+      },
+      "successful_only": {
+        "path_length_m": {
+          "n": 0,
+          "mean": null
+        },
+        "mean_net_clearance_m": {
+          "n": 0,
+          "mean": null
+        },
+        "min_net_clearance_m": {
+          "n": 0,
+          "mean": null
+        },
+        "tracking_rmse_m": {
+          "n": 0,
+          "mean": null
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 0,
+          "mean": null
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 0,
+          "mean": null
+        },
+        "max_speed_mps": {
+          "n": 0,
+          "mean": null
+        },
+        "real_time_factor": {
+          "n": 0,
+          "mean": null
+        },
+        "motor_saturation_fraction": {
+          "n": 0,
+          "mean": null
+        }
+      },
+      "pooled_end_to_end_wall_ms": {
+        "p50": 94.78865000710357,
+        "p95": 109.18725001101848,
+        "p99": 126.34498500119653
+      },
+      "latency_sample_count": 4386
+    },
+    {
+      "model": "yopo_official_reference",
+      "condition": "sparse",
+      "speed_mps": 6,
+      "subset": "all30",
+      "expected": 30,
+      "completed": 30,
+      "missing": 0,
+      "complete": true,
+      "outcomes": {
+        "timeout": 13,
+        "success": 8,
+        "collision": 9
+      },
+      "success_rate_among_completed": 0.26666666666666666,
+      "failure_rates_among_completed": {
+        "collision": 0.3,
+        "crashed": 0.0,
+        "out_of_map": 0.0,
+        "timeout": 0.43333333333333335
+      },
+      "wilson95_among_completed": [
+        0.14182663319596317,
+        0.4444796169518888
+      ],
+      "possible_final_success_rate_bounds": [
+        0.26666666666666666,
+        0.26666666666666666
+      ],
+      "all_attempts": {
+        "path_length_m": {
+          "n": 30,
+          "mean": 88.40234928593189
+        },
+        "mean_net_clearance_m": {
+          "n": 30,
+          "mean": 1.768148069358158
+        },
+        "min_net_clearance_m": {
+          "n": 30,
+          "mean": 0.4007221142347358
+        },
+        "tracking_rmse_m": {
+          "n": 30,
+          "mean": 0.28071774163758084
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 30,
+          "mean": 2433.9392702291707
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 30,
+          "mean": 28563.534952035585
+        },
+        "max_speed_mps": {
+          "n": 30,
+          "mean": 6.965859985822624
+        },
+        "real_time_factor": {
+          "n": 30,
+          "mean": 0.423328669165289
+        },
+        "motor_saturation_fraction": {
+          "n": 30,
+          "mean": 0.062322446914588554
+        }
+      },
+      "successful_only": {
+        "path_length_m": {
+          "n": 8,
+          "mean": 55.7644931980755
+        },
+        "mean_net_clearance_m": {
+          "n": 8,
+          "mean": 1.9928567081950472
+        },
+        "min_net_clearance_m": {
+          "n": 8,
+          "mean": 0.7739099680301149
+        },
+        "tracking_rmse_m": {
+          "n": 8,
+          "mean": 0.4442792445468806
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 8,
+          "mean": 695.9448976568483
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 8,
+          "mean": 24630.965057994392
+        },
+        "max_speed_mps": {
+          "n": 8,
+          "mean": 6.7892283926083685
+        },
+        "real_time_factor": {
+          "n": 8,
+          "mean": 0.46701935610647394
+        },
+        "motor_saturation_fraction": {
+          "n": 8,
+          "mean": 0.06083473700089888
+        }
+      },
+      "pooled_end_to_end_wall_ms": {
+        "p50": 97.2470999986399,
+        "p95": 113.18619998928625,
+        "p99": 157.57787998591076
+      },
+      "latency_sample_count": 8911
+    },
+    {
+      "model": "yopo_official_reference",
+      "condition": "sparse",
+      "speed_mps": 6,
+      "subset": "paper_first10",
+      "expected": 10,
+      "completed": 10,
+      "missing": 0,
+      "complete": true,
+      "outcomes": {
+        "timeout": 5,
+        "success": 4,
+        "collision": 1
+      },
+      "success_rate_among_completed": 0.4,
+      "failure_rates_among_completed": {
+        "collision": 0.1,
+        "crashed": 0.0,
+        "out_of_map": 0.0,
+        "timeout": 0.5
+      },
+      "wilson95_among_completed": [
+        0.16818032970623614,
+        0.6873262302663417
+      ],
+      "possible_final_success_rate_bounds": [
+        0.4,
+        0.4
+      ],
+      "all_attempts": {
+        "path_length_m": {
+          "n": 10,
+          "mean": 91.57299488171019
+        },
+        "mean_net_clearance_m": {
+          "n": 10,
+          "mean": 1.8647822804674505
+        },
+        "min_net_clearance_m": {
+          "n": 10,
+          "mean": 0.5580787307808434
+        },
+        "tracking_rmse_m": {
+          "n": 10,
+          "mean": 0.30417562202845394
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 2392.306988231176
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 34984.812120027105
+        },
+        "max_speed_mps": {
+          "n": 10,
+          "mean": 6.8846488202586995
+        },
+        "real_time_factor": {
+          "n": 10,
+          "mean": 0.4360832949895722
+        },
+        "motor_saturation_fraction": {
+          "n": 10,
+          "mean": 0.05696345514521258
+        }
+      },
+      "successful_only": {
+        "path_length_m": {
+          "n": 4,
+          "mean": 55.692545738764935
+        },
+        "mean_net_clearance_m": {
+          "n": 4,
+          "mean": 2.0504958764762917
+        },
+        "min_net_clearance_m": {
+          "n": 4,
+          "mean": 0.7830302101500612
+        },
+        "tracking_rmse_m": {
+          "n": 4,
+          "mean": 0.4742270533540263
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 4,
+          "mean": 709.1115239287205
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 4,
+          "mean": 26476.87661978825
+        },
+        "max_speed_mps": {
+          "n": 4,
+          "mean": 6.9078597733411
+        },
+        "real_time_factor": {
+          "n": 4,
+          "mean": 0.46739389464065006
+        },
+        "motor_saturation_fraction": {
+          "n": 4,
+          "mean": 0.06431188277989663
+        }
+      },
+      "pooled_end_to_end_wall_ms": {
+        "p50": 96.93735001201276,
+        "p95": 112.80141499446474,
+        "p99": 160.18556098511928
+      },
+      "latency_sample_count": 2988
+    },
+    {
+      "model": "yopo_official_reference",
+      "condition": "sparse",
+      "speed_mps": 8,
+      "subset": "all30",
+      "expected": 30,
+      "completed": 30,
+      "missing": 0,
+      "complete": true,
+      "outcomes": {
+        "collision": 17,
+        "timeout": 1,
+        "success": 11,
+        "out_of_map": 1
+      },
+      "success_rate_among_completed": 0.36666666666666664,
+      "failure_rates_among_completed": {
+        "collision": 0.5666666666666667,
+        "crashed": 0.0,
+        "out_of_map": 0.03333333333333333,
+        "timeout": 0.03333333333333333
+      },
+      "wilson95_among_completed": [
+        0.21873920806100708,
+        0.5448643634520511
+      ],
+      "possible_final_success_rate_bounds": [
+        0.36666666666666664,
+        0.36666666666666664
+      ],
+      "all_attempts": {
+        "path_length_m": {
+          "n": 30,
+          "mean": 44.61455790045163
+        },
+        "mean_net_clearance_m": {
+          "n": 30,
+          "mean": 1.6019502980610283
+        },
+        "min_net_clearance_m": {
+          "n": 30,
+          "mean": 0.23977740672600067
+        },
+        "tracking_rmse_m": {
+          "n": 30,
+          "mean": 0.9049797318525444
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 30,
+          "mean": 6542.429269593853
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 30,
+          "mean": 158428393.7249722
+        },
+        "max_speed_mps": {
+          "n": 30,
+          "mean": 8.771589469823441
+        },
+        "real_time_factor": {
+          "n": 30,
+          "mean": 0.4315456564001022
+        },
+        "motor_saturation_fraction": {
+          "n": 30,
+          "mean": 0.31452690291764174
+        }
+      },
+      "successful_only": {
+        "path_length_m": {
+          "n": 11,
+          "mean": 57.57850023604847
+        },
+        "mean_net_clearance_m": {
+          "n": 11,
+          "mean": 1.789783839127037
+        },
+        "min_net_clearance_m": {
+          "n": 11,
+          "mean": 0.5987863259937591
+        },
+        "tracking_rmse_m": {
+          "n": 11,
+          "mean": 0.8204971072395605
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 11,
+          "mean": 4734.2345339707645
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 11,
+          "mean": 75777.39821264984
+        },
+        "max_speed_mps": {
+          "n": 11,
+          "mean": 9.072933032493943
+        },
+        "real_time_factor": {
+          "n": 11,
+          "mean": 0.4817040292017128
+        },
+        "motor_saturation_fraction": {
+          "n": 11,
+          "mean": 0.14284611628725974
+        }
+      },
+      "pooled_end_to_end_wall_ms": {
+        "p50": 97.46429999358952,
+        "p95": 115.67114499921439,
+        "p99": 305.0917329828346
+      },
+      "latency_sample_count": 3198
+    },
+    {
+      "model": "yopo_official_reference",
+      "condition": "sparse",
+      "speed_mps": 8,
+      "subset": "paper_first10",
+      "expected": 10,
+      "completed": 10,
+      "missing": 0,
+      "complete": true,
+      "outcomes": {
+        "collision": 4,
+        "timeout": 1,
+        "success": 4,
+        "out_of_map": 1
+      },
+      "success_rate_among_completed": 0.4,
+      "failure_rates_among_completed": {
+        "collision": 0.4,
+        "crashed": 0.0,
+        "out_of_map": 0.1,
+        "timeout": 0.1
+      },
+      "wilson95_among_completed": [
+        0.16818032970623614,
+        0.6873262302663417
+      ],
+      "possible_final_success_rate_bounds": [
+        0.4,
+        0.4
+      ],
+      "all_attempts": {
+        "path_length_m": {
+          "n": 10,
+          "mean": 57.979597999106275
+        },
+        "mean_net_clearance_m": {
+          "n": 10,
+          "mean": 1.6970871761316697
+        },
+        "min_net_clearance_m": {
+          "n": 10,
+          "mean": 0.33436449194794077
+        },
+        "tracking_rmse_m": {
+          "n": 10,
+          "mean": 0.9272745268403849
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 8578.931878546891
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 101270.84522093243
+        },
+        "max_speed_mps": {
+          "n": 10,
+          "mean": 8.920150740945335
+        },
+        "real_time_factor": {
+          "n": 10,
+          "mean": 0.4446544576416277
+        },
+        "motor_saturation_fraction": {
+          "n": 10,
+          "mean": 0.27320990240079224
+        }
+      },
+      "successful_only": {
+        "path_length_m": {
+          "n": 4,
+          "mean": 58.493492573114914
+        },
+        "mean_net_clearance_m": {
+          "n": 4,
+          "mean": 1.8138427654384617
+        },
+        "min_net_clearance_m": {
+          "n": 4,
+          "mean": 0.6704084392467564
+        },
+        "tracking_rmse_m": {
+          "n": 4,
+          "mean": 0.8564386015731646
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 4,
+          "mean": 4230.079780394126
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 4,
+          "mean": 68481.85894991932
+        },
+        "max_speed_mps": {
+          "n": 4,
+          "mean": 8.888203722520501
+        },
+        "real_time_factor": {
+          "n": 4,
+          "mean": 0.47945589780897413
+        },
+        "motor_saturation_fraction": {
+          "n": 4,
+          "mean": 0.11347750069471688
+        }
+      },
+      "pooled_end_to_end_wall_ms": {
+        "p50": 96.27830001409166,
+        "p95": 114.78119998355396,
+        "p99": 267.4198200053072
+      },
+      "latency_sample_count": 1411
+    },
+    {
+      "model": "yopo_official_reference",
+      "condition": "sparse",
+      "speed_mps": 10,
+      "subset": "all30",
+      "expected": 30,
+      "completed": 30,
+      "missing": 0,
+      "complete": true,
+      "outcomes": {
+        "collision": 30
+      },
+      "success_rate_among_completed": 0.0,
+      "failure_rates_among_completed": {
+        "collision": 1.0,
+        "crashed": 0.0,
+        "out_of_map": 0.0,
+        "timeout": 0.0
+      },
+      "wilson95_among_completed": [
+        0.0,
+        0.11351339317396876
+      ],
+      "possible_final_success_rate_bounds": [
+        0.0,
+        0.0
+      ],
+      "all_attempts": {
+        "path_length_m": {
+          "n": 30,
+          "mean": 21.219911961926005
+        },
+        "mean_net_clearance_m": {
+          "n": 30,
+          "mean": 1.3937318836588064
+        },
+        "min_net_clearance_m": {
+          "n": 30,
+          "mean": -0.004598246928779108
+        },
+        "tracking_rmse_m": {
+          "n": 30,
+          "mean": 1.980391737525742
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 30,
+          "mean": 19565.30358732996
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 30,
+          "mean": 730902357.8405564
+        },
+        "max_speed_mps": {
+          "n": 30,
+          "mean": 10.056874394050313
+        },
+        "real_time_factor": {
+          "n": 30,
+          "mean": 0.39664299802903
+        },
+        "motor_saturation_fraction": {
+          "n": 30,
+          "mean": 0.6275513983024871
+        }
+      },
+      "successful_only": {
+        "path_length_m": {
+          "n": 0,
+          "mean": null
+        },
+        "mean_net_clearance_m": {
+          "n": 0,
+          "mean": null
+        },
+        "min_net_clearance_m": {
+          "n": 0,
+          "mean": null
+        },
+        "tracking_rmse_m": {
+          "n": 0,
+          "mean": null
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 0,
+          "mean": null
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 0,
+          "mean": null
+        },
+        "max_speed_mps": {
+          "n": 0,
+          "mean": null
+        },
+        "real_time_factor": {
+          "n": 0,
+          "mean": null
+        },
+        "motor_saturation_fraction": {
+          "n": 0,
+          "mean": null
+        }
+      },
+      "pooled_end_to_end_wall_ms": {
+        "p50": 99.2919999989681,
+        "p95": 123.36457999772388,
+        "p99": 577.1308319957461
+      },
+      "latency_sample_count": 1569
+    },
+    {
+      "model": "yopo_official_reference",
+      "condition": "sparse",
+      "speed_mps": 10,
+      "subset": "paper_first10",
+      "expected": 10,
+      "completed": 10,
+      "missing": 0,
+      "complete": true,
+      "outcomes": {
+        "collision": 10
+      },
+      "success_rate_among_completed": 0.0,
+      "failure_rates_among_completed": {
+        "collision": 1.0,
+        "crashed": 0.0,
+        "out_of_map": 0.0,
+        "timeout": 0.0
+      },
+      "wilson95_among_completed": [
+        0.0,
+        0.2775327998628892
+      ],
+      "possible_final_success_rate_bounds": [
+        0.0,
+        0.0
+      ],
+      "all_attempts": {
+        "path_length_m": {
+          "n": 10,
+          "mean": 20.63830181564591
+        },
+        "mean_net_clearance_m": {
+          "n": 10,
+          "mean": 1.3998346181964123
+        },
+        "min_net_clearance_m": {
+          "n": 10,
+          "mean": -0.004369441958142056
+        },
+        "tracking_rmse_m": {
+          "n": 10,
+          "mean": 2.0100821688534145
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 17798.3456184522
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 10,
+          "mean": 154769.20266976257
+        },
+        "max_speed_mps": {
+          "n": 10,
+          "mean": 10.497054145446848
+        },
+        "real_time_factor": {
+          "n": 10,
+          "mean": 0.40970095748647867
+        },
+        "motor_saturation_fraction": {
+          "n": 10,
+          "mean": 0.6400667953414888
+        }
+      },
+      "successful_only": {
+        "path_length_m": {
+          "n": 0,
+          "mean": null
+        },
+        "mean_net_clearance_m": {
+          "n": 0,
+          "mean": null
+        },
+        "min_net_clearance_m": {
+          "n": 0,
+          "mean": null
+        },
+        "tracking_rmse_m": {
+          "n": 0,
+          "mean": null
+        },
+        "reference_curve_squared_jerk_integral_m2_per_s5": {
+          "n": 0,
+          "mean": null
+        },
+        "measured_raw_fd_squared_jerk_integral_m2_per_s5": {
+          "n": 0,
+          "mean": null
+        },
+        "max_speed_mps": {
+          "n": 0,
+          "mean": null
+        },
+        "real_time_factor": {
+          "n": 0,
+          "mean": null
+        },
+        "motor_saturation_fraction": {
+          "n": 0,
+          "mean": null
+        }
+      },
+      "pooled_end_to_end_wall_ms": {
+        "p50": 95.72739999566693,
+        "p95": 122.82054999814129,
+        "p99": 573.862254999985
+      },
+      "latency_sample_count": 448
+    }
+  ],
+  "statistics_note": "Outcome coverage is not full measurement or goal completion. Failures remain in success denominators; missing runs are unknown. Wilson intervals describe completed trials, not missing coverage. Path/safety/smoothness are reported both across attempts and conditional on success.",
+  "protocol_sha256": "c020c1b483953454375500fe8fc01f7a603d4f8a718ac3924eeb3e3abfa0f3ed",
+  "reference_weights": {
+    "class": "external_reference",
+    "staged_checkpoint": "official_epoch50_reference/best_policy.pth",
+    "staged_sha256": "7d5dc46f22a39993d3944a02f82a519dd1aafbda33e268509b22569be2aaa94e",
+    "source_sha256": "09ec31094ed83e09702efc1facf18076564ebbe1afc164960c41036e16ba229f",
+    "provenance_file": "checkpoints/official_epoch50_reference/PROVENANCE.json",
+    "mapping_record": "artifacts/expert/official_checkpoint_mapping.json",
+    "claims": "hash-pinned released weights; NO from-scratch initialization claim and NO validation-selection claim"
+  },
+  "admission_status": "passed",
+  "duplicate_attempts": [],
+  "invalid_evidence": [],
+  "in_flight_runs": [],
+  "isolation_note": "Runs carry scope=reference_arm_official_v1 and are ignored by the primary aggregator; this summary is kept separate from summary.json by construction."
+}
