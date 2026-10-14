@@ -6,7 +6,7 @@
 
 - 运行层复制：3300+ 文件；代码保持既有相对位置（`src/scripts/configs/docker/ros2_ws/tests/external/benchmarks/vendor/assets`）。
 - 报告重排：`reports/` 20 份详细报告与 `docs/proposals/` 4 件提案迁入 `report/NN_*`、`plan/90_decisions/references/`，并加序号前缀。
-- 媒体落盘：`report/05_visualization/media/`（视频、图片、Table I/II、渲染清单，共 9.9 MB）；`report/00_index/03_project_map.html`（交互式全景）。
+- 媒体落盘：`report/05_visualization/media/`（视频、图片、Table I/II、渲染清单，共 9.9 MB）；`report/00_index/03_project_map.md`（项目全景；原 HTML 版 2026-10-14 转为 Markdown 并移除）。
 - 参考随迁：`plan/01_paper_protocol/references/YOPO_原始笔记对话_conversation.txt`（SHA256 `b5d70813…` 与报告记录一致）、`plan/02_environment_ros2/references/isaac61_env.md`。
 - 重数据引用：`datasets/isaac_full_v1`、`datasets/isaac_dagger_v1`、全部既有 `checkpoints/*`、`artifacts/` 7 个重目录以 NTFS junction 本地引用（不复制、不入 Git；Ubuntu 按发布清单恢复）。
 - 链接迁移：770 处跨目录引用 + 16 处绝对路径重写为相对路径；`reports/` 目录不再存在（旧根保留为历史归档）。

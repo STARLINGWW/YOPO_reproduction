@@ -1,5 +1,11 @@
 # 计划与管理变更日志
 
+## 2026-10-14 项目全景页转 Markdown + 论文 Fig.7 口径的速度对比图
+
+- 项目全景页由交互式 HTML 改为 Markdown：移除 `report/00_index/03_project_map.html` 与其两张截图，新增 `report/00_index/03_project_map.md`（12 模块状态表 + 关键入口 + 活动矩阵 1,500/1,500 与结果构成），并同步更新 README、report/README、report/00_index/README、module_map、重构计划与迁移记录中的引用。
+- 新增论文 Fig.7 口径图：稀疏（1/30）/稠密（1/20）双面板的**成功率**与**碰撞率** vs 2–10 m/s（ROS2 冻结矩阵：自训练 YOPO 三种子合并、TopoTraj、Agile），由 `scripts/make_benchmark_speed_figures.py` 从冻结汇总生成，附逐格数值表。
+- 自训练 vs 官方权重补测（原生 main 链 A/B，矩阵之外）：新增稀疏 8/10 m/s 与稠密 2–10 m/s 共 42 架次（`main_official` / `main_local`，各 3 场景 × 速度、120 s 仿真上限），补全后再绘制成功/碰撞率 2×2 同场景对比图；官方权重只在原生链可比（冻结 ROS2 规划器拒绝非 scratch 来源）。
+
 ## 2026-10-13 YOPO-only 范围冻结、MPPI 归档与文档归一化
 
 - 活动范围冻结：新增 `benchmarks/protocol_v1/active_scope_yopo_only.json`（五模型 × 300 = 1,500）；`scripts/aggregate_benchmarks.py` 默认按活动范围汇总（`--superset` 复算 1800 口径）；`scripts/final_acceptance_audit.py`、`scripts/make_status_overview.py`、`scripts/create_benchmark_protocol.py` 与三个基准测试同步更新。

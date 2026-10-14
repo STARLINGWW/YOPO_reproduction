@@ -11,7 +11,7 @@
 | 分为 plan / implement / report 三大区 | 三大区在项目根并列；plan 管计划与决策、implement 管实施与代码工作区、report 管交付与展示 |
 | 计划与管理项目：设计思路、代码框架、修改日志 | `plan/00_charter`（章程+v1/v2 计划）、`plan/99_change_log`（变更日志）、`plan/90_decisions`（决策记录，含提案参考文件） |
 | 代码工作区：大模型接管实施与验证 | `implement/00–07` 模块地图 + `implement/workspace`（代码工作区视图）+ `implement/99_workspace_rules`（实施规范） |
-| 报告展示区：markdown + HTML + 视频/动图 | `report/NN_*` 编号文件夹，内含详细报告；`report/00_index/03_project_map.html`（交互式项目全景）；`report/05_visualization/media/`（视频、图片、图表实体文件） |
+| 报告展示区：markdown + 视频/动图 | `report/NN_*` 编号文件夹，内含详细报告；`report/00_index/03_project_map.md`（项目全景，原 HTML 版 2026-10-14 转为 Markdown 并移除）；`report/05_visualization/media/`（视频、图片、图表实体文件） |
 | 标准编号-标题排序 | plan/report 的文件夹与文件均为 `NN_标题` 形式；入口 README 给出编号索引表 |
 | GitHub + Ubuntu 22.04 迁移预设 | `.gitignore/.gitattributes` 就绪；`implement/workspace/bootstrap_links.{ps1,sh}` 生成跨平台工作区视图；数据/权重按 manifest 走 LFS/Release（见 `plan/06_github_migration`） |
 
