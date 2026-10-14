@@ -34,3 +34,9 @@ datasets/** -text
 artifacts/** -text
 checkpoints/** -text
 external/audit_sources/** -text
+
+# Reference-arm files keep their exact bytes: clean-clone hashes must match the
+# protocol's recorded sha256 (maps, protocol) and the admission's protocol hash.
+benchmarks/reference_arm_official_v1/protocol.json -text
+benchmarks/reference_arm_official_v1/maps/*.json -text
+benchmarks/reference_arm_official_v1/runtime_validation.json -text
