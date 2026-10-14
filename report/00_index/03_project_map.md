@@ -40,7 +40,7 @@
 
 ## 3. 论文 Fig.7 口径：成功率 / 碰撞率 vs 前向速度（ROS2 冻结矩阵）
 
-与论文 Fig.7 相同的形式：两个面板分别对应稀疏（1/30）与稠密（1/20）场景，横轴为 2–10 m/s；曲线为活动范围内的自训练 YOPO（三种子合并）与两条外部基线。论文中的 MPPI 曲线在本仓库已归档，不再绘制。
+与论文 Fig.7 相同的形式：两个面板分别对应稀疏（1/30）与稠密（1/20）场景，横轴为 2–10 m/s；实线为活动范围内的自训练 YOPO（三种子合并）与两条外部基线，虚线为官方权重在**原生 A/B 链**上的同速度对照（每点 5 架次；链不同，只作并列参考，不可与实线曲线合并比较，详见第 4 节）。论文中的 MPPI 曲线在本仓库已归档，不再绘制。
 
 ![成功率 vs 前向速度（稀疏 / 稠密，ROS2 冻结矩阵）](media/success_vs_speed.png)
 
@@ -70,7 +70,7 @@
 
 ## 4. 自训练 vs 官方权重：不同速度的同场景对比（原生 A/B；含 2026-10-14 补测）
 
-官方 epoch50 属于 Simple 发布栈，冻结 ROS2 规划器会拒绝其来源（缺 scratch 训练溯源），因此官方权重只在**原生 main 链**上做同场景对照：3 场景 × 5 档速度 × {官方 epoch50 放入 main 布局, 自训练 seed0}，任务设定与既有 A/B 一致（起点 (0,0,2) → 终点 (23,0,2)，上限 120 s）。原 36 架次只覆盖稀疏 2/4/6 m/s；**2026-10-14 补跑稀疏 8/10 m/s 与稠密 2–10 m/s 共 42 架次**，补全后的曲线：
+官方 epoch50 属于 Simple 发布栈，冻结 ROS2 规划器会拒绝其来源（缺 scratch 训练溯源），因此官方权重只在**原生 main 链**上做同场景对照：稀疏/稠密各 **5 张地图 × 5 档速度 × {官方 epoch50 放入 main 布局, 自训练 seed0}**，任务设定与既有 A/B 一致（起点 (0,0,2) → 终点 (23,0,2)，上限 120 s）。原 36 架次只覆盖稀疏 2/4/6 m/s、每格 1 架次；**2026-10-14 分两批补跑 82 架次**（稀疏与稠密都扩到每格 **n=5**，即每张地图 1 架次、共 5 张地图），补全后的曲线：
 
 ![自训练 vs 官方权重：成功率 / 碰撞率 vs 前向速度（原生 A/B，main 栈）](media/official_vs_selftrained_vs_speed.png)
 
@@ -78,23 +78,26 @@
 
 | 场景 | 权重 | 2 m/s | 4 m/s | 6 m/s | 8 m/s | 10 m/s |
 |---|---|---|---|---|---|---|
-| 稀疏 1/30 | 官方 epoch50（main 布局） | S2 / C0 / T1 | S3 / C0 / T0 | S2 / C1 / T0 | S3 / C0 / T0 | S2 / C1 / T0 |
-| 稀疏 1/30 | 自训练 seed0 | S3 / C0 / T0 | S2 / C0 / T1 | S2 / C1 / T0 | S2 / C1 / T0 | S2 / C1 / T0 |
-| 稠密 1/20 | 官方 epoch50（main 布局） | S3 / C0 / T0 | S2 / C1 / T0 | S0 / C3 / T0 | S0 / C3 / T0 | S0 / C3 / T0 |
-| 稠密 1/20 | 自训练 seed0 | S2 / C0 / T1 | S2 / C0 / T1 | S2 / C1 / T0 | S0 / C3 / T0 | S0 / C3 / T0 |
+| 稀疏 1/30 | 官方 epoch50（main 布局） | S3 / C0 / T2 | S4 / C1 / T0 | S3 / C2 / T0 | S4 / C1 / T0 | S3 / C2 / T0 |
+| 稀疏 1/30 | 自训练 seed0 | S4 / C0 / T1 | S3 / C0 / T2 | S3 / C2 / T0 | S3 / C2 / T0 | S3 / C2 / T0 |
+| 稠密 1/20 | 官方 epoch50（main 布局） | S5 / C0 / T0 | S4 / C1 / T0 | S1 / C4 / T0 | S1 / C4 / T0 | S1 / C4 / T0 |
+| 稠密 1/20 | 自训练 seed0 | S4 / C0 / T1 | S4 / C0 / T1 | S3 / C2 / T0 | S1 / C4 / T0 | S1 / C4 / T0 |
+
+（地图：稀疏 5000/5001/5002/5003/5004，稠密 6000/6001/6002/6003/6004；每格 n=5。）
 
 读法：
 
-- **稀疏场景两台权重基本打平**：2–10 m/s 合计官方 12 成功 / 2 碰撞 / 1 超时，自训练 11 成功 / 3 碰撞 / 1 超时（每格 3 架次，差异不具统计意义）；6 m/s 起双方都开始出现碰撞。
-- **稠密场景是分水岭**：官方权重从 6 m/s 起 3/3 全碰撞；自训练 seed0 在 6 m/s 还能拿到 2/3 成功，8 m/s 起同样全碰撞——与矩阵口径里「自训练 YOPO 在稠密场景 8 m/s 仍有 43% 成功率」的下降趋势一致（不同链，幅度不可直接换算）。
+- **稀疏场景两台权重基本打平**：25 架次合计官方 17 成功 / 6 碰撞 / 2 超时，自训练 16 成功 / 6 碰撞 / 3 超时（每格 5 架次，差异不具统计意义）；6 m/s 起双方都稳定出现碰撞（各 2/5）。
+- **稠密场景是分水岭**：官方权重从 6 m/s 起每档只有 1/5 成功、4/5 碰撞；自训练 seed0 在 6 m/s 还能拿到 3/5 成功，8 m/s 起同样落回 1/5 成功、4/5 碰撞。低速段（2/4 m/s）两台权重都基本可靠，超时是主要失败模式。
+- 与矩阵口径的趋势一致：矩阵里自训练 YOPO 稠密场景 6→8 m/s 成功率从 59% 掉到 43%、碰撞率 8% 涨到 21%（n=90/点），原生链上也是 6 m/s 之后急剧恶化（不同链，幅度不可直接换算）。
 - 该对照是**原生链**（Crazyflie 级资产 + 原生控制与判据），与第 2、3 节的 ROS2 冻结矩阵（PhysX 统一机体）不是同一运行栈，成功率不可跨链合并。
 - 补测没有改动既有 36 架次记录；全部 78 条原始记录见 [batch_summary.json](../../artifacts/weights_ab_demo/batch_summary.json)，逐架次指标在 `artifacts/navigation/wab2_<arm>_s<scene>_v<speed>/metrics.json`（本地，外部归档）。
 
-复跑命令（GPU 空载时执行，`--skip-existing` 保证已有格子不被覆盖）：
+复跑命令（GPU 空载时执行，`--skip-existing` 保证已有格子不被覆盖；`--flight-timeout` 默认 420 s，用于截断偶发的 Isaac 退出挂死并照常收集已写入的证据）：
 
 ```powershell
-python scripts/run_weights_ab_batch.py --scenes 5001,5002,5004 --speeds 8,10 --arms main_official,main_local --duration 120 --density 0.03333333333333333 --skip-existing
-python scripts/run_weights_ab_batch.py --scenes 6001,6002,6004 --speeds 2,4,6,8,10 --arms main_official,main_local --duration 120 --density 0.05 --skip-existing
+python scripts/run_weights_ab_batch.py --scenes 5000,5001,5002,5003,5004 --speeds 2,4,6,8,10 --arms main_official,main_local --duration 120 --density 0.03333333333333333 --skip-existing
+python scripts/run_weights_ab_batch.py --scenes 6000,6001,6002,6003,6004 --speeds 2,4,6,8,10 --arms main_official,main_local --duration 120 --density 0.05 --skip-existing
 ```
 
 ## 5. 数据来源与口径

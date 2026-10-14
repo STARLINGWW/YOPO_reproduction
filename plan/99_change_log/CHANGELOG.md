@@ -4,7 +4,8 @@
 
 - 项目全景页由交互式 HTML 改为 Markdown：移除 `report/00_index/03_project_map.html` 与其两张截图，新增 `report/00_index/03_project_map.md`（12 模块状态表 + 关键入口 + 活动矩阵 1,500/1,500 与结果构成），并同步更新 README、report/README、report/00_index/README、module_map、重构计划与迁移记录中的引用。
 - 新增论文 Fig.7 口径图：稀疏（1/30）/稠密（1/20）双面板的**成功率**与**碰撞率** vs 2–10 m/s（ROS2 冻结矩阵：自训练 YOPO 三种子合并、TopoTraj、Agile），由 `scripts/make_benchmark_speed_figures.py` 从冻结汇总生成，附逐格数值表。
-- 自训练 vs 官方权重补测（原生 main 链 A/B，矩阵之外）：新增稀疏 8/10 m/s 与稠密 2–10 m/s 共 42 架次（`main_official` / `main_local`，各 3 场景 × 速度、120 s 仿真上限），补全后再绘制成功/碰撞率 2×2 同场景对比图；官方权重只在原生链可比（冻结 ROS2 规划器拒绝非 scratch 来源）。
+- 自训练 vs 官方权重补测（原生 main 链 A/B，矩阵之外）：分两批补跑 82 架次，把稀疏与稠密都扩到 **5 张地图 × 5 档速度 × 2 臂、每格 n=5**（稀疏 5000–5004、稠密 6000–6004；120 s 仿真上限）；A/B 汇总记录 36 → 118 条，旧记录未改动。据此绘制成功/碰撞率 2×2 同场景对比图，并把官方曲线（虚线、注明 n）并入论文 Fig.7 口径的两张主图。官方权重只在原生链可比（冻结 ROS2 规划器拒绝非 scratch 来源）。
+- 批量驱动加固：`scripts/run_weights_ab_batch.py` 新增 `--flight-timeout`（默认 420 s）墙钟保护——Isaac 偶发在飞行结束后退出挂死，超时即终止进程并照常收集已写入的 metrics，避免挂死拖垮整批。
 
 ## 2026-10-13 YOPO-only 范围冻结、MPPI 归档与文档归一化
 

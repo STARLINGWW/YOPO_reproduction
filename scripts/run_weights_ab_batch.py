@@ -62,6 +62,10 @@ def main():
     parser.add_argument('--duration',type=float,default=45.)
     parser.add_argument('--density',type=float,default=1/30.)
     parser.add_argument('--tag',default='b1')
+    parser.add_argument('--flight-timeout',type=float,default=420.,
+                        help='wall-clock budget per flight; on expiry the harness process is killed and '
+                             'whatever metrics were already written are recorded (default 420 s; the flight '
+                             'itself is capped at --duration simulated seconds)')
     parser.add_argument('--python',default=None,help='Isaac Sim python interpreter (default: $YOPO_ISAAC_PYTHON or python on PATH)')
     parser.add_argument('--skip-existing',action='store_true')
     parser.add_argument('--dry-run',action='store_true')
@@ -104,12 +108,26 @@ def main():
                 log = LOGS/(run+'.log')
                 env = os.environ.copy();env['OMNI_KIT_ACCEPT_EULA'] = 'YES'
                 started = time.time()
-                result = subprocess.run(command,cwd=ROOT,text=True,capture_output=True,env=env)
-                log.write_text((result.stdout or '')+'\n'+(result.stderr or ''),encoding='utf-8')
+                try:
+                    result = subprocess.run(command,cwd=ROOT,text=True,capture_output=True,env=env,
+                                            timeout=args.flight_timeout)
+                    stdout = result.stdout or '';stderr = result.stderr or '';returncode = result.returncode
+                except subprocess.TimeoutExpired as exc:
+                    # Isaac Sim occasionally hangs in its shutdown path after the flight evidence has
+                    # already been written; the simulator is capped at --duration, so a wall-clock
+                    # budget only ever truncates that hang, never a live flight.
+                    decode = lambda value: value.decode('utf-8','replace') if isinstance(value,bytes) else (value or '')
+                    stdout = decode(exc.stdout)
+                    stderr = decode(exc.stderr) + (
+                        '\n[driver] flight exceeded %.0fs wall budget; harness killed, metrics collected\n'
+                        % args.flight_timeout)
+                    returncode = 'flight_timeout_killed'
+                log.write_text(stdout+'\n'+stderr,encoding='utf-8')
                 record = collect(run) or {'status':'no_metrics_recorded'}
                 record.update({'run':run,'arm':arm,'planner':config['planner'],'scene_seed':scene,
                                'speed_mps':speed,'duration_s':args.duration,'wall_s':round(time.time()-started,1),
-                               'runner_returncode':result.returncode,'log':str(log.relative_to(ROOT)),
+                               'runner_returncode':returncode,'log':str(log.relative_to(ROOT)),
+                               'flight_timeout_s':args.flight_timeout,
                                'weights_label':config['label'],'weights_file':config['weights']})
                 summary['records'] = [r for r in summary['records'] if r['run']!=run]+[record]
                 summary['updated_at'] = time.strftime('%Y-%m-%dT%H:%M:%S%z')

@@ -34,9 +34,10 @@ MEDIA = ROOT / "report/00_index/media"
 SPEEDS = [2, 4, 6, 8, 10]
 CONDITIONS = {"sparse": "sparse  (\u03c1 = 1/30 m$^{-2}$)", "dense": "dense  (\u03c1 = 1/20 m$^{-2}$)"}
 MODELS = {
-    "yopo": ("Proposed (self-trained, 3 seeds pooled)", "#b2182b", "-", "o"),
-    "topotraj": ("TopoTraj", "#1b9e77", "-", "^"),
-    "agile": ("Agile Autonomy", "#e08214", "-", "D"),
+    "yopo": ("Proposed: self-trained YOPO (n=90/point)", "#b2182b", "-", "o"),
+    "official": ("Official YOPO weights, native A/B chain (n=5/point)", "#2166ac", "--", "s"),
+    "topotraj": ("TopoTraj (n=30/point)", "#1b9e77", "-", "^"),
+    "agile": ("Agile Autonomy (n=30/point)", "#e08214", "-", "D"),
 }
 
 
@@ -61,6 +62,7 @@ def ab_rates():
     """(condition, arm, speed) -> (success, collision, timeout, n) from the native A/B batch."""
     data = json.loads(AB_BATCH.read_text(encoding="utf-8"))
     rates = {}
+    maps = {}
     for record in data["records"]:
         if not record["arm"].startswith("main_"):
             continue
@@ -68,20 +70,22 @@ def ab_rates():
         if density is None:
             continue
         condition = "sparse" if density < 0.04 else "dense"
+        maps.setdefault(condition, set()).add(int(record["seed"]))
         key = (condition, record["arm"], int(record["speed_mps"]))
         bucket = rates.setdefault(key, {"success": 0, "collision": 0, "timeout": 0, "n": 0})
         bucket["success"] += record["status"] == "success"
         bucket["collision"] += record["status"] == "collision"
         bucket["timeout"] += record["status"] == "timeout"
         bucket["n"] += 1
-    return rates
+    maps = {condition: sorted(seeds) for condition, seeds in maps.items()}
+    return rates, maps
 
 
-def render_ab(kind, rates, path):
+def render_ab(rates, maps, path):
     """2x2 paper-style grid: rows = success/collision, columns = sparse/dense (native A/B)."""
     arms = {
-        "main_local": ("Self-trained seed0 (main stack)", "#b2182b", "-", "o"),
-        "main_official": ("Official epoch50 (main layout)", "#2166ac", "--", "s"),
+        "main_local": ("Self-trained seed0 (main stack, n=5/point)", "#b2182b", "-", "o"),
+        "main_official": ("Official epoch50 (main layout, n=5/point)", "#2166ac", "--", "s"),
     }
     plt.rcParams.update({
         "font.family": "serif",
@@ -117,8 +121,10 @@ def render_ab(kind, rates, path):
     fig.text(0.30, 0.945, "(a) sparse scenario", ha="center", fontsize=11)
     fig.text(0.78, 0.945, "(b) dense scenario", ha="center", fontsize=11)
     fig.text(0.5, 0.015,
-             "Native A/B chain (outside the frozen ROS2 matrix): n = 3 flights per point "
-             "(sparse 5001/5002/5004, dense 6001/6002/6004; 120 s sim cap)",
+             "Native A/B chain (outside the frozen ROS2 matrix): one flight per map, "
+             f"n = {len(maps.get('sparse', []))} per point "
+             f"(sparse {','.join(str(s) for s in maps.get('sparse', []))}; "
+             f"dense {','.join(str(s) for s in maps.get('dense', []))}; 120 s sim cap)",
              ha="center", fontsize=7.6, color="#666666")
     fig.tight_layout(rect=(0, 0.045, 1, 0.925))
     fig.savefig(path, facecolor="white")
@@ -126,7 +132,7 @@ def render_ab(kind, rates, path):
     print("wrote", path.relative_to(ROOT).as_posix())
 
 
-def series(rates, kind):
+def series(rates, ab, kind):
     """Build {condition: {model: [(speed, rate, n)]}} for 'success' or 'collision'."""
     out = {}
     for condition in CONDITIONS:
@@ -147,6 +153,13 @@ def series(rates, kind):
                     a, b, d, m = rates[(condition, speed, model)]
                     pts.append((speed, 100.0 * (a if kind == "success" else b) / m, m))
             curves[key] = pts
+        official = []
+        for speed in SPEEDS:
+            bucket = ab.get((condition, "main_official", speed))
+            if bucket:
+                official.append((speed, 100.0 * bucket[kind] / bucket["n"], bucket["n"]))
+        if official:
+            curves["official"] = official
         out[condition] = curves
     return out
 
@@ -160,15 +173,19 @@ def render(kind, curves, path):
     })
     fig, axes = plt.subplots(1, 2, figsize=(10.6, 5.0), dpi=200)
     for ax, condition in zip(axes, ("sparse", "dense")):
-        for key in ("yopo", "topotraj", "agile"):
+        for key in ("yopo", "official", "topotraj", "agile"):
             points = curves[condition].get(key)
             if not points:
                 continue
             name, colour, style, marker = MODELS[key]
             xs = [p[0] for p in points]
             ys = [p[1] for p in points]
-            ax.plot(xs, ys, style, color=colour, marker=marker, markersize=6.5,
-                    linewidth=2.1 if key == "yopo" else 1.7, label=name)
+            if key == "official":
+                ax.plot(xs, ys, style, color=colour, marker=marker, markersize=6,
+                        markerfacecolor="white", markeredgewidth=1.3, linewidth=1.6, label=name)
+            else:
+                ax.plot(xs, ys, style, color=colour, marker=marker, markersize=6.5,
+                        linewidth=2.1 if key == "yopo" else 1.7, label=name)
         ax.set_xlim(1.4, 10.6)
         ax.set_ylim(-2, 102)
         ax.set_xticks(SPEEDS)
@@ -185,14 +202,14 @@ def render(kind, curves, path):
                 handles.append(handle)
                 labels.append(text)
     fig.legend(handles, labels, loc="upper center", bbox_to_anchor=(0.5, 0.995),
-               ncol=4, frameon=False, fontsize=8.4, handlelength=2.6, columnspacing=1.6)
+               ncol=2, frameon=False, fontsize=8.6, handlelength=2.6, columnspacing=2.4, labelspacing=0.4)
     fig.text(0.29, 0.078, "(a) sparse scenario", ha="center", fontsize=11)
     fig.text(0.76, 0.078, "(b) dense scenario", ha="center", fontsize=11)
     fig.text(0.5, 0.021,
-             "ROS2 frozen matrix (1,500 active slots); n per point: self-trained 90 "
-             "(3 seeds x 30 tasks), TopoTraj / Agile 30",
+             "Solid = ROS2 frozen matrix (1,500 active slots; n = tasks per point); dashed = native A/B chain "
+             "(outside the matrix: the frozen ROS2 planner rejects official weights)",
              ha="center", fontsize=7.4, color="#666666")
-    fig.tight_layout(rect=(0, 0.12, 1, 0.905))
+    fig.tight_layout(rect=(0, 0.12, 1, 0.885))
     fig.savefig(path, facecolor="white")
     plt.close(fig)
     print("wrote", path.relative_to(ROOT).as_posix())
@@ -223,10 +240,10 @@ def markdown_tables(rates):
 def main():
     MEDIA.mkdir(parents=True, exist_ok=True)
     rates = matrix_rates()
-    render("success", series(rates, "success"), MEDIA / "success_vs_speed.png")
-    render("collision", series(rates, "collision"), MEDIA / "collision_vs_speed.png")
-    ab = ab_rates()
-    render_ab("success", ab, MEDIA / "official_vs_selftrained_vs_speed.png")
+    ab, ab_maps = ab_rates()
+    render("success", series(rates, ab, "success"), MEDIA / "success_vs_speed.png")
+    render("collision", series(rates, ab, "collision"), MEDIA / "collision_vs_speed.png")
+    render_ab(ab, ab_maps, MEDIA / "official_vs_selftrained_vs_speed.png")
     print()
     print(markdown_tables(rates))
     print()
@@ -235,7 +252,8 @@ def main():
 
 def ab_table(rates):
     """Markdown table of the native A/B batch: density x arm x speed -> S / C / T."""
-    lines = ["### 官方 vs 自训练（原生 A/B，main 栈；每格 3 架次）\n",
+    n_per_cell = max((bucket["n"] for bucket in rates.values()), default=0)
+    lines = [f"### 官方 vs 自训练（原生 A/B，main 栈；每格 {n_per_cell} 架次 = 每张地图 1 架次）\n",
              "| 场景 | 权重 | " + " | ".join(f"{v} m/s" for v in SPEEDS) + " |",
              "|---|---|" + "---|" * len(SPEEDS)]
     names = {"main_official": "官方 epoch50（main 布局）", "main_local": "自训练 seed0"}
