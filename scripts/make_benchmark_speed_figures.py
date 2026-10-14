@@ -46,7 +46,7 @@ MEDIA = ROOT / "report/00_index/media"
 SPEEDS = [2, 4, 6, 8, 10]
 CONDITIONS = {"sparse": "sparse  (\u03c1 = 1/30 m$^{-2}$)", "dense": "dense  (\u03c1 = 1/20 m$^{-2}$)"}
 MODELS = {
-    "yopo": ("Proposed", "#b2182b", "o"),
+    "yopo": ("Self-trained YOPO (ours)", "#b2182b", "o"),
     "topotraj": ("TopoTraj", "#1b9e77", "^"),
     "agile": ("Agile Autonomy", "#e08214", "D"),
 }
@@ -138,16 +138,16 @@ def _axes(ax, ylabel):
     ax.tick_params(labelsize=10)
 
 
-def render(kind, full, paper_scale, reference, path):
-    """Fig.7 layout: solid = full frozen matrix, dashed = paper-scale first10 subset;
-    the external-reference arm (official weights, same chain) is drawn when its summary exists."""
+def render(kind, full, reference, path):
+    """Fig.7 layout, full-matrix only: self-trained YOPO + baselines from the frozen matrix,
+    plus the external-reference arm (official weights, same chain) when its summary exists."""
     label = "Success Rate [%]" if kind == "success" else "Collision Rate [%]"
     ref_index = 0 if kind == "success" else 1
     ref_completed = sum(v[3] for v in reference.values())
     ref_expected = sum(v[4] for v in reference.values())
-    ref_label = ("Official epoch50 - reference arm (n=30/point)"
+    ref_label = ("Official YOPO epoch50 - reference arm (n=30/point)"
                  if reference and ref_completed >= ref_expected
-                 else "Official epoch50 - reference arm (running: %d/%d slots)" % (ref_completed, ref_expected))
+                 else "Official YOPO epoch50 - reference arm (running: %d/%d slots)" % (ref_completed, ref_expected))
     _style()
     fig, axes = plt.subplots(1, 2, figsize=(10.6, 5.0), dpi=200)
     for ax, condition in zip(axes, ("sparse", "dense")):
@@ -158,13 +158,7 @@ def render(kind, full, paper_scale, reference, path):
                 ax.plot([p[0] for p in points], [p[1] for p in points], "-",
                         color=colour, marker=marker, markersize=6.5,
                         linewidth=2.1 if key == "yopo" else 1.7,
-                        label=f"{name} - full matrix (n={points[0][2]})")
-            points = paper_scale[condition].get(key) or []
-            if points:
-                ax.plot([p[0] for p in points], [p[1] for p in points], "--",
-                        color=colour, marker=marker, markersize=6,
-                        markerfacecolor="white", markeredgewidth=1.3,
-                        linewidth=1.6, label=f"{name} - paper-scale (n={points[0][2]})")
+                        label=f"{name} (n={points[0][2]}/point)")
         ref_points = [(speed, 100.0 * reference[(condition, speed)][ref_index] / reference[(condition, speed)][3], reference[(condition, speed)][3])
                       for speed in SPEEDS
                       if (condition, speed) in reference and reference[(condition, speed)][3] > 0]
@@ -183,10 +177,9 @@ def render(kind, full, paper_scale, reference, path):
                labelspacing=0.35)
     fig.text(0.29, 0.078, "(a) sparse scenario", ha="center", fontsize=11)
     fig.text(0.76, 0.078, "(b) dense scenario", ha="center", fontsize=11)
-    footer = ("Solid = full ROS2 frozen matrix (1,500 active slots); dashed = paper-scale subset "
-              "(first10 tasks, matching the paper's 10 repeats per condition)")
+    footer = "All curves: full ROS2 frozen matrix (1,500 active slots; n = tasks per point)"
     if reference:
-        footer += "; blue = official epoch50 reference arm (same chain, external_reference class)"
+        footer += "; blue = official YOPO epoch50 reference arm (same chain, external_reference class)"
     fig.text(0.5, 0.021, footer, ha="center", fontsize=7.4, color="#666666")
     fig.tight_layout(rect=(0, 0.12, 1, 0.89))
     fig.savefig(path, facecolor="white")
@@ -197,6 +190,8 @@ def render(kind, full, paper_scale, reference, path):
 def render_paper_alignment(paper_scale, paper, path):
     """Ours (paper-scale first10) vs the paper's digitized Fig. 7 (success rate)."""
     _style()
+    ours_names = {"yopo": "Self-trained YOPO (ours)", "topotraj": "TopoTraj (ours)", "agile": "Agile Autonomy (ours)"}
+    paper_names = {"yopo": "YOPO (paper Fig.7)", "topotraj": "TopoTraj (paper Fig.7)", "agile": "Agile Autonomy (paper Fig.7)"}
     fig, axes = plt.subplots(1, 2, figsize=(10.6, 5.0), dpi=200)
     for ax, condition in zip(axes, ("sparse", "dense")):
         for key in ("yopo", "topotraj", "agile"):
@@ -206,12 +201,12 @@ def render_paper_alignment(paper_scale, paper, path):
                 ax.plot([p[0] for p in points], [p[1] for p in points], "-",
                         color=colour, marker=marker, markersize=6.5,
                         linewidth=2.1 if key == "yopo" else 1.7,
-                        label=f"{name} - ours, paper-scale (n={points[0][2]})")
+                        label=f"{ours_names[key]} n={points[0][2]}")
             paper_key = {"yopo": "Proposed", "topotraj": "TopoTraj", "agile": "Agile"}[key]
             values = paper["scenarios"][condition][paper_key]
             ax.plot(SPEEDS, values, "--", color=colour, marker=marker, markersize=6,
                     markerfacecolor="white", markeredgewidth=1.3, linewidth=1.5,
-                    label=f"{name} - paper Fig.7 (n={paper['n_per_point']})")
+                    label=f"{paper_names[key]} n={paper['n_per_point']}")
         _axes(ax, "Success Rate [%]")
     handles, labels = [], []
     for ax in axes:
@@ -278,10 +273,8 @@ def main():
     full = matrix_rates()
     paper_scale = first10_rates()
     reference = reference_rates()
-    render("success", series(full, "success"), series(paper_scale, "success"), reference,
-           MEDIA / "success_vs_speed.png")
-    render("collision", series(full, "collision"), series(paper_scale, "collision"), reference,
-           MEDIA / "collision_vs_speed.png")
+    render("success", series(full, "success"), reference, MEDIA / "success_vs_speed.png")
+    render("collision", series(full, "collision"), reference, MEDIA / "collision_vs_speed.png")
     render_paper_alignment(series(paper_scale, "success"),
                            json.loads(PAPER_FIG7.read_text(encoding="utf-8")),
                            MEDIA / "paper_vs_reproduction_vs_speed.png")
