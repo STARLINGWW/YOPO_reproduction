@@ -1,0 +1,75 @@
+{
+  "source": "artifacts/paper_sources/YOPO_author_version.pdf page 6, Fig. 7",
+  "method": "rendered at 300 dpi; axis calibrated on tick marks (0-100 in steps of 20, speeds 2/4/6/8/10); per-series pixels extracted by colour with the four Tango line colours and verified against a 3x zoom; values lie on the 10% grid, consistent with the paper's 10 repeats per condition",
+  "n_per_point": 10,
+  "speeds_mps": [
+    2,
+    4,
+    6,
+    8,
+    10
+  ],
+  "scenarios": {
+    "sparse": {
+      "TopoTraj": [
+        100,
+        70,
+        10,
+        0,
+        0
+      ],
+      "MPPI": [
+        100,
+        60,
+        20,
+        0,
+        0
+      ],
+      "Agile": [
+        100,
+        90,
+        80,
+        60,
+        20
+      ],
+      "Proposed": [
+        100,
+        100,
+        90,
+        60,
+        20
+      ]
+    },
+    "dense": {
+      "TopoTraj": [
+        100,
+        50,
+        10,
+        0,
+        0
+      ],
+      "MPPI": [
+        100,
+        60,
+        10,
+        0,
+        0
+      ],
+      "Agile": [
+        100,
+        90,
+        80,
+        50,
+        20
+      ],
+      "Proposed": [
+        100,
+        100,
+        80,
+        50,
+        10
+      ]
+    }
+  },
+  "note": "MPPI is archived/out of the active scope in this reproduction and is only digitized for reference; our curves cover TopoTraj / Agile / Proposed."
+}

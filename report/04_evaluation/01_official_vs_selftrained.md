@@ -70,7 +70,7 @@
 
 上限 120 s，跑名 `wab2_main_{official,local}_s{scene}_v{speed}`（与既有 36 架次不重名，未改动旧记录）。原生链在同一 (地图, 速度) 下基本复现同一结果，因此扩样本通过增加地图而不是重复同一格实现。
 
-![自训练 vs 官方权重：成功率 / 碰撞率 vs 前向速度（原生 A/B，main 栈）](../00_index/media/official_vs_selftrained_vs_speed.png)
+（本节的官方 A/B 图已按 2026-10-14 需求替换为「论文规模对位图」，见[项目全景](../00_index/03_project_map.md) §3.1；官方 A/B 逐格数据保留在下表与 [batch_summary.json](../../artifacts/weights_ab_demo/batch_summary.json)。）
 
 | 场景 | 权重 | 2 m/s | 4 m/s | 6 m/s | 8 m/s | 10 m/s |
 |---|---|---|---|---|---|---|
