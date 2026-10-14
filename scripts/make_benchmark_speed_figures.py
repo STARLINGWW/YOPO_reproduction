@@ -13,6 +13,11 @@ Frozen, read-only evidence sources:
   * artifacts/weights_ab_demo/batch_summary.json - native official-vs-self-trained A/B
       (kept as a printed table; no longer drawn - the paper has no counterpart, and the
       comparison figure is now the paper-scale alignment).
+  * artifacts/benchmark_summary/reference_arm_official_v1_summary.json - optional: the
+      same-chain external-reference arm (official epoch50 weights, hash-pinned). When the
+      summary exists its success/collision curves are drawn into both matrix figures so
+      the comparison is "official vs self-trained under the same chain, criteria and n";
+      while the 300-slot run is still in progress the curve carries the live count.
 
 Figures (regenerate with `python scripts/make_benchmark_speed_figures.py`):
   report/00_index/media/success_vs_speed.png    - Fig.7 layout, success rate; solid =
@@ -35,6 +40,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SUMMARY = ROOT / "artifacts/benchmark_summary/summary.json"
 AB_BATCH = ROOT / "artifacts/weights_ab_demo/batch_summary.json"
 PAPER_FIG7 = ROOT / "report/00_index/media/paper_fig7_digitized.json"
+REFERENCE_SUMMARY = ROOT / "artifacts/benchmark_summary/reference_arm_official_v1_summary.json"
 MEDIA = ROOT / "report/00_index/media"
 
 SPEEDS = [2, 4, 6, 8, 10]
@@ -68,6 +74,22 @@ def matrix_rates():
 
 def first10_rates():
     return _rates("paper_first10")
+
+
+def reference_rates():
+    """(condition, speed) -> (success, collision, timeout, completed, expected) or {} if absent."""
+    if not REFERENCE_SUMMARY.is_file():
+        return {}
+    data = json.loads(REFERENCE_SUMMARY.read_text(encoding="utf-8"))
+    rates = {}
+    for group in data.get("groups", []):
+        if group.get("subset") != "all30":
+            continue
+        outcomes = group.get("outcomes", {})
+        rates[(group["condition"], group["speed_mps"])] = (
+            outcomes.get("success", 0), outcomes.get("collision", 0), outcomes.get("timeout", 0),
+            group["completed"], group["expected"])
+    return rates
 
 
 def series(rates, kind):
@@ -116,9 +138,16 @@ def _axes(ax, ylabel):
     ax.tick_params(labelsize=10)
 
 
-def render(kind, full, paper_scale, path):
-    """Fig.7 layout: solid = full frozen matrix, dashed = paper-scale first10 subset."""
+def render(kind, full, paper_scale, reference, path):
+    """Fig.7 layout: solid = full frozen matrix, dashed = paper-scale first10 subset;
+    the external-reference arm (official weights, same chain) is drawn when its summary exists."""
     label = "Success Rate [%]" if kind == "success" else "Collision Rate [%]"
+    ref_index = 0 if kind == "success" else 1
+    ref_completed = sum(v[3] for v in reference.values())
+    ref_expected = sum(v[4] for v in reference.values())
+    ref_label = ("Official epoch50 - reference arm (n=30/point)"
+                 if reference and ref_completed >= ref_expected
+                 else "Official epoch50 - reference arm (running: %d/%d slots)" % (ref_completed, ref_expected))
     _style()
     fig, axes = plt.subplots(1, 2, figsize=(10.6, 5.0), dpi=200)
     for ax, condition in zip(axes, ("sparse", "dense")):
@@ -136,6 +165,12 @@ def render(kind, full, paper_scale, path):
                         color=colour, marker=marker, markersize=6,
                         markerfacecolor="white", markeredgewidth=1.3,
                         linewidth=1.6, label=f"{name} - paper-scale (n={points[0][2]})")
+        ref_points = [(speed, 100.0 * reference[(condition, speed)][ref_index] / reference[(condition, speed)][3], reference[(condition, speed)][3])
+                      for speed in SPEEDS
+                      if (condition, speed) in reference and reference[(condition, speed)][3] > 0]
+        if ref_points:
+            ax.plot([p[0] for p in ref_points], [p[1] for p in ref_points], "-",
+                    color="#2166ac", marker="s", markersize=6, linewidth=1.9, label=ref_label)
         _axes(ax, label)
     handles, labels = [], []
     for ax in axes:
@@ -148,10 +183,11 @@ def render(kind, full, paper_scale, path):
                labelspacing=0.35)
     fig.text(0.29, 0.078, "(a) sparse scenario", ha="center", fontsize=11)
     fig.text(0.76, 0.078, "(b) dense scenario", ha="center", fontsize=11)
-    fig.text(0.5, 0.021,
-             "Solid = full ROS2 frozen matrix (1,500 active slots); dashed = paper-scale subset "
-             "(first10 tasks, matching the paper's 10 repeats per condition)",
-             ha="center", fontsize=7.4, color="#666666")
+    footer = ("Solid = full ROS2 frozen matrix (1,500 active slots); dashed = paper-scale subset "
+              "(first10 tasks, matching the paper's 10 repeats per condition)")
+    if reference:
+        footer += "; blue = official epoch50 reference arm (same chain, external_reference class)"
+    fig.text(0.5, 0.021, footer, ha="center", fontsize=7.4, color="#666666")
     fig.tight_layout(rect=(0, 0.12, 1, 0.89))
     fig.savefig(path, facecolor="white")
     plt.close(fig)
@@ -241,9 +277,10 @@ def main():
     MEDIA.mkdir(parents=True, exist_ok=True)
     full = matrix_rates()
     paper_scale = first10_rates()
-    render("success", series(full, "success"), series(paper_scale, "success"),
+    reference = reference_rates()
+    render("success", series(full, "success"), series(paper_scale, "success"), reference,
            MEDIA / "success_vs_speed.png")
-    render("collision", series(full, "collision"), series(paper_scale, "collision"),
+    render("collision", series(full, "collision"), series(paper_scale, "collision"), reference,
            MEDIA / "collision_vs_speed.png")
     render_paper_alignment(series(paper_scale, "success"),
                            json.loads(PAPER_FIG7.read_text(encoding="utf-8")),
